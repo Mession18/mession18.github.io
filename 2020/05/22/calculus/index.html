@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>高数笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&#x3D;-&#x3D;老年人记录一些自己会忘的东西 页码以Thomas’s Calculus中文版第十版(高等教育出版社)为准 常用内容基本积分表$$\begin{align}&amp;\frac{d}{dx}tanx &#x3D; sec^2x\&amp;\frac{d}{dx}secx &#x3D; secx\space tanx\&amp;\frac{d}{dx}cotx &#x3D; -csc^2x\&amp;\frac{d}{dx}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高数笔记">
+<meta property="og:url" content="http://example.com/2020/05/22/calculus/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="&#x3D;-&#x3D;老年人记录一些自己会忘的东西 页码以Thomas’s Calculus中文版第十版(高等教育出版社)为准 常用内容基本积分表$$\begin{align}&amp;\frac{d}{dx}tanx &#x3D; sec^2x\&amp;\frac{d}{dx}secx &#x3D; secx\space tanx\&amp;\frac{d}{dx}cotx &#x3D; -csc^2x\&amp;\frac{d}{dx}">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-22T08:58:02.000Z">
+<meta property="article:modified_time" content="2020-09-08T14:39:58.819Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-calculus" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/22/calculus/" class="article-date">
+  <time datetime="2020-05-22T08:58:02.000Z" itemprop="datePublished">2020-05-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高数笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>=-=老年人记录一些自己会忘的东西</p>
+<p>页码以Thomas’s Calculus中文版第十版(高等教育出版社)为准</p>
+<h1 id="常用内容"><a href="#常用内容" class="headerlink" title="常用内容"></a>常用内容</h1><h2 id="基本积分表"><a href="#基本积分表" class="headerlink" title="基本积分表"></a>基本积分表</h2><p>$$<br>\begin{align}<br>&amp;\frac{d}{dx}tanx = sec^2x\<br>&amp;\frac{d}{dx}secx = secx\space tanx\<br>&amp;\frac{d}{dx}cotx = -csc^2x\<br>&amp;\frac{d}{dx}cscx = -cscx \space cotx\<br>&amp;\frac{d}{dx}sin^{-1}x = \frac{1}{\sqrt{1-x^2}}\<br>&amp;\frac{d}{dx}tan^{-1}x = \frac{1}{1+x^2}\<br>&amp;\frac{d}{dx}sec^{-1}x = \frac{1}{|x|\sqrt{x^2-1}}<br>\end{align}<br>$$</p>
+<h2 id="常用公式"><a href="#常用公式" class="headerlink" title="常用公式"></a>常用公式</h2><ul>
+<li><p>若$f$可导,则:<br>  $$<br>  \int\frac{f’(x)}{f(x)}dx = \ln{|f(x)|} + C<br>  $$</p>
+</li>
+<li><p>$$<br>  \int \frac{1}{t^2+a^2}dt = \frac{1}{a}tan^{-1}(\frac{t}{a})+C<br>  $$</p>
+</li>
+<li></li>
+</ul>
+<h2 id="常用结论"><a href="#常用结论" class="headerlink" title="常用结论"></a>常用结论</h2><p>$$<br>\lim_{x\to0}\frac{\sin x}{x} = 1\<br>球表面积:S = 4\pi R^2\<br>球体积:V = \frac{3}{4}\pi R^3<br>$$</p>
+<h1 id="5-积分的应用"><a href="#5-积分的应用" class="headerlink" title="[5]积分的应用"></a>[5]积分的应用</h1><h2 id="5-3-平面曲线的长度"><a href="#5-3-平面曲线的长度" class="headerlink" title="[5.3]平面曲线的长度"></a>[5.3]平面曲线的长度</h2><p>若$f$在$[a,b]$是光滑的,从$a$到$b$的曲线$y = f(x)$的弧长为:<br>$$<br>L = \int_a^b \sqrt{1+(\frac{dy}{dx})^2}dx<br>$$</p>
+<p>极坐标下:</p>
+<p>设$r = f(θ)$对$α \leq θ \leq β$有连续一阶导数,且θ由α到β时点$P(r,θ)$恰好描绘曲线一次,则曲线长度$L$为:<br>$$<br>L = \int_a^b\sqrt{r^2+(\frac{dr}{dθ})^2}dθ<br>$$</p>
+<h1 id="7-积分技术，洛必达法则和反常积分"><a href="#7-积分技术，洛必达法则和反常积分" class="headerlink" title="[7]积分技术，洛必达法则和反常积分"></a>[7]积分技术，洛必达法则和反常积分</h1><h2 id="分部积分法"><a href="#分部积分法" class="headerlink" title="分部积分法"></a>分部积分法</h2><p>$$<br>\int udv = uv - \int vdu<br>$$</p>
+<h1 id="8-无穷级数"><a href="#8-无穷级数" class="headerlink" title="[8]无穷级数"></a>[8]无穷级数</h1><h2 id="常用结论-1"><a href="#常用结论-1" class="headerlink" title="常用结论"></a>常用结论</h2><p>$$<br>\lim_{n\to\infin}(\frac{n+k}{n})^n = e^k\<br>\lim_{n\to\infin}(\frac{n}{n+k})^n = e^{-k}\<br>\lim_{n = 0}(1+n)^{\frac{1}{n}} = e<br>$$</p>
+<h2 id="级数的收敛与发散"><a href="#级数的收敛与发散" class="headerlink" title="级数的收敛与发散"></a>级数的收敛与发散</h2><h3 id="几何级数"><a href="#几何级数" class="headerlink" title="几何级数"></a>几何级数</h3><p>几何级数即等比数列.<br>$$<br>A_n = \sum_{i = 1}^{\infin}aq^n<br>$$<br>若$-1 &lt; a &lt; 1$,$\lim_{n \to \infin}\sum_{i = 1}^{\infin} aq^n = \frac{a}{1-q}$</p>
+<p>否则发散.</p>
+<h3 id="第n项判别法"><a href="#第n项判别法" class="headerlink" title="第n项判别法"></a>第n项判别法</h3><p><strong>无论什么情况,首先考虑这种方法</strong></p>
+<p>若$\lim_{n \to \infin}a_n \neq 0$或极限不存在,则级数$\sum_{i = 1}^{\infin}a_n$发散</p>
+<p><strong>该方法不能用于收敛性的判别</strong></p>
+<h3 id="比较判别法"><a href="#比较判别法" class="headerlink" title="比较判别法"></a>比较判别法</h3><p>若对所有$n$,有$0 \leq b_n \leq a_n$且$\sum_{i = 1}^ \infin b_i$发散,则$\sum_{i = 1}^\infin a_i$发散</p>
+<p>同样地,若对所有$n$,有$0 \leq a_n \leq b_n$,且$\sum_{i = 1}^\infin b_i$收敛,则$\sum_{i = 1}^ \infin a_i$收敛.</p>
+<h3 id="极限比较判别法"><a href="#极限比较判别法" class="headerlink" title="极限比较判别法"></a>极限比较判别法</h3><p>当$n\to \infin$时,$a_n \sim b_n \Leftrightarrow \lim_{n\to\infin}\frac{a_n}{b_n} = 1$</p>
+<h3 id="p判别法"><a href="#p判别法" class="headerlink" title="p判别法"></a>p判别法</h3><p>对于$\sum_{i=1}^ \infin \frac{1}{n^p}$</p>
+<p>若$p &gt; 1$则收敛,否则发散</p>
+<p>特别地,$p = 1$时该级数为调和级数,易知调和级数发散.</p>
+<h3 id="绝对收敛判别法"><a href="#绝对收敛判别法" class="headerlink" title="绝对收敛判别法"></a>绝对收敛判别法</h3><p>若$\sum_{i = 1}^\infin |a_i|$收敛,那么$\sum_{i = 1}^\infin a_i$也收敛</p>
+<p><strong>当前者发散时,该方法无结论</strong></p>
+<h2 id="仅用于级数的四种判别方法"><a href="#仅用于级数的四种判别方法" class="headerlink" title="仅用于级数的四种判别方法"></a>仅用于级数的四种判别方法</h2><h3 id="比式判别法"><a href="#比式判别法" class="headerlink" title="比式判别法"></a>比式判别法</h3><p><strong>若级数中包含阶乘,使用此法</strong></p>
+<p>对于级数$\sum_{i = 1}^\infin a_i$,取$b_i = |\frac{a_{i+1}}{a_i}|$</p>
+<p>若$b_i$收敛于一个小于1的数,则$a_i$收敛(且绝对收敛).</p>
+<p>若$b_i$收敛于一个大于1的数,则$a_i$发散</p>
+<p>若$b_i$收敛于1或发散,<strong>无结论</strong></p>
+<h3 id="根式判别法"><a href="#根式判别法" class="headerlink" title="根式判别法"></a>根式判别法</h3><p>对于级数$\sum_{i = 1}^\infin a_i$,取$b_i = |a_i|^{\frac{1}{n}}$</p>
+<p>设$\lim_{i\to\infin}b_i = L$</p>
+<p>若$L &lt; 1$,$a_i$收敛(且绝对收敛)</p>
+<p>若$L &gt; 1$,$a_i$发散</p>
+<p>若$L = 1$,<strong>无结论</strong></p>
+<h3 id="积分判别法"><a href="#积分判别法" class="headerlink" title="积分判别法"></a>积分判别法</h3><p>若$f$是使得对所有正整数$n$有$f(n) = a_n$的<strong>递减正函数</strong>,则$\int_{1}^\infin f(x)dx$和$\sum_{i = 1}^\infin a_i$同时收敛或发散.</p>
+<h3 id="交错级数判别法"><a href="#交错级数判别法" class="headerlink" title="交错级数判别法"></a>交错级数判别法</h3><p>若$\sum_{i = 1}^\infin a_i$是<strong>交错</strong>的,且$\lim_{i\to\infin}|a_i| = 0$,则该级数收敛</p>
+<h2 id="近似值和泰勒多项式"><a href="#近似值和泰勒多项式" class="headerlink" title="近似值和泰勒多项式"></a>近似值和泰勒多项式</h2><h3 id="泰勒近似定理"><a href="#泰勒近似定理" class="headerlink" title="泰勒近似定理"></a>泰勒近似定理</h3><p>若$f$在$x = a$处光滑,则在所有次数为$N$或更低的多项式中,当$x$在$a$附近时,最近似于$f(x)$的是<br>$$<br>P_N(x) = \sum_{n = 0}^N\frac{f^{(n)}(a)}{n!}(x-a)^n<br>$$<br>并称$P_N$为$f(x)$在$x = a$处的$N$<strong>阶泰勒多项式</strong></p>
+<h3 id="泰勒定理"><a href="#泰勒定理" class="headerlink" title="泰勒定理"></a>泰勒定理</h3><p>设$R_N(x) = f(x) - P_N(x)$,称其为$N$<strong>阶误差项</strong>或$N$<strong>阶余项</strong></p>
+<p>泰勒定理:<br>$$<br>R_N(x) = \frac{f(x)^{(N+1)}c}{(N+1)!}(x-a)^{N+1}<br>$$<br>其中$c$介于$a$和$x$之间(一般无法确定$c$的值)</p>
+<h2 id="幂级数"><a href="#幂级数" class="headerlink" title="幂级数"></a>幂级数</h2><p>形如$\sum_{n = 0}^\infin a_n(x-a)^n$的级数为幂级数.</p>
+<p>数$a$称为幂级数的中心.</p>
+<h3 id="收敛半径"><a href="#收敛半径" class="headerlink" title="收敛半径"></a>收敛半径</h3><p>收敛半径分为三种情况</p>
+<ol>
+<li>存在某数$R &gt; 0$为该幂级数的收敛半径,则<ol>
+<li>幂级数在区域$|x - a| &lt; R$处收敛</li>
+<li>在$|x-a| &gt; R$处发散</li>
+<li>在断点($|x - a| = R$)处需要另行讨论</li>
+</ol>
+</li>
+<li>幂级数对所有$x$均绝对收敛,此时收敛半径为$\infin$</li>
+<li>幂级数只在$x = a$时收敛,此时收敛半径为$0$</li>
+</ol>
+<h3 id="求收敛半径"><a href="#求收敛半径" class="headerlink" title="求收敛半径"></a>求收敛半径</h3><p>一般采用比式判别法(有时用根式判别法)</p>
+<ol>
+<li><p>写出极限</p>
+<p> 比式判别法:<br> $$<br> \lim_{n \to \infin}|\frac{a_{n+1}(x-a)^{(n+1)}}{a_n(x-a)^n}| = \lim_{n \to \infin}|\frac{a_{n+1}}{a_n}||x-a|<br> $$<br> 根式判别法:<br> $$<br> \lim_{n\to\infin}|a_n(x-a)^n|^{\frac{1}{n}} = \lim_{n\to\infin}|a_n|^{\frac{1}{n}}|x-a|<br> $$<br> 无论选用何种方法,结果都形如$L|x-a|$.</p>
+</li>
+<li><p>求出极限.<strong>注意</strong>,是$n\to\infin$而不是$x\to\infin$</p>
+</li>
+<li><p>根据$L$判断</p>
+<ol>
+<li>若$L &gt; 0$,收敛半径为$\frac{1}{L}$</li>
+<li>若$L = 0$,收敛半径为$\infin$</li>
+<li>若$L = \infin$,收敛半径为$0$</li>
+</ol>
+</li>
+</ol>
+<h2 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h2><p>$$<br>f(x) = \frac{a_0}{2} + \sum_{i = 1}^n(a_n\cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L})<br>$$</p>
+<p>其中$f(x)$的定义域为$(-L,L)$<br>$$<br>a_0 = \frac{1}{L}\int_{-L}^{L}f(x)dx\<br>a_n = \frac{1}{L}\int_{-L}^{L}f(x)\cos\frac{n\pi x}{L}dx\<br>b_n = \frac{1}{L}\int_{-L}^{L}f(x)\sin\frac{n\pi x}{L}dx<br>$$</p>
+<h1 id="9-平面向量和极坐标函数"><a href="#9-平面向量和极坐标函数" class="headerlink" title="[9]平面向量和极坐标函数"></a>[9]平面向量和极坐标函数</h1><h2 id="9-2-点积"><a href="#9-2-点积" class="headerlink" title="[9.2]点积"></a>[9.2]点积</h2><h3 id="向量投影"><a href="#向量投影" class="headerlink" title="向量投影"></a>向量投影</h3><p>$\textbf{u}$在$\textbf{v}$上的向量投影:<br>$$<br>proj_{\textbf{v}}\textbf{u} = (|\textbf{u}|cosθ)\frac{\textbf{v}}{\textbf{|v|}}=(\frac{\textbf{u} \cdot \textbf{v}}{|\textbf{v}|^2})\textbf{v}<br>$$<br>$\textbf{u}$在$\textbf{v}$方向上的数值分量:<br>$$<br>|\textbf{u}|cosθ = \frac{\textbf{u} \cdot \textbf{v}}{|\textbf{v}|}<br>$$</p>
+<h3 id="向量正交化"><a href="#向量正交化" class="headerlink" title="向量正交化"></a>向量正交化</h3><p>把$\textbf{u}$改写为平行于$\textbf{v}$加与$\textbf{v}$正交的向量:<br>$$<br>\textbf{u} = proj_\textbf{v}\textbf{u} + (\textbf{u} - proj_\textbf{v}\textbf{u})<br>$$</p>
+<h2 id="9-6-极坐标曲线的微积分"><a href="#9-6-极坐标曲线的微积分" class="headerlink" title="[9.6] 极坐标曲线的微积分"></a>[9.6] 极坐标曲线的微积分</h2><h3 id="极坐标中的面积"><a href="#极坐标中的面积" class="headerlink" title="极坐标中的面积"></a>极坐标中的面积</h3><p>介于原点和曲线$r = f(θ)$,$α \leq θ \leq β$之间的区域的<strong>面积</strong>A为:<br>$$<br>A =  \int_α^β\frac{1}{2}r^2dθ<br>$$</p>
+<p>面积微分:<br>$$<br>dA = \frac{1}{2}r^2dθ<br>$$</p>
+<h3 id="极坐标曲线之间的面积"><a href="#极坐标曲线之间的面积" class="headerlink" title="极坐标曲线之间的面积"></a>极坐标曲线之间的面积</h3><p>区域$0 \leq r_1(θ) \leq r_2(θ)$,$α \leq θ \leq β$的面积A为:<br>$$<br>A = \int_α^β\frac{1}{2}(r_2^2 - r_1^2)dθ<br>$$</p>
+<h3 id="极坐标曲线的长度"><a href="#极坐标曲线的长度" class="headerlink" title="极坐标曲线的长度"></a>极坐标曲线的长度</h3><p>$$<br>L = \int_a^b\sqrt{r^2+(\frac{dr}{dθ})^2}dθ$<br>$$</p>
+<h1 id="10-空间中的向量和运动"><a href="#10-空间中的向量和运动" class="headerlink" title="[10]空间中的向量和运动"></a>[10]空间中的向量和运动</h1><h2 id="10-2-点积和叉积"><a href="#10-2-点积和叉积" class="headerlink" title="[10.2]点积和叉积"></a>[10.2]点积和叉积</h2><h3 id="叉积"><a href="#叉积" class="headerlink" title="叉积"></a>叉积</h3><p>行列式计算叉积:<br>$$<br>若\textbf{u} = u_1\textbf{i} + u_2\textbf{j} + u_3\textbf{k},\textbf{v} = v_1\textbf{i} + v_2\textbf{j} + v_3\textbf{k},则<br>\<br>\textbf{u} \times \textbf{v} = \<br>\left|\begin{array}{cccc}<br>    \textbf{i} &amp;    \textbf{j}    &amp; \textbf{k} \<br>    u_1        &amp;    u_2             &amp; u_3           \<br>    v_1           &amp;     v_2              &amp; v_3<br>\end{array}\right|<br>$$<br>其中$|\textbf{u} \times \textbf{v}| = |\textbf{u}||\textbf{v}|sinθ$为$\textbf{u}$和$\textbf{v}$确定的平行四边形的<strong>有向</strong>面积</p>
+<h3 id="箱积-三元数量积"><a href="#箱积-三元数量积" class="headerlink" title="箱积(三元数量积)"></a>箱积(三元数量积)</h3><p>积$(\textbf{u} \times \textbf{v}) \cdot \textbf{w}$称为$\textbf{u},\textbf{v}$和$\textbf{w}$(注意次序)的<strong>三元数量积</strong></p>
+<p>由$|(\textbf{u} \times \textbf{v}) \cdot \textbf{w}| = |\textbf{u} \cdot \textbf{v}||\textbf{w}|cosθ$可以看出其几何意义为$\textbf{u},\textbf{v}$和$\textbf{w}$确定的平行六面体的<strong>有向</strong>体积</p>
+<p>计算:<br>$$<br>(\textbf{u} \times \textbf{v}) \cdot \textbf{w}  = \<br>\left|\begin{array}{cccc}<br>    u_1        &amp;    u_2             &amp; u_3           \<br>    v_1           &amp;     v_2              &amp; v_3         \<br>    w_1        &amp;    w_2              &amp; w_3<br>\end{array}\right|<br>$$</p>
+<h2 id="10-3-空间中的直线与曲面"><a href="#10-3-空间中的直线与曲面" class="headerlink" title="[10.3]空间中的直线与曲面"></a>[10.3]空间中的直线与曲面</h2><h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><p>空间中的直线由一个点和给出直线方向的一个向量确定.</p>
+<p>过点$P_0(x_0,y_0,z_0)$平行于$\textbf{v} = v_1\textbf{i} + v_2\textbf{j} + v_3\textbf{k}$的直线的</p>
+<p><strong>向量方程</strong>:<br>$$<br>\textbf{r}(t) = \textbf{r}_0 + t\textbf{v}<br>$$<br><strong>参数方程</strong>:<br>$$<br>x = x_0 + tv_1 \<br>y = y_0 + tv_2 \<br>z = z_0 + tv_3<br>$$</p>
+<p><strong>点到直线距离</strong>:</p>
+<p>点$S$到过点$P$,方向为$\textbf{v}$的直线的距离:<br>$$<br>d = |\overrightarrow{PS}|sinθ = \frac{|\overrightarrow{PS} \times \textbf{v}|}{|\textbf{v}|}<br>$$</p>
+<h3 id="平面"><a href="#平面" class="headerlink" title="平面"></a>平面</h3><p>空间中的平面由它上面的一个点和它的”倾斜”或方位确定.</p>
+<p>过点$P_0(x_0,y_0,z_0)$且垂直于$\textbf{n} = A\textbf{i}+ B\textbf{j} + C\textbf{k}$的平面有:</p>
+<p><strong>向量方程</strong>:<br>$$<br>\textbf{n} \cdot \overrightarrow{P_0P} = 0<br>$$<br><strong>分量方程</strong>:<br>$$<br>A(x - x_0) + B(y - y_0) + C(z - z_0) = 0<br>$$<br><strong>简化分量方程</strong>:<br>$$<br>Ax + By + Cz = D\<br>D = Ax_0 + By_0 + Cz_0<br>$$<br>其中$x,y,z$缺少哪一变量便平行于哪一轴.</p>
+<p><strong>点到平面距离</strong>:</p>
+<p>点$S$到平面$Ax+By+C=D$的距离:<br>$$<br>d = |\overrightarrow{PS} \cdot \frac{\textbf{n}}{|\textbf{n}|}|<br>$$<br><strong>两平面夹角</strong>:<br>$$<br>cosθ = \frac{\textbf{n}_1 \cdot \textbf{n}_2}{|\textbf{n}_1||\textbf{n}_2|}<br>$$<br>$\textbf{n}_1 \cdot \textbf{n}_2 = 0$时,两平面垂直. $\textbf{n}_1 // \textbf{n}_2$时,两平面平行</p>
+<h2 id="曲线的切线和法平面"><a href="#曲线的切线和法平面" class="headerlink" title="曲线的切线和法平面"></a>曲线的切线和法平面</h2><p>可微曲线$r(t)$的切向量是<br>$$<br>\bold T = {x’(t),y’(t),z’(t)}<br>$$<br>切线:与$\bold T$平行</p>
+<p>法平面:过点且垂直于$\bold T$</p>
+<h1 id="11-多元函数及其导数"><a href="#11-多元函数及其导数" class="headerlink" title="[11]多元函数及其导数"></a>[11]多元函数及其导数</h1><h2 id="11-3-偏导数"><a href="#11-3-偏导数" class="headerlink" title="[11.3]偏导数"></a>[11.3]偏导数</h2><h3 id="混合导数定理"><a href="#混合导数定理" class="headerlink" title="混合导数定理"></a>混合导数定理</h3><p>若$f(x,y)$及其偏导数$f_x,f_y,f_{xy},f_{yx}$定义在含点$(a,b)$的开集并且均在$(a,b)$连续,则有<br>$$<br>f_{xy}(a,b) = f_{yx}(a,b)<br>$$<br>也就是说,<strong>计算二阶混合导数时,可以按任意次序微分</strong></p>
+<h2 id="11-4-链式法则"><a href="#11-4-链式法则" class="headerlink" title="[11.4]链式法则"></a>[11.4]链式法则</h2><h3 id="隐函数微分公式"><a href="#隐函数微分公式" class="headerlink" title="隐函数微分公式"></a>隐函数微分公式</h3><p>若$F(x,y)$是可微的,并且方程$F(x,y) = 0$定义为$y$为$x$的可微函数,则在$F_y \neq 0$的任何点,有<br>$$<br>\frac{dy}{dx} = -\frac{F_x}{F_y}<br>$$<br>例:$y^2 - x^2 - \sin{xy} = 0$,求$\frac{dy}{dx}$</p>
+<p>解:$\frac{dy}{dx} = -\frac{F_x}{F_y} = -\frac{-2x - y\cos{xy}}{2y-x\cos{xy}} = \frac{2x+y\cos{xy}}{2y-x\cos{xy}}$</p>
+<h3 id="变量关系树"><a href="#变量关系树" class="headerlink" title="变量关系树"></a>变量关系树</h3><p>“连线相乘,分路相加”</p>
+<h2 id="11-5-方向导数-梯度向量和切平面"><a href="#11-5-方向导数-梯度向量和切平面" class="headerlink" title="[11.5]方向导数,梯度向量和切平面"></a>[11.5]方向导数,梯度向量和切平面</h2><h3 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h3><p>$f$在$P_0(x_0,y_0)$沿单位向量$\bold{u} = u_1\bold i + u_2 \bold j$的方向导数:<br>$$<br>(\frac{df}{ds})_{u,P_0} = \lim_{s\to0}\frac{f(x_0 + su_1,y_0 + su_2) - f(x_0,y_0)}{s}<br>$$</p>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>$$<br>\nabla f = \frac{\partial f}{\partial x} \boldsymbol{i} + \frac{\partial f}{\partial y} \boldsymbol{j} + \frac{\partial f}{\partial z} \boldsymbol{k}<br>$$</p>
+<h3 id="利用梯度求方向导数"><a href="#利用梯度求方向导数" class="headerlink" title="利用梯度求方向导数"></a>利用梯度求方向导数</h3><p>若$f(x,y)$在$P_0(x_0,y_0)$可微,则<br>$$<br>(\frac{df}{ds})_{u,P_0} = (\nabla f)_{P_0}\cdot \bold u<br>$$</p>
+<h3 id="估计-f-沿方向u的变化"><a href="#估计-f-沿方向u的变化" class="headerlink" title="估计$f$沿方向u的变化"></a>估计$f$沿方向u的变化</h3><p>从点$P_0$沿方向$\bold u$移动一个小的距离$ds$时函数$f$的值的变化:<br>$$<br>df = (\nabla f|_{P_0} \cdot \bold u) \cdot ds<br>$$<br>即方向导数乘距离增量</p>
+<h3 id="切平面"><a href="#切平面" class="headerlink" title="切平面"></a>切平面</h3><p>等位面$f(x,y,z) = c$在点$P_0(x_0,y_0,z_0)$的切平面是过点$P_0$垂直于$\nabla f|_{P_0}$的平面<br>$$<br>f_x(P_0)(x - x_0) + f_y(P_0)(y - y_0) + f_z(P_0)(z - z_0) = 0<br>$$</p>
+<h3 id="法线"><a href="#法线" class="headerlink" title="法线"></a>法线</h3><p>曲面在$P_0$的法线是过$P_0$平行于$\nabla f|_{P_0}$的直线.<br>$$<br>x = x_0 + f_x(P_0)t\<br>y = y_0 + f_y(P_0)t\<br>z = z_0 + f_z(P_0)t<br>$$</p>
+<h3 id="曲面-z-f-x-y-在点-x-0-y-0-f-x-0-y-0-的切平面"><a href="#曲面-z-f-x-y-在点-x-0-y-0-f-x-0-y-0-的切平面" class="headerlink" title="曲面$z = f(x,y)$在点$(x_0,y_0,f(x_0,y_0))$的切平面"></a>曲面$z = f(x,y)$在点$(x_0,y_0,f(x_0,y_0))$的切平面</h3><p>$$<br>f_x(x_0,y_0)(x - x_0) + f_y(x_0,y_0)(y - y_0) - (z - z_0) = 0<br>$$<br>($z = f(x,y)$可化为$F(x,y) = f(x,y) - z = 0$,因而$f_z(x_0,y_0) = -1$)</p>
+<h2 id="11-6-线性化和微分"><a href="#11-6-线性化和微分" class="headerlink" title="[11.6]线性化和微分"></a>[11.6]线性化和微分</h2><h3 id="线性化"><a href="#线性化" class="headerlink" title="线性化"></a>线性化</h3><h4 id="一元函数"><a href="#一元函数" class="headerlink" title="一元函数"></a>一元函数</h4><p>我们回顾一下一元函数的线性化:</p>
+<p>若想估算$f(x)$的值,我们先选取一个$a$,使得$a$接近$x$且$f(a)$易于计算.</p>
+<p>则线性函数:<br>$$<br>L(x) = f(a) + f’(a)(x-a)<br>$$<br>称为$f$在$x = a$处的线性化.并且有$f(x) \approx L(x)$</p>
+<h4 id="二元函数"><a href="#二元函数" class="headerlink" title="二元函数"></a>二元函数</h4><p>当函数$f$可微时,$f(x,y)$在点$(x_0,y_0)$的线性化为:<br>$$<br>L(x,y) = f(x_0,y_0) + f_x(x_0,y_0)(x - x_0) + f_y(x_0,y_0)(y - y_0)<br>$$</p>
+<h3 id="全微分"><a href="#全微分" class="headerlink" title="全微分"></a>全微分</h3><p>如果我们从$(x_0,y_0)$移动到附近的点$(x_0+\Delta x,y_0 +\Delta y)$,由此引起的$f$线性化的变化<br>$$<br>df = f_x(x_0,y_0)dx + f_y(x_0,y_0)dy<br>$$<br>称为$f$的<strong>全微分</strong></p>
+<h2 id="11-7-极值和鞍点"><a href="#11-7-极值和鞍点" class="headerlink" title="[11.7]极值和鞍点"></a>[11.7]极值和鞍点</h2><h3 id="局部极值一阶导数判别法"><a href="#局部极值一阶导数判别法" class="headerlink" title="局部极值一阶导数判别法"></a>局部极值一阶导数判别法</h3><p>若$f(x,y)$在定义域内的一个内点$(a,b)$存在局部极值,且一阶偏导数在该点存在,则满足$f_x(a,b) = 0,f_y(a,b) = 0$</p>
+<h3 id="临界点"><a href="#临界点" class="headerlink" title="临界点"></a>临界点</h3><p>临界点为$f$定义域的一个内点,在该点$f_x = f_y = 0$或$f_x,f_y$至少有一个不存在.</p>
+<h3 id="鞍点"><a href="#鞍点" class="headerlink" title="鞍点"></a>鞍点</h3><p>鞍点$(a,b)$是$f$的一个临界点,且同时存在$f(x_0,y_0) &gt; f(a,b)$和$f(x_1,y_1) &lt; f(a,b)$</p>
+<h3 id="二阶导数判别法-P963"><a href="#二阶导数判别法-P963" class="headerlink" title="二阶导数判别法(P963)"></a>二阶导数判别法(P963)</h3><p>假定$f$和它的一阶及二阶导数在以$(a,b)$为中心的一个圆盘上连续,且$f_x(a,b) = f_y(a,b) = 0$.</p>
+<p>我们定义<strong>判别式</strong>(也称作Hess)为$f_{xx}f_{yy} - f^2_{xy}$</p>
+<p>在$(a,b)$处:</p>
+<ol>
+<li>若$f_{xx}f_{yy} - f^2_{xy} &gt; 0$<ol>
+<li>若$f_{xx} &lt; 0$,则$f$在$(a,b)$取<strong>局部最大值</strong></li>
+<li>若$f_{xx} &gt; 0$则$f$在$(a,b)$取<strong>局部最小值</strong></li>
+</ol>
+</li>
+<li>若$f_{xx}f_{yy} - f^2_{xy} &lt; 0$,则$(a,b)$为<strong>鞍点</strong></li>
+<li>若$f_{xx}f_{yy} - f^2_{xy} = 0$,无结论.</li>
+</ol>
+<h3 id="求闭区间上的绝对极值"><a href="#求闭区间上的绝对极值" class="headerlink" title="求闭区间上的绝对极值"></a>求闭区间上的绝对极值</h3><ol>
+<li>讨论定义域上内点的绝对极值</li>
+<li>讨论边界情况</li>
+<li>汇总</li>
+</ol>
+<h2 id="11-8-Lagrange乘子"><a href="#11-8-Lagrange乘子" class="headerlink" title="[11.8]Lagrange乘子"></a>[11.8]Lagrange乘子</h2><h3 id="Lagrange乘子法"><a href="#Lagrange乘子法" class="headerlink" title="Lagrange乘子法"></a>Lagrange乘子法</h3><p>假定$f(x,y,z)$和$g(x,y,z)$是可微的.为求$f$在约束条件$g(x,y,z) = 0$下的局部极值,则求$x,y,z$的值,使它们同时满足<br>$$<br>\nabla f = \lambda \nabla g\ g(x,y,z) = 0<br>$$<br>若$f$受两个约束条件$g_1$和$g_2$限制,则需满足<br>$$<br>\nabla f = \lambda\nabla g_1 + \mu \nabla g_2\<br>g_1(x,y,z) = 0\<br>g_2(x,y,z) = 0<br>$$</p>
+<h1 id="12-重积分"><a href="#12-重积分" class="headerlink" title="[12]重积分"></a>[12]重积分</h1><h2 id="12-3-极坐标下的重积分"><a href="#12-3-极坐标下的重积分" class="headerlink" title="[12.3]极坐标下的重积分"></a>[12.3]极坐标下的重积分</h2><h3 id="面积"><a href="#面积" class="headerlink" title="面积"></a>面积</h3><p>极坐标平面内有界区域的面积为<br>$$<br>\iint_{R}\rho \space d\rho d\theta<br>$$</p>
+<h3 id="直角坐标转极坐标"><a href="#直角坐标转极坐标" class="headerlink" title="直角坐标转极坐标"></a>直角坐标转极坐标</h3><ol>
+<li>代换:$x = \rho\cos \theta, y = \rho\sin \theta$, 将$dxdy$替换为$\rho d\rho d\theta$</li>
+<li>找出积分限</li>
+</ol>
+<h2 id="12-6-柱坐标与极坐标系下的三重积分"><a href="#12-6-柱坐标与极坐标系下的三重积分" class="headerlink" title="[12.6]柱坐标与极坐标系下的三重积分"></a>[12.6]柱坐标与极坐标系下的三重积分</h2><h3 id="柱坐标"><a href="#柱坐标" class="headerlink" title="柱坐标"></a>柱坐标</h3><p>空间一点$P$的柱坐标是由有序三元组$(r,\theta,z)$表示的,其中</p>
+<ol>
+<li>$r,\theta$是$P$在$xy$平面上投影点的极坐标</li>
+<li>$z$是直角坐标系的竖坐标</li>
+</ol>
+<p>与直角坐标的关系:<br>$$<br>x = r\cos\theta\<br>y = r\sin\theta\<br>z = z\<br>\<br>x^2 + y^2 = r^2\<br>\tan\theta = \frac{y}{x}<br>$$<br>积分:<br>$$<br>\iiint_{D} f(r,\theta,z) dV = \iiint f(r,\theta,z)dz \space rdrd\theta<br>$$<br>注意$rdr$</p>
+<h3 id="球坐标"><a href="#球坐标" class="headerlink" title="球坐标"></a>球坐标</h3><p>空间一点$P$的球坐标由有序三元组$(\rho,\phi,\theta)$组成,其中</p>
+<ol>
+<li>$\rho$表示点$P$至原点的距离</li>
+<li>$\phi$表示$\vec{OP}$与z轴正向所成的角</li>
+<li>$\theta$为柱坐标系中的角</li>
+</ol>
+<p>积分:<br>$$<br>\iiint_{D}f(\rho,\phi,\theta) = \iiint_{D}f(\rho,\phi,\theta)\rho^2\sin\phi\space d\rho d\phi d\theta<br>$$</p>
+<h1 id="13-向量场中的积分"><a href="#13-向量场中的积分" class="headerlink" title="[13]向量场中的积分"></a>[13]向量场中的积分</h1><h2 id="13-1-线积分-第一类曲线积分"><a href="#13-1-线积分-第一类曲线积分" class="headerlink" title="[13.1]线积分(第一类曲线积分)"></a>[13.1]线积分(第一类曲线积分)</h2><p>在曲线$L$上对连续函数$f(x,y,z)$积分:</p>
+<ol>
+<li>写出$L$的表达式$\bold r(t) = g(t)\bold i + h(t) \bold j + k(t) \bold k, a \leq t \leq b$</li>
+<li>$\bold v = \frac{d\bold r}{dt}$</li>
+<li>$\int_Lf(x,y,z) = \int_{a}^bf(g(t),h(t),k(t)) |\bold v |dt$</li>
+</ol>
+<p>或:<br>$$<br>x = g(t)\<br>y = h(t)\<br>z = k(t)\<br>\int_Lf(x,y,z) = \int_{a}^b\sqrt{(g’(t))^2 + (h’(t))^2 + (k’(t))^2}f(g(t),h(t),k(t))dt<br>$$</p>
+<h2 id="13-3-路径无关-势函数和保守场-第二类曲线积分"><a href="#13-3-路径无关-势函数和保守场-第二类曲线积分" class="headerlink" title="[13.3]路径无关,势函数和保守场(第二类曲线积分)"></a>[13.3]路径无关,势函数和保守场(第二类曲线积分)</h2><p>设平面上有向曲线$L$的参数方程为<br>$$<br>x = x(t)\<br>y = y(t)<br>$$<br>参数$t = \alpha$对应曲线$L$的起点$A$,$t = \beta$对应曲线$L$的终点$B$.</p>
+<p>设$P(x,y),Q(x,y)$在有向曲线$L$上有定义且连续,则有<br>$$<br>\int_L P(x,y)dx + Q(x,y)dy = \int_{\alpha}^\beta P(x(t),y(t))x’(t) + Q(x(t),y(t))y’(t) \space dt<br>$$</p>
+<h3 id="路径无关和保守场"><a href="#路径无关和保守场" class="headerlink" title="路径无关和保守场"></a>路径无关和保守场</h3><p>设$\bold F$是定义在空间开区域$D$上的场, 假设对$D$内的任意两点$A,B$, 从$A$到$B$做的功$\int_A^B\bold F \cdot d\bold r$对所有从$A$到$B$的路径都相同,则该积分就是在$D$内<strong>路径无关</strong>的,且$\bold F$在$D$上是保守场</p>
+<h3 id="线积分基本定理"><a href="#线积分基本定理" class="headerlink" title="线积分基本定理"></a>线积分基本定理</h3><p>设$\bold F = M \bold i + N \bold j + P \bold k$是一个向量场,其分量在空间连通开区域$D$上都连续,那么存在一个可微函数$f$使得<br>$$<br>\bold F = \nabla f<br>$$<br>当且仅当$\bold F$是保守场.</p>
+<p>若积分与$A,B$之间的路径无关,则它的值为$\int_A^B \bold F \cdot d \bold r = f(B) - f(A)$</p>
+<h3 id="保守场的环路性质"><a href="#保守场的环路性质" class="headerlink" title="保守场的环路性质"></a>保守场的环路性质</h3><p>场$\bold F$在$D$上是保守的,等价于沿D内任一闭路线, $\oint \bold F \cdot d \bold r = 0$ </p>
+<h3 id="保守场的分量检验"><a href="#保守场的分量检验" class="headerlink" title="保守场的分量检验:"></a>保守场的分量检验:</h3><p>设$\bold F = P(x,y,z) \bold i + Q(x,y,z) \bold j + R(x,y,z) \bold k$</p>
+<p>若$F$为保守场,当且仅当<br>$$<br>\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}\<br>\frac{\partial P}{\partial y} = \frac{\partial R}{\partial z}\<br>\frac{\partial Q}{\partial z} = \frac{\partial R}{\partial y}\<br>$$</p>
+<h2 id="13-4-平面的格林定理"><a href="#13-4-平面的格林定理" class="headerlink" title="[13.4]平面的格林定理"></a>[13.4]平面的格林定理</h2><p>设闭区域D由分段光滑的曲线$L$围成, 曲线$L$是D的取正向的边界曲线. 函数$P(x,y),Q(x,y)$在D上具有一阶连续偏导,则有<br>$$<br>\int_L P(x,y)dx + Q(x,y)dy = \iint_R (\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y})dxdy<br>$$</p>
+<h2 id="13-5-曲面面积和曲面积分-第一类曲面积分"><a href="#13-5-曲面面积和曲面积分-第一类曲面积分" class="headerlink" title="[13.5]曲面面积和曲面积分(第一类曲面积分)"></a>[13.5]曲面面积和曲面积分(第一类曲面积分)</h2><h3 id="曲面面积"><a href="#曲面面积" class="headerlink" title="曲面面积"></a>曲面面积</h3><p>定义在一有界闭平面区域$R$上的曲面$f(x,y,z) = c$的面积为<br>$$<br>A = \iint_{R}\frac{|\nabla f|}{|\nabla f \cdot \bold p|}dA<br>$$</p>
+<h3 id="曲面积分"><a href="#曲面积分" class="headerlink" title="曲面积分"></a>曲面积分</h3><p>若$R$为曲面$S$的投影区域,$S$由方程$f(x,y,z) = c$定义,且$g$是定义在$S$上点的连续函数,则$g$在$S$上的积分为<br>$$<br>\iint_{R} \frac{|\nabla f|}{|\nabla f \cdot \bold p|} g(x,y,z)<br>$$</p>
+<h3 id="第二类曲面积分-高斯公式"><a href="#第二类曲面积分-高斯公式" class="headerlink" title="第二类曲面积分(高斯公式)"></a>第二类曲面积分(高斯公式)</h3><p>$$<br>\iint_D P()dydz + Q()dxdz + R()dxdy = \iiint_R (\frac{\part P}{\part x} + \frac{\part Q}{\part y} + \frac{\part R}{\part z})dxdydz<br>$$</p>
+<p>注意,在曲面外侧为正,内侧为负</p>
+<h1 id="微分方程"><a href="#微分方程" class="headerlink" title="微分方程"></a>微分方程</h1><h2 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h2><p>阶:一个微分方程的阶是其所包含的最高阶导数的阶</p>
+<p>$IVP$:Initial Value Problem,初值问题</p>
+<h2 id="可分离变量的微分方程"><a href="#可分离变量的微分方程" class="headerlink" title="可分离变量的微分方程"></a>可分离变量的微分方程</h2><p>若可以把方程所有关于$y$的部分(包括$dy$)放在等式一边,关于$x$的部分放在等式另一边,则该微分方程是<strong>可分离变量</strong>的</p>
+<p>计算方法是移项后对两边积分并整理.</p>
+<h2 id="一阶线性微分方程"><a href="#一阶线性微分方程" class="headerlink" title="一阶线性微分方程"></a>一阶线性微分方程</h2><p>形如<br>$$<br>\frac{dy}{dx} + p(x)y = q(x)<br>$$<br>的方程为一阶线性微分方程</p>
+<p>解题方法:</p>
+<ol>
+<li><p>整理为一般形式$\frac{dy}{dx} + p(x)y = q(x)$</p>
+</li>
+<li><p>求出积分因子$f(x) = e^{\int p(x)dx}$(注意,此处不需+C)</p>
+</li>
+<li><p>解为<br>$$<br>y =  \frac{1}{f(x)}\int f(x)q(x)dx<br>$$</p>
+</li>
+<li><p>或将左边整理为$\frac{d}{dx}(f(x)y)$的形式,积分后除以$f(x)$来求解</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/05/22/calculus/" data-id="ckeu4m9zp0002dots90dgbxd5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/09/probability/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" style="font-size: 10px;">微积分</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/09/physics/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/09/probability/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/22/calculus/">高数笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
