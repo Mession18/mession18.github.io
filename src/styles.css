@@ -2393,6 +2393,10 @@ h1 em {
   line-height: 1.25;
   text-shadow: none;
 }
+.article-header .tag {
+  background: #edf5e9;
+  color: #38735c;
+}
 .article-header > p {
   margin: auto;
   color: #665f55;
@@ -2533,8 +2537,6 @@ h1 em {
 [data-theme='night'] .museum-filters button {
   background: var(--paper);
 }
-[data-theme='night'] .article-header > p,
-[data-theme='night'] .article-header > div,
 [data-theme='night'] .article-body {
   color: #cbc7bf;
 }
