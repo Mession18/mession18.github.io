@@ -42,6 +42,97 @@ body {
     background 0.45s ease,
     color 0.45s ease;
 }
+.ambient-weather {
+  position: fixed;
+  z-index: 15;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ambient-rain,
+.ambient-snow,
+.ambient-meteors {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ambient-rain > i {
+  position: absolute;
+  top: -35px;
+  left: var(--x);
+  width: 1px;
+  height: var(--length);
+  border-radius: 50%;
+  background: linear-gradient(transparent, rgb(166 210 230 / var(--opacity)));
+  transform: rotate(9deg);
+  animation: ambient-rainfall var(--duration) linear var(--delay) infinite;
+}
+.ambient-snow > i {
+  position: absolute;
+  top: -12px;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: rgb(255 255 255 / var(--opacity));
+  box-shadow: 0 0 5px rgb(255 255 255 / 24%);
+  animation: ambient-snowfall var(--duration) ease-in-out var(--delay) infinite;
+}
+.ambient-meteors > i {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff9da;
+  box-shadow:
+    0 0 7px #fff,
+    0 0 15px #bce8ff;
+  opacity: 0;
+  animation: ambient-meteor var(--duration) ease-out var(--delay) both;
+}
+.ambient-meteors > i::before {
+  content: '';
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  width: 95px;
+  height: 2px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, #d9f0ff 82%, #fff9da);
+  transform: rotate(29deg);
+  transform-origin: right center;
+}
+@keyframes ambient-rainfall {
+  to {
+    transform: translate3d(-16px, calc(100vh + 70px), 0) rotate(9deg);
+  }
+}
+@keyframes ambient-snowfall {
+  50% {
+    transform: translate3d(var(--drift), 52vh, 0) rotate(160deg);
+  }
+  to {
+    transform: translate3d(var(--return-drift), calc(100vh + 24px), 0) rotate(330deg);
+  }
+}
+@keyframes ambient-meteor {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  12% {
+    opacity: 0.92;
+  }
+  72% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(150px, 86px, 0);
+  }
+}
 [data-theme='night'][data-weather='cloudy'] body,
 [data-theme='night'][data-weather='fog'] body {
   background: #1b2229;
@@ -66,6 +157,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .route-transition {
     animation: none;
+  }
+  .ambient-weather {
+    display: none;
   }
 }
 a {

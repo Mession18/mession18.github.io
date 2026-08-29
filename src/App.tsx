@@ -2,6 +2,7 @@ import { useLayoutEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { AmbientWeather } from './components/AmbientWeather'
 import { HomePage } from './pages/HomePage'
 import { CollectionDetailPage } from './pages/CollectionDetailPage'
 import { MuseumPage } from './pages/MuseumPage'
@@ -23,6 +24,7 @@ export function App() {
 
   return (
     <main>
+      <AmbientWeather />
       <Header />
       <div className="route-transition" key={location.pathname}>
         <Routes location={location}>
