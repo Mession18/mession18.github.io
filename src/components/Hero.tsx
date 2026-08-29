@@ -1,5 +1,6 @@
 import { ArrowRight, Cloud, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, LoaderCircle, MoonStar, Sun } from 'lucide-react'
-import { useLocalWeather, type TimePeriod, type WeatherKind } from '../hooks/useLocalWeather'
+import { type TimePeriod, type WeatherKind } from '../hooks/useLocalWeather'
+import { useTheme } from '../context/ThemeContext'
 
 const weatherLabels: Record<WeatherKind, string> = { clear: '晴朗', cloudy: '多云', fog: '有雾', rain: '下雨', snow: '下雪', thunder: '雷雨' }
 const periodLabels: Record<TimePeriod, string> = { dawn: '凌晨', morning: '上午', noon: '中午', afternoon: '下午', evening: '晚上' }
@@ -51,17 +52,17 @@ function WeatherIcon({ kind, period, loading }: { kind: WeatherKind; period: Tim
 }
 
 export function Hero() {
-  const weather = useLocalWeather()
+  const { weather, scenePeriod } = useTheme()
   const windLabel = weather.windSpeed <= 8 ? '微风' : weather.windSpeed <= 18 ? '轻风' : '有风'
   return (
-    <section className={`hero weather-${weather.kind} time-${weather.period}${weather.loading ? ' weather-pending' : ''}`} id="top">
+    <section className={`hero weather-${weather.kind} time-${scenePeriod}${weather.loading ? ' weather-pending' : ''}`} id="top">
       <div className="sky-stars" aria-hidden="true" />
       <div className="cloud cloud-a" /><div className="cloud cloud-b" />
       <div className="cloud cloud-c" aria-hidden="true" />
       <div className="weather-effects" aria-hidden="true"><div className="precipitation" /><div className="fog-bank fog-one" /><div className="fog-bank fog-two" /><div className="lightning-bolt" /></div>
       <div className="hero-copy"><p className="eyebrow"><span>●</span> ISLAND LETTER · NO. 01</p><h1>慢慢生活，<br /><em>好好记录。</em></h1><p className="intro">这里是风铃岛。收集日常的小事、喜欢的游戏，<br />还有每一个值得记住的晴天。</p><a href="#journal" className="primary">去岛上逛逛 <ArrowRight size={18} /></a></div>
       <div className="island-scene" aria-label="树木环绕的宁静海岛平原"><div className="hero-sun" aria-hidden="true" /><Moon /><div className="horizon-forest" aria-hidden="true">{Array.from({ length: 14 }, (_, index) => <i key={index} />)}</div><div className="ground"><i /><i /><i /><i /><i /></div><div className="tree t1"><i className="trunk" /><span className="crown"><b /><b /><b /></span></div><div className="tree pine t2"><i className="trunk" /><span className="crown"><b /><b /><b /></span></div><div className="house"><i className="roof" /><i className="chimney" /><span className="gable" /><span className="attic-window" /><span className="window left-window" /><span className="window right-window" /><b className="door" /><span className="step" /></div></div>
-      <div className="weather"><WeatherIcon kind={weather.kind} period={weather.period} loading={weather.loading} /><span><b>{weather.temperature}°C · {weather.city}</b>{weather.loading ? '正在获取当地天气' : `${weatherLabels[weather.kind]} · ${windLabel}`}</span><time>{periodLabels[weather.period]} {weather.time}</time></div>
+      <div className="weather"><WeatherIcon kind={weather.kind} period={scenePeriod} loading={weather.loading} /><span><b>{weather.temperature}°C · {weather.city}</b>{weather.loading ? '正在获取当地天气' : `${weatherLabels[weather.kind]} · ${windLabel}`}</span><time>{periodLabels[weather.period]} {weather.time}</time></div>
     </section>
   )
 }
