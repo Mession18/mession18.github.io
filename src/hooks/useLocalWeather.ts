@@ -33,7 +33,14 @@ function timePeriod(hour: number): TimePeriod {
 
 export function useLocalWeather() {
   const [now, setNow] = useState(new Date())
-  const [state, setState] = useState<WeatherState>({ city: '风铃岛', temperature: 28, windSpeed: 8, weatherCode: 0, timezone: fallbackTimezone, loading: true })
+  const [state, setState] = useState<WeatherState>({
+    city: '风铃岛',
+    temperature: 28,
+    windSpeed: 8,
+    weatherCode: 0,
+    timezone: fallbackTimezone,
+    loading: true,
+  })
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 30_000)
@@ -44,19 +51,46 @@ export function useLocalWeather() {
     const controller = new AbortController()
     async function loadWeather() {
       try {
-        const geoResponse = await fetch('https://get.geojs.io/v1/ip/geo.json', { signal: controller.signal })
+        const geoResponse = await fetch('https://get.geojs.io/v1/ip/geo.json', {
+          signal: controller.signal,
+        })
         if (!geoResponse.ok) throw new Error('Location lookup failed')
-        const geo = await geoResponse.json() as { city?: string; region?: string; latitude?: string | number; longitude?: string | number; timezone?: string }
+        const geo = (await geoResponse.json()) as {
+          city?: string
+          region?: string
+          latitude?: string | number
+          longitude?: string | number
+          timezone?: string
+        }
         const latitude = Number(geo.latitude)
         const longitude = Number(geo.longitude)
-        if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) throw new Error('Location coordinates unavailable')
-        const query = new URLSearchParams({ latitude: String(latitude), longitude: String(longitude), current: 'temperature_2m,weather_code,wind_speed_10m', timezone: 'auto' })
-        const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`, { signal: controller.signal })
+        if (!Number.isFinite(latitude) || !Number.isFinite(longitude))
+          throw new Error('Location coordinates unavailable')
+        const query = new URLSearchParams({
+          latitude: String(latitude),
+          longitude: String(longitude),
+          current: 'temperature_2m,weather_code,wind_speed_10m',
+          timezone: 'auto',
+        })
+        const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`, {
+          signal: controller.signal,
+        })
         if (!weatherResponse.ok) throw new Error('Weather lookup failed')
-        const weather = await weatherResponse.json() as { timezone?: string; current?: { temperature_2m?: number; weather_code?: number; wind_speed_10m?: number } }
-        setState({ city: geo.city || geo.region || '当前位置', temperature: Math.round(weather.current?.temperature_2m ?? 28), windSpeed: Math.round(weather.current?.wind_speed_10m ?? 8), weatherCode: weather.current?.weather_code ?? 0, timezone: weather.timezone || geo.timezone || fallbackTimezone, loading: false })
+        const weather = (await weatherResponse.json()) as {
+          timezone?: string
+          current?: { temperature_2m?: number; weather_code?: number; wind_speed_10m?: number }
+        }
+        setState({
+          city: geo.city || geo.region || '当前位置',
+          temperature: Math.round(weather.current?.temperature_2m ?? 28),
+          windSpeed: Math.round(weather.current?.wind_speed_10m ?? 8),
+          weatherCode: weather.current?.weather_code ?? 0,
+          timezone: weather.timezone || geo.timezone || fallbackTimezone,
+          loading: false,
+        })
       } catch (error) {
-        if ((error as Error).name !== 'AbortError') setState((current) => ({ ...current, loading: false }))
+        if ((error as Error).name !== 'AbortError')
+          setState((current) => ({ ...current, loading: false }))
       }
     }
     loadWeather()
@@ -64,11 +98,20 @@ export function useLocalWeather() {
   }, [])
 
   return useMemo(() => {
-    const hourText = new Intl.DateTimeFormat('en-GB', { timeZone: state.timezone, hour: '2-digit', hour12: false }).format(now)
+    const hourText = new Intl.DateTimeFormat('en-GB', {
+      timeZone: state.timezone,
+      hour: '2-digit',
+      hour12: false,
+    }).format(now)
     const hour = Number(hourText) % 24
     return {
       ...state,
-      time: new Intl.DateTimeFormat('zh-CN', { timeZone: state.timezone, hour: '2-digit', minute: '2-digit', hour12: false }).format(now),
+      time: new Intl.DateTimeFormat('zh-CN', {
+        timeZone: state.timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(now),
       kind: weatherKind(state.weatherCode),
       period: timePeriod(hour),
     }

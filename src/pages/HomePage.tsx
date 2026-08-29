@@ -5,5 +5,13 @@ import { Museum } from '../components/Museum'
 import { Passport } from '../components/Passport'
 
 export function HomePage() {
-  return <><Hero /><Journal /><Museum /><Passport /><Bottle /></>
+  return (
+    <>
+      <Hero />
+      <Journal />
+      <Museum />
+      <Passport />
+      <Bottle />
+    </>
+  )
 }

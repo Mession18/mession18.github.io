@@ -1,0 +1,5 @@
+node_modules/
+dist/
+public/
+src/posts/
+pnpm-lock.yaml

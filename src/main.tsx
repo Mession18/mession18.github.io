@@ -4,4 +4,12 @@ import { HashRouter } from 'react-router-dom'
 import { App } from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import './styles.css'
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><ThemeProvider><HashRouter><App /></HashRouter></ThemeProvider></React.StrictMode>)
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </ThemeProvider>
+  </React.StrictMode>,
+)

@@ -21,7 +21,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   })
   const isNaturalNight = weather.period === 'dawn' || weather.period === 'evening'
   const effectiveTheme = mode === 'auto' ? (isNaturalNight ? 'night' : 'day') : mode
-  const scenePeriod: TimePeriod = mode === 'day' ? 'morning' : mode === 'night' ? 'evening' : weather.period
+  const scenePeriod: TimePeriod =
+    mode === 'day' ? 'morning' : mode === 'night' ? 'evening' : weather.period
 
   useEffect(() => {
     window.localStorage.setItem('island-theme', mode)
@@ -30,7 +31,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.weather = weather.kind
   }, [effectiveTheme, mode, weather.kind])
 
-  const value = useMemo(() => ({ mode, setMode, effectiveTheme, scenePeriod, weather }), [mode, effectiveTheme, scenePeriod, weather])
+  const value = useMemo(
+    () => ({ mode, setMode, effectiveTheme, scenePeriod, weather }),
+    [mode, effectiveTheme, scenePeriod, weather],
+  )
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 

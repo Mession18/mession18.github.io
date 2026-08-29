@@ -26,18 +26,27 @@ function parseMarkdown(path: string, source: string): Post | null {
   const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/)
   if (!match) throw new Error(`文章 ${filename} 缺少 Markdown 头部信息`)
   const metadata = Object.fromEntries(
-    match[1].split(/\r?\n/).filter(Boolean).map((line) => {
-      const separator = line.indexOf(':')
-      if (separator < 0) return [line.trim(), '']
-      const key = line.slice(0, separator).trim()
-      const value = line.slice(separator + 1).trim().replace(/^['"]|['"]$/g, '')
-      return [key, value]
-    }),
+    match[1]
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((line) => {
+        const separator = line.indexOf(':')
+        if (separator < 0) return [line.trim(), '']
+        const key = line.slice(0, separator).trim()
+        const value = line
+          .slice(separator + 1)
+          .trim()
+          .replace(/^['"]|['"]$/g, '')
+        return [key, value]
+      }),
   )
   const content = match[2].trim()
   const publishedAt = metadata.date
-  if (!metadata.title || !publishedAt || !metadata.excerpt) throw new Error(`文章 ${filename} 必须填写 title、date 和 excerpt`)
-  const color = (['mint', 'sunshine', 'sky'].includes(metadata.color) ? metadata.color : 'mint') as PostColor
+  if (!metadata.title || !publishedAt || !metadata.excerpt)
+    throw new Error(`文章 ${filename} 必须填写 title、date 和 excerpt`)
+  const color = (
+    ['mint', 'sunshine', 'sky'].includes(metadata.color) ? metadata.color : 'mint'
+  ) as PostColor
   const wordCount = content.replace(/\s+/g, '').length
   return {
     slug,

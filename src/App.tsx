@@ -13,11 +13,28 @@ export function App() {
 
   useLayoutEffect(() => {
     if (location.hash) {
-      requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' }))
+      requestAnimationFrame(() =>
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' }),
+      )
       return
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [location.pathname, location.hash])
 
-  return <main><Header /><div className="route-transition" key={location.pathname}><Routes location={location}><Route path="/" element={<HomePage />} /><Route path="/posts" element={<PostsPage />} /><Route path="/posts/:slug" element={<PostDetailPage />} /><Route path="/museum" element={<MuseumPage />} /><Route path="/museum/:category/:slug" element={<CollectionDetailPage />} /><Route path="*" element={<PostsPage />} /></Routes></div><Footer /></main>
+  return (
+    <main>
+      <Header />
+      <div className="route-transition" key={location.pathname}>
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/posts/:slug" element={<PostDetailPage />} />
+          <Route path="/museum" element={<MuseumPage />} />
+          <Route path="/museum/:category/:slug" element={<CollectionDetailPage />} />
+          <Route path="*" element={<PostsPage />} />
+        </Routes>
+      </div>
+      <Footer />
+    </main>
+  )
 }
