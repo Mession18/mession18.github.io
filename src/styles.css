@@ -1652,6 +1652,9 @@ h1 em {
   display: block;
   object-fit: cover;
 }
+.photo div img {
+  object-fit: contain;
+}
 .p1 {
   left: 15px;
   top: 25px;
@@ -2625,7 +2628,7 @@ h1 em {
 .collection-cover > img {
   position: absolute;
   inset: 0;
-  object-fit: cover;
+  object-fit: contain;
 }
 .collection-cover > small {
   position: absolute;
