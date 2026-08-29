@@ -438,11 +438,51 @@ h1 em {
   font-size: 28px;
   z-index: 4;
 }
+
+/* Flat island landscape */
+.island-scene { width: 100%; height: 430px; right: 0; bottom: 18px; pointer-events: none; }
+.horizon-forest { position: absolute; left: -2%; right: -2%; bottom: 150px; height: 115px; z-index: 2; display: flex; align-items: flex-end; justify-content: space-around; }
+.horizon-forest i { position: relative; width: 62px; height: 88px; flex: 0 0 62px; }
+.horizon-forest i:before { content: ""; position: absolute; left: 25px; bottom: 0; width: 12px; height: 45px; border-radius: 8px; background: #8d6649; }
+.horizon-forest i:after { content: ""; position: absolute; left: 1px; top: 0; width: 60px; height: 61px; border-radius: 46% 54% 48% 52%; background: #4d9568; }
+.horizon-forest i:nth-child(3n) { transform: scale(.82); transform-origin: bottom; }
+.horizon-forest i:nth-child(3n + 1):after { background: #579f70; }
+.horizon-forest i:nth-child(4n) { transform: scale(.68); transform-origin: bottom; }
+.ground { position: absolute; left: -2%; right: -2%; bottom: 0; height: 165px; z-index: 3; background: #72ad78; border-top: 7px solid #a4ce8d; }
+.ground i { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #fff0a4; }
+.ground i:after { content: ""; position: absolute; width: 2px; height: 12px; left: 3px; top: 7px; background: #43845e; }
+.ground i:nth-child(1) { left: 8%; top: 38px; }
+.ground i:nth-child(2) { left: 28%; top: 100px; background: #f3a6a0; }
+.ground i:nth-child(3) { left: 48%; top: 55px; }
+.ground i:nth-child(4) { left: 71%; top: 112px; background: #d7c3ef; }
+.ground i:nth-child(5) { left: 91%; top: 42px; background: #f3a6a0; }
+.tree { width: 96px; height: 142px; }
+.tree .trunk { width: 19px; height: 72px; left: 39px; border-radius: 10px; background: #a46d49; box-shadow: none; }
+.tree .crown { width: 96px; height: 90px; border-radius: 48% 52% 46% 54%; background: #438e62; box-shadow: none; }
+.tree .crown b:nth-child(1) { width: 49px; height: 49px; left: -3px; top: 25px; }
+.tree .crown b:nth-child(2) { width: 54px; height: 54px; right: -5px; top: 19px; background: #4b9968; }
+.tree .crown b:nth-child(3) { width: 42px; height: 42px; left: 28px; top: -7px; background: #64ad76; }
+.t1 { right: 7%; bottom: 116px; }
+.t2 { right: 36%; bottom: 118px; transform: scale(.88); }
+.house { right: 19%; bottom: 102px; width: 164px; height: 118px; background: #f3d59b; border-radius: 6px 6px 16px 16px; border: 6px solid #fff2cc; box-shadow: none; }
+.house .roof { left: -25px; top: -62px; width: 202px; height: 88px; background: #ed846d; clip-path: polygon(50% 0, 100% 73%, 93% 100%, 50% 35%, 7% 100%, 0 73%); }
+.house .chimney { width: 20px; height: 46px; right: 20px; top: -54px; background: #a75f50; border-radius: 5px 5px 0 0; }
+.house .attic-window { position: absolute; z-index: 2; width: 23px; height: 23px; left: 64px; top: -32px; border-radius: 50%; background: #9bd1ca; border: 4px solid #fff2cc; }
+.house .window { width: 30px; height: 32px; top: 31px; border: 4px solid #fff8df; border-radius: 9px; background: #9bd1ca; box-shadow: none; }
+.house .window:after { content: ""; position: absolute; left: 11px; top: 0; width: 3px; height: 24px; background: #fff8df; }
+.left-window { left: 17px; } .right-window { right: 17px; }
+.house .door { width: 38px; height: 58px; left: 56px; bottom: -6px; border-radius: 16px 16px 3px 3px; }
+.house .step { position: absolute; width: 58px; height: 10px; left: 46px; bottom: -14px; border-radius: 6px; background: #d4a66d; }
+.hero.time-dawn .ground, .hero.time-evening .ground { background: #557965; border-top-color: #78967a; }
+.hero.time-dawn .horizon-forest i:after, .hero.time-evening .horizon-forest i:after { background: #3e6557; }
+.hero.time-dawn .tree .crown, .hero.time-evening .tree .crown { filter: brightness(.76) saturate(.8); }
+.hero.weather-snow .ground { background: #dce9e4; border-top-color: #f2f7ef; }
+.hero.weather-snow .horizon-forest, .hero.weather-snow .tree { filter: saturate(.5) brightness(1.12); }
 .weather {
   position: absolute;
   z-index: 8;
   right: 6%;
-  bottom: 78px;
+  bottom: 30px;
   display: flex;
   align-items: center;
   gap: 12px;
