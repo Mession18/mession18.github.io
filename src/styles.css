@@ -1431,6 +1431,13 @@ h1 em {
   display: grid;
   place-items: center;
   position: relative;
+  overflow: hidden;
+}
+.post-art > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .post-art span {
   font-size: 68px;
@@ -1536,8 +1543,8 @@ h1 em {
   font-family: 'ZCOOL KuaiLe';
 }
 .photo div {
-  width: 180px;
-  height: 185px;
+  width: 210px;
+  aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
   font-size: 70px;
@@ -2310,6 +2317,25 @@ h1 em {
   align-items: center;
   gap: 6px;
 }
+.article-feature-image {
+  width: fit-content;
+  max-width: min(100%, 760px);
+  margin: 34px auto 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+.article-feature-image > img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 72vh;
+  border-radius: 14px;
+  object-fit: contain;
+}
 .article-body {
   padding: 52px 48px;
   color: #574f45;
@@ -2492,7 +2518,7 @@ h1 em {
 }
 .collection-cover {
   position: relative;
-  height: 220px;
+  aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
 }
@@ -2503,8 +2529,7 @@ h1 em {
 .collection-cover > img {
   position: absolute;
   inset: 0;
-  object-fit: contain;
-  padding: 12px;
+  object-fit: cover;
 }
 .collection-cover > small {
   position: absolute;
@@ -2601,12 +2626,16 @@ h1 em {
 .collection-feature.has-image {
   aspect-ratio: auto;
   display: block;
+  width: fit-content;
+  max-width: 100%;
+  justify-self: center;
   padding: 12px 12px 42px;
 }
 .collection-feature.has-image > img {
   position: static;
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   max-height: 70vh;
   object-fit: contain;
 }

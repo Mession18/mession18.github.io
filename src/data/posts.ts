@@ -10,6 +10,8 @@ export type Post = {
   excerpt: string
   color: PostColor
   icon: string
+  previewImage?: string
+  detailImage?: string
   content: string
 }
 
@@ -58,6 +60,8 @@ function parseMarkdown(path: string, source: string): Post | null {
     excerpt: metadata.excerpt,
     color,
     icon: metadata.icon || '🌊',
+    previewImage: metadata.previewImage || undefined,
+    detailImage: metadata.detailImage || undefined,
     content,
   }
 }
@@ -66,3 +70,11 @@ export const posts = Object.entries(markdownFiles)
   .map(([path, source]) => parseMarkdown(path, source))
   .filter((post): post is Post => post !== null)
   .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+
+export function getPostPreviewImage(post: Post) {
+  return post.previewImage || post.detailImage
+}
+
+export function getPostDetailImage(post: Post) {
+  return post.detailImage || post.previewImage
+}

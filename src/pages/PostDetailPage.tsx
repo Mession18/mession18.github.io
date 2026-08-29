@@ -1,7 +1,7 @@
 import { ArrowLeft, CalendarDays, Clock3 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
-import { posts } from '../data/posts'
+import { getPostDetailImage, posts } from '../data/posts'
 
 export function PostDetailPage() {
   const { slug } = useParams()
@@ -17,6 +17,8 @@ export function PostDetailPage() {
         </Link>
       </div>
     )
+  const detailImage = getPostDetailImage(post)
+
   return (
     <article className="article-page">
       <Link className="back-link" to="/posts">
@@ -36,6 +38,11 @@ export function PostDetailPage() {
           </span>
         </div>
       </header>
+      {detailImage && (
+        <figure className="article-feature-image">
+          <img src={detailImage} alt={post.title} />
+        </figure>
+      )}
       <div className="article-body">
         <ReactMarkdown>{post.content}</ReactMarkdown>
       </div>

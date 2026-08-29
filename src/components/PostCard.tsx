@@ -1,8 +1,10 @@
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import type { Post } from '../data/posts'
+import { getPostPreviewImage, type Post } from '../data/posts'
 
 export function PostCard({ post }: { post: Post }) {
+  const previewImage = getPostPreviewImage(post)
+
   return (
     <article className="post">
       <Link
@@ -10,7 +12,7 @@ export function PostCard({ post }: { post: Post }) {
         to={`/posts/${post.slug}`}
         aria-label={`阅读：${post.title}`}
       >
-        <span>{post.icon}</span>
+        {previewImage ? <img src={previewImage} alt={post.title} /> : <span>{post.icon}</span>}
         <time dateTime={post.publishedAt}>{post.date}</time>
       </Link>
       <div className="post-body">

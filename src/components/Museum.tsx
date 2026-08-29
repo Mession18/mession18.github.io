@@ -1,7 +1,7 @@
 import { Camera, Map } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { collections } from '../data/collections'
+import { collections, getCollectionPreviewImage } from '../data/collections'
 import { posts } from '../data/posts'
 
 export function Museum() {
@@ -29,16 +29,19 @@ export function Museum() {
         </Link>
       </div>
       <div className="photo-stack">
-        {featured.map((item, index) => (
-          <Link
-            key={item.slug}
-            className={`photo p${index + 1}`}
-            to={`/museum/${item.category}/${item.slug}`}
-          >
-            <div>{item.image ? <img src={item.image} alt={item.title} /> : item.icon}</div>
-            <span>{item.title}</span>
-          </Link>
-        ))}
+        {featured.map((item, index) => {
+          const previewImage = getCollectionPreviewImage(item)
+          return (
+            <Link
+              key={item.slug}
+              className={`photo p${index + 1}`}
+              to={`/museum/${item.category}/${item.slug}`}
+            >
+              <div>{previewImage ? <img src={previewImage} alt={item.title} /> : item.icon}</div>
+              <span>{item.title}</span>
+            </Link>
+          )
+        })}
         <Camera className="camera" size={28} />
       </div>
     </section>

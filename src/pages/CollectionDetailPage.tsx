@@ -1,7 +1,7 @@
 import { ArrowLeft, CalendarDays, Star } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
-import { categoryLabels, collections } from '../data/collections'
+import { categoryLabels, collections, getCollectionDetailImage } from '../data/collections'
 
 export function CollectionDetailPage() {
   const { category, slug } = useParams()
@@ -17,6 +17,8 @@ export function CollectionDetailPage() {
         </Link>
       </div>
     )
+  const detailImage = getCollectionDetailImage(item)
+
   return (
     <article className="collection-detail">
       <Link className="back-link" to="/museum">
@@ -24,9 +26,9 @@ export function CollectionDetailPage() {
       </Link>
       <div className="collection-detail-grid">
         <div
-          className={`collection-feature collection-${item.color} ${item.image ? 'has-image' : ''}`}
+          className={`collection-feature collection-${item.color} ${detailImage ? 'has-image' : ''}`}
         >
-          {item.image ? <img src={item.image} alt={item.title} /> : <span>{item.icon}</span>}
+          {detailImage ? <img src={detailImage} alt={item.title} /> : <span>{item.icon}</span>}
           <small>COLLECTION · {item.id}</small>
         </div>
         <div className="collection-info">

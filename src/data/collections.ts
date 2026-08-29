@@ -10,7 +10,8 @@ export type CollectionItem = {
   year: string
   rating: number
   icon: string
-  image?: string
+  previewImage?: string
+  detailImage?: string
   color: CollectionColor
   excerpt: string
   content: string
@@ -47,7 +48,7 @@ export const collections: CollectionItem[] = [
     year: '2025',
     rating: 4.8,
     icon: '🌾',
-    image: '/images/collections/stardewvalley.png',
+    previewImage: '/images/collections/stardewvalley.png',
     color: 'sun',
     excerpt: '种田、钓鱼、认识小镇居民，错过的事情明年还会再来。',
     content:
@@ -110,3 +111,11 @@ export const collections: CollectionItem[] = [
       '## 照片背后\n\n这条路已经走过很多次，但那天树影的位置刚刚好。\n\n拍照以后才发现，日常并不是重复，而是一些很缓慢的变化。',
   },
 ]
+
+export function getCollectionPreviewImage(item: CollectionItem) {
+  return item.previewImage || item.detailImage
+}
+
+export function getCollectionDetailImage(item: CollectionItem) {
+  return item.detailImage || item.previewImage
+}
