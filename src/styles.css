@@ -183,6 +183,7 @@ nav a.active:after {
   height: 95px;
   background: var(--cream);
   border-radius: 50% 50% 0 0;
+  z-index: 7;
 }
 .hero-copy {
   position: relative;
@@ -448,6 +449,13 @@ h1 em {
 .horizon-forest i:nth-child(3n) { transform: scale(.82); transform-origin: bottom; }
 .horizon-forest i:nth-child(3n + 1):after { background: #579f70; }
 .horizon-forest i:nth-child(4n) { transform: scale(.68); transform-origin: bottom; }
+.horizon-forest i:nth-child(4n + 2):after { width: 64px; height: 70px; left: -1px; top: -8px; border-radius: 0; clip-path: polygon(50% 0, 70% 30%, 61% 30%, 82% 60%, 68% 60%, 94% 100%, 6% 100%, 32% 60%, 18% 60%, 39% 30%, 30% 30%); background: #477f61; }
+.knoll { position: absolute; width: 260px; height: 74px; right: 42%; bottom: 151px; z-index: 2; border-radius: 52% 52% 0 0; background: #689d6f; border-top: 5px solid #8cba7e; }
+.knoll i { position: absolute; width: 8px; height: 31px; bottom: 53px; border-radius: 5px; background: #826044; }
+.knoll i:after { content: ""; position: absolute; width: 35px; height: 43px; left: -14px; top: -29px; background: #477f61; clip-path: polygon(50% 0, 72% 38%, 62% 38%, 86% 70%, 68% 70%, 100% 100%, 0 100%, 32% 70%, 14% 70%, 38% 38%, 28% 38%); }
+.knoll i:nth-child(1) { left: 48px; transform: scale(.75); transform-origin: bottom; }
+.knoll i:nth-child(2) { left: 126px; }
+.knoll i:nth-child(3) { right: 40px; transform: scale(.62); transform-origin: bottom; }
 .ground { position: absolute; left: -2%; right: -2%; bottom: 0; height: 165px; z-index: 3; background: #72ad78; border-top: 7px solid #a4ce8d; }
 .ground i { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #fff0a4; }
 .ground i:after { content: ""; position: absolute; width: 2px; height: 12px; left: 3px; top: 7px; background: #43845e; }
@@ -462,11 +470,14 @@ h1 em {
 .tree .crown b:nth-child(1) { width: 49px; height: 49px; left: -3px; top: 25px; }
 .tree .crown b:nth-child(2) { width: 54px; height: 54px; right: -5px; top: 19px; background: #4b9968; }
 .tree .crown b:nth-child(3) { width: 42px; height: 42px; left: 28px; top: -7px; background: #64ad76; }
+.tree.pine .crown { width: 106px; height: 112px; left: -5px; top: -13px; border-radius: 0; clip-path: polygon(50% 0, 68% 30%, 60% 30%, 80% 58%, 68% 58%, 94% 100%, 6% 100%, 32% 58%, 20% 58%, 40% 30%, 32% 30%); background: #3d805d; }
+.tree.pine .crown b { display: none; }
 .t1 { right: 7%; bottom: 116px; }
 .t2 { right: 36%; bottom: 118px; transform: scale(.88); }
 .house { right: 19%; bottom: 102px; width: 164px; height: 118px; background: #f3d59b; border-radius: 6px 6px 16px 16px; border: 6px solid #fff2cc; box-shadow: none; }
 .house .roof { left: -25px; top: -62px; width: 202px; height: 88px; background: #ed846d; clip-path: polygon(50% 0, 100% 73%, 93% 100%, 50% 35%, 7% 100%, 0 73%); }
 .house .chimney { width: 20px; height: 46px; right: 20px; top: -54px; background: #a75f50; border-radius: 5px 5px 0 0; }
+.house .gable { position: absolute; left: 17px; top: -49px; width: 118px; height: 66px; z-index: 0; background: #f3d59b; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .house .attic-window { position: absolute; z-index: 2; width: 23px; height: 23px; left: 64px; top: -32px; border-radius: 50%; background: #9bd1ca; border: 4px solid #fff2cc; }
 .house .window { width: 30px; height: 32px; top: 31px; border: 4px solid #fff8df; border-radius: 9px; background: #9bd1ca; box-shadow: none; }
 .house .window:after { content: ""; position: absolute; left: 11px; top: 0; width: 3px; height: 24px; background: #fff8df; }
@@ -478,6 +489,10 @@ h1 em {
 .hero.time-dawn .tree .crown, .hero.time-evening .tree .crown { filter: brightness(.76) saturate(.8); }
 .hero.weather-snow .ground { background: #dce9e4; border-top-color: #f2f7ef; }
 .hero.weather-snow .horizon-forest, .hero.weather-snow .tree { filter: saturate(.5) brightness(1.12); }
+.stream { position: absolute; left: 22%; bottom: -18px; width: 112px; height: 188px; z-index: 4; background: #67b9bd; border-left: 6px solid #99d4ca; border-right: 6px solid #599f9f; clip-path: polygon(18% 0, 86% 0, 79% 24%, 100% 48%, 82% 72%, 94% 100%, 5% 100%, 18% 73%, 0 49%, 20% 24%); }
+.stream-shine { position: absolute; left: 45px; top: 12px; width: 8px; height: 145px; border-radius: 50%; background: #d0eeea70; transform: rotate(-3deg); }
+.wooden-bridge { position: absolute; left: -31px; top: 70px; width: 164px; height: 45px; display: flex; gap: 3px; padding: 4px 7px; border-radius: 9px; background: #78563e; transform: rotate(-2deg); }
+.wooden-bridge i { flex: 1; border-radius: 3px; background: #b98256; border-top: 3px solid #d8a475; }
 .weather {
   position: absolute;
   z-index: 8;
