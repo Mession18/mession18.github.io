@@ -3146,6 +3146,15 @@ footer {
   .passport {
     grid-template-columns: 1fr;
     gap: 38px;
+    width: 100%;
+    min-width: 0;
+    overflow: clip;
+  }
+  .passport-book,
+  .passport-card-stage {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .photo-stack {
     transform: scale(0.9);
@@ -3270,19 +3279,21 @@ footer {
   }
   .passport-card {
     position: absolute;
-    inset: 0 auto auto 0;
-    width: 200%;
-    height: 200%;
+    inset: 0 auto auto 2%;
+    width: 208%;
+    height: 208%;
     min-height: 0;
     aspect-ratio: 125 / 82;
     padding: 26px 30px 20px;
     transform-origin: top left;
-    scale: 0.5;
+    scale: 0.46;
   }
   .passport-card-stage {
     position: relative;
     width: 100%;
     aspect-ratio: 125 / 82;
+    overflow: clip;
+    border-radius: 14px;
   }
   .passport-page {
     min-height: 415px;
