@@ -1730,18 +1730,7 @@ h1 em {
   background: #dce9e4;
 }
 .hero.weather-snow .ground {
-  --snow-ground-depth: 28px;
-  background: linear-gradient(
-    to bottom,
-    #e8f1ef 0 var(--snow-ground-depth),
-    #739d7c var(--snow-ground-depth) 100%
-  );
-}
-.hero.weather-snow.intensity-moderate .ground {
-  --snow-ground-depth: 62px;
-}
-.hero.weather-snow.intensity-heavy .ground {
-  --snow-ground-depth: 108px;
+  background: #e8f1ef;
 }
 .hero.weather-snow .ground:before {
   border-top-color: #f2f7ef;
@@ -1758,6 +1747,53 @@ h1 em {
 .hero.weather-snow .horizon-forest,
 .hero.weather-snow .tree {
   filter: saturate(0.5) brightness(1.12);
+}
+.hero.weather-snow {
+  --tree-snow-depth: 6px;
+}
+.hero.weather-snow.intensity-moderate {
+  --tree-snow-depth: 12px;
+}
+.hero.weather-snow.intensity-heavy {
+  --tree-snow-depth: 20px;
+}
+.hero.weather-snow .tree:not(.pine) .crown,
+.hero.weather-snow .tree:not(.pine) .crown b,
+.hero.weather-snow .horizon-forest i::after {
+  box-shadow: inset 0 var(--tree-snow-depth) 0 #edf6f5;
+}
+.hero.weather-snow.intensity-light .tree.pine .crown {
+  background: linear-gradient(
+    to bottom,
+    #edf6f5 0 7%,
+    #477f61 8% 31%,
+    #edf6f5 32% 37%,
+    #477f61 38% 61%,
+    #edf6f5 62% 67%,
+    #477f61 68%
+  );
+}
+.hero.weather-snow.intensity-moderate .tree.pine .crown {
+  background: linear-gradient(
+    to bottom,
+    #edf6f5 0 12%,
+    #477f61 13% 28%,
+    #edf6f5 29% 40%,
+    #477f61 41% 56%,
+    #edf6f5 57% 69%,
+    #477f61 70%
+  );
+}
+.hero.weather-snow.intensity-heavy .tree.pine .crown {
+  background: linear-gradient(
+    to bottom,
+    #edf6f5 0 18%,
+    #477f61 19% 25%,
+    #edf6f5 26% 45%,
+    #477f61 46% 52%,
+    #edf6f5 53% 74%,
+    #477f61 75%
+  );
 }
 .weather {
   position: absolute;
