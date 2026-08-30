@@ -7,12 +7,25 @@ import { posts } from '../data/posts'
 
 export function Museum() {
   const photos = collections.filter((item) => item.category === 'photos')
-  const [featured] = useState(() => [...collections].sort(() => Math.random() - 0.5).slice(0, 2))
+  const [featured, setFeatured] = useState(() =>
+    [...collections].sort(() => Math.random() - 0.5).slice(0, 2),
+  )
+  const [flashing, setFlashing] = useState(false)
+  const refreshFeatured = () => {
+    setFlashing(true)
+    window.setTimeout(() => {
+      setFeatured([...collections].sort(() => Math.random() - 0.5).slice(0, 2))
+      setFlashing(false)
+    }, 240)
+  }
   return (
     <section className="museum section" id="museum">
       <div className="museum-copy">
         <p className="eyebrow">ISLAND COLLECTION</p>
-        <h2>岛上的小小博物馆</h2>
+        <h2 className="museum-home-title">
+          <Icon name="icon-camera" size={38} />
+          岛上的小小博物馆
+        </h2>
         <p>照片、游戏、书和音乐。喜欢的东西不必昂贵，只要在看到它时，心里会亮起一盏小灯。</p>
         <div className="stats">
           <span>
@@ -43,7 +56,16 @@ export function Museum() {
             </Link>
           )
         })}
-        <Icon name="icon-camera" size={34} className="camera" />
+        <button
+          className={`camera museum-refresh${flashing ? ' is-flashing' : ''}`}
+          type="button"
+          onClick={refreshFeatured}
+          aria-label="换一组博物馆展品"
+          title="换一组展品"
+        >
+          <Icon name="icon-camera" size={34} />
+          <i aria-hidden="true" />
+        </button>
       </div>
     </section>
   )

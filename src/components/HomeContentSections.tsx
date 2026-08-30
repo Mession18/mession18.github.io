@@ -1,5 +1,5 @@
 import { Icon } from 'animal-island-ui'
-import { ArrowRight, RefreshCw } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../data/contentSections'
@@ -7,6 +7,22 @@ import { getPostPreviewImage, type Post } from '../data/posts'
 
 function shuffled<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5)
+}
+
+function animateItemRefresh(button: HTMLButtonElement, action: () => void) {
+  button
+    .querySelector('img')
+    ?.animate(
+      [
+        { transform: 'rotate(0deg) scale(1)' },
+        { transform: 'rotate(-12deg) scale(1.08)' },
+        { transform: 'rotate(11deg) scale(1.08)' },
+        { transform: 'rotate(-7deg) scale(1.04)' },
+        { transform: 'rotate(0deg) scale(1)' },
+      ],
+      { duration: 420, easing: 'ease-in-out' },
+    )
+  window.setTimeout(action, 180)
 }
 
 function ContentImage({ item }: { item: Post }) {
@@ -17,21 +33,27 @@ function ContentImage({ item }: { item: Post }) {
 export function RecipeHomeSection() {
   const recipes = sectionContent.recipes
   const [choices, setChoices] = useState(() => shuffled(recipes).slice(0, 3))
-  const refresh = () => setChoices(shuffled(recipes).slice(0, 3))
+  const refresh = (button: HTMLButtonElement) =>
+    animateItemRefresh(button, () => setChoices(shuffled(recipes).slice(0, 3)))
   return (
     <section className="home-recipes home-content-section">
       <div className="home-content-inner">
         <div className="home-content-heading recipe-heading">
           <span className="home-content-icon">
-            <img src="/images/nav/cooking-recipe.png" alt="" />
+            <img src="/images/nav/cooking-recipe-transparent.png" alt="" />
           </span>
           <div>
             <p className="eyebrow">TODAY'S MENU</p>
             <h2>今天吃什么？</h2>
             <p>从岛上的菜谱中随机挑三样，不喜欢就再换一组。</p>
           </div>
-          <button type="button" onClick={refresh} disabled={!recipes.length}>
-            <RefreshCw size={16} /> 换一组
+          <button
+            className="item-refresh recipe-refresh"
+            type="button"
+            onClick={(event) => refresh(event.currentTarget)}
+            disabled={!recipes.length}
+          >
+            <img src="/images/nav/refresh-recipe-371.png" alt="" /> <span>换一组</span>
           </button>
         </div>
         <div className="recipe-choices">
@@ -51,7 +73,8 @@ export function RecipeHomeSection() {
 }
 
 export function CraftHomeSection() {
-  const crafts = sectionContent.crafts.slice(0, 3)
+  const allCrafts = sectionContent.crafts
+  const [crafts, setCrafts] = useState(() => shuffled(allCrafts).slice(0, 3))
   return (
     <section className="home-crafts home-content-section">
       <div className="home-content-inner craft-workbench">
@@ -60,6 +83,18 @@ export function CraftHomeSection() {
           <p className="eyebrow">TODAY'S WORKBENCH</p>
           <h2>岛民手作台</h2>
           <p>今天也把一点小灵感，做成可以留下来的东西。</p>
+          <button
+            className="item-refresh craft-refresh"
+            type="button"
+            onClick={(event) =>
+              animateItemRefresh(event.currentTarget, () =>
+                setCrafts(shuffled(allCrafts).slice(0, 3)),
+              )
+            }
+            disabled={!allCrafts.length}
+          >
+            <img src="/images/nav/refresh-craft-481.png" alt="" /> <span>换一批手作</span>
+          </button>
           <Link to="/crafts">
             进入工坊 <ArrowRight size={16} />
           </Link>
@@ -112,11 +147,14 @@ export function TravelHomeSection() {
         <div className="travel-controls">
           <span>下一站去哪里？</span>
           <button
+            className="item-refresh travel-refresh"
             type="button"
-            onClick={() => setIndex((value) => value + 1)}
+            onClick={(event) =>
+              animateItemRefresh(event.currentTarget, () => setIndex((value) => value + 1))
+            }
             disabled={travel.length < 2}
           >
-            <RefreshCw size={16} /> 换个目的地
+            <img src="/images/nav/refresh-travel-446.png" alt="" /> <span>换个目的地</span>
           </button>
           <Link to="/travel">全部旅行</Link>
         </div>
@@ -127,11 +165,12 @@ export function TravelHomeSection() {
 
 export function PlantingHomeSection() {
   const flowers = sectionContent.planting
-  const today = useMemo(
-    () =>
-      flowers.length ? flowers[Math.floor(Date.now() / 86400000) % flowers.length] : undefined,
+  const dailyIndex = useMemo(
+    () => (flowers.length ? Math.floor(Date.now() / 86400000) % flowers.length : 0),
     [flowers],
   )
+  const [flowerIndex, setFlowerIndex] = useState(dailyIndex)
+  const today = flowers[flowerIndex % Math.max(flowers.length, 1)]
   return (
     <section className="home-planting home-content-section">
       <div className="home-content-inner flower-garden">
@@ -140,6 +179,16 @@ export function PlantingHomeSection() {
           <p className="eyebrow">FLOWER OF THE DAY</p>
           <h2>今日小花</h2>
           <p>每天认识一位花园里的新朋友。</p>
+          <button
+            className="item-refresh flower-refresh"
+            type="button"
+            onClick={(event) =>
+              animateItemRefresh(event.currentTarget, () => setFlowerIndex((value) => value + 1))
+            }
+            disabled={flowers.length < 2}
+          >
+            <img src="/images/nav/refresh-flower-017.png" alt="" /> <span>换一朵花</span>
+          </button>
         </div>
         {today && (
           <Link className="flower-feature" to={`/planting/${today.slug}`}>
