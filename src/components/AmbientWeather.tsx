@@ -28,16 +28,21 @@ export function AmbientWeather() {
 
   const rainDrops = useMemo(
     () =>
-      Array.from({ length: 42 }, (_, index) => ({
-        id: index,
-        style: {
-          '--x': `${randomBetween(0, 100).toFixed(2)}vw`,
-          '--delay': `${randomBetween(-2.4, 0).toFixed(2)}s`,
-          '--duration': `${randomBetween(0.65, 1.05).toFixed(2)}s`,
-          '--length': `${randomBetween(14, 28).toFixed(0)}px`,
-          '--opacity': randomBetween(0.16, 0.38).toFixed(2),
-        } as ParticleStyle,
-      })),
+      Array.from({ length: 38 }, (_, index) => {
+        const size = randomBetween(3.5, 6)
+        return {
+          id: index,
+          style: {
+            '--x': `${randomBetween(0, 100).toFixed(2)}vw`,
+            '--landing': `${randomBetween(72, 103).toFixed(1)}vh`,
+            '--delay': `${randomBetween(-2.8, 0).toFixed(2)}s`,
+            '--duration': `${randomBetween(0.85, 1.35).toFixed(2)}s`,
+            '--size': `${size.toFixed(1)}px`,
+            '--height': `${(size * 1.45).toFixed(1)}px`,
+            '--opacity': randomBetween(0.2, 0.48).toFixed(2),
+          } as ParticleStyle,
+        }
+      }),
     [],
   )
 

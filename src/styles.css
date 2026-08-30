@@ -58,14 +58,32 @@ body {
 }
 .ambient-rain > i {
   position: absolute;
-  top: -35px;
+  top: -14px;
   left: var(--x);
-  width: 1px;
-  height: var(--length);
-  border-radius: 50%;
-  background: linear-gradient(transparent, rgb(166 210 230 / var(--opacity)));
-  transform: rotate(9deg);
+  width: var(--size);
+  height: var(--height);
+  border-radius: 55% 55% 62% 62%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    rgb(224 246 255 / var(--opacity)),
+    rgb(112 187 222 / var(--opacity)) 70%,
+    rgb(71 145 190 / var(--opacity))
+  );
+  box-shadow: inset 1px 0 1px rgb(255 255 255 / 22%);
   animation: ambient-rainfall var(--duration) linear var(--delay) infinite;
+}
+.ambient-rain > i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 6px;
+  border: 1px solid rgb(137 202 230 / 38%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.1);
+  animation: ambient-ripple var(--duration) ease-out var(--delay) infinite;
 }
 .ambient-snow > i {
   position: absolute;
@@ -105,8 +123,33 @@ body {
   transform-origin: right center;
 }
 @keyframes ambient-rainfall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
   to {
-    transform: translate3d(-16px, calc(100vh + 70px), 0) rotate(9deg);
+    opacity: 0;
+    transform: translate3d(0, var(--landing), 0);
+  }
+}
+@keyframes ambient-ripple {
+  0%,
+  82% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  88% {
+    opacity: 0.42;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.15);
   }
 }
 @keyframes ambient-snowfall {
