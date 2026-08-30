@@ -1520,9 +1520,61 @@ h1 em {
     transform: translate(-12px, -42px) scale(1.7);
   }
 }
+.reference-house {
+  position: absolute;
+  z-index: 5;
+  right: 19%;
+  bottom: 101px;
+  width: 200px;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 7px 0 #39745a24);
+}
+.reference-house .house-wall {
+  fill: #f2e6af;
+}
+.reference-house .house-chimney {
+  fill: #efd477;
+  stroke: #dfc365;
+  stroke-width: 2;
+}
+.reference-house .house-roof,
+.reference-house .house-gable-border {
+  fill: #d95b40;
+}
+.reference-house .house-gable {
+  fill: #f7ecc0;
+}
+.reference-house .house-attic-window rect,
+.reference-house .house-window rect {
+  fill: #fff8d7;
+  stroke: #e2d39a;
+  stroke-width: 2.5;
+}
+.reference-house .house-attic-window path,
+.reference-house .house-window path {
+  fill: none;
+  stroke: #e2d39a;
+  stroke-width: 2;
+}
+.reference-house .house-door {
+  fill: #b59261;
+  stroke: #e5d6a1;
+  stroke-width: 3;
+}
+.reference-house .house-doorknob {
+  fill: #8d714b;
+}
+.reference-house .house-foundation {
+  fill: #71684c;
+}
 .hero.time-dawn .house,
 .hero.time-evening .house {
   filter: brightness(0.76) saturate(0.86);
+}
+.hero.time-dawn .reference-house,
+.hero.time-evening .reference-house {
+  filter: brightness(0.76) saturate(0.86) drop-shadow(0 7px 0 #243f3524);
 }
 .hero.time-dawn .house .window,
 .hero.time-evening .house .window,
@@ -1530,6 +1582,13 @@ h1 em {
 .hero.time-evening .house .attic-window {
   background: #f8d978;
   box-shadow: 0 0 13px #ffd66a7a;
+}
+.hero.time-dawn .reference-house .house-window rect,
+.hero.time-dawn .reference-house .house-attic-window rect,
+.hero.time-evening .reference-house .house-window rect,
+.hero.time-evening .reference-house .house-attic-window rect {
+  fill: #f8d978;
+  filter: drop-shadow(0 0 7px #ffd66a);
 }
 .hero.time-dawn .ground,
 .hero.time-evening .ground,

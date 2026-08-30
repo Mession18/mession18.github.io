@@ -162,22 +162,36 @@ export function Hero() {
             <b />
           </span>
         </div>
-        <div className="house">
-          <span className="house-smoke" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
-          <i className="roof" />
-          <i className="chimney" />
-          <span className="gable" />
-          <span className="house-trim" aria-hidden="true" />
-          <span className="attic-window" />
-          <span className="window left-window" />
-          <span className="window right-window" />
-          <b className="door" />
-          <span className="step" />
-        </div>
+        <svg
+          className="reference-house"
+          viewBox="0 0 190 160"
+          role="img"
+          aria-label="红色屋顶的奶油色小屋"
+        >
+          <rect className="house-wall" x="30" y="78" width="130" height="72" rx="1" />
+          <rect className="house-chimney" x="125" y="43" width="20" height="31" rx="1" />
+          <path className="house-roof" d="M26 50H81L96 34L111 50H164L166 91H126L96 47L65 91H27Z" />
+          <path className="house-gable-border" d="M96 39L132 92H60Z" />
+          <path className="house-gable" d="M96 46L125 92H67Z" />
+          <g className="house-attic-window">
+            <rect x="86" y="66" width="20" height="21" rx="1" />
+            <path d="M96 67V86M87 76.5H105" />
+          </g>
+          <g className="house-window house-window-left">
+            <rect x="40" y="104" width="14" height="23" rx="1" />
+            <path d="M47 105V126M41 115.5H53" />
+          </g>
+          <g className="house-window house-window-right">
+            <rect x="137" y="104" width="14" height="23" rx="1" />
+            <path d="M144 105V126M138 115.5H150" />
+          </g>
+          <path
+            className="house-door"
+            d="M79 150V114C79 103 86 97 96 97C106 97 113 103 113 114V150Z"
+          />
+          <circle className="house-doorknob" cx="107" cy="124" r="1.8" />
+          <path className="house-foundation" d="M30 147H76V152H30ZM116 147H160V152H116Z" />
+        </svg>
       </div>
       <div className="weather">
         <div className="weather-summary">
