@@ -3,7 +3,7 @@ import { Icon, type IconName } from 'animal-island-ui'
 const icons: Record<string, { image?: string; icon?: IconName }> = {
   posts: { image: '/images/nav/article-461.png' },
   museum: { icon: 'icon-camera' },
-  recipes: { image: '/images/nav/cooking-recipe-transparent.png' },
+  recipes: { image: '/images/nav/cooking-recipe.png' },
   crafts: { icon: 'icon-diy' },
   travel: { icon: 'icon-miles' },
   planting: { image: '/images/nav/planting-073.png' },

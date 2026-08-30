@@ -1,4 +1,4 @@
-import { Icon, Typewriter, type IconName } from 'animal-island-ui'
+import { Icon, Image, Typewriter, type IconName } from 'animal-island-ui'
 import { icons } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -8,6 +8,16 @@ export function MarkdownContent({ children }: { children: string }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
+        img({ src = '', alt = '' }) {
+          return (
+            <Image
+              src={src}
+              alt={alt}
+              preview
+              className="markdown-preview-image detail-preview-image"
+            />
+          )
+        },
         a({ href = '', children: label }) {
           if (href.startsWith('lucide:')) {
             const name = href.slice(7) as keyof typeof icons

@@ -63,7 +63,8 @@ export function Museum() {
           aria-label="换一组博物馆展品"
           title="换一组展品"
         >
-          <Icon name="icon-camera" size={34} />
+          <Icon name="icon-camera" size={30} />
+          <span>换一组</span>
           <i aria-hidden="true" />
         </button>
       </div>

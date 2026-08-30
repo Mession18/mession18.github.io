@@ -28,7 +28,7 @@ const navItems = [
     to: '/recipes',
     label: '菜谱',
     match: (path: string) => path.startsWith('/recipes'),
-    image: '/images/nav/cooking-recipe-transparent.png',
+    image: '/images/nav/cooking-recipe.png',
   },
   {
     to: '/crafts',

@@ -20,6 +20,44 @@ export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
       </div>
     )
   const image = getPostDetailImage(item)
+  if (section === 'recipes' || section === 'crafts')
+    return (
+      <article className={`collection-detail tutorial-detail tutorial-${section}`}>
+        <Link className="back-link" to={`/${section}`}>
+          <ArrowLeft size={16} /> 全部{info.title}
+        </Link>
+        <div className="collection-detail-grid">
+          <div
+            className={`collection-feature collection-${item.color} ${image ? 'has-image' : ''}`}
+          >
+            {image ? (
+              <Image src={image} alt={item.title} preview className="detail-preview-image" />
+            ) : (
+              <span>{item.icon}</span>
+            )}
+            <small>{section === 'recipes' ? 'ISLAND RECIPE' : 'ISLAND DIY'}</small>
+          </div>
+          <div className="collection-info tutorial-info">
+            <Tag size="small" variant="soft" color="app-green">
+              {item.tag}
+            </Tag>
+            <h1>{item.title}</h1>
+            <p className="collection-subtitle">{item.excerpt}</p>
+            <div className="collection-meta">
+              <span>
+                <CalendarDays size={15} /> {item.publishedAt}
+              </span>
+              <span>
+                <Clock3 size={15} /> {item.readingTime} 分钟阅读
+              </span>
+            </div>
+            <div className="tutorial-content">
+              <MarkdownContent>{item.content}</MarkdownContent>
+            </div>
+          </div>
+        </div>
+      </article>
+    )
   return (
     <article className="article-page">
       <Link className="back-link" to={`/${section}`}>

@@ -40,7 +40,7 @@ export function RecipeHomeSection() {
       <div className="home-content-inner">
         <div className="home-content-heading recipe-heading">
           <span className="home-content-icon">
-            <img src="/images/nav/cooking-recipe-transparent.png" alt="" />
+            <img src="/images/nav/cooking-recipe.png" alt="" />
           </span>
           <div>
             <p className="eyebrow">TODAY'S MENU</p>
