@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AmbientWeather } from './components/AmbientWeather'
+import { IslandCat } from './components/IslandCat'
 import { HomePage } from './pages/HomePage'
 import { CollectionDetailPage } from './pages/CollectionDetailPage'
 import { MuseumPage } from './pages/MuseumPage'
@@ -74,6 +75,7 @@ export function App() {
       </div>
       <AmbientWeather />
       <Header pathname={displayLocation.pathname} hash={displayLocation.hash} />
+      <IslandCat />
       <div className="route-transition" key={displayLocation.pathname}>
         <Routes location={displayLocation}>
           <Route path="/" element={<HomePage />} />

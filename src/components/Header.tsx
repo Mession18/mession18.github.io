@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { searchEntries } from '../data/search'
 import { WeatherTestPanel } from './WeatherTestPanel'
 import { Icon } from 'animal-island-ui'
+import { MusicPlayer } from './MusicPlayer'
 
 const navItems = [
   {
@@ -124,6 +125,7 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
           >
             <Search size={19} />
           </button>
+          <MusicPlayer />
         </div>
       </header>
       {searchOpen && (
