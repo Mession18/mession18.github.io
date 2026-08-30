@@ -1642,6 +1642,26 @@ h1 em {
 .reference-house .house-gable {
   fill: #f7ecc0;
 }
+.reference-house .house-roof-snow {
+  display: none;
+  fill: none;
+  stroke: #f5fbfc;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 0 #cddfe2);
+}
+.hero.weather-snow .reference-house .house-roof-snow {
+  display: block;
+}
+.hero.weather-snow.intensity-light .reference-house .house-roof-snow {
+  stroke-width: 3px;
+}
+.hero.weather-snow.intensity-moderate .reference-house .house-roof-snow {
+  stroke-width: 7px;
+}
+.hero.weather-snow.intensity-heavy .reference-house .house-roof-snow {
+  stroke-width: 12px;
+}
 .reference-house .house-attic-window rect,
 .reference-house .house-window rect {
   fill: #fff8d7;
@@ -1709,8 +1729,31 @@ h1 em {
 .hero.weather-snow .ground:before {
   background: #dce9e4;
 }
+.hero.weather-snow .ground {
+  --snow-ground-depth: 28px;
+  background: linear-gradient(
+    to bottom,
+    #e8f1ef 0 var(--snow-ground-depth),
+    #739d7c var(--snow-ground-depth) 100%
+  );
+}
+.hero.weather-snow.intensity-moderate .ground {
+  --snow-ground-depth: 62px;
+}
+.hero.weather-snow.intensity-heavy .ground {
+  --snow-ground-depth: 108px;
+}
 .hero.weather-snow .ground:before {
   border-top-color: #f2f7ef;
+}
+.hero.weather-snow.intensity-light .ground:before {
+  border-top-width: 5px;
+}
+.hero.weather-snow.intensity-moderate .ground:before {
+  border-top-width: 11px;
+}
+.hero.weather-snow.intensity-heavy .ground:before {
+  border-top-width: 18px;
 }
 .hero.weather-snow .horizon-forest,
 .hero.weather-snow .tree {

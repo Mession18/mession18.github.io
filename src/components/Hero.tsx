@@ -108,7 +108,7 @@ export function Hero() {
         : weatherLabels[weather.kind]
   return (
     <section
-      className={`hero weather-${weather.kind} time-${scenePeriod}${weather.loading ? ' weather-pending' : ''}`}
+      className={`hero weather-${weather.kind} intensity-${weather.intensity} time-${scenePeriod}${weather.loading ? ' weather-pending' : ''}`}
       id="top"
     >
       <div className="sky-stars" aria-hidden="true" />
@@ -180,6 +180,7 @@ export function Hero() {
           <path className="house-roof" d="M26 50H81L96 34L111 50H164L166 91H126L96 47L65 91H27Z" />
           <path className="house-gable-border" d="M96 39L132 92H60Z" />
           <path className="house-gable" d="M96 46L129 97H63Z" />
+          <path className="house-roof-snow" d="M27 51H81L96 35L111 51H164M61 91L96 40L131 91" />
           <g className="house-attic-window">
             <rect x="86" y="66" width="20" height="21" rx="1" />
             <path d="M96 67V86M87 76.5H105" />
