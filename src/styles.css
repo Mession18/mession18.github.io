@@ -381,21 +381,27 @@ a {
 }
 nav {
   display: flex;
-  gap: 18px;
+  gap: 13px;
   font-size: 14px;
   font-weight: 700;
 }
 nav a {
-  display: grid;
+  display: flex;
+  gap: 5px;
   place-items: center;
-  width: 34px;
+  align-items: center;
+  width: auto;
   height: 42px;
+  white-space: nowrap;
 }
 nav a img,
-nav a > span {
+nav a > span:not(.nav-label) {
   width: 28px;
   height: 28px;
   object-fit: contain;
+}
+.nav-label {
+  font-size: 13px;
 }
 nav a {
   opacity: 0.78;
@@ -1969,6 +1975,152 @@ h1 em {
   color: var(--dark);
   margin-top: 18px;
 }
+.island-directory {
+  max-width: 1220px;
+}
+.directory-heading {
+  align-items: end;
+}
+.directory-heading > p {
+  max-width: 390px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: right;
+}
+.directory-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 22px;
+}
+.directory-card {
+  position: relative;
+  display: flex;
+  min-height: 210px;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;
+  padding: 32px;
+  color: #4d4a3f;
+  transition: 0.25s ease;
+}
+.directory-card:hover {
+  transform: translateY(-6px);
+}
+.directory-card::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+.directory-icon {
+  z-index: 1;
+  display: grid;
+  width: 84px;
+  height: 84px;
+  flex: 0 0 84px;
+  place-items: center;
+}
+.directory-icon img,
+.directory-icon > span {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.directory-copy {
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.directory-copy small {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  opacity: 0.65;
+}
+.directory-copy strong {
+  margin: 4px 0 8px;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 34px;
+  font-weight: 400;
+}
+.directory-copy em {
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.7;
+}
+.directory-copy b {
+  max-width: 270px;
+  overflow: hidden;
+  margin-top: 18px;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+.directory-arrow {
+  z-index: 1;
+  align-self: flex-end;
+  margin-left: auto;
+}
+.directory-recipes {
+  border: 2px solid #d8ae6b;
+  border-radius: 18px 46px 18px 46px;
+  background: #fff3cf;
+  box-shadow:
+    inset 0 0 0 7px #fff9e7,
+    var(--shadow);
+  transform: rotate(-0.4deg);
+}
+.directory-recipes::after {
+  inset: 12px;
+  border: 1px dashed #d5b676;
+  border-radius: 12px 36px;
+}
+.directory-crafts {
+  border-radius: 12px;
+  background: #f2d9d2;
+  box-shadow:
+    9px 9px 0 #d5b2ac,
+    var(--shadow);
+  transform: rotate(0.5deg);
+}
+.directory-crafts::after {
+  inset: 10px;
+  border: 2px dashed #fff8ef;
+  border-radius: 7px;
+}
+.directory-travel {
+  border-radius: 30px 8px 30px 8px;
+  background: #cce9ee;
+  box-shadow: var(--shadow);
+}
+.directory-travel::after {
+  top: 0;
+  bottom: 0;
+  left: 122px;
+  border-left: 2px dashed #83b9c1;
+}
+.directory-travel .directory-icon {
+  transform: rotate(-8deg);
+}
+.directory-planting {
+  border: 3px solid #fff6d9;
+  border-radius: 50px 50px 18px 18px;
+  background: #b9ddb3;
+  box-shadow:
+    0 9px 0 #81b587,
+    var(--shadow);
+}
+.directory-planting::after {
+  right: -22px;
+  bottom: -34px;
+  width: 150px;
+  height: 95px;
+  border-radius: 50%;
+  background: #8fc39566;
+}
 .museum {
   max-width: none;
   background: #e6f1df;
@@ -3391,13 +3543,33 @@ footer {
     bottom: 10px;
     left: 10px;
     display: flex;
-    justify-content: space-around;
-    gap: 2px;
+    justify-content: flex-start;
+    gap: 4px;
+    overflow-x: auto;
     padding: 7px 8px;
     border-radius: 22px;
     background: #315f52e8;
     box-shadow: 0 8px 25px #1d332b40;
     backdrop-filter: blur(12px);
+    scrollbar-width: none;
+  }
+  .topbar nav::-webkit-scrollbar {
+    display: none;
+  }
+  .topbar nav a {
+    min-width: 65px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    height: 52px;
+  }
+  .topbar nav a img,
+  .topbar nav a > span:not(.nav-label) {
+    width: 25px;
+    height: 25px;
+  }
+  .topbar nav .nav-label {
+    font-size: 10px;
   }
   .topbar nav a.active::after {
     bottom: 1px;
@@ -3422,6 +3594,16 @@ footer {
     bottom: 55px;
   }
   .post-grid {
+    grid-template-columns: 1fr;
+  }
+  .directory-heading {
+    align-items: start;
+    gap: 15px;
+  }
+  .directory-heading > p {
+    text-align: left;
+  }
+  .directory-grid {
     grid-template-columns: 1fr;
   }
   .collection-grid {
@@ -3459,6 +3641,27 @@ footer {
   .topbar {
     padding-left: 18px;
     padding-right: 18px;
+  }
+  .directory-card {
+    min-height: 190px;
+    gap: 15px;
+    padding: 25px 20px;
+  }
+  .directory-icon {
+    width: 65px;
+    height: 65px;
+    flex-basis: 65px;
+  }
+  .directory-icon img,
+  .directory-icon > span {
+    width: 58px;
+    height: 58px;
+  }
+  .directory-copy strong {
+    font-size: 29px;
+  }
+  .directory-travel::after {
+    left: 91px;
   }
   .brand {
     font-size: 15px;

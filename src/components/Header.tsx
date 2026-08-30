@@ -46,7 +46,7 @@ const navItems = [
     to: '/planting',
     label: '种植',
     match: (path: string) => path.startsWith('/planting'),
-    icon: 'icon-critterpedia',
+    image: '/images/nav/planting-073.png',
   },
   {
     to: '/#about',
@@ -110,6 +110,7 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
               ) : (
                 <Icon name={item.icon} size={28} />
               )}
+              <span className="nav-label">{item.label}</span>
             </Link>
           ))}
         </nav>

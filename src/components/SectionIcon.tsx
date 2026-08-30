@@ -6,7 +6,7 @@ const icons: Record<string, { image?: string; icon?: IconName }> = {
   recipes: { image: '/images/nav/cooking-recipe.png' },
   crafts: { icon: 'icon-diy' },
   travel: { icon: 'icon-miles' },
-  planting: { icon: 'icon-critterpedia' },
+  planting: { image: '/images/nav/planting-073.png' },
 }
 export function SectionIcon({ section }: { section: string }) {
   const item = icons[section]
