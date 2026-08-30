@@ -1336,6 +1336,9 @@ h1 em {
   );
   background: #477f61;
 }
+.horizon-forest i:nth-child(9) {
+  visibility: hidden;
+}
 .ground {
   position: absolute;
   left: -2%;
@@ -1762,38 +1765,23 @@ h1 em {
 .hero.weather-snow .horizon-forest i::after {
   box-shadow: inset 0 var(--tree-snow-depth) 0 #edf6f5;
 }
-.hero.weather-snow.intensity-light .tree.pine .crown {
-  background: linear-gradient(
-    to bottom,
-    #edf6f5 0 7%,
-    #477f61 8% 31%,
-    #edf6f5 32% 37%,
-    #477f61 38% 61%,
-    #edf6f5 62% 67%,
-    #477f61 68%
-  );
+.hero.weather-snow .tree.pine .crown {
+  --pine-snow-edge: 4px;
+  background: #edf6f5;
 }
 .hero.weather-snow.intensity-moderate .tree.pine .crown {
-  background: linear-gradient(
-    to bottom,
-    #edf6f5 0 12%,
-    #477f61 13% 28%,
-    #edf6f5 29% 40%,
-    #477f61 41% 56%,
-    #edf6f5 57% 69%,
-    #477f61 70%
-  );
+  --pine-snow-edge: 7px;
 }
 .hero.weather-snow.intensity-heavy .tree.pine .crown {
-  background: linear-gradient(
-    to bottom,
-    #edf6f5 0 18%,
-    #477f61 19% 25%,
-    #edf6f5 26% 45%,
-    #477f61 46% 52%,
-    #edf6f5 53% 74%,
-    #477f61 75%
-  );
+  --pine-snow-edge: 11px;
+}
+.hero.weather-snow .tree.pine .crown::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #477f61;
+  clip-path: inherit;
+  transform: translateY(var(--pine-snow-edge));
 }
 .weather {
   position: absolute;
@@ -2854,6 +2842,77 @@ h1 em {
   color: #574f45;
   font-size: 15px;
   line-height: 2;
+}
+.markdown-inline-icon {
+  display: inline-block;
+  vertical-align: -0.25em;
+  margin: 0 3px;
+}
+.markdown-island-panel {
+  margin: 22px 0;
+  padding: 15px 18px;
+  border-left: 5px solid #62aa91;
+  border-radius: 0 18px 18px 0;
+  background: #eef8ef;
+}
+.article-body table,
+.collection-info table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.article-body th,
+.article-body td,
+.collection-info th,
+.collection-info td {
+  padding: 10px 13px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.article-body th,
+.collection-info th {
+  background: #eaf5e9;
+  color: var(--dark);
+}
+.article-body input[type='checkbox'],
+.collection-info input[type='checkbox'] {
+  accent-color: #62aa91;
+  transform: scale(1.15);
+}
+.island-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 38px auto 0;
+}
+.island-pagination button,
+.island-pagination select {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--dark);
+  padding: 9px 13px;
+}
+.island-pagination button {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.island-pagination button:disabled {
+  opacity: 0.35;
+}
+.island-pagination label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
 }
 .article-body h2,
 .article-body h3 {

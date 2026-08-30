@@ -1,8 +1,8 @@
 import { Image, Tag } from 'animal-island-ui'
 import { ArrowLeft, CalendarDays, Clock3 } from 'lucide-react'
-import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
 import { getPostDetailImage, posts } from '../data/posts'
+import { MarkdownContent } from '../components/MarkdownContent'
 
 export function PostDetailPage() {
   const { slug } = useParams()
@@ -47,7 +47,7 @@ export function PostDetailPage() {
         </figure>
       )}
       <div className="article-body">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
+        <MarkdownContent>{post.content}</MarkdownContent>
       </div>
       <footer className="article-ending">
         <span>END OF LETTER</span>

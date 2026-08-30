@@ -1,8 +1,8 @@
 import { Image, Tag } from 'animal-island-ui'
 import { ArrowLeft, CalendarDays, Star } from 'lucide-react'
-import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
 import { categoryLabels, collections, getCollectionDetailImage } from '../data/collections'
+import { MarkdownContent } from '../components/MarkdownContent'
 
 export function CollectionDetailPage() {
   const { category, slug } = useParams()
@@ -50,7 +50,7 @@ export function CollectionDetailPage() {
               <Star size={15} fill="currentColor" /> {item.rating} / 5
             </span>
           </div>
-          <ReactMarkdown>{item.content}</ReactMarkdown>
+          <MarkdownContent>{item.content}</MarkdownContent>
         </div>
       </div>
     </article>

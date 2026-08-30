@@ -13,13 +13,9 @@ import {
   Utensils,
 } from 'lucide-react'
 import { travelStamps, type TravelStamp } from '../data/travelStamps'
-import cnFlag from 'flag-icons/flags/4x3/cn.svg'
-import hkFlag from 'flag-icons/flags/4x3/hk.svg'
-import krFlag from 'flag-icons/flags/4x3/kr.svg'
-import moFlag from 'flag-icons/flags/4x3/mo.svg'
+import { countryFlags } from '../data/countryFlags'
 
 const STAMPS_PER_PAGE = 6
-const countryFlags: Record<string, string> = { cn: cnFlag, hk: hkFlag, kr: krFlag, mo: moFlag }
 const mrzLines = [
   'P<WCI<MESSION<<ISLANDER<<<<<<<<<<<<<<<<<<<<<',
   'WCI0818M<8WCI0108189X3108187<<<<<<<<<<<<<<08',
