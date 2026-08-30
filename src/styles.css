@@ -2979,6 +2979,7 @@ h1 em {
 .detail-preview-image img {
   position: static !important;
   display: block !important;
+  opacity: 1 !important;
   width: auto !important;
   height: auto !important;
   max-width: 100% !important;
