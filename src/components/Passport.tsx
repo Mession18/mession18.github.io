@@ -259,19 +259,21 @@ export function Passport() {
       </div>
       <div className="passport-book">
         <div className="passport-card-stage">
-          <article
-            key={page}
-            className={`passport-card page-turn-${direction}`}
-            aria-label={`岛民护照第 ${page + 1} 页`}
-          >
-            {page === 0 ? (
-              <IdentityPage />
-            ) : page === totalPages - 1 ? (
-              <JourneySummaryPage />
-            ) : (
-              <VisaPage stamps={pageStamps} pageNumber={page} />
-            )}
-          </article>
+          <div className="passport-card-scaler">
+            <article
+              key={page}
+              className={`passport-card page-turn-${direction}`}
+              aria-label={`岛民护照第 ${page + 1} 页`}
+            >
+              {page === 0 ? (
+                <IdentityPage />
+              ) : page === totalPages - 1 ? (
+                <JourneySummaryPage />
+              ) : (
+                <VisaPage stamps={pageStamps} pageNumber={page} />
+              )}
+            </article>
+          </div>
         </div>
         <div className="passport-controls vertical-controls">
           <button onClick={() => turnPage(page - 1)} disabled={page === 0} aria-label="向上翻页">
