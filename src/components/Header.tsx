@@ -1,8 +1,8 @@
 import { Leaf, Moon, Search, Sparkles, Sun, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { posts } from '../data/posts'
+import { Link } from 'react-router-dom'
 import { useTheme, type ThemeMode } from '../context/ThemeContext'
+import { searchEntries } from '../data/search'
 
 const themeOptions: Array<{ mode: ThemeMode; label: string; icon: typeof Sun }> = [
   { mode: 'day', label: '白天', icon: Sun },
@@ -10,8 +10,7 @@ const themeOptions: Array<{ mode: ThemeMode; label: string; icon: typeof Sun }> 
   { mode: 'night', label: '夜间', icon: Moon },
 ]
 
-export function Header() {
-  const { pathname, hash } = useLocation()
+export function Header({ pathname, hash }: { pathname: string; hash: string }) {
   const { mode, setMode } = useTheme()
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
@@ -36,14 +35,8 @@ export function Header() {
 
   const results = useMemo(() => {
     const keyword = query.trim().toLocaleLowerCase('zh-CN')
-    if (!keyword) return posts.slice(0, 5)
-    return posts
-      .filter((post) =>
-        `${post.title} ${post.excerpt} ${post.tag} ${post.content}`
-          .toLocaleLowerCase('zh-CN')
-          .includes(keyword),
-      )
-      .slice(0, 8)
+    if (!keyword) return searchEntries.slice(0, 8)
+    return searchEntries.filter((entry) => entry.searchText.includes(keyword)).slice(0, 8)
   }, [query])
 
   const showSectionHeader = isHome && (Boolean(hash) || scrolled)
@@ -93,7 +86,7 @@ export function Header() {
           <button
             className="search"
             type="button"
-            aria-label="搜索文章"
+            aria-label="搜索全站内容"
             onClick={() => setSearchOpen(true)}
           >
             <Search size={19} />
@@ -112,12 +105,12 @@ export function Header() {
             className="search-dialog"
             role="dialog"
             aria-modal="true"
-            aria-label="搜索岛民日志"
+            aria-label="搜索风铃岛"
           >
             <header>
               <div>
-                <span>SEARCH ISLAND LETTERS</span>
-                <h2>搜索岛民日志</h2>
+                <span>SEARCH THE ISLAND</span>
+                <h2>搜索风铃岛</h2>
               </div>
               <button type="button" onClick={() => setSearchOpen(false)} aria-label="关闭搜索">
                 <X size={20} />
@@ -134,27 +127,25 @@ export function Header() {
             </label>
             <div className="search-results">
               {results.length ? (
-                results.map((post) => (
+                results.map((entry) => (
                   <Link
-                    key={post.slug}
-                    to={`/posts/${post.slug}`}
+                    key={entry.id}
+                    to={entry.href}
                     onClick={() => {
                       setSearchOpen(false)
                       setQuery('')
                     }}
                   >
-                    <span className={`search-result-icon ${post.color}`}>{post.icon}</span>
+                    <span className={`search-result-icon ${entry.color}`}>{entry.icon}</span>
                     <span>
-                      <b>{post.title}</b>
-                      <small>
-                        {post.tag} · {post.publishedAt}
-                      </small>
-                      <em>{post.excerpt}</em>
+                      <b>{entry.title}</b>
+                      <small>{entry.meta}</small>
+                      <em>{entry.excerpt}</em>
                     </span>
                   </Link>
                 ))
               ) : (
-                <p className="search-empty">没有找到这封信，换个关键词试试吧。</p>
+                <p className="search-empty">没有找到相关内容，换个关键词试试吧。</p>
               )}
             </div>
           </section>

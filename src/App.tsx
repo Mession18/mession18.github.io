@@ -10,19 +10,26 @@ import { MuseumPage } from './pages/MuseumPage'
 import { PostDetailPage } from './pages/PostDetailPage'
 import { PostsPage } from './pages/PostsPage'
 
+function getRouteSection(pathname: string) {
+  if (pathname.startsWith('/posts')) return 'posts'
+  if (pathname.startsWith('/museum')) return 'museum'
+  return 'home'
+}
+
 export function App() {
   const location = useLocation()
-  const previousPathname = useRef(location.pathname)
+  const previousSection = useRef(getRouteSection(location.pathname))
   const [displayLocation, setDisplayLocation] = useState(location)
   const [loadingVisible, setLoadingVisible] = useState(false)
   const [loadingActive, setLoadingActive] = useState(true)
 
   useLayoutEffect(() => {
-    if (previousPathname.current === location.pathname) {
+    const nextSection = getRouteSection(location.pathname)
+    if (previousSection.current === nextSection) {
       setDisplayLocation(location)
       return
     }
-    previousPathname.current = location.pathname
+    previousSection.current = nextSection
     setLoadingActive(true)
     setLoadingVisible(false)
 
@@ -61,7 +68,7 @@ export function App() {
         <Loading active={loadingActive} className="island-opening-loading" />
       </div>
       <AmbientWeather />
-      <Header />
+      <Header pathname={displayLocation.pathname} hash={displayLocation.hash} />
       <div className="route-transition" key={displayLocation.pathname}>
         <Routes location={displayLocation}>
           <Route path="/" element={<HomePage />} />
