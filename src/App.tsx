@@ -1,5 +1,5 @@
 import { BackTop, Loading } from 'animal-island-ui'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -12,21 +12,23 @@ import { PostsPage } from './pages/PostsPage'
 
 export function App() {
   const location = useLocation()
-  const [showLoading, setShowLoading] = useState(
-    () => window.sessionStorage.getItem('island-opening-seen') !== 'true',
-  )
-  const [loadingActive, setLoadingActive] = useState(showLoading)
+  const previousPathname = useRef(location.pathname)
+  const [showLoading, setShowLoading] = useState(false)
+  const [loadingActive, setLoadingActive] = useState(false)
 
   useEffect(() => {
-    if (!showLoading) return
-    window.sessionStorage.setItem('island-opening-seen', 'true')
+    if (previousPathname.current === location.pathname) return
+    previousPathname.current = location.pathname
+    setShowLoading(true)
+    setLoadingActive(true)
+
     const closeTimer = window.setTimeout(() => setLoadingActive(false), 450)
     const removeTimer = window.setTimeout(() => setShowLoading(false), 950)
     return () => {
       window.clearTimeout(closeTimer)
       window.clearTimeout(removeTimer)
     }
-  }, [showLoading])
+  }, [location.pathname])
 
   useLayoutEffect(() => {
     if (location.hash) {

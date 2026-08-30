@@ -1566,13 +1566,19 @@ h1 em {
   bottom: 30px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: #ffffffdf;
   color: var(--ink);
-  padding: 12px 16px;
+  padding: 10px 12px 10px 15px;
   border-radius: 16px;
   box-shadow: var(--shadow);
   font-size: 11px;
+}
+.weather-summary {
+  display: flex;
+  min-width: 142px;
+  align-items: center;
+  gap: 11px;
 }
 .weather-loading {
   animation: weather-spin 1.2s linear infinite;
@@ -1582,20 +1588,39 @@ h1 em {
     transform: rotate(360deg);
   }
 }
-.weather span {
+.weather-summary span {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
 }
-.weather time {
-  padding-left: 15px;
+.weather-summary b {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.weather-summary small {
+  color: #6f766f;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.weather-clock {
+  display: flex;
+  width: 118px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-left: 12px;
   border-left: 1px solid var(--line);
-  font-weight: 800;
 }
 .weather-game-time {
-  margin: -38px -35px -38px -20px;
+  flex: 0 0 auto;
+  margin: -32px -30px;
   padding: 0 !important;
-  transform: scale(0.48);
-  transform-origin: center right;
+  transform: scale(0.43);
+  transform-origin: center;
 }
 .section {
   max-width: 1160px;

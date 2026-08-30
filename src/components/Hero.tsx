@@ -180,14 +180,20 @@ export function Hero() {
         </div>
       </div>
       <div className="weather">
-        <WeatherIcon kind={weather.kind} period={scenePeriod} loading={weather.loading} />
-        <span>
-          <b>
-            {weather.temperature}°C · {weather.city}
-          </b>
-          {weather.loading ? '正在获取当地天气' : `${weatherLabels[weather.kind]} · ${windLabel}`}
-        </span>
-        <Time type="game" className="weather-game-time" />
+        <div className="weather-summary">
+          <WeatherIcon kind={weather.kind} period={scenePeriod} loading={weather.loading} />
+          <span>
+            <b>{weather.city}</b>
+            <small>
+              {weather.loading
+                ? '正在获取当地天气'
+                : `${weather.temperature}°C · ${weatherLabels[weather.kind]} · ${windLabel}`}
+            </small>
+          </span>
+        </div>
+        <div className="weather-clock">
+          <Time type="game" className="weather-game-time" />
+        </div>
       </div>
     </section>
   )
