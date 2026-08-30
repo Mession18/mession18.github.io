@@ -26,7 +26,9 @@ export function PostDetailPage() {
       </Link>
       <header className={`article-header ${post.color}`}>
         <span className="article-icon">{post.icon}</span>
-        <span className="tag">{post.tag}</span>
+        <Tag size="small" variant="soft" color="app-green" className="article-island-tag">
+          {post.tag}
+        </Tag>
         <h1>{post.title}</h1>
         <p>{post.excerpt}</p>
         <div>
@@ -54,3 +56,4 @@ export function PostDetailPage() {
     </article>
   )
 }
+import { Tag } from 'animal-island-ui'

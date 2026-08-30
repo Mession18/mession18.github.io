@@ -26,6 +26,13 @@
   --line: #3a444e;
   --shadow: 0 16px 40px #05080c42;
   color-scheme: dark;
+  --animal-text-color: #e8e4dc;
+  --animal-text-color-secondary: #aaa9a5;
+  --animal-text-color-muted: #aaa9a5;
+  --animal-border-color: #526058;
+  --animal-border-color-light: #3a444e;
+  --animal-bg-color: #222a33;
+  --animal-bg-color-secondary: #29343c;
 }
 * {
   box-sizing: border-box;
@@ -186,6 +193,15 @@ body {
 }
 .route-transition {
   animation: route-enter 0.42s ease both;
+}
+.island-section-divider {
+  width: min(760px, calc(100% - 48px));
+  margin: -6px auto;
+  opacity: 0.68;
+}
+[data-theme='night'] .island-section-divider {
+  opacity: 0.46;
+  filter: saturate(0.72) brightness(0.92);
 }
 @keyframes route-enter {
   from {
@@ -1651,6 +1667,9 @@ h1 em {
 .post-body {
   padding: 25px;
 }
+.island-ui-tag {
+  vertical-align: middle;
+}
 .tag {
   font-size: 11px;
   background: #edf5e9;
@@ -1783,11 +1802,10 @@ h1 em {
   font-weight: 400;
   margin: 0 0 18px;
 }
-.passport-intro h2 img {
-  width: 31px;
-  height: 46px;
+.passport-heading-icon {
+  width: 29px !important;
+  height: 43px !important;
   flex: 0 0 auto;
-  object-fit: contain;
   filter: drop-shadow(0 5px 5px #4c3c3324);
 }
 .passport-intro > p:not(.eyebrow) {
@@ -2123,8 +2141,12 @@ h1 em {
 .summary-title {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 14px;
   margin: 25px 0 18px;
+}
+.summary-title-icon {
+  flex: 0 0 auto;
+  filter: drop-shadow(0 5px 6px #4c3c3320);
 }
 .summary-title p {
   margin: 0;
@@ -2213,6 +2235,9 @@ h1 em {
 .passport-book {
   min-width: 0;
   perspective: 1400px;
+}
+.passport-card-stage {
+  min-width: 0;
 }
 .passport-page {
   height: 100%;
@@ -2501,6 +2526,10 @@ h1 em {
 .article-header .tag {
   background: #edf5e9;
   color: #38735c;
+}
+.article-island-tag {
+  position: relative;
+  z-index: 1;
 }
 .article-header > p {
   margin: auto;
@@ -3123,11 +3152,23 @@ footer {
     width: 320px;
   }
   .passport-card {
-    aspect-ratio: auto;
-    padding: 22px;
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 200%;
+    height: 200%;
+    min-height: 0;
+    aspect-ratio: 125 / 82;
+    padding: 26px 30px 20px;
+    transform-origin: top left;
+    scale: 0.5;
+  }
+  .passport-card-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 125 / 82;
   }
   .passport-page {
-    min-height: 525px;
+    min-height: 415px;
   }
   .passport-profile {
     grid-template-columns: 105px 1fr;

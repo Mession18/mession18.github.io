@@ -16,7 +16,9 @@ export function PostCard({ post }: { post: Post }) {
         <time dateTime={post.publishedAt}>{post.date}</time>
       </Link>
       <div className="post-body">
-        <span className="tag">{post.tag}</span>
+        <Tag size="small" variant="soft" color="app-green" className="island-ui-tag">
+          {post.tag}
+        </Tag>
         <h3>
           <Link to={`/posts/${post.slug}`}>{post.title}</Link>
         </h3>
@@ -28,3 +30,4 @@ export function PostCard({ post }: { post: Post }) {
     </article>
   )
 }
+import { Tag } from 'animal-island-ui'

@@ -32,7 +32,9 @@ export function CollectionDetailPage() {
           <small>COLLECTION · {item.id}</small>
         </div>
         <div className="collection-info">
-          <span className="tag">{categoryLabels[item.category]}</span>
+          <Tag size="small" variant="soft" color="app-green" className="island-ui-tag">
+            {categoryLabels[item.category]}
+          </Tag>
           <h1>{item.title}</h1>
           <p className="collection-subtitle">{item.subtitle}</p>
           <div className="collection-meta">
@@ -49,3 +51,4 @@ export function CollectionDetailPage() {
     </article>
   )
 }
+import { Tag } from 'animal-island-ui'

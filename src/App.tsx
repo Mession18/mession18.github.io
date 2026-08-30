@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react'
+import { BackTop } from 'animal-island-ui'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -36,6 +37,7 @@ export function App() {
           <Route path="*" element={<PostsPage />} />
         </Routes>
       </div>
+      <BackTop visibilityHeight={650} />
       <Footer />
     </main>
   )

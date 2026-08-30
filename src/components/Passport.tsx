@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Icon } from 'animal-island-ui'
 import {
   ChevronDown,
   ChevronUp,
@@ -193,6 +194,7 @@ function JourneySummaryPage() {
         <b>旅途年鉴 / ARCHIVE</b>
       </div>
       <div className="summary-title">
+        <Icon name="icon-miles" size={52} className="summary-title-icon" />
         <p>
           <small>温柔的椰子 · MESSION</small>
           <b>岛民旅行年鉴</b>
@@ -246,7 +248,7 @@ export function Passport() {
       <div className="passport-intro">
         <p className="eyebrow">ISLANDER PASSPORT</p>
         <h2>
-          <img src="/images/icons/island-passport.svg" alt="" aria-hidden="true" />
+          <Icon name="icon-variant" size={42} className="passport-heading-icon" />
           岛民护照
         </h2>
         <p>参考本式护照的横向比例、资料区和机器可读编码，制作属于风铃岛的旅行纪念册。</p>
@@ -256,19 +258,21 @@ export function Passport() {
         </div>
       </div>
       <div className="passport-book">
-        <article
-          key={page}
-          className={`passport-card page-turn-${direction}`}
-          aria-label={`岛民护照第 ${page + 1} 页`}
-        >
-          {page === 0 ? (
-            <IdentityPage />
-          ) : page === totalPages - 1 ? (
-            <JourneySummaryPage />
-          ) : (
-            <VisaPage stamps={pageStamps} pageNumber={page} />
-          )}
-        </article>
+        <div className="passport-card-stage">
+          <article
+            key={page}
+            className={`passport-card page-turn-${direction}`}
+            aria-label={`岛民护照第 ${page + 1} 页`}
+          >
+            {page === 0 ? (
+              <IdentityPage />
+            ) : page === totalPages - 1 ? (
+              <JourneySummaryPage />
+            ) : (
+              <VisaPage stamps={pageStamps} pageNumber={page} />
+            )}
+          </article>
+        </div>
         <div className="passport-controls vertical-controls">
           <button onClick={() => turnPage(page - 1)} disabled={page === 0} aria-label="向上翻页">
             <ChevronUp size={19} />

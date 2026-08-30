@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
+    "animal-island-ui": "^1.7.0",
+    "classnames": "^2.5.1",
     "flag-icons": "^7.5.0",
     "lucide-react": "latest",
     "react": "latest",

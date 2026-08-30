@@ -11,6 +11,12 @@ importers:
       '@vitejs/plugin-react':
         specifier: latest
         version: 6.1.1(vite@8.2.2)
+      animal-island-ui:
+        specifier: ^1.7.0
+        version: 1.7.0(classnames@2.5.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
       flag-icons:
         specifier: ^7.5.0
         version: 7.5.0
@@ -321,6 +327,14 @@ packages:
       oxc-transform-react:
         optional: true
 
+  animal-island-ui@1.7.0:
+    resolution: {integrity: sha512-KVqjaZBHQuoEYjswuRfnyB0aLQfnUM6H0tJqeXXrzwL1UQI0qXjDMNPEwIrUb8cyIt9nwwIW1NAxEiBwMVbStw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      classnames: ^2.5.1
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
@@ -338,6 +352,9 @@ packages:
 
   character-reference-invalid@2.0.1:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
+
+  classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
 
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
@@ -922,6 +939,12 @@ snapshots:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.2.2
 
+  animal-island-ui@1.7.0(classnames@2.5.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+    dependencies:
+      classnames: 2.5.1
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+
   bail@2.0.2: {}
 
   ccount@2.0.1: {}
@@ -933,6 +956,8 @@ snapshots:
   character-entities@2.0.2: {}
 
   character-reference-invalid@2.0.1: {}
+
+  classnames@2.5.1: {}
 
   comma-separated-tokens@2.0.3: {}
 
