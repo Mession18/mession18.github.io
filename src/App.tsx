@@ -13,18 +13,24 @@ import { PostsPage } from './pages/PostsPage'
 export function App() {
   const location = useLocation()
   const previousPathname = useRef(location.pathname)
-  const [showLoading, setShowLoading] = useState(false)
-  const [loadingActive, setLoadingActive] = useState(false)
+  const [loadingVisible, setLoadingVisible] = useState(false)
+  const [loadingActive, setLoadingActive] = useState(true)
 
   useEffect(() => {
     if (previousPathname.current === location.pathname) return
     previousPathname.current = location.pathname
-    setShowLoading(true)
     setLoadingActive(true)
+    setLoadingVisible(false)
 
-    const closeTimer = window.setTimeout(() => setLoadingActive(false), 450)
-    const removeTimer = window.setTimeout(() => setShowLoading(false), 950)
+    const enterFrame = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setLoadingVisible(true))
+    })
+    const closeTimer = window.setTimeout(() => setLoadingActive(false), 1050)
+    const removeTimer = window.setTimeout(() => {
+      setLoadingVisible(false)
+    }, 1750)
     return () => {
+      window.cancelAnimationFrame(enterFrame)
       window.clearTimeout(closeTimer)
       window.clearTimeout(removeTimer)
     }
@@ -42,11 +48,12 @@ export function App() {
 
   return (
     <main>
-      {showLoading && (
-        <div className="opening-loading-overlay" aria-hidden="true">
-          <Loading active={loadingActive} className="island-opening-loading" />
-        </div>
-      )}
+      <div
+        className={`opening-loading-overlay${loadingVisible ? ' is-visible' : ''}`}
+        aria-hidden="true"
+      >
+        <Loading active={loadingActive} className="island-opening-loading" />
+      </div>
       <AmbientWeather />
       <Header />
       <div className="route-transition" key={location.pathname}>
