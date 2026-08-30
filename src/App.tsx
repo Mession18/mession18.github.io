@@ -12,12 +12,21 @@ import { PostsPage } from './pages/PostsPage'
 
 export function App() {
   const location = useLocation()
-  const [loading, setLoading] = useState(true)
+  const [showLoading, setShowLoading] = useState(
+    () => window.sessionStorage.getItem('island-opening-seen') !== 'true',
+  )
+  const [loadingActive, setLoadingActive] = useState(showLoading)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 650)
-    return () => window.clearTimeout(timer)
-  }, [])
+    if (!showLoading) return
+    window.sessionStorage.setItem('island-opening-seen', 'true')
+    const closeTimer = window.setTimeout(() => setLoadingActive(false), 450)
+    const removeTimer = window.setTimeout(() => setShowLoading(false), 950)
+    return () => {
+      window.clearTimeout(closeTimer)
+      window.clearTimeout(removeTimer)
+    }
+  }, [showLoading])
 
   useLayoutEffect(() => {
     if (location.hash) {
@@ -31,7 +40,11 @@ export function App() {
 
   return (
     <main>
-      <Loading active={loading} className="island-opening-loading" />
+      {showLoading && (
+        <div className="opening-loading-overlay" aria-hidden="true">
+          <Loading active={loadingActive} className="island-opening-loading" />
+        </div>
+      )}
       <AmbientWeather />
       <Header />
       <div className="route-transition" key={location.pathname}>
