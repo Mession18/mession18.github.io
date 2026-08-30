@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useLocalWeather, type TimePeriod } from '../hooks/useLocalWeather'
+import type { WeatherKind } from '../hooks/useLocalWeather'
 
 export type ThemeMode = 'day' | 'auto' | 'night'
+export type WeatherOverride = { kind: WeatherKind; period: TimePeriod } | null
 
 type ThemeContextValue = {
   mode: ThemeMode
@@ -9,20 +11,44 @@ type ThemeContextValue = {
   effectiveTheme: 'day' | 'night'
   scenePeriod: TimePeriod
   weather: ReturnType<typeof useLocalWeather>
+  weatherOverride: WeatherOverride
+  setWeatherOverride: (override: WeatherOverride) => void
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const weather = useLocalWeather()
+  const liveWeather = useLocalWeather()
+  const [weatherOverride, setWeatherOverride] = useState<WeatherOverride>(null)
   const [mode, setMode] = useState<ThemeMode>(() => {
     const saved = window.localStorage.getItem('island-theme')
     return saved === 'day' || saved === 'night' ? saved : 'auto'
   })
+  const weather = useMemo(
+    () =>
+      weatherOverride
+        ? { ...liveWeather, ...weatherOverride, loading: false, city: '天气测试岛' }
+        : liveWeather,
+    [liveWeather, weatherOverride],
+  )
   const isNaturalNight = weather.period === 'dawn' || weather.period === 'evening'
-  const effectiveTheme = mode === 'auto' ? (isNaturalNight ? 'night' : 'day') : mode
+  const effectiveTheme = weatherOverride
+    ? isNaturalNight
+      ? 'night'
+      : 'day'
+    : mode === 'auto'
+      ? isNaturalNight
+        ? 'night'
+        : 'day'
+      : mode
   const scenePeriod: TimePeriod =
-    mode === 'day' ? 'morning' : mode === 'night' ? 'evening' : weather.period
+    weatherOverride !== null
+      ? weather.period
+      : mode === 'day'
+        ? 'morning'
+        : mode === 'night'
+          ? 'evening'
+          : weather.period
 
   useEffect(() => {
     window.localStorage.setItem('island-theme', mode)
@@ -32,8 +58,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [effectiveTheme, mode, weather.kind])
 
   const value = useMemo(
-    () => ({ mode, setMode, effectiveTheme, scenePeriod, weather }),
-    [mode, effectiveTheme, scenePeriod, weather],
+    () => ({
+      mode,
+      setMode,
+      effectiveTheme,
+      scenePeriod,
+      weather,
+      weatherOverride,
+      setWeatherOverride,
+    }),
+    [mode, effectiveTheme, scenePeriod, weather, weatherOverride],
   )
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

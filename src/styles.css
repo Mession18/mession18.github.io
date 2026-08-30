@@ -94,6 +94,106 @@ body {
   overflow: hidden;
   pointer-events: none;
 }
+.weather-test-panel {
+  position: fixed;
+  z-index: 9000;
+  bottom: 18px;
+  left: 18px;
+  color: #4d4539;
+  font-size: 12px;
+}
+.weather-test-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 13px;
+  border: 1px solid #ffffffaa;
+  border-radius: 999px;
+  background: #fffaf0ed;
+  color: #456b5b;
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 8px 24px #344f4230;
+  cursor: pointer;
+}
+.weather-test-content {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  width: 260px;
+  padding: 16px;
+  border: 1px solid #dcd1b8;
+  border-radius: 20px;
+  background: #fffaf0f5;
+  box-shadow: 0 16px 40px #263d3340;
+  backdrop-filter: blur(12px);
+}
+.weather-test-content header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.weather-test-content header b {
+  font-size: 14px;
+}
+.weather-test-content header small {
+  margin-top: 2px;
+  color: #857c6e;
+}
+.weather-test-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.weather-test-options button,
+.weather-test-reset,
+.weather-test-content select {
+  border: 1px solid #d8cdb5;
+  border-radius: 10px;
+  background: #fffdf8;
+  color: #5d5548;
+  font: inherit;
+  cursor: pointer;
+}
+.weather-test-options button {
+  padding: 7px 4px;
+}
+.weather-test-options button.active {
+  border-color: #62aa91;
+  background: #dff3e9;
+  color: #32634f;
+  font-weight: 800;
+}
+.weather-test-content label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-top: 11px;
+  font-weight: 800;
+}
+.weather-test-content select {
+  min-width: 0;
+  padding: 7px 9px;
+}
+.weather-test-reset {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+}
+.weather-test-reset:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+@media (max-width: 480px) {
+  .weather-test-panel {
+    bottom: 12px;
+    left: 12px;
+  }
+  .weather-test-content {
+    width: min(260px, calc(100vw - 24px));
+  }
+}
 .ambient-rain,
 .ambient-snow,
 .ambient-meteors {

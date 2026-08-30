@@ -16,11 +16,11 @@ function randomBetween(min: number, max: number) {
 }
 
 export function AmbientWeather() {
-  const { mode, weather } = useTheme()
+  const { mode, weather, weatherOverride } = useTheme()
   const [meteors, setMeteors] = useState<Meteor[]>([])
   const nextMeteorId = useRef(0)
   const timers = useRef<number[]>([])
-  const isAutomatic = mode === 'auto' && !weather.loading
+  const isAutomatic = (mode === 'auto' || weatherOverride !== null) && !weather.loading
   const isClearNight =
     isAutomatic &&
     weather.kind === 'clear' &&
