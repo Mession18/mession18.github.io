@@ -49,6 +49,11 @@ body {
     background 0.45s ease,
     color 0.45s ease;
 }
+@property --opening-mask-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 150vmax;
+}
 .opening-loading-overlay {
   position: fixed;
   z-index: 10000;
@@ -57,13 +62,18 @@ body {
   height: 100vh;
   overflow: hidden;
   background: #000;
-  clip-path: circle(0 at 50% 50%);
+  --opening-mask-r: 150vmax;
+  mask-image: radial-gradient(
+    circle at center,
+    transparent var(--opening-mask-r),
+    #000 calc(var(--opening-mask-r) + 1px)
+  );
   pointer-events: none;
-  transition: clip-path 0.42s cubic-bezier(0.65, 0, 0.35, 1);
-  will-change: clip-path;
+  transition: --opening-mask-r 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: --opening-mask-r;
 }
 .opening-loading-overlay.is-visible {
-  clip-path: circle(150vmax at 50% 50%);
+  --opening-mask-r: 0px;
 }
 .opening-loading-overlay > div {
   width: 100%;
