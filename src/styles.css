@@ -1525,13 +1525,13 @@ h1 em {
   z-index: 5;
   right: 19%;
   bottom: 101px;
-  width: 200px;
+  width: 300px;
   height: auto;
   overflow: visible;
   filter: drop-shadow(0 7px 0 #39745a24);
 }
 .reference-house .house-wall {
-  fill: #f2e6af;
+  fill: #f7ecc0;
 }
 .reference-house .house-chimney {
   fill: #efd477;

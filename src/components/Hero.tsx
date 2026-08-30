@@ -172,7 +172,7 @@ export function Hero() {
           <rect className="house-chimney" x="125" y="43" width="20" height="31" rx="1" />
           <path className="house-roof" d="M26 50H81L96 34L111 50H164L166 91H126L96 47L65 91H27Z" />
           <path className="house-gable-border" d="M96 39L132 92H60Z" />
-          <path className="house-gable" d="M96 46L125 92H67Z" />
+          <path className="house-gable" d="M96 46L129 97H63Z" />
           <g className="house-attic-window">
             <rect x="86" y="66" width="20" height="21" rx="1" />
             <path d="M96 67V86M87 76.5H105" />
