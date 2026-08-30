@@ -57,13 +57,13 @@ body {
   height: 100vh;
   overflow: hidden;
   background: #000;
-  opacity: 0;
+  clip-path: circle(0 at 50% 50%);
   pointer-events: none;
-  transition: opacity 0.24s ease-out;
-  will-change: opacity;
+  transition: clip-path 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: clip-path;
 }
 .opening-loading-overlay.is-visible {
-  opacity: 1;
+  clip-path: circle(150vmax at 50% 50%);
 }
 .opening-loading-overlay > div {
   width: 100%;

@@ -1,5 +1,5 @@
 import { BackTop, Loading } from 'animal-island-ui'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -13,11 +13,15 @@ import { PostsPage } from './pages/PostsPage'
 export function App() {
   const location = useLocation()
   const previousPathname = useRef(location.pathname)
+  const [displayLocation, setDisplayLocation] = useState(location)
   const [loadingVisible, setLoadingVisible] = useState(false)
   const [loadingActive, setLoadingActive] = useState(true)
 
-  useEffect(() => {
-    if (previousPathname.current === location.pathname) return
+  useLayoutEffect(() => {
+    if (previousPathname.current === location.pathname) {
+      setDisplayLocation(location)
+      return
+    }
     previousPathname.current = location.pathname
     setLoadingActive(true)
     setLoadingVisible(false)
@@ -25,26 +29,28 @@ export function App() {
     const enterFrame = window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => setLoadingVisible(true))
     })
-    const closeTimer = window.setTimeout(() => setLoadingActive(false), 1050)
+    const swapTimer = window.setTimeout(() => setDisplayLocation(location), 480)
+    const closeTimer = window.setTimeout(() => setLoadingActive(false), 820)
     const removeTimer = window.setTimeout(() => {
       setLoadingVisible(false)
-    }, 1750)
+    }, 1450)
     return () => {
       window.cancelAnimationFrame(enterFrame)
+      window.clearTimeout(swapTimer)
       window.clearTimeout(closeTimer)
       window.clearTimeout(removeTimer)
     }
-  }, [location.pathname])
+  }, [location.pathname, location.hash])
 
   useLayoutEffect(() => {
-    if (location.hash) {
+    if (displayLocation.hash) {
       requestAnimationFrame(() =>
-        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' }),
+        document.querySelector(displayLocation.hash)?.scrollIntoView({ behavior: 'smooth' }),
       )
       return
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-  }, [location.pathname, location.hash])
+  }, [displayLocation.pathname, displayLocation.hash])
 
   return (
     <main>
@@ -56,8 +62,8 @@ export function App() {
       </div>
       <AmbientWeather />
       <Header />
-      <div className="route-transition" key={location.pathname}>
-        <Routes location={location}>
+      <div className="route-transition" key={displayLocation.pathname}>
+        <Routes location={displayLocation}>
           <Route path="/" element={<HomePage />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/:slug" element={<PostDetailPage />} />
