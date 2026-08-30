@@ -1,5 +1,3 @@
-import { Leaf } from 'lucide-react'
-
 export function Footer() {
   return (
     <footer>
@@ -7,7 +5,7 @@ export function Footer() {
       <div className="footer-inner">
         <div className="brand">
           <span className="brand-leaf">
-            <Leaf size={21} />
+            <img src="/images/nav/icon-home.svg" alt="" />
           </span>
           <span>风铃岛通信</span>
         </div>

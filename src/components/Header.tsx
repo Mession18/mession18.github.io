@@ -1,4 +1,4 @@
-import { Leaf, Search, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { searchEntries } from '../data/search'
@@ -92,7 +92,7 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
       >
         <Link className="brand" to="/">
           <span className="brand-leaf">
-            <Leaf size={21} />
+            <img src="/images/nav/icon-home.svg" alt="" />
           </span>
           <span>风铃岛通信</span>
         </Link>

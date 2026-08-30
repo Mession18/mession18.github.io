@@ -1,19 +1,21 @@
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { categoryLabels, getCollectionPreviewImage, type CollectionItem } from '../data/collections'
+import { PreviewableImage } from './PreviewableImage'
 
 export function CollectionCard({ item }: { item: CollectionItem }) {
   const previewImage = getCollectionPreviewImage(item)
 
   return (
     <article className="collection-card">
-      <Link
-        className={`collection-cover collection-${item.color}`}
-        to={`/museum/${item.category}/${item.slug}`}
-      >
-        {previewImage ? <img src={previewImage} alt={item.title} /> : <span>{item.icon}</span>}
+      <div className={`collection-cover collection-${item.color}`}>
+        {previewImage ? (
+          <PreviewableImage src={previewImage} alt={item.title} />
+        ) : (
+          <span>{item.icon}</span>
+        )}
         <small>{categoryLabels[item.category]}</small>
-      </Link>
+      </div>
       <div className="collection-card-body">
         <div>
           <span>{item.year}</span>

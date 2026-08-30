@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../data/contentSections'
 import { getPostPreviewImage, type Post } from '../data/posts'
+import { PreviewableImage } from './PreviewableImage'
 
 function shuffled<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5)
@@ -27,7 +28,7 @@ function animateItemRefresh(button: HTMLButtonElement, action: () => void) {
 
 function ContentImage({ item }: { item: Post }) {
   const image = getPostPreviewImage(item)
-  return image ? <img src={image} alt="" /> : <span>{item.icon}</span>
+  return image ? <PreviewableImage src={image} alt={item.title} /> : <span>{item.icon}</span>
 }
 
 export function RecipeHomeSection() {

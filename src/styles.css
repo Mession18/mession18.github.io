@@ -375,9 +375,14 @@ a {
   width: 36px;
   height: 32px;
   border-radius: 70% 30% 70% 30%;
-  background: #fff;
+  background: transparent;
   color: var(--green);
-  transform: rotate(-7deg);
+  transform: none;
+}
+.brand-leaf img {
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
 }
 nav {
   display: flex;
@@ -1726,9 +1731,9 @@ h1 em {
 }
 .hero.time-evening .reference-house .house-window rect,
 .hero.time-evening .reference-house .house-attic-window rect {
-  fill: #ffe66f;
-  stroke: #fff1a8;
-  filter: drop-shadow(0 0 6px #ffe46b) drop-shadow(0 0 15px #ffd44fcc);
+  fill: #fffbd2;
+  stroke: #fffef0;
+  filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 11px #ffd84f);
 }
 .hero.time-dawn .reference-house .house-window rect,
 .hero.time-dawn .reference-house .house-attic-window rect {
@@ -1964,6 +1969,24 @@ h1 em {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+}
+.content-preview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+.content-preview-image > span,
+.content-preview-image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.content-preview-image img {
+  object-fit: inherit;
+}
+.post-art .content-preview-image {
   object-fit: cover;
 }
 .post-art span {
@@ -2205,7 +2228,7 @@ h1 em {
   flex: 0 0 78px;
   place-items: center;
   border-radius: 28px;
-  background: #fff9e7;
+  background: transparent;
   transform: rotate(-5deg);
 }
 .home-content-icon img {
@@ -2327,7 +2350,7 @@ h1 em {
 }
 .craft-workbench {
   display: grid;
-  grid-template-columns: 0.7fr 1.3fr;
+  grid-template-columns: 1.3fr 0.7fr;
   align-items: center;
   gap: 65px;
 }
@@ -2630,6 +2653,12 @@ h1 em {
   height: 100%;
   display: block;
   object-fit: cover;
+}
+.collection-cover .content-preview-image {
+  object-fit: cover;
+}
+.photo .content-preview-image {
+  object-fit: contain;
 }
 .photo div img {
   object-fit: contain;
