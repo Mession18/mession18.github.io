@@ -1,7 +1,12 @@
 import { Bottle } from '../components/Bottle'
 import { Hero } from '../components/Hero'
 import { Journal } from '../components/Journal'
-import { IslandDirectory } from '../components/IslandDirectory'
+import {
+  CraftHomeSection,
+  PlantingHomeSection,
+  RecipeHomeSection,
+  TravelHomeSection,
+} from '../components/HomeContentSections'
 import { Museum } from '../components/Museum'
 import { Passport } from '../components/Passport'
 
@@ -11,7 +16,10 @@ export function HomePage() {
       <Hero />
       <Journal />
       <Museum />
-      <IslandDirectory />
+      <RecipeHomeSection />
+      <CraftHomeSection />
+      <TravelHomeSection />
+      <PlantingHomeSection />
       <Passport />
       <Bottle />
     </>
