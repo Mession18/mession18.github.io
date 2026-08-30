@@ -1775,10 +1775,20 @@ h1 em {
   gap: 72px;
 }
 .passport-intro h2 {
+  display: flex;
+  align-items: center;
+  gap: 13px;
   font-family: 'ZCOOL KuaiLe';
   font-size: 38px;
   font-weight: 400;
   margin: 0 0 18px;
+}
+.passport-intro h2 img {
+  width: 31px;
+  height: 46px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 5px #4c3c3324);
 }
 .passport-intro > p:not(.eyebrow) {
   color: var(--muted);
@@ -2952,6 +2962,10 @@ footer {
 .footer-inner small {
   opacity: 0.7;
   font-size: 10px;
+}
+.footer-inner small a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 @media (max-width: 850px) {
   .topbar nav {

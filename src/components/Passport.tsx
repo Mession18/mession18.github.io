@@ -245,7 +245,10 @@ export function Passport() {
     <section className="passport section" id="about">
       <div className="passport-intro">
         <p className="eyebrow">ISLANDER PASSPORT</p>
-        <h2>岛民护照</h2>
+        <h2>
+          <img src="/images/icons/island-passport.svg" alt="" aria-hidden="true" />
+          岛民护照
+        </h2>
         <p>参考本式护照的横向比例、资料区和机器可读编码，制作属于风铃岛的旅行纪念册。</p>
         <div className="passport-note">
           <Sparkles size={18} />

@@ -12,7 +12,10 @@ export function Footer() {
           <span>风铃岛通信</span>
         </div>
         <p>一个关于生活、游戏与慢慢长大的个人博客。</p>
-        <small>© 2026 风铃岛 · 非官方原创海岛主题</small>
+        <small>
+          © 2026 风铃岛 · 非官方原创海岛主题 · 部分图标来自{' '}
+          <a href="https://github.com/guokaigdg/animal-island-ui">Animal-Island-UI</a>
+        </small>
       </div>
     </footer>
   )
