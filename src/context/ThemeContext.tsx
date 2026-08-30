@@ -56,7 +56,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.theme = effectiveTheme
     document.documentElement.dataset.themeMode = mode
     document.documentElement.dataset.weather = weather.kind
-  }, [effectiveTheme, mode, weather.kind])
+    document.documentElement.dataset.scenePeriod = scenePeriod
+  }, [effectiveTheme, mode, scenePeriod, weather.kind])
 
   const value = useMemo(
     () => ({

@@ -1685,9 +1685,12 @@ h1 em {
 }
 .reference-house .house-attic-window rect,
 .reference-house .house-window rect {
-  fill: #fff8d7;
+  fill: #dce6d8;
   stroke: #e2d39a;
   stroke-width: 2.5;
+  transition:
+    fill 0.8s ease,
+    filter 0.8s ease;
 }
 .reference-house .house-attic-window path,
 .reference-house .house-window path {
@@ -1721,12 +1724,55 @@ h1 em {
   background: #f8d978;
   box-shadow: 0 0 13px #ffd66a7a;
 }
-.hero.time-dawn .reference-house .house-window rect,
-.hero.time-dawn .reference-house .house-attic-window rect,
 .hero.time-evening .reference-house .house-window rect,
 .hero.time-evening .reference-house .house-attic-window rect {
   fill: #f8d978;
-  filter: drop-shadow(0 0 7px #ffd66a);
+  filter: drop-shadow(0 0 5px #ffd66a) drop-shadow(0 0 10px #ffd66a88);
+}
+.hero.time-dawn .reference-house .house-window rect,
+.hero.time-dawn .reference-house .house-attic-window rect {
+  fill: #65726a;
+  filter: brightness(0.72);
+}
+.house-smoke-svg {
+  display: none;
+  pointer-events: none;
+}
+.hero.time-noon .house-smoke-svg {
+  display: block;
+}
+.house-smoke-svg circle {
+  fill: #eef2edb5;
+  opacity: 0;
+  filter: blur(0.8px);
+  transform-origin: 135px 38px;
+  animation: svg-chimney-smoke 5.6s ease-out infinite;
+}
+.house-smoke-svg circle:nth-child(2) {
+  animation-delay: -1.4s;
+}
+.house-smoke-svg circle:nth-child(3) {
+  animation-delay: -2.8s;
+}
+.house-smoke-svg circle:nth-child(4) {
+  animation-delay: -4.2s;
+}
+@keyframes svg-chimney-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2px) scale(0.55);
+  }
+  18% {
+    opacity: 0.42;
+  }
+  52% {
+    opacity: 0.3;
+    transform: translate(-5px, -18px) scale(1.18);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(7px, -42px) scale(2.05);
+  }
 }
 .hero.time-dawn .ground,
 .hero.time-evening .ground,
@@ -3537,6 +3583,124 @@ h1 em {
 }
 [data-theme='night'] .bottle {
   background: #26332f;
+}
+[data-scene-period='dawn'] body {
+  background: #171d25;
+}
+[data-scene-period='dawn'] .home-recipes {
+  background: #242938;
+}
+[data-scene-period='dawn'] .home-crafts {
+  background: #20302e;
+}
+[data-scene-period='dawn'] .home-travel {
+  background: #1c2d39;
+}
+[data-scene-period='dawn'] .home-planting {
+  background: #263328;
+}
+[data-scene-period='dawn'] .museum {
+  background: #1d2b2b;
+}
+[data-scene-period='morning'] body {
+  background: #fffaf0;
+}
+[data-scene-period='morning'] .home-recipes {
+  background: #f6e7c9;
+}
+[data-scene-period='morning'] .home-crafts {
+  background: #dbe9dc;
+}
+[data-scene-period='morning'] .home-travel {
+  background: #cfe8ed;
+}
+[data-scene-period='morning'] .home-planting {
+  background: #e5f0d9;
+}
+[data-scene-period='morning'] .museum {
+  background: #e6f1df;
+}
+[data-scene-period='noon'] body {
+  background: #fffdf5;
+}
+[data-scene-period='noon'] .home-recipes {
+  background: #f9e9ba;
+}
+[data-scene-period='noon'] .home-crafts {
+  background: #d3ebd8;
+}
+[data-scene-period='noon'] .home-travel {
+  background: #c5eaf1;
+}
+[data-scene-period='noon'] .home-planting {
+  background: #e7f2cf;
+}
+[data-scene-period='noon'] .museum {
+  background: #e2f2dc;
+}
+[data-scene-period='afternoon'] body {
+  background: #fff6e7;
+}
+[data-scene-period='afternoon'] .home-recipes {
+  background: #f2d9b8;
+}
+[data-scene-period='afternoon'] .home-crafts {
+  background: #d9e2d0;
+}
+[data-scene-period='afternoon'] .home-travel {
+  background: #c9dfe2;
+}
+[data-scene-period='afternoon'] .home-planting {
+  background: #e5e8c8;
+}
+[data-scene-period='afternoon'] .museum {
+  background: #e8e8d3;
+}
+[data-scene-period='evening'] body {
+  background: #161c24;
+}
+[data-scene-period='evening'] .home-recipes {
+  background: #302936;
+}
+[data-scene-period='evening'] .home-crafts {
+  background: #24322e;
+}
+[data-scene-period='evening'] .home-travel {
+  background: #1d303c;
+}
+[data-scene-period='evening'] .home-planting {
+  background: #293328;
+}
+[data-scene-period='evening'] .museum {
+  background: #1d2d2a;
+}
+[data-scene-period='dawn'] .home-content-heading p:not(.eyebrow),
+[data-scene-period='dawn'] .craft-copy,
+[data-scene-period='dawn'] .craft-copy > p:last-of-type,
+[data-scene-period='dawn'] .flower-title > p:last-child,
+[data-scene-period='dawn'] .travel-controls,
+[data-scene-period='evening'] .home-content-heading p:not(.eyebrow),
+[data-scene-period='evening'] .craft-copy,
+[data-scene-period='evening'] .craft-copy > p:last-of-type,
+[data-scene-period='evening'] .flower-title > p:last-child,
+[data-scene-period='evening'] .travel-controls {
+  color: #bdc8c2;
+}
+[data-scene-period='dawn'] .home-content-more,
+[data-scene-period='dawn'] .craft-copy > a,
+[data-scene-period='dawn'] .garden-link,
+[data-scene-period='dawn'] .travel-controls > a,
+[data-scene-period='evening'] .home-content-more,
+[data-scene-period='evening'] .craft-copy > a,
+[data-scene-period='evening'] .garden-link,
+[data-scene-period='evening'] .travel-controls > a {
+  color: #9fcdbd;
+}
+.home-content-section,
+.museum {
+  transition:
+    background-color 0.8s ease,
+    color 0.45s ease;
 }
 .post,
 .museum,

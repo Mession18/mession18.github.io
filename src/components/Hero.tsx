@@ -177,6 +177,12 @@ export function Hero() {
         >
           <rect className="house-wall" x="30" y="78" width="130" height="72" rx="1" />
           <rect className="house-chimney" x="125" y="43" width="20" height="31" rx="1" />
+          <g className="house-smoke-svg" aria-hidden="true">
+            <circle cx="135" cy="38" r="5" />
+            <circle cx="135" cy="38" r="6" />
+            <circle cx="135" cy="38" r="4" />
+            <circle cx="135" cy="38" r="5" />
+          </g>
           <path className="house-roof" d="M26 50H81L96 34L111 50H164L166 91H126L96 47L65 91H27Z" />
           <path className="house-gable-border" d="M96 39L132 92H60Z" />
           <path className="house-gable" d="M96 46L129 97H63Z" />
