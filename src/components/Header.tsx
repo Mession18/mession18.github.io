@@ -1,17 +1,10 @@
-import { Leaf, Moon, Search, Sparkles, Sun, X } from 'lucide-react'
+import { Leaf, Search, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useTheme, type ThemeMode } from '../context/ThemeContext'
 import { searchEntries } from '../data/search'
-
-const themeOptions: Array<{ mode: ThemeMode; label: string; icon: typeof Sun }> = [
-  { mode: 'day', label: '白天', icon: Sun },
-  { mode: 'auto', label: '跟随', icon: Sparkles },
-  { mode: 'night', label: '夜间', icon: Moon },
-]
+import { WeatherTestPanel } from './WeatherTestPanel'
 
 export function Header({ pathname, hash }: { pathname: string; hash: string }) {
-  const { mode, setMode } = useTheme()
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -66,23 +59,7 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
           </Link>
         </nav>
         <div className="header-actions">
-          <div className={`theme-switch selected-${mode}`} role="group" aria-label="主题模式">
-            <span className="theme-slider" aria-hidden="true" />
-            {themeOptions.map(({ mode: option, label, icon: Icon }) => (
-              <button
-                key={option}
-                className={mode === option ? 'active' : ''}
-                type="button"
-                onClick={() => setMode(option)}
-                aria-label={`${label}模式`}
-                aria-pressed={mode === option}
-                title={`${label}模式`}
-              >
-                <Icon size={15} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
+          <WeatherTestPanel />
           <button
             className="search"
             type="button"

@@ -1,9 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useLocalWeather, type TimePeriod } from '../hooks/useLocalWeather'
-import type { WeatherKind } from '../hooks/useLocalWeather'
+import type { WeatherIntensity, WeatherKind } from '../hooks/useLocalWeather'
 
 export type ThemeMode = 'day' | 'auto' | 'night'
-export type WeatherOverride = { kind: WeatherKind; period: TimePeriod } | null
+export type WeatherOverride = {
+  kind: WeatherKind
+  intensity: WeatherIntensity
+  period: TimePeriod
+} | null
 
 type ThemeContextValue = {
   mode: ThemeMode
@@ -20,10 +24,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null)
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const liveWeather = useLocalWeather()
   const [weatherOverride, setWeatherOverride] = useState<WeatherOverride>(null)
-  const [mode, setMode] = useState<ThemeMode>(() => {
-    const saved = window.localStorage.getItem('island-theme')
-    return saved === 'day' || saved === 'night' ? saved : 'auto'
-  })
+  const [mode, setMode] = useState<ThemeMode>('auto')
   const weather = useMemo(
     () =>
       weatherOverride

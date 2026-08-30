@@ -95,10 +95,8 @@ body {
   pointer-events: none;
 }
 .weather-test-panel {
-  position: fixed;
-  z-index: 9000;
-  bottom: 18px;
-  left: 18px;
+  position: relative;
+  z-index: 60;
   color: #4d4539;
   font-size: 12px;
 }
@@ -118,8 +116,8 @@ body {
 }
 .weather-test-content {
   position: absolute;
-  bottom: 48px;
-  left: 0;
+  top: 48px;
+  right: 0;
   width: 260px;
   padding: 16px;
   border: 1px solid #dcd1b8;
@@ -186,12 +184,11 @@ body {
   opacity: 0.45;
 }
 @media (max-width: 480px) {
-  .weather-test-panel {
-    bottom: 12px;
-    left: 12px;
-  }
   .weather-test-content {
     width: min(260px, calc(100vw - 24px));
+  }
+  .weather-test-trigger span {
+    display: none;
   }
 }
 .ambient-rain,

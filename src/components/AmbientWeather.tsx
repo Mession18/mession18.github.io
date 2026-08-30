@@ -28,7 +28,7 @@ export function AmbientWeather() {
 
   const rainDrops = useMemo(
     () =>
-      Array.from({ length: 38 }, (_, index) => {
+      Array.from({ length: 84 }, (_, index) => {
         const size = randomBetween(3.5, 6)
         return {
           id: index,
@@ -48,7 +48,7 @@ export function AmbientWeather() {
 
   const snowflakes = useMemo(
     () =>
-      Array.from({ length: 32 }, (_, index) => {
+      Array.from({ length: 68 }, (_, index) => {
         const drift = randomBetween(-45, 45)
         return {
           id: index,
@@ -102,20 +102,22 @@ export function AmbientWeather() {
 
   const showRain = weather.kind === 'rain' || weather.kind === 'thunder'
   const showSnow = weather.kind === 'snow'
+  const rainCount = weather.intensity === 'heavy' ? 84 : weather.intensity === 'moderate' ? 52 : 28
+  const snowCount = weather.intensity === 'heavy' ? 68 : weather.intensity === 'moderate' ? 44 : 24
   if (!showRain && !showSnow && !isClearNight) return null
 
   return (
     <div className="ambient-weather" aria-hidden="true">
       {showRain && (
         <div className="ambient-rain">
-          {rainDrops.map((drop) => (
+          {rainDrops.slice(0, rainCount).map((drop) => (
             <i key={drop.id} style={drop.style} />
           ))}
         </div>
       )}
       {showSnow && (
         <div className="ambient-snow">
-          {snowflakes.map((flake) => (
+          {snowflakes.slice(0, snowCount).map((flake) => (
             <i key={flake.id} style={flake.style} />
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 export type WeatherKind = 'clear' | 'cloudy' | 'fog' | 'rain' | 'snow' | 'thunder'
+export type WeatherIntensity = 'light' | 'moderate' | 'heavy'
 export type TimePeriod = 'dawn' | 'morning' | 'noon' | 'afternoon' | 'evening'
 
 type WeatherState = {
@@ -8,6 +9,8 @@ type WeatherState = {
   temperature: number
   windSpeed: number
   weatherCode: number
+  precipitation: number
+  snowfall: number
   timezone: string
   loading: boolean
 }
@@ -21,6 +24,24 @@ function weatherKind(code: number): WeatherKind {
   if (code === 45 || code === 48) return 'fog'
   if (code >= 1 && code <= 3) return 'cloudy'
   return 'clear'
+}
+
+function weatherIntensity(
+  code: number,
+  kind: WeatherKind,
+  precipitation: number,
+  snowfall: number,
+): WeatherIntensity {
+  if (kind === 'thunder' || code === 65 || code === 75 || code === 82 || code === 86) return 'heavy'
+  if (kind === 'snow') {
+    if (snowfall >= 2.5) return 'heavy'
+    return snowfall >= 1 || code === 73 ? 'moderate' : 'light'
+  }
+  if (kind === 'rain') {
+    if (precipitation >= 8) return 'heavy'
+    return precipitation >= 4 || code === 63 || code === 81 ? 'moderate' : 'light'
+  }
+  return 'light'
 }
 
 function timePeriod(hour: number): TimePeriod {
@@ -38,6 +59,8 @@ export function useLocalWeather() {
     temperature: 28,
     windSpeed: 8,
     weatherCode: 0,
+    precipitation: 0,
+    snowfall: 0,
     timezone: fallbackTimezone,
     loading: true,
   })
@@ -69,7 +92,7 @@ export function useLocalWeather() {
         const query = new URLSearchParams({
           latitude: String(latitude),
           longitude: String(longitude),
-          current: 'temperature_2m,weather_code,wind_speed_10m',
+          current: 'temperature_2m,weather_code,wind_speed_10m,precipitation,rain,snowfall',
           timezone: 'auto',
         })
         const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`, {
@@ -78,13 +101,21 @@ export function useLocalWeather() {
         if (!weatherResponse.ok) throw new Error('Weather lookup failed')
         const weather = (await weatherResponse.json()) as {
           timezone?: string
-          current?: { temperature_2m?: number; weather_code?: number; wind_speed_10m?: number }
+          current?: {
+            temperature_2m?: number
+            weather_code?: number
+            wind_speed_10m?: number
+            precipitation?: number
+            snowfall?: number
+          }
         }
         setState({
           city: geo.city || geo.region || '当前位置',
           temperature: Math.round(weather.current?.temperature_2m ?? 28),
           windSpeed: Math.round(weather.current?.wind_speed_10m ?? 8),
           weatherCode: weather.current?.weather_code ?? 0,
+          precipitation: weather.current?.precipitation ?? 0,
+          snowfall: weather.current?.snowfall ?? 0,
           timezone: weather.timezone || geo.timezone || fallbackTimezone,
           loading: false,
         })
@@ -104,6 +135,9 @@ export function useLocalWeather() {
       hour12: false,
     }).format(now)
     const hour = Number(hourText) % 24
+    let kind = weatherKind(state.weatherCode)
+    const intensity = weatherIntensity(state.weatherCode, kind, state.precipitation, state.snowfall)
+    if (kind === 'rain' && intensity === 'heavy') kind = 'thunder'
     return {
       ...state,
       time: new Intl.DateTimeFormat('zh-CN', {
@@ -112,7 +146,8 @@ export function useLocalWeather() {
         minute: '2-digit',
         hour12: false,
       }).format(now),
-      kind: weatherKind(state.weatherCode),
+      kind,
+      intensity,
       period: timePeriod(hour),
     }
   }, [now, state])

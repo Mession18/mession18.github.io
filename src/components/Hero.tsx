@@ -22,6 +22,7 @@ const weatherLabels: Record<WeatherKind, string> = {
   snow: '下雪',
   thunder: '雷雨',
 }
+const intensityLabels = { light: '小', moderate: '中', heavy: '大' } as const
 function getMoonPhase(date: Date) {
   const synodicMonth = 29.530588853
   const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14)
@@ -99,6 +100,12 @@ function WeatherIcon({
 export function Hero() {
   const { weather, scenePeriod } = useTheme()
   const windLabel = weather.windSpeed <= 8 ? '微风' : weather.windSpeed <= 18 ? '轻风' : '有风'
+  const weatherLabel =
+    weather.kind === 'thunder'
+      ? '暴雨雷电'
+      : weather.kind === 'rain' || weather.kind === 'snow'
+        ? `${intensityLabels[weather.intensity]}${weatherLabels[weather.kind]}`
+        : weatherLabels[weather.kind]
   return (
     <section
       className={`hero weather-${weather.kind} time-${scenePeriod}${weather.loading ? ' weather-pending' : ''}`}
@@ -201,7 +208,7 @@ export function Hero() {
             <small>
               {weather.loading
                 ? '正在获取当地天气'
-                : `${weather.temperature}°C · ${weatherLabels[weather.kind]} · ${windLabel}`}
+                : `${weather.temperature}°C · ${weatherLabel} · ${windLabel}`}
             </small>
           </span>
         </div>
