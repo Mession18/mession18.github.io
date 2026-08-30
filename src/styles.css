@@ -770,45 +770,10 @@ h1 em {
   pointer-events: none;
   z-index: 4;
 }
-.precipitation,
 .fog-bank,
 .lightning-bolt {
   position: absolute;
   opacity: 0;
-}
-.hero.weather-rain .precipitation,
-.hero.weather-thunder .precipitation {
-  opacity: 0.68;
-  inset: -100px 0 0;
-  transform: skewX(-10deg);
-  background-image: repeating-linear-gradient(
-    105deg,
-    transparent 0 18px,
-    #d8f5ff90 19px 21px,
-    transparent 22px 38px
-  );
-  background-size: 100% 82px;
-  animation: rainfall 0.55s linear infinite;
-}
-.hero.weather-thunder .precipitation {
-  opacity: 0.82;
-}
-.hero.weather-snow .precipitation {
-  opacity: 0.9;
-  inset: -80px 0 0;
-  background-image:
-    radial-gradient(circle, #fff 0 3px, transparent 3.5px),
-    radial-gradient(circle, #fff 0 2px, transparent 2.5px),
-    radial-gradient(circle, #eefaff 0 4px, transparent 4.5px);
-  background-size:
-    78px 84px,
-    113px 126px,
-    168px 154px;
-  background-position:
-    0 0,
-    31px 17px,
-    71px 39px;
-  animation: snowfall 7s linear infinite;
 }
 .fog-bank {
   left: -10%;
@@ -844,19 +809,6 @@ h1 em {
 .hero.weather-thunder .lightning-bolt {
   animation: lightning 4.5s steps(1) infinite;
 }
-@keyframes rainfall {
-  to {
-    background-position: -18px 82px;
-  }
-}
-@keyframes snowfall {
-  to {
-    background-position:
-      32px 168px,
-      -20px 252px,
-      45px 308px;
-  }
-}
 @keyframes fog-drift {
   from {
     transform: translateX(-3%) scaleX(0.9);
@@ -890,7 +842,6 @@ h1 em {
 }
 @media (prefers-reduced-motion: reduce) {
   .sky-stars,
-  .precipitation,
   .fog-bank,
   .lightning-bolt {
     animation: none !important;

@@ -116,7 +116,6 @@ export function Hero() {
       <div className="cloud cloud-b" />
       <div className="cloud cloud-c" aria-hidden="true" />
       <div className="weather-effects" aria-hidden="true">
-        <div className="precipitation" />
         <div className="fog-bank fog-one" />
         <div className="fog-bank fog-two" />
         <div className="lightning-bolt" />
