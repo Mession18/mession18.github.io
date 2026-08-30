@@ -16,7 +16,7 @@ export function Museum() {
         <p>照片、游戏、书和音乐。喜欢的东西不必昂贵，只要在看到它时，心里会亮起一盏小灯。</p>
         <div className="stats">
           <span>
-            <b>{String(posts.length).padStart(2, '0')}</b> 篇日志
+            <b>{String(posts.length).padStart(2, '0')}</b> 篇文章
           </span>
           <span>
             <b>{String(photos.length).padStart(2, '0')}</b> 张照片

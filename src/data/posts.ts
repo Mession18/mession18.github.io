@@ -21,7 +21,7 @@ const markdownFiles = import.meta.glob('../posts/*.md', {
   eager: true,
 }) as Record<string, string>
 
-function parseMarkdown(path: string, source: string): Post | null {
+export function parseMarkdown(path: string, source: string, defaultTag = '岛民文章'): Post | null {
   const filename = path.split('/').pop() ?? ''
   if (filename.startsWith('_')) return null
   const slug = filename.replace(/\.md$/, '')
@@ -55,7 +55,7 @@ function parseMarkdown(path: string, source: string): Post | null {
     date: publishedAt.slice(5).replace('-', ' / '),
     publishedAt,
     readingTime: Number(metadata.readingTime) || Math.max(1, Math.ceil(wordCount / 400)),
-    tag: metadata.tag || '岛民日志',
+    tag: metadata.tag || defaultTag,
     title: metadata.title,
     excerpt: metadata.excerpt,
     color,

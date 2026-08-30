@@ -14,7 +14,7 @@ export function PostDetailPage() {
         <h1>这封信漂远了</h1>
         <p>没有找到你想阅读的文章。</p>
         <Link to="/posts">
-          <ArrowLeft size={16} /> 返回日志
+          <ArrowLeft size={16} /> 返回文章
         </Link>
       </div>
     )
@@ -23,7 +23,7 @@ export function PostDetailPage() {
   return (
     <article className="article-page">
       <Link className="back-link" to="/posts">
-        <ArrowLeft size={16} /> 全部日志
+        <ArrowLeft size={16} /> 全部文章
       </Link>
       <header className={`article-header ${post.color}`}>
         <span className="article-icon">{post.icon}</span>

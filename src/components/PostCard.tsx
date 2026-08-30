@@ -3,14 +3,14 @@ import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getPostPreviewImage, type Post } from '../data/posts'
 
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostPreviewImage(post)
 
   return (
     <article className="post">
       <Link
         className={`post-art ${post.color}`}
-        to={`/posts/${post.slug}`}
+        to={`${basePath}/${post.slug}`}
         aria-label={`阅读：${post.title}`}
       >
         {previewImage ? <img src={previewImage} alt={post.title} /> : <span>{post.icon}</span>}
@@ -21,10 +21,10 @@ export function PostCard({ post }: { post: Post }) {
           {post.tag}
         </Tag>
         <h3>
-          <Link to={`/posts/${post.slug}`}>{post.title}</Link>
+          <Link to={`${basePath}/${post.slug}`}>{post.title}</Link>
         </h3>
         <p>{post.excerpt}</p>
-        <Link to={`/posts/${post.slug}`}>
+        <Link to={`${basePath}/${post.slug}`}>
           阅读这封信 <ArrowRight size={15} />
         </Link>
       </div>

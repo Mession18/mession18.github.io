@@ -381,9 +381,21 @@ a {
 }
 nav {
   display: flex;
-  gap: 36px;
+  gap: 18px;
   font-size: 14px;
   font-weight: 700;
+}
+nav a {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 42px;
+}
+nav a img,
+nav a > span {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 nav a {
   opacity: 0.78;
@@ -2097,6 +2109,10 @@ h1 em {
   border-radius: 26px;
   background: #f5efd9;
   box-shadow: 0 18px 45px #6a705028;
+  --ink: #4f4a40;
+  --dark: #355f50;
+  --muted: #807666;
+  color: #4f4a40;
 }
 .page-watermark {
   position: absolute;
@@ -2734,6 +2750,16 @@ h1 em {
   margin: 0 auto 45px;
   text-align: center;
 }
+.page-heading h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title-icon {
+  width: 42px !important;
+  height: 42px !important;
+  object-fit: contain;
+}
 .page-heading h1,
 .not-found h1 {
   margin: 0 0 13px;
@@ -3359,7 +3385,25 @@ footer {
 }
 @media (max-width: 850px) {
   .topbar nav {
-    display: none;
+    position: fixed;
+    z-index: 55;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: space-around;
+    gap: 2px;
+    padding: 7px 8px;
+    border-radius: 22px;
+    background: #315f52e8;
+    box-shadow: 0 8px 25px #1d332b40;
+    backdrop-filter: blur(12px);
+  }
+  .topbar nav a.active::after {
+    bottom: 1px;
+  }
+  body > #root > footer {
+    padding-bottom: 95px;
   }
   .hero {
     height: 850px;

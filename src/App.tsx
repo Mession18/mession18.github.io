@@ -9,10 +9,15 @@ import { CollectionDetailPage } from './pages/CollectionDetailPage'
 import { MuseumPage } from './pages/MuseumPage'
 import { PostDetailPage } from './pages/PostDetailPage'
 import { PostsPage } from './pages/PostsPage'
+import { ContentSectionPage } from './pages/ContentSectionPage'
+import { ContentDetailPage } from './pages/ContentDetailPage'
+import type { ContentSectionKey } from './data/contentSections'
 
 function getRouteSection(pathname: string) {
   if (pathname.startsWith('/posts')) return 'posts'
   if (pathname.startsWith('/museum')) return 'museum'
+  for (const section of ['recipes', 'crafts', 'travel', 'planting'])
+    if (pathname.startsWith(`/${section}`)) return section
   return 'home'
 }
 
@@ -76,6 +81,20 @@ export function App() {
           <Route path="/posts/:slug" element={<PostDetailPage />} />
           <Route path="/museum" element={<MuseumPage />} />
           <Route path="/museum/:category/:slug" element={<CollectionDetailPage />} />
+          {(['recipes', 'crafts', 'travel', 'planting'] as ContentSectionKey[]).map((section) => (
+            <Route
+              key={section}
+              path={`/${section}`}
+              element={<ContentSectionPage section={section} />}
+            />
+          ))}
+          {(['recipes', 'crafts', 'travel', 'planting'] as ContentSectionKey[]).map((section) => (
+            <Route
+              key={`${section}-detail`}
+              path={`/${section}/:slug`}
+              element={<ContentDetailPage section={section} />}
+            />
+          ))}
           <Route path="*" element={<PostsPage />} />
         </Routes>
       </div>

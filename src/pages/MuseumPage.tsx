@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { CollectionCard } from '../components/CollectionCard'
 import { MuseumFilters } from '../components/MuseumFilters'
 import { IslandPagination } from '../components/IslandPagination'
+import { SectionIcon } from '../components/SectionIcon'
 import { collections, type CollectionCategory } from '../data/collections'
 
 type Filter = 'all' | CollectionCategory
@@ -17,7 +18,10 @@ export function MuseumPage() {
     <div className="museum-page page-surface">
       <header className="page-heading museum-page-heading">
         <p className="eyebrow">ISLAND COLLECTION</p>
-        <h1>岛上的小小博物馆</h1>
+        <h1>
+          <SectionIcon section="museum" />
+          岛上的小小博物馆
+        </h1>
         <p>收藏那些让心里亮起一盏小灯的东西。</p>
       </header>
       <MuseumFilters

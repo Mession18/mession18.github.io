@@ -3,6 +3,58 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { searchEntries } from '../data/search'
 import { WeatherTestPanel } from './WeatherTestPanel'
+import { Icon } from 'animal-island-ui'
+
+const navItems = [
+  {
+    to: '/',
+    label: '首页',
+    match: (path: string, hash: string) => path === '/' && !hash,
+    image: '/images/nav/icon-home.svg',
+  },
+  {
+    to: '/posts',
+    label: '文章',
+    match: (path: string) => path.startsWith('/posts'),
+    image: '/images/nav/article-461.png',
+  },
+  {
+    to: '/museum',
+    label: '博物馆',
+    match: (path: string) => path.startsWith('/museum'),
+    icon: 'icon-camera',
+  },
+  {
+    to: '/recipes',
+    label: '菜谱',
+    match: (path: string) => path.startsWith('/recipes'),
+    image: '/images/nav/cooking-recipe.png',
+  },
+  {
+    to: '/crafts',
+    label: '手工',
+    match: (path: string) => path.startsWith('/crafts'),
+    icon: 'icon-diy',
+  },
+  {
+    to: '/travel',
+    label: '旅游',
+    match: (path: string) => path.startsWith('/travel'),
+    icon: 'icon-miles',
+  },
+  {
+    to: '/planting',
+    label: '种植',
+    match: (path: string) => path.startsWith('/planting'),
+    icon: 'icon-critterpedia',
+  },
+  {
+    to: '/#about',
+    label: '护照',
+    match: (_path: string, hash: string) => hash === '#about',
+    icon: 'icon-variant',
+  },
+] as const
 
 export function Header({ pathname, hash }: { pathname: string; hash: string }) {
   const isHome = pathname === '/'
@@ -45,18 +97,21 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
           <span>风铃岛通信</span>
         </Link>
         <nav aria-label="主导航">
-          <Link className={isHome && !hash ? 'active' : ''} to="/">
-            首页
-          </Link>
-          <Link className={pathname.startsWith('/posts') ? 'active' : ''} to="/posts">
-            日志
-          </Link>
-          <Link className={pathname.startsWith('/museum') ? 'active' : ''} to="/museum">
-            博物馆
-          </Link>
-          <Link className={hash === '#about' ? 'active' : ''} to="/#about">
-            岛民护照
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              className={item.match(pathname, hash) ? 'active' : ''}
+              to={item.to}
+              aria-label={item.label}
+              title={item.label}
+            >
+              {'image' in item ? (
+                <img src={item.image} alt="" />
+              ) : (
+                <Icon name={item.icon} size={28} />
+              )}
+            </Link>
+          ))}
         </nav>
         <div className="header-actions">
           <WeatherTestPanel />

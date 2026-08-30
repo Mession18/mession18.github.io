@@ -1,5 +1,6 @@
 import { categoryLabels, collections } from './collections'
 import { posts } from './posts'
+import { contentSectionInfo, sectionContent, type ContentSectionKey } from './contentSections'
 
 export type SearchEntry = {
   id: string
@@ -25,7 +26,7 @@ const sectionEntries: SearchEntry[] = [
     href: '/',
     title: '风铃岛首页',
     meta: '首页 · 岛屿指引',
-    excerpt: '天气、最新日志、随机藏品与岛上的日常入口。',
+    excerpt: '天气、最新文章、随机藏品与岛上的日常入口。',
     icon: '🏝️',
     color: 'mint',
   }),
@@ -41,8 +42,8 @@ const sectionEntries: SearchEntry[] = [
   searchable({
     id: 'section-posts',
     href: '/posts',
-    title: '岛民日志',
-    meta: '文章 · 全部日志',
+    title: '文章',
+    meta: '文章 · 全部内容',
     excerpt: '阅读风铃岛寄出的每一封信。',
     icon: '✉️',
     color: 'sunshine',
@@ -56,6 +57,31 @@ const sectionEntries: SearchEntry[] = [
     icon: '🏛️',
     color: 'lavender',
   }),
+  ...(Object.keys(contentSectionInfo) as ContentSectionKey[]).map((section) =>
+    searchable({
+      id: `section-${section}`,
+      href: `/${section}`,
+      title: contentSectionInfo[section].title,
+      meta: `${contentSectionInfo[section].title} · 全部内容`,
+      excerpt: contentSectionInfo[section].description,
+      icon:
+        section === 'recipes'
+          ? '🍳'
+          : section === 'crafts'
+            ? '🧶'
+            : section === 'travel'
+              ? '🧳'
+              : '🌱',
+      color:
+        section === 'recipes'
+          ? 'sunshine'
+          : section === 'crafts'
+            ? 'coral'
+            : section === 'travel'
+              ? 'sky'
+              : 'mint',
+    }),
+  ),
 ]
 
 const postEntries = posts.map((post) =>
@@ -88,4 +114,26 @@ const collectionEntries = collections.map((item) =>
   ),
 )
 
-export const searchEntries = [...sectionEntries, ...postEntries, ...collectionEntries]
+const extraEntries = (Object.keys(sectionContent) as ContentSectionKey[]).flatMap((section) =>
+  sectionContent[section].map((item) =>
+    searchable(
+      {
+        id: `${section}-${item.slug}`,
+        href: `/${section}/${item.slug}`,
+        title: item.title,
+        meta: `${contentSectionInfo[section].title} · ${item.tag}`,
+        excerpt: item.excerpt,
+        icon: item.icon,
+        color: item.color,
+      },
+      item.content,
+    ),
+  ),
+)
+
+export const searchEntries = [
+  ...sectionEntries,
+  ...postEntries,
+  ...collectionEntries,
+  ...extraEntries,
+]

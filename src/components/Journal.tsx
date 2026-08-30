@@ -9,7 +9,7 @@ export function Journal() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">RECENT STORIES</p>
-          <h2>最近的岛民日志</h2>
+          <h2>最近的文章</h2>
         </div>
         <Link to="/posts">
           查看全部 <ArrowRight size={16} />
