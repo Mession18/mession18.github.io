@@ -9,11 +9,8 @@ export function HomePage() {
     <>
       <Hero />
       <Journal />
-      <Divider type="wave-yellow" className="island-section-divider" />
       <Museum />
-      <Divider type="wave-yellow" className="island-section-divider" />
       <Passport />
-      <Divider type="wave-yellow" className="island-section-divider" />
       <Bottle />
     </>
   )

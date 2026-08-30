@@ -194,15 +194,6 @@ body {
 .route-transition {
   animation: route-enter 0.42s ease both;
 }
-.island-section-divider {
-  width: min(760px, calc(100% - 48px));
-  margin: -6px auto;
-  opacity: 0.68;
-}
-[data-theme='night'] .island-section-divider {
-  opacity: 0.46;
-  filter: saturate(0.72) brightness(0.92);
-}
 @keyframes route-enter {
   from {
     opacity: 0;
@@ -1586,6 +1577,12 @@ h1 em {
   border-left: 1px solid var(--line);
   font-weight: 800;
 }
+.weather-game-time {
+  margin: -38px -35px -38px -20px;
+  padding: 0 !important;
+  transform: scale(0.48);
+  transform-origin: center right;
+}
 .section {
   max-width: 1160px;
   margin: auto;
@@ -2868,6 +2865,26 @@ h1 em {
   max-width: 100%;
   max-height: 70vh;
   object-fit: contain;
+}
+.collection-feature.has-image > .detail-preview-image,
+.article-feature-image > .detail-preview-image {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.detail-preview-image img {
+  position: static !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 72vh !important;
+  object-fit: contain !important;
 }
 .collection-feature > small {
   position: absolute;

@@ -1,3 +1,4 @@
+import { Tag } from 'animal-island-ui'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getPostPreviewImage, type Post } from '../data/posts'
@@ -30,4 +31,3 @@ export function PostCard({ post }: { post: Post }) {
     </article>
   )
 }
-import { Tag } from 'animal-island-ui'

@@ -1,4 +1,5 @@
-import { Camera, Map } from 'lucide-react'
+import { Icon } from 'animal-island-ui'
+import { Map } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { collections, getCollectionPreviewImage } from '../data/collections'
@@ -42,7 +43,7 @@ export function Museum() {
             </Link>
           )
         })}
-        <Camera className="camera" size={28} />
+        <Icon name="icon-camera" size={34} className="camera" />
       </div>
     </section>
   )

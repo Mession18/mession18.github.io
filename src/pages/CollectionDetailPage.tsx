@@ -1,3 +1,4 @@
+import { Image, Tag } from 'animal-island-ui'
 import { ArrowLeft, CalendarDays, Star } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
@@ -28,7 +29,11 @@ export function CollectionDetailPage() {
         <div
           className={`collection-feature collection-${item.color} ${detailImage ? 'has-image' : ''}`}
         >
-          {detailImage ? <img src={detailImage} alt={item.title} /> : <span>{item.icon}</span>}
+          {detailImage ? (
+            <Image src={detailImage} alt={item.title} preview className="detail-preview-image" />
+          ) : (
+            <span>{item.icon}</span>
+          )}
           <small>COLLECTION · {item.id}</small>
         </div>
         <div className="collection-info">
@@ -51,4 +56,3 @@ export function CollectionDetailPage() {
     </article>
   )
 }
-import { Tag } from 'animal-island-ui'

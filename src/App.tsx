@@ -1,5 +1,5 @@
-import { useLayoutEffect } from 'react'
-import { BackTop } from 'animal-island-ui'
+import { BackTop, Loading } from 'animal-island-ui'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -12,6 +12,12 @@ import { PostsPage } from './pages/PostsPage'
 
 export function App() {
   const location = useLocation()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoading(false), 650)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   useLayoutEffect(() => {
     if (location.hash) {
@@ -25,6 +31,7 @@ export function App() {
 
   return (
     <main>
+      <Loading active={loading} className="island-opening-loading" />
       <AmbientWeather />
       <Header />
       <div className="route-transition" key={location.pathname}>

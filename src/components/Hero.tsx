@@ -1,3 +1,4 @@
+import { Time } from 'animal-island-ui'
 import {
   ArrowRight,
   Cloud,
@@ -21,14 +22,6 @@ const weatherLabels: Record<WeatherKind, string> = {
   snow: '下雪',
   thunder: '雷雨',
 }
-const periodLabels: Record<TimePeriod, string> = {
-  dawn: '凌晨',
-  morning: '上午',
-  noon: '中午',
-  afternoon: '下午',
-  evening: '晚上',
-}
-
 function getMoonPhase(date: Date) {
   const synodicMonth = 29.530588853
   const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14)
@@ -194,9 +187,7 @@ export function Hero() {
           </b>
           {weather.loading ? '正在获取当地天气' : `${weatherLabels[weather.kind]} · ${windLabel}`}
         </span>
-        <time>
-          {periodLabels[weather.period]} {weather.time}
-        </time>
+        <Time type="game" className="weather-game-time" />
       </div>
     </section>
   )

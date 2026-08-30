@@ -1,3 +1,4 @@
+import { Image, Tag } from 'animal-island-ui'
 import { ArrowLeft, CalendarDays, Clock3 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { Link, useParams } from 'react-router-dom'
@@ -42,7 +43,7 @@ export function PostDetailPage() {
       </header>
       {detailImage && (
         <figure className="article-feature-image">
-          <img src={detailImage} alt={post.title} />
+          <Image src={detailImage} alt={post.title} preview className="detail-preview-image" />
         </figure>
       )}
       <div className="article-body">
@@ -56,4 +57,3 @@ export function PostDetailPage() {
     </article>
   )
 }
-import { Tag } from 'animal-island-ui'
