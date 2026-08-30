@@ -170,9 +170,15 @@ export function Hero() {
           </span>
         </div>
         <div className="house">
+          <span className="house-smoke" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
           <i className="roof" />
           <i className="chimney" />
           <span className="gable" />
+          <span className="house-trim" aria-hidden="true" />
           <span className="attic-window" />
           <span className="window left-window" />
           <span className="window right-window" />

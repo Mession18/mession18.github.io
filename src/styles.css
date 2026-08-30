@@ -843,7 +843,8 @@ h1 em {
 @media (prefers-reduced-motion: reduce) {
   .sky-stars,
   .fog-bank,
-  .lightning-bolt {
+  .lightning-bolt,
+  .house-smoke i {
     animation: none !important;
   }
   .hero.weather-thunder .lightning-bolt {
@@ -1326,90 +1327,187 @@ h1 em {
 }
 .house {
   right: 19%;
-  bottom: 102px;
-  width: 164px;
-  height: 118px;
-  background: #f3d59b;
-  border-radius: 6px 6px 16px 16px;
-  border: 6px solid #fff2cc;
-  box-shadow: none;
+  bottom: 105px;
+  width: 188px;
+  height: 122px;
+  overflow: visible;
+  background: linear-gradient(90deg, #ffc658 0 47%, #f6a33e 47% 100%);
+  border: 0;
+  border-radius: 2px 2px 8px 8px;
+  box-shadow: 0 8px 0 #39745a24;
 }
 .house .roof {
-  left: -25px;
-  top: -62px;
-  width: 202px;
-  height: 88px;
-  background: #ed846d;
-  clip-path: polygon(50% 0, 100% 73%, 93% 100%, 50% 35%, 7% 100%, 0 73%);
+  left: -13px;
+  top: -61px;
+  width: 215px;
+  height: 76px;
+  z-index: 1;
+  background: linear-gradient(180deg, #f2534e 0 18%, #df3e45 18% 100%);
+  clip-path: polygon(25% 0, 73% 0, 100% 73%, 96% 100%, 0 100%, 0 73%);
+  filter: drop-shadow(0 5px 0 #bd303a);
+}
+.house .roof::after {
+  content: '';
+  position: absolute;
+  inset: 22px 24px 12px 70px;
+  background:
+    linear-gradient(#ba303b 0 0) 8px 0 / 20px 4px no-repeat,
+    linear-gradient(#ba303b 0 0) 62px 16px / 24px 4px no-repeat,
+    linear-gradient(#ba303b 0 0) 98px 1px / 17px 4px no-repeat;
+  opacity: 0.72;
 }
 .house .chimney {
-  width: 20px;
-  height: 46px;
-  right: 20px;
-  top: -54px;
-  background: #a75f50;
-  border-radius: 5px 5px 0 0;
+  width: 23px;
+  height: 43px;
+  right: 26px;
+  top: -69px;
+  z-index: 3;
+  background: #e34243;
+  border-radius: 2px 2px 0 0;
+  box-shadow: inset -6px 0 #c73339;
+}
+.house .chimney::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -6px;
+  width: 31px;
+  height: 8px;
+  border-radius: 2px;
+  background: #f0524e;
 }
 .house .gable {
   position: absolute;
-  left: 17px;
-  top: -49px;
-  width: 118px;
-  height: 66px;
-  z-index: 0;
-  background: #f3d59b;
+  left: -1px;
+  top: -55px;
+  width: 105px;
+  height: 69px;
+  z-index: 2;
+  background: #f14946;
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.house .gable::after {
+  content: '';
+  position: absolute;
+  inset: 9px 9px 0;
+  background: #ffc658;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.house .house-trim {
+  position: absolute;
+  z-index: 1;
+  inset: 14px 8px 8px;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 20px, rgb(201 111 43 / 17%) 20px 23px);
 }
 .house .attic-window {
   position: absolute;
-  z-index: 2;
-  width: 23px;
-  height: 23px;
-  left: 64px;
-  top: -32px;
+  z-index: 4;
+  width: 25px;
+  height: 25px;
+  left: 40px;
+  top: -29px;
   border-radius: 50%;
-  background: #9bd1ca;
-  border: 4px solid #fff2cc;
+  background: linear-gradient(135deg, #9de6ed 48%, #e7fbf3 49%);
+  border: 4px solid #fff0a9;
+  box-shadow: 0 0 0 2px #e99a37;
 }
 .house .window {
-  width: 30px;
-  height: 32px;
-  top: 31px;
-  border: 4px solid #fff8df;
-  border-radius: 9px;
-  background: #9bd1ca;
-  box-shadow: none;
+  z-index: 3;
+  width: 38px;
+  height: 39px;
+  top: 27px;
+  border: 5px solid #fff1b5;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #73d7e9 0 44%, #d9f7f5 45% 58%, #8edee9 59% 100%);
+  box-shadow: 0 5px 0 #dd673e;
 }
 .house .window:after {
   content: '';
   position: absolute;
-  left: 11px;
+  left: 14px;
   top: 0;
   width: 3px;
-  height: 24px;
-  background: #fff8df;
+  height: 29px;
+  background: #fff1b5;
 }
 .left-window {
-  left: 17px;
+  left: 106px;
 }
 .right-window {
-  right: 17px;
+  right: 8px;
 }
 .house .door {
-  width: 38px;
-  height: 58px;
-  left: 56px;
-  bottom: -6px;
-  border-radius: 16px 16px 3px 3px;
+  z-index: 3;
+  width: 45px;
+  height: 68px;
+  left: 27px;
+  bottom: 0;
+  border: 5px solid #ee9540;
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
+  background: #a9583d;
 }
 .house .step {
   position: absolute;
-  width: 58px;
+  z-index: 4;
+  width: 69px;
+  height: 11px;
+  left: 15px;
+  bottom: -10px;
+  border-radius: 2px;
+  background: #ffc866;
+  box-shadow: 0 6px 0 #e99b43;
+}
+.house-smoke {
+  position: absolute;
+  z-index: 2;
+  right: 28px;
+  top: -88px;
+  width: 32px;
+  height: 48px;
+  pointer-events: none;
+}
+.house-smoke i {
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+  width: 10px;
   height: 10px;
-  left: 46px;
-  bottom: -14px;
-  border-radius: 6px;
-  background: #d4a66d;
+  border-radius: 50%;
+  background: #e8efecaa;
+  opacity: 0;
+  animation: chimney-smoke 4.8s ease-out infinite;
+}
+.house-smoke i:nth-child(2) {
+  animation-delay: -1.6s;
+}
+.house-smoke i:nth-child(3) {
+  animation-delay: -3.2s;
+}
+@keyframes chimney-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 8px) scale(0.55);
+  }
+  24% {
+    opacity: 0.62;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-12px, -42px) scale(1.7);
+  }
+}
+.hero.time-dawn .house,
+.hero.time-evening .house {
+  filter: brightness(0.76) saturate(0.86);
+}
+.hero.time-dawn .house .window,
+.hero.time-evening .house .window,
+.hero.time-dawn .house .attic-window,
+.hero.time-evening .house .attic-window {
+  background: #f8d978;
+  box-shadow: 0 0 13px #ffd66a7a;
 }
 .hero.time-dawn .ground,
 .hero.time-evening .ground,
