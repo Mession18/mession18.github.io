@@ -1988,8 +1988,8 @@ h1 em {
 }
 .passport-intro {
   width: min(410px, 100%);
-  align-self: flex-end;
-  margin-right: max(0px, calc((100% - 760px) / 2));
+  align-self: flex-start;
+  margin-left: max(0px, calc((100% - 760px) / 2));
 }
 .passport-intro h2 {
   display: flex;
@@ -3264,7 +3264,7 @@ footer {
   .passport-intro {
     width: min(560px, 100%);
     align-self: center;
-    margin-right: 0;
+    margin-left: 0;
   }
   .photo-stack {
     transform: scale(0.9);
