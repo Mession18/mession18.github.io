@@ -1971,24 +1971,6 @@ h1 em {
   display: block;
   object-fit: cover;
 }
-.content-preview-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  cursor: zoom-in;
-}
-.content-preview-image > span,
-.content-preview-image img {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-.content-preview-image img {
-  object-fit: inherit;
-}
-.post-art .content-preview-image {
-  object-fit: cover;
-}
 .post-art span {
   font-size: 68px;
   filter: drop-shadow(0 8px 4px #536f4f23);
@@ -2653,12 +2635,6 @@ h1 em {
   height: 100%;
   display: block;
   object-fit: cover;
-}
-.collection-cover .content-preview-image {
-  object-fit: cover;
-}
-.photo .content-preview-image {
-  object-fit: contain;
 }
 .photo div img {
   object-fit: contain;

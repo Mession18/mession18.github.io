@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { collections, getCollectionPreviewImage } from '../data/collections'
 import { posts } from '../data/posts'
-import { PreviewableImage } from './PreviewableImage'
 
 export function Museum() {
   const photos = collections.filter((item) => item.category === 'photos')
@@ -52,13 +51,7 @@ export function Museum() {
               className={`photo p${index + 1}`}
               to={`/museum/${item.category}/${item.slug}`}
             >
-              <div>
-                {previewImage ? (
-                  <PreviewableImage src={previewImage} alt={item.title} />
-                ) : (
-                  item.icon
-                )}
-              </div>
+              <div>{previewImage ? <img src={previewImage} alt={item.title} /> : item.icon}</div>
               <span>{item.title}</span>
             </Link>
           )
