@@ -5,7 +5,7 @@ import type { MutableRefObject, PointerEvent as ReactPointerEvent } from 'react'
 import { X } from 'lucide-react'
 import * as THREE from 'three'
 
-const MODEL_URL = '/models/jinzi-rigged.glb'
+const MODEL_URL = '/models/jinzi-rigged.glb?v=1.0.0'
 
 const CAT_LINES = [
   '你来啦！今天也要慢慢生活呀。',
