@@ -9,48 +9,56 @@ import { MusicPlayer } from './MusicPlayer'
 const navItems = [
   {
     to: '/',
+    section: 'top',
     label: '首页',
     match: (path: string, hash: string) => path === '/' && !hash,
     image: '/images/nav/icon-home.svg',
   },
   {
     to: '/posts',
+    section: 'journal',
     label: '文章',
     match: (path: string) => path.startsWith('/posts'),
     image: '/images/nav/article-461.png',
   },
   {
     to: '/museum',
+    section: 'museum',
     label: '博物馆',
     match: (path: string) => path.startsWith('/museum'),
     icon: 'icon-camera',
   },
   {
     to: '/recipes',
+    section: 'recipes',
     label: '菜谱',
     match: (path: string) => path.startsWith('/recipes'),
     image: '/images/nav/cooking-recipe.png',
   },
   {
     to: '/crafts',
+    section: 'crafts',
     label: '手工',
     match: (path: string) => path.startsWith('/crafts'),
     icon: 'icon-diy',
   },
   {
     to: '/travel',
+    section: 'travel',
     label: '旅游',
     match: (path: string) => path.startsWith('/travel'),
     icon: 'icon-miles',
   },
   {
     to: '/planting',
+    section: 'planting',
     label: '种植',
     match: (path: string) => path.startsWith('/planting'),
     image: '/images/nav/planting-073.png',
   },
   {
     to: '/#about',
+    section: 'about',
     label: '护照',
     match: (_path: string, hash: string) => hash === '#about',
     icon: 'icon-variant',
@@ -60,15 +68,25 @@ const navItems = [
 export function Header({ pathname, hash }: { pathname: string; hash: string }) {
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
+  const [activeHomeSection, setActiveHomeSection] = useState('top')
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
 
   useEffect(() => {
-    const updateHeader = () => setScrolled(window.scrollY > 90)
+    const updateHeader = () => {
+      setScrolled(window.scrollY > 90)
+      if (!isHome) return
+      let current = 'top'
+      for (const id of ['journal', 'museum', 'recipes', 'crafts', 'travel', 'planting', 'about']) {
+        const element = document.getElementById(id)
+        if (element && element.getBoundingClientRect().top <= 150) current = id
+      }
+      setActiveHomeSection(current)
+    }
     updateHeader()
     window.addEventListener('scroll', updateHeader, { passive: true })
     return () => window.removeEventListener('scroll', updateHeader)
-  }, [])
+  }, [isHome])
 
   useEffect(() => {
     if (!searchOpen) return
@@ -101,7 +119,15 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
           {navItems.map((item) => (
             <Link
               key={item.to}
-              className={item.match(pathname, hash) ? 'active' : ''}
+              className={
+                isHome
+                  ? activeHomeSection === item.section
+                    ? 'active'
+                    : ''
+                  : item.match(pathname, hash)
+                    ? 'active'
+                    : ''
+              }
               to={item.to}
               aria-label={item.label}
               title={item.label}

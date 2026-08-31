@@ -36,7 +36,7 @@ export function RecipeHomeSection() {
   const refresh = (button: HTMLButtonElement) =>
     animateItemRefresh(button, () => setChoices(shuffled(recipes).slice(0, 3)))
   return (
-    <section className="home-recipes home-content-section">
+    <section className="home-recipes home-content-section" id="recipes">
       <div className="home-content-inner">
         <div className="home-content-heading recipe-heading">
           <span className="home-content-icon">
@@ -76,7 +76,7 @@ export function CraftHomeSection() {
   const allCrafts = sectionContent.crafts
   const [crafts, setCrafts] = useState(() => shuffled(allCrafts).slice(0, 3))
   return (
-    <section className="home-crafts home-content-section">
+    <section className="home-crafts home-content-section" id="crafts">
       <div className="home-content-inner craft-workbench">
         <div className="craft-copy">
           <Icon name="icon-diy" size={62} />
@@ -124,7 +124,7 @@ export function TravelHomeSection() {
   const [index, setIndex] = useState(0)
   const item = travel[index % Math.max(travel.length, 1)]
   return (
-    <section className="home-travel home-content-section">
+    <section className="home-travel home-content-section" id="travel">
       <div className="home-content-inner travel-desk">
         <div className="travel-postcard">
           {item && (
@@ -172,7 +172,7 @@ export function PlantingHomeSection() {
   const [flowerIndex, setFlowerIndex] = useState(dailyIndex)
   const today = flowers[flowerIndex % Math.max(flowers.length, 1)]
   return (
-    <section className="home-planting home-content-section">
+    <section className="home-planting home-content-section" id="planting">
       <div className="home-content-inner flower-garden">
         <div className="flower-title">
           <img src="/images/nav/planting-073.png" alt="" />

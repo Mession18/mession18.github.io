@@ -4045,6 +4045,16 @@ h1 em {
   vertical-align: -0.25em;
   margin: 0 3px;
 }
+.markdown-flag-icon {
+  display: inline-block;
+  width: 28px;
+  height: 21px;
+  margin: 0 4px;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px #24352d26;
+  object-fit: cover;
+  vertical-align: -0.32em;
+}
 .markdown-island-panel {
   margin: 22px 0;
   padding: 15px 18px;

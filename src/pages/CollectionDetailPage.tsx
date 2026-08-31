@@ -50,7 +50,7 @@ export function CollectionDetailPage() {
               <Star size={15} fill="currentColor" /> {item.rating} / 5
             </span>
           </div>
-          <MarkdownContent>{item.content}</MarkdownContent>
+          <MarkdownContent sourceDir={item.sourceDir}>{item.content}</MarkdownContent>
         </div>
       </div>
     </article>

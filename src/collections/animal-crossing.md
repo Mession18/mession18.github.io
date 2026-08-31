@@ -5,7 +5,7 @@ title: 动物森友会
 subtitle: 一座可以随时回去的小岛
 year: 2026
 rating: 5
-icon: 🏝️
+previewImage: /images/collections/ACHN.png
 color: mint
 excerpt: 每天看看天气，和岛民聊几句话，再慢慢整理自己的小屋。
 ---
@@ -17,3 +17,4 @@ excerpt: 每天看看天气，和岛民聊几句话，再慢慢整理自己的�
 > 不必完成所有事情，也能度过很好的一天。
 
 喜欢收集家具、观察季节变化，也喜欢那些没有目的地的岛上散步。
+![](Pasted%20image%2020260831203849.png)

@@ -43,7 +43,6 @@ export function WeatherTestPanel() {
         aria-expanded={open}
       >
         {open ? <X size={17} /> : <CloudSun size={19} />}
-        <span>{open ? '关闭' : '场景'}</span>
       </button>
       {open && (
         <div className="weather-test-content">

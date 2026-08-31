@@ -13,6 +13,7 @@ export type Post = {
   previewImage?: string
   detailImage?: string
   content: string
+  sourceDir: string
 }
 
 const markdownFiles = import.meta.glob('../posts/*.md', {
@@ -63,6 +64,7 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     previewImage: metadata.previewImage || undefined,
     detailImage: metadata.detailImage || undefined,
     content,
+    sourceDir: path.match(/\.\.\/([^/]+)\//)?.[1] ?? 'posts',
   }
 }
 

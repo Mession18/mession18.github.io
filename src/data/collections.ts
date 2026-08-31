@@ -14,6 +14,7 @@ export type CollectionItem = {
   color: CollectionColor
   excerpt: string
   content: string
+  sourceDir: string
 }
 
 export const categoryLabels: Record<CollectionCategory, string> = {
@@ -68,6 +69,7 @@ function parseCollection(path: string, source: string): CollectionItem | null {
     color,
     excerpt: metadata.excerpt,
     content: match[2].trim(),
+    sourceDir: path.match(/\.\.\/([^/]+)\//)?.[1] ?? 'collections',
   }
 }
 

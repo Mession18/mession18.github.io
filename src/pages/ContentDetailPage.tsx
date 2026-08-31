@@ -52,7 +52,7 @@ export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
               </span>
             </div>
             <div className="tutorial-content">
-              <MarkdownContent>{item.content}</MarkdownContent>
+              <MarkdownContent sourceDir={item.sourceDir}>{item.content}</MarkdownContent>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
         </figure>
       )}
       <div className="article-body">
-        <MarkdownContent>{item.content}</MarkdownContent>
+        <MarkdownContent sourceDir={item.sourceDir}>{item.content}</MarkdownContent>
       </div>
     </article>
   )

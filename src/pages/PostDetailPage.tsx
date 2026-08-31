@@ -47,7 +47,7 @@ export function PostDetailPage() {
         </figure>
       )}
       <div className="article-body">
-        <MarkdownContent>{post.content}</MarkdownContent>
+        <MarkdownContent sourceDir={post.sourceDir}>{post.content}</MarkdownContent>
       </div>
       <footer className="article-ending">
         <span>END OF LETTER</span>
