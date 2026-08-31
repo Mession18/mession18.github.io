@@ -346,11 +346,8 @@ body {
   .ambient-weather {
     display: none;
   }
-  .cat-character img,
-  .cat-rig,
-  .cat-blink i,
   .music-cover,
-  .music-trigger img {
+  .music-trigger > span:first-child {
     animation: none !important;
     transition: none !important;
   }
@@ -466,9 +463,10 @@ nav a.active:after {
   background: #ffffff1c;
   cursor: pointer;
 }
-.music-trigger img {
+.music-trigger > span:first-child {
   object-fit: contain;
   filter: drop-shadow(0 2px 3px #24372d33);
+  transform-origin: center;
 }
 .music-trigger i {
   position: absolute;
@@ -480,8 +478,8 @@ nav a.active:after {
   border-radius: 50%;
   background: #66c391;
 }
-.music-trigger.is-playing img {
-  animation: music-bob 1.2s ease-in-out infinite;
+.music-trigger.is-playing > span:first-child {
+  animation: music-spin 3.8s linear infinite;
 }
 .music-popover {
   position: absolute;
@@ -571,6 +569,13 @@ nav a.active:after {
   border-radius: 50%;
   background: color-mix(in srgb, var(--mint) 48%, var(--paper));
   box-shadow: inset 0 0 0 5px #ffffff4a;
+  overflow: hidden;
+}
+.music-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .music-cover.spinning {
   animation: music-spin 7s linear infinite;
@@ -781,16 +786,63 @@ nav a.active:after {
   opacity: 0.3;
 }
 
-.island-cat-static {
-  width: 158px;
-  height: 174px;
+.island-cat.island-cat-3d {
+  bottom: 12px;
+  width: 180px;
+  height: 215px;
+  pointer-events: auto;
+  filter: drop-shadow(0 12px 11px #1a21194a);
+  will-change: transform;
 }
-.island-cat-static > img {
+.island-cat-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+.cat-model-hit-area {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 9px 8px #1a21193f);
-  user-select: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+.cat-model-hit-area:focus-visible {
+  border-radius: 42%;
+  outline: 3px solid color-mix(in srgb, var(--mint) 75%, white);
+  outline-offset: -5px;
+}
+.cat-dialog.cat-model-dialog {
+  z-index: 4;
+  left: 48px;
+  bottom: 260px;
+  pointer-events: none;
+}
+.island-cat-3d-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 24px;
+}
+.island-cat-3d-loading span {
+  width: 44px;
+  height: 10px;
+  border-radius: 50%;
+  background: #18221924;
+  filter: blur(4px);
+  animation: cat-model-loading 1.2s ease-in-out infinite alternate;
+}
+@keyframes cat-model-loading {
+  to {
+    opacity: 0.35;
+    transform: scaleX(0.72);
+  }
 }
 @keyframes music-spin {
   to {
@@ -818,95 +870,6 @@ nav a.active:after {
   text-align: center;
   pointer-events: none;
   perspective: 600px;
-}
-.cat-character {
-  position: relative;
-  width: 158px;
-  height: 174px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: auto;
-  transform-style: preserve-3d;
-}
-.cat-rig {
-  position: absolute;
-  inset: 0;
-  display: block;
-  transform: rotateX(var(--cat-look-y)) rotateY(var(--cat-look-x));
-  transform-origin: 50% 70%;
-  transform-style: preserve-3d;
-  transition: transform 0.18s cubic-bezier(0.2, 0.75, 0.25, 1);
-  animation: cat-breathe 3.4s ease-in-out infinite;
-}
-.cat-character img {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 9px 8px #1a21193f);
-  user-select: none;
-}
-.cat-character .cat-body-layer {
-  filter: drop-shadow(0 9px 8px #1a21193f);
-}
-.cat-character .cat-face-layer {
-  z-index: 3;
-  clip-path: inset(0 0 48% 0);
-  filter: none;
-  transform: translate3d(var(--cat-face-x), var(--cat-face-y), 8px);
-  transition: transform 0.16s cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-.cat-blink {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  transform: translate3d(var(--cat-face-x), var(--cat-face-y), 10px);
-  transition: transform 0.16s ease-out;
-}
-.cat-blink i {
-  position: absolute;
-  top: 57px;
-  width: 25px;
-  height: 0;
-  border-radius: 50%;
-  background: #24242d;
-  transform-origin: center;
-  animation: cat-blink 5.2s infinite;
-}
-.cat-blink i:first-child {
-  left: 45px;
-}
-.cat-blink i:last-child {
-  right: 45px;
-}
-.cat-shadow {
-  position: absolute;
-  z-index: 1;
-  right: 19px;
-  bottom: 6px;
-  left: 19px;
-  height: 16px;
-  border-radius: 50%;
-  background: #18221935;
-  filter: blur(4px);
-}
-.island-cat > small {
-  display: inline-block;
-  margin-top: -4px;
-  padding: 3px 10px;
-  border-radius: 99px;
-  background: color-mix(in srgb, var(--paper) 84%, transparent);
-  color: var(--muted);
-  font-size: 10px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.island-cat:hover > small {
-  opacity: 1;
 }
 .cat-dialog {
   position: absolute;
@@ -974,303 +937,13 @@ nav a.active:after {
   box-shadow: var(--shadow);
   cursor: pointer;
 }
-.cat-character.action-wave .cat-rig {
-  animation: cat-wave 0.75s ease;
-}
-.cat-character.action-proud .cat-rig {
-  animation: cat-proud 0.8s ease;
-}
-.cat-character.action-pounce .cat-rig {
-  animation: cat-pounce 0.65s ease;
-}
-.cat-character.action-dance .cat-rig {
-  animation: cat-dance 0.85s ease;
-}
-.cat-character.action-happy .cat-rig {
-  animation: cat-happy 0.7s ease;
-}
 @keyframes cat-talk {
   from {
     opacity: 0;
     transform: translateY(8px) scale(0.94);
   }
 }
-@keyframes cat-breathe {
-  50% {
-    transform: rotateX(var(--cat-look-y)) rotateY(var(--cat-look-x)) translateY(-2px) scale(1.008);
-  }
-}
-@keyframes cat-blink {
-  0%,
-  45%,
-  49%,
-  100% {
-    height: 0;
-    transform: translateY(0);
-  }
-  47% {
-    height: 22px;
-    transform: translateY(-11px);
-  }
-}
-@keyframes cat-wave {
-  35% {
-    transform: rotate(-7deg) translateY(-7px);
-  }
-  70% {
-    transform: rotate(5deg) translateY(-4px);
-  }
-}
-@keyframes cat-proud {
-  45% {
-    transform: translateY(-10px) scale(1.04);
-  }
-}
-@keyframes cat-pounce {
-  45% {
-    transform: translateY(-22px) scale(0.96, 1.07);
-  }
-}
-@keyframes cat-dance {
-  25% {
-    transform: rotate(-8deg) translateY(-7px);
-  }
-  55% {
-    transform: rotate(8deg) translateY(-7px);
-  }
-}
-@keyframes cat-happy {
-  30%,
-  70% {
-    transform: translateY(-9px) scale(1.04);
-  }
-  50% {
-    transform: translateY(-4px) scale(0.98);
-  }
-}
 
-/* 分区遮罩让每个部位只出现一次，再分别施加 Live2D-like 动作。 */
-.cat-rig {
-  transform: none;
-}
-.cat-character .cat-tail-layer {
-  z-index: 1;
-  clip-path: polygon(61% 50%, 100% 50%, 100% 92%, 55% 92%);
-  filter: drop-shadow(0 5px 4px #1a211925);
-  transform-origin: 72% 80%;
-  animation: cat-tail-sway 2.2s ease-in-out infinite alternate;
-}
-.cat-character .cat-torso-layer {
-  z-index: 2;
-  clip-path: polygon(28% 49%, 72% 49%, 77% 100%, 23% 100%);
-  filter: drop-shadow(0 9px 8px #1a21193f);
-}
-.cat-character .cat-arm-layer {
-  z-index: 3;
-  filter: none;
-}
-.cat-character .cat-arm-left {
-  clip-path: polygon(10% 49%, 51% 49%, 51% 83%, 8% 83%);
-  transform-origin: 42% 57%;
-  animation: cat-arm-idle-left 6.8s ease-in-out 0.6s infinite;
-}
-.cat-character .cat-arm-right {
-  clip-path: polygon(49% 49%, 90% 49%, 92% 83%, 49% 83%);
-  transform-origin: 58% 57%;
-  animation: cat-arm-idle-right 7.7s ease-in-out 3.1s infinite;
-}
-.cat-character .cat-head-layer {
-  z-index: 4;
-  clip-path: inset(0 0 50% 0);
-  filter: drop-shadow(0 5px 5px #1a211925);
-  transform: translate3d(var(--cat-face-x), var(--cat-face-y), 8px) rotateX(var(--cat-look-y))
-    rotateY(var(--cat-look-x));
-  transform-origin: 50% 42%;
-  transition: transform 0.16s cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-.cat-blink {
-  z-index: 5;
-}
-.cat-mouth {
-  position: absolute;
-  z-index: 6;
-  top: 81px;
-  left: 74px;
-  width: 10px;
-  height: 6px;
-  border: 2px solid #17171b;
-  border-radius: 45% 45% 55% 55%;
-  background: #7e3f48;
-  opacity: 0;
-  transform: translate3d(var(--cat-face-x), var(--cat-face-y), 12px) scaleY(0.2);
-}
-.cat-character.action-talk .cat-mouth {
-  opacity: 1;
-  animation: cat-mouth-talk 0.13s ease-in-out infinite alternate;
-}
-.cat-character.action-clap .cat-arm-left {
-  animation: cat-clap-left 0.28s ease-in-out 6 alternate;
-}
-.cat-character.action-clap .cat-arm-right {
-  animation: cat-clap-right 0.28s ease-in-out 6 alternate;
-}
-.cat-character.action-happy .cat-rig {
-  animation: cat-happy 0.48s ease-in-out 3 alternate;
-}
-.cat-character.action-wave .cat-arm-right {
-  animation: cat-arm-wave 0.28s ease-in-out 6 alternate;
-}
-.island-cat.is-listening .cat-rig {
-  animation: cat-music-groove 0.72s ease-in-out infinite alternate;
-}
-.island-cat.is-listening .cat-arm-left {
-  animation: cat-music-arm-left 0.72s ease-in-out infinite alternate;
-}
-.island-cat.is-listening .cat-arm-right {
-  animation: cat-music-arm-right 0.72s ease-in-out infinite alternate;
-}
-@keyframes cat-tail-sway {
-  to {
-    transform: rotate(7deg) translateX(2px);
-  }
-}
-@keyframes cat-arm-idle-left {
-  0%,
-  78%,
-  100% {
-    transform: rotate(0);
-  }
-  84% {
-    transform: rotate(7deg);
-  }
-  91% {
-    transform: rotate(-3deg);
-  }
-}
-@keyframes cat-arm-idle-right {
-  0%,
-  72%,
-  100% {
-    transform: rotate(0);
-  }
-  80% {
-    transform: rotate(-8deg);
-  }
-  89% {
-    transform: rotate(3deg);
-  }
-}
-@keyframes cat-mouth-talk {
-  to {
-    transform: translate3d(var(--cat-face-x), var(--cat-face-y), 12px) scaleY(1.25);
-  }
-}
-@keyframes cat-clap-left {
-  to {
-    transform: rotate(-33deg) translate(13px, -4px);
-  }
-}
-@keyframes cat-clap-right {
-  to {
-    transform: rotate(33deg) translate(-13px, -4px);
-  }
-}
-@keyframes cat-arm-wave {
-  to {
-    transform: rotate(-24deg) translateY(-8px);
-  }
-}
-@keyframes cat-music-groove {
-  to {
-    transform: rotate(4deg) translateY(-5px);
-  }
-}
-@keyframes cat-music-arm-left {
-  to {
-    transform: rotate(12deg) translateY(-3px);
-  }
-}
-@keyframes cat-music-arm-right {
-  to {
-    transform: rotate(-12deg) translateY(-3px);
-  }
-}
-
-/* V4 使用上下两个严格互斥区域：身体保持完整，头部围绕脖子支点转动。 */
-.cat-character .cat-body-layer {
-  z-index: 2;
-  clip-path: inset(56% 0 0 0);
-  filter: drop-shadow(0 9px 8px #1a21193f);
-}
-.cat-character .cat-head-layer {
-  z-index: 4;
-  clip-path: inset(0 0 44% 0);
-  transform: none;
-}
-.cat-head-motion {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  transform: rotateX(var(--cat-look-y)) rotateY(var(--cat-look-x));
-  transform-origin: 50% 56%;
-  transform-style: preserve-3d;
-  transition: transform 0.16s cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-.cat-eyes {
-  position: absolute;
-  z-index: 5;
-  inset: 0;
-  transform: translate(var(--cat-eye-x), var(--cat-eye-y));
-  transition: transform 0.12s ease-out;
-}
-.cat-eyes i {
-  position: absolute;
-  top: 54px;
-  width: 14px;
-  height: 19px;
-  border: 2px solid #bf7a08;
-  border-radius: 50%;
-  background: #25130d;
-  box-shadow: inset 3px 2px 0 #ffffffd9;
-}
-.cat-eyes i:first-child {
-  left: 51px;
-}
-.cat-eyes i:last-child {
-  right: 51px;
-}
-.cat-blink {
-  z-index: 6;
-  transform: translate(var(--cat-eye-x), var(--cat-eye-y));
-}
-.cat-mouth {
-  z-index: 7;
-  transform: translate3d(var(--cat-eye-x), var(--cat-eye-y), 12px) scaleY(0.2);
-}
-.cat-character.action-talk .cat-mouth {
-  animation-name: cat-mouth-talk-v4;
-}
-@keyframes cat-mouth-talk-v4 {
-  to {
-    transform: translate3d(var(--cat-eye-x), var(--cat-eye-y), 12px) scaleY(1.25);
-  }
-}
-.cat-character.action-clap .cat-rig {
-  animation: cat-clap-unified 0.28s ease-in-out 6 alternate;
-}
-.cat-character.action-wave .cat-rig {
-  animation: cat-wave-unified 0.34s ease-in-out 5 alternate;
-}
-@keyframes cat-clap-unified {
-  to {
-    transform: translateY(-5px) scale(1.025);
-  }
-}
-@keyframes cat-wave-unified {
-  to {
-    transform: rotate(3deg) translateY(-3px);
-  }
-}
 .theme-switch {
   position: relative;
   width: 174px;
@@ -5230,48 +4903,23 @@ footer {
     transform: scale(0.88);
     transform-origin: left bottom;
   }
-  .island-cat-static {
-    height: 132px;
-  }
-  .cat-character {
-    width: 118px;
-    height: 132px;
+  .island-cat.island-cat-3d {
+    bottom: 66px;
+    width: 140px;
+    height: 165px;
   }
   .cat-dialog {
     left: 43px;
     bottom: 131px;
     width: min(200px, calc(100vw - 90px));
   }
+  .cat-dialog.cat-model-dialog {
+    left: 35px;
+    bottom: 210px;
+  }
   .cat-return {
     left: 12px;
     bottom: 80px;
-  }
-  .cat-blink i {
-    top: 43px;
-    width: 19px;
-  }
-  .cat-blink i:first-child {
-    left: 34px;
-  }
-  .cat-blink i:last-child {
-    right: 34px;
-  }
-  .cat-eyes i {
-    top: 41px;
-    width: 11px;
-    height: 15px;
-  }
-  .cat-eyes i:first-child {
-    left: 38px;
-  }
-  .cat-eyes i:last-child {
-    right: 38px;
-  }
-  .cat-mouth {
-    top: 61px;
-    left: 55px;
-    width: 8px;
-    height: 5px;
   }
   .topbar nav {
     position: fixed;
@@ -5453,7 +5101,7 @@ footer {
     width: 36px;
     height: 36px;
   }
-  .music-trigger img {
+  .music-trigger > span:first-child {
     width: 29px !important;
     height: 29px !important;
   }

@@ -237,7 +237,11 @@ export function MusicPlayer() {
           </header>
           <div className="music-now">
             <span className={`music-cover${playing ? ' spinning' : ''}`}>
-              <Icon src={musicIcon} size={58} />
+              {track.cover ? (
+                <img src={track.cover} alt={`${track.title} 封面`} />
+              ) : (
+                <Icon src={musicIcon} size={58} />
+              )}
             </span>
             <span>
               <b>{track.title}</b>

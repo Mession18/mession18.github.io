@@ -11,9 +11,9 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "animal-island-ui": "^1.7.0",
-    "classnames": "^2.5.1",
     "flag-icons": "^7.5.0",
     "lucide-react": "latest",
     "react": "latest",
@@ -21,12 +21,14 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.2",
     "remark-gfm": "^4.0.1",
-    "typescript": "latest",
-    "vite": "latest"
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
-    "prettier": "^3.9.6"
+    "@vitejs/plugin-react": "latest",
+    "prettier": "^3.9.6",
+    "typescript": "latest",
+    "vite": "latest"
   }
 }

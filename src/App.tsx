@@ -1,10 +1,9 @@
 import { BackTop, Loading } from 'animal-island-ui'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AmbientWeather } from './components/AmbientWeather'
-import { IslandCat } from './components/IslandCat'
 import { HomePage } from './pages/HomePage'
 import { CollectionDetailPage } from './pages/CollectionDetailPage'
 import { MuseumPage } from './pages/MuseumPage'
@@ -13,6 +12,10 @@ import { PostsPage } from './pages/PostsPage'
 import { ContentSectionPage } from './pages/ContentSectionPage'
 import { ContentDetailPage } from './pages/ContentDetailPage'
 import type { ContentSectionKey } from './data/contentSections'
+
+const IslandCat3D = lazy(() =>
+  import('./components/IslandCat3D').then((module) => ({ default: module.IslandCat3D })),
+)
 
 function getRouteSection(pathname: string) {
   if (pathname.startsWith('/posts')) return 'posts'
@@ -75,7 +78,9 @@ export function App() {
       </div>
       <AmbientWeather />
       <Header pathname={displayLocation.pathname} hash={displayLocation.hash} />
-      <IslandCat />
+      <Suspense fallback={null}>
+        <IslandCat3D />
+      </Suspense>
       <div className="route-transition" key={displayLocation.pathname}>
         <Routes location={displayLocation}>
           <Route path="/" element={<HomePage />} />
