@@ -1,4 +1,4 @@
-import { useGLTF } from '@react-three/drei'
+import { useAnimations, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { MutableRefObject, PointerEvent as ReactPointerEvent } from 'react'
@@ -26,7 +26,8 @@ type TrackedBone = {
 }
 
 function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
-  const { scene } = useGLTF(MODEL_URL)
+  const { scene, animations } = useGLTF(MODEL_URL)
+  const { actions } = useAnimations(animations, scene)
   const trackedBones = useMemo<TrackedBone[]>(() => {
     const weights: Record<string, number> = {
       CC_Base_NeckTwist01: 0.18,
@@ -35,29 +36,25 @@ function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
     }
 
     const bones: TrackedBone[] = []
-    const standingPose: Record<string, [number, number, number]> = {
-      CC_Base_L_Upperarm: [0, 0, -1.02],
-      CC_Base_R_Upperarm: [0, 0, 1.02],
-      CC_Base_L_Forearm: [0, 0, -0.12],
-      CC_Base_R_Forearm: [0, 0, 0.12],
-    }
     scene.traverse((object) => {
       object.frustumCulled = false
-      if (
-        !scene.userData.webStandingPoseApplied &&
-        object instanceof THREE.Bone &&
-        standingPose[object.name]
-      ) {
-        const [x, y, z] = standingPose[object.name]
-        object.quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(x, y, z)))
-      }
       if (object instanceof THREE.Bone && weights[object.name]) {
         bones.push({ bone: object, rest: object.quaternion.clone(), weight: weights[object.name] })
       }
     })
-    scene.userData.webStandingPoseApplied = true
     return bones
   }, [scene])
+
+  useEffect(() => {
+    const idle = actions['Idle_贴身手臂_耳尾轻动'] ?? Object.values(actions)[0]
+    if (!idle) return
+
+    idle.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(0.25).play()
+    return () => {
+      idle.fadeOut(0.2)
+      idle.stop()
+    }
+  }, [actions])
 
   const offset = useMemo(() => new THREE.Quaternion(), [])
   const target = useMemo(() => new THREE.Quaternion(), [])
