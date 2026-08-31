@@ -3,6 +3,7 @@ import type { Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { existsSync, readdirSync } from 'node:fs'
 import { basename, extname, join, relative, sep } from 'node:path'
+import { parseFile, selectCover } from 'music-metadata'
 
 const virtualMusicId = 'virtual:island-music-playlist'
 const resolvedVirtualMusicId = `\0${virtualMusicId}`
@@ -31,7 +32,7 @@ function musicPlaylistPlugin(): Plugin {
   const musicDirectory = join(process.cwd(), 'public', 'music')
   const coversDirectory = join(musicDirectory, 'covers')
 
-  const createPlaylist = () => {
+  const createPlaylist = async () => {
     if (!existsSync(musicDirectory)) return []
     const covers = existsSync(coversDirectory)
       ? readdirSync(coversDirectory, { withFileTypes: true })
@@ -43,30 +44,46 @@ function musicPlaylistPlugin(): Plugin {
           }))
       : []
 
-    return readdirSync(musicDirectory, { withFileTypes: true })
-      .filter((item) => item.isFile() && audioExtensions.has(extname(item.name).toLowerCase()))
-      .sort((left, right) => left.name.localeCompare(right.name, 'zh-CN', { numeric: true }))
-      .map((item) => {
-        const stem = basename(item.name, extname(item.name))
-        const { title, artist } = splitTrackName(stem)
-        const normalizedStem = normalizeName(stem)
-        const normalizedTitle = normalizeName(title)
-        const cover =
-          covers.find((item) => item.normalized === normalizedStem) ??
-          covers.find((item) => item.normalized === normalizedTitle) ??
-          covers.find(
-            (item) =>
-              item.normalized.length >= 4 &&
-              (normalizedTitle.includes(item.normalized) ||
-                item.normalized.includes(normalizedTitle)),
-          )
-        return {
-          title,
-          artist,
-          src: `/music/${item.name}`,
-          cover: cover ? `/music/covers/${cover.name}` : null,
-        }
-      })
+    return Promise.all(
+      readdirSync(musicDirectory, { withFileTypes: true })
+        .filter((item) => item.isFile() && audioExtensions.has(extname(item.name).toLowerCase()))
+        .sort((left, right) => left.name.localeCompare(right.name, 'zh-CN', { numeric: true }))
+        .map(async (item) => {
+          const stem = basename(item.name, extname(item.name))
+          const { title, artist } = splitTrackName(stem)
+          const normalizedStem = normalizeName(stem)
+          const normalizedTitle = normalizeName(title)
+          const cover =
+            covers.find((item) => item.normalized === normalizedStem) ??
+            covers.find((item) => item.normalized === normalizedTitle) ??
+            covers.find(
+              (item) =>
+                item.normalized.length >= 4 &&
+                (normalizedTitle.includes(item.normalized) ||
+                  item.normalized.includes(normalizedTitle)),
+            )
+          let embeddedCover: string | null = null
+          if (!cover) {
+            try {
+              const metadata = await parseFile(join(musicDirectory, item.name), {
+                skipCovers: false,
+              })
+              const picture = selectCover(metadata.common.picture)
+              if (picture) {
+                embeddedCover = `data:${picture.format};base64,${picture.data.toString('base64')}`
+              }
+            } catch (error) {
+              console.warn(`无法读取音频元数据：${item.name}`, error)
+            }
+          }
+          return {
+            title,
+            artist,
+            src: `/music/${item.name}`,
+            cover: cover ? `/music/covers/${cover.name}` : embeddedCover,
+          }
+        }),
+    )
   }
 
   return {
@@ -74,9 +91,9 @@ function musicPlaylistPlugin(): Plugin {
     resolveId(id) {
       return id === virtualMusicId ? resolvedVirtualMusicId : undefined
     },
-    load(id) {
+    async load(id) {
       if (id !== resolvedVirtualMusicId) return undefined
-      return `export default ${JSON.stringify(createPlaylist())}`
+      return `export default ${JSON.stringify(await createPlaylist())}`
     },
     configureServer(server) {
       server.watcher.add(musicDirectory)

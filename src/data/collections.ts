@@ -1,4 +1,4 @@
-export type CollectionCategory = 'photos' | 'games' | 'books' | 'music'
+export type CollectionCategory = string
 export type CollectionColor = 'mint' | 'sun' | 'sky' | 'rose' | 'lavender'
 export type CollectionItem = {
   id: string
@@ -17,7 +17,7 @@ export type CollectionItem = {
   sourceDir: string
 }
 
-export const categoryLabels: Record<CollectionCategory, string> = {
+const builtInCategoryLabels: Record<string, string> = {
   photos: '照片',
   games: '游戏',
   books: '书籍',
@@ -51,7 +51,6 @@ function parseCollection(path: string, source: string): CollectionItem | null {
   )
   if (!metadata.id || !metadata.title || !metadata.category || !metadata.excerpt)
     throw new Error(`藏品 ${filename} 必须填写 id、title、category 和 excerpt`)
-  if (!(metadata.category in categoryLabels)) throw new Error(`藏品 ${filename} 的 category 无效`)
   const color = (
     ['mint', 'sun', 'sky', 'rose', 'lavender'].includes(metadata.color) ? metadata.color : 'mint'
   ) as CollectionColor
@@ -76,6 +75,12 @@ function parseCollection(path: string, source: string): CollectionItem | null {
 export const collections = Object.entries(markdownFiles)
   .map(([path, source]) => parseCollection(path, source))
   .filter((item): item is CollectionItem => item !== null)
+
+export const collectionCategories = [...new Set(collections.map((item) => item.category))]
+
+export const categoryLabels: Record<string, string> = Object.fromEntries(
+  collectionCategories.map((category) => [category, builtInCategoryLabels[category] ?? category]),
+)
 export function getCollectionPreviewImage(item: CollectionItem) {
   return item.previewImage || item.detailImage
 }

@@ -1,4 +1,4 @@
-import { categoryLabels, type CollectionCategory } from '../data/collections'
+import { categoryLabels, collectionCategories, type CollectionCategory } from '../data/collections'
 
 type Filter = 'all' | CollectionCategory
 
@@ -9,7 +9,7 @@ export function MuseumFilters({
   value: Filter
   onChange: (value: Filter) => void
 }) {
-  const filters: Filter[] = ['all', 'photos', 'games', 'books', 'music']
+  const filters: Filter[] = ['all', ...collectionCategories]
   return (
     <div className="museum-filters" aria-label="藏品分类">
       {filters.map((filter) => (

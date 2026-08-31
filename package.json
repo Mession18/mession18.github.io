@@ -28,6 +28,7 @@
     "@types/react-dom": "^19.2.5",
     "@types/three": "^0.185.4",
     "@vitejs/plugin-react": "latest",
+    "music-metadata": "^11.15.0",
     "prettier": "^3.9.6",
     "typescript": "latest",
     "vite": "latest"
