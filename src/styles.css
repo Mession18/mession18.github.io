@@ -3141,6 +3141,47 @@ h1 em {
 .photo div img {
   object-fit: contain;
 }
+
+/* 首页预览图只在各自的展示框内缩放，避免超长图片撑开整块首页内容。 */
+.journal .post-art,
+.home-recipes .recipe-choices a,
+.museum .photo div,
+.home-crafts .craft-note,
+.home-travel .travel-photo,
+.home-planting .flower-feature > div {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.home-recipes .recipe-choices img {
+  height: clamp(160px, 18vw, 220px);
+  aspect-ratio: auto;
+}
+
+.museum .photo div {
+  height: 131px;
+  aspect-ratio: auto;
+}
+
+.journal .post-art > img,
+.home-recipes .recipe-choices img,
+.museum .photo div img,
+.home-crafts .craft-note img,
+.home-travel .travel-photo img,
+.home-planting .flower-feature > div img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.home-recipes .recipe-choices img {
+  height: clamp(160px, 18vw, 220px);
+}
 .p1 {
   left: 15px;
   top: 25px;
