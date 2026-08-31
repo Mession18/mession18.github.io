@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs><linearGradient id="c" x2="0" y2="1"><stop stop-color="#d9fbff"/><stop offset="1" stop-color="#72bde8"/></linearGradient></defs>
-  <rect width="512" height="512" rx="72" fill="url(#c)"/>
-  <circle cx="256" cy="224" r="132" fill="#fff" opacity=".34"/>
-  <path d="M174 284V166l122-28v119" fill="none" stroke="#285b91" stroke-width="22" stroke-linejoin="round"/>
-  <circle cx="149" cy="293" r="36" fill="#285b91"/><circle cx="273" cy="266" r="36" fill="#285b91"/>
-  <text x="256" y="422" text-anchor="middle" fill="#285b91" font-family="sans-serif" font-size="29" font-weight="700">CONSTANT MODERATO</text>
-</svg>
