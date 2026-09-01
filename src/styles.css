@@ -2869,10 +2869,10 @@ h1 em {
 .craft-note {
   position: absolute;
   display: flex;
-  width: 48%;
+  width: 40%;
   align-items: center;
-  gap: 14px;
-  padding: 13px;
+  gap: 10px;
+  padding: 10px;
   background: #fff8dc;
   box-shadow: 0 8px 15px #60492830;
 }
@@ -2889,12 +2889,12 @@ h1 em {
 .craft-note img,
 .craft-note > span:first-child {
   display: grid;
-  width: 95px;
-  height: 78px;
-  flex: 0 0 95px;
+  width: 72px;
+  height: 60px;
+  flex: 0 0 72px;
   place-items: center;
   object-fit: cover;
-  font-size: 45px;
+  font-size: 36px;
 }
 .craft-note span:last-child {
   display: flex;
@@ -2910,18 +2910,18 @@ h1 em {
   color: #55483d;
 }
 .note-1 {
-  top: 45px;
+  top: 42px;
   left: 5%;
   transform: rotate(-3deg);
 }
 .note-2 {
-  top: 70px;
+  top: 58px;
   right: 4%;
   transform: rotate(2deg);
 }
 .note-3 {
-  right: 22%;
-  bottom: 43px;
+  right: 30%;
+  bottom: 48px;
   transform: rotate(-1deg);
 }
 .home-travel {
@@ -3110,7 +3110,7 @@ h1 em {
   box-shadow: none;
 }
 .photo-stack {
-  width: 370px;
+  width: 500px;
   height: 300px;
   position: relative;
 }
@@ -3123,7 +3123,7 @@ h1 em {
   font-family: 'ZCOOL KuaiLe';
 }
 .photo div {
-  width: 210px;
+  width: 190px;
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
@@ -3160,7 +3160,7 @@ h1 em {
 }
 
 .museum .photo div {
-  height: 131px;
+  height: 119px;
   aspect-ratio: auto;
 }
 
@@ -3183,12 +3183,12 @@ h1 em {
   height: clamp(160px, 18vw, 220px);
 }
 .p1 {
-  left: 15px;
+  left: 8px;
   top: 25px;
   transform: rotate(-7deg);
 }
 .p2 {
-  right: 5px;
+  right: 8px;
   top: 5px;
   transform: rotate(8deg);
 }
@@ -5257,6 +5257,18 @@ footer {
   }
   .photo-stack {
     width: 320px;
+  }
+  .photo div {
+    width: 140px;
+  }
+  .museum .photo div {
+    height: 88px;
+  }
+  .p1 {
+    left: 0;
+  }
+  .p2 {
+    right: 0;
   }
   .passport-card-scaler {
     position: absolute;
