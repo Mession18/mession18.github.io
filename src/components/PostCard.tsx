@@ -43,5 +43,5 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
 }
 
 export function EmptyRecipeCard() {
-  return <article className="post recipe-plate-card recipe-empty-card"><div className="recipe-plate"><img src="/images/recipe-plate-plain.png" alt="" /><strong>正在研发新菜品</strong></div></article>
+  return <article className="post recipe-plate-card recipe-empty-card"><div className="recipe-empty-sign">正在研发新菜品</div></article>
 }
