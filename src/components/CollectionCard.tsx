@@ -34,7 +34,10 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
         </Link>
       </div>
       <div className="collection-card-body collection-pedestal has-pedestal">
-        <span className="collection-exhibit-date">于{collectionDate}收藏</span>
+        {collectionDate && <svg className="collection-exhibit-date" viewBox="0 0 360 90" aria-hidden="true">
+          <defs><path id={`collection-date-arc-${item.slug}`} d="M 92 24 Q 180 56 268 24" /></defs>
+          <text><textPath href={`#collection-date-arc-${item.slug}`} startOffset="50%">于{collectionDate}收藏</textPath></text>
+        </svg>}
         <div>
           <span>{item.year}</span>
           <span className="collection-rating">
