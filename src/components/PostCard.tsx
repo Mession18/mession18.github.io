@@ -7,10 +7,11 @@ import { colorClass, colorStyle } from '../data/colorPalette'
 export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostPreviewImage(post)
   if (basePath === '/recipes') {
-    return <article className={`post recipe-plate-card ${!previewImage ? `recipe-eaten-card ${colorClass(post.color)}` : ''}`}><Link className="recipe-plate" to={`${basePath}/${post.slug}`} aria-label={`查看：${post.title}`}>
+    const recipeImage = previewImage && !/\.svg(?:$|\?)/i.test(previewImage) ? previewImage : undefined
+    return <article className={`post recipe-plate-card ${!recipeImage ? `recipe-eaten-card ${colorClass(post.color)}` : ''}`}><Link className="recipe-plate" to={`${basePath}/${post.slug}`} aria-label={`查看：${post.title}`}>
       <img src="/images/recipe-plate-plain.png" alt="" />
-      {previewImage && <img className="recipe-dish-image" src={previewImage} alt={post.title} />}
-      {!previewImage && <em className="recipe-eaten">被吃掉了</em>}
+      {recipeImage && <img className="recipe-dish-image" src={recipeImage} alt={post.title} />}
+      {!recipeImage && <em className="recipe-eaten">被吃掉了</em>}
       <strong>{post.title}</strong>
       <svg viewBox="0 0 360 220" aria-hidden="true"><defs><path id={`recipe-arc-${post.slug}`} d="M 70 172 A 110 62 0 0 1 290 172" /></defs><text><textPath href={`#recipe-arc-${post.slug}`} startOffset="50%">于{post.publishedAt}制作</textPath></text></svg>
     </Link></article>

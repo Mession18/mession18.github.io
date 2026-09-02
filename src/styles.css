@@ -4755,7 +4755,7 @@ h1 em {
 .recipe-plate-card { overflow: visible; border: 0; background: transparent; box-shadow: none; }
 .recipe-plate { position: relative; display: block; min-height: 300px; color: #6d4b2b; }
 .recipe-plate > img { display: block; width: 100%; height: 300px; object-fit: contain; }
-.recipe-plate > .recipe-dish-image { position: absolute; top: 8%; left: 23%; width: 54%; height: 43%; object-fit: contain; border-radius: 50%; }
+.recipe-plate > .recipe-dish-image { position: absolute; top: 8%; left: 23%; width: 54%; height: 43%; object-fit: contain; border-radius: 50%; transform: scale(1.5); transform-origin: center; }
 .recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 64%; text-align: center; font-size: 18px; line-height: 1.2; }
 .recipe-eaten { position: absolute; top: 26%; left: 18%; right: 18%; display: grid; min-height: 72px; place-items: center; border-radius: 14px; color: #6d4b2b; font-size: 17px; font-style: normal; text-align: center; }
 .recipe-eaten-card .recipe-eaten { background: currentColor; color: #6d4b2b; }
