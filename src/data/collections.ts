@@ -9,6 +9,7 @@ export type CollectionItem = {
   title: string
   subtitle: string
   year: string
+  date?: string
   rating: number
   icon: string
   previewImage?: string
@@ -62,6 +63,7 @@ function parseCollection(path: string, source: string): CollectionItem | null {
     title: metadata.title || slug,
     subtitle: metadata.subtitle || '',
     year: metadata.year || '',
+    date: metadata.date || metadata.year || undefined,
     rating: Number(metadata.rating) || 0,
     icon: metadata.icon || '🏝️',
     previewImage: metadata.previewImage

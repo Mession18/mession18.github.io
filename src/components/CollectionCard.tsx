@@ -10,6 +10,12 @@ const famousMuseums = ['大英博物馆', '卢浮宫', '大都会艺术博物馆
 export function CollectionCard({ item }: { item: CollectionItem }) {
   const previewImage = getCollectionPreviewImage(item)
   const [loanMuseum] = useState(() => famousMuseums[Math.floor(Math.random() * famousMuseums.length)])
+  const collectionDate = item.date
+    ? (() => {
+        const [year, month, day] = item.date.split('-')
+        return `${year}年${Number(month)}月${Number(day)}日`
+      })()
+    : ''
 
   return (
     <article className="collection-card collection-exhibit">
@@ -28,6 +34,7 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
         </Link>
       </div>
       <div className="collection-card-body collection-pedestal has-pedestal">
+        <span className="collection-exhibit-date">于{collectionDate}收藏</span>
         <div>
           <span>{item.year}</span>
           <span className="collection-rating">
