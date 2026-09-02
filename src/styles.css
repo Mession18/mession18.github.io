@@ -4779,16 +4779,16 @@ h1 em {
   box-shadow: none;
   color: #59635c;
   text-align: center;
-  transform: translateY(-60px);
+  transform: translateY(-30px);
   transition: 0.25s ease;
 }
 
 .collection-exhibit:nth-child(even) .collection-polaroid {
-  transform: translateY(-60px);
+  transform: translateY(-30px);
 }
 
 .collection-exhibit:hover .collection-polaroid {
-  transform: translateY(-67px);
+  transform: translateY(-37px);
 }
 
 .collection-picture {
