@@ -1,12 +1,15 @@
 ---
 title: 大理的洱海早晨
 date: 2026-08-31
-tags: [云南·大理]
+tags:
+  - 云南·大理
 excerpt: 清晨的风从洱海吹过来，远处的山还有一层薄薄的雾。
 icon: 🏔️
 color: sky
 previewImage: /images/examples/dali.svg
 detailImage: /images/examples/dali.svg
+id: 20260902202553-pwm9qu
+subtitle: ""
 ---
 
 ## 这一站

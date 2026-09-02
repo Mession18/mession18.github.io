@@ -1,11 +1,16 @@
 ---
 title: 最近在玩的三款治愈游戏
 date: 2026-08-12
-tags: [游戏时间]
+tags:
+  - 游戏时间
 excerpt: 不赶时间，也没有必须完成的任务，只是慢慢生活。
 icon: 🎮
 color: sky
 readingTime: 5
+id: 20260902202553-h0oa9e
+subtitle: ""
+previewImage: ""
+detailImage: ""
 ---
 
 ## 不需要赶时间的游戏

@@ -8,6 +8,9 @@ rating: 4.8
 icon: 🌼
 color: rose
 excerpt: 把明亮、炎热和傍晚的风留在一张照片里。
+date: 2026-09-02
+previewImage: ""
+detailImage: ""
 ---
 
 ## 照片背后

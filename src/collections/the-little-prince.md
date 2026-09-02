@@ -8,6 +8,9 @@ rating: 4.9
 icon: 🌟
 color: lavender
 excerpt: 有些重要的东西，需要用心才能看见。
+date: 2026-09-02
+previewImage: ""
+detailImage: ""
 ---
 
 ## 收藏理由

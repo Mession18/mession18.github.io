@@ -1,4 +1,5 @@
 import { resolveColor, type IslandColor } from './colorPalette'
+import { resolveMarkdownImage } from './markdownAssets'
 
 export type PostColor = IslandColor
 
@@ -60,8 +61,10 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
   const tags = [...new Set([...tagList, ...inlineTags, ...(metadata.tag ? [metadata.tag] : [])])]
   const content = match[2].trim()
   const publishedAt = metadata.date
-  if (!metadata.title || !publishedAt || !metadata.excerpt)
-    throw new Error(`文章 ${filename} 必须填写 title、date 和 excerpt`)
+  if (!publishedAt || !metadata.excerpt)
+    throw new Error(`文章 ${filename} 必须填写 date 和 excerpt`)
+  const title = metadata.title || slug
+  const sourceDir = path.match(/\.\.\/([^/]+)\//)?.[1] ?? 'posts'
   const color = resolveColor(metadata.color) as PostColor
   const wordCount = content.replace(/\s+/g, '').length
   return {
@@ -71,14 +74,18 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     readingTime: Number(metadata.readingTime) || Math.max(1, Math.ceil(wordCount / 400)),
     tag: tags[0] || defaultTag,
     tags: tags.length ? tags : [defaultTag],
-    title: metadata.title,
+    title,
     excerpt: metadata.excerpt,
     color,
     icon: metadata.icon || '🌊',
-    previewImage: metadata.previewImage || undefined,
-    detailImage: metadata.detailImage || undefined,
+    previewImage: metadata.previewImage
+      ? resolveMarkdownImage(metadata.previewImage, sourceDir)
+      : undefined,
+    detailImage: metadata.detailImage
+      ? resolveMarkdownImage(metadata.detailImage, sourceDir)
+      : undefined,
     content,
-    sourceDir: path.match(/\.\.\/([^/]+)\//)?.[1] ?? 'posts',
+    sourceDir,
   }
 }
 

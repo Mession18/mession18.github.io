@@ -6,9 +6,11 @@ subtitle: 四季循环里的慢生活
 year: 2025
 rating: 4.8
 icon: 🌾
-previewImage: /images/collections/stardewvalley.png
-color: sun
+previewImage: /src/collections/preview/stardew-valley-封面.png
+color: "#d12e37"
 excerpt: 种田、钓鱼、认识小镇居民，错过的事情明年还会再来。
+date: 2026-09-02
+detailImage: /src/collections/detail/stardew-valley-详情.png
 ---
 
 ## 收藏理由

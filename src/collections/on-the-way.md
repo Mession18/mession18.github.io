@@ -8,6 +8,9 @@ rating: 4.6
 icon: 🌳
 color: mint
 excerpt: 熟悉的路也会因为光线和季节变得不一样。
+date: 2026-09-02
+previewImage: ""
+detailImage: ""
 ---
 
 ## 照片背后

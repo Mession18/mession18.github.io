@@ -1,6 +1,7 @@
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { categoryLabels, getCollectionPreviewImage, type CollectionItem } from '../data/collections'
+import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function CollectionCard({ item }: { item: CollectionItem }) {
   const previewImage = getCollectionPreviewImage(item)
@@ -8,7 +9,8 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
   return (
     <article className="collection-card">
       <Link
-        className={`collection-cover collection-${item.color}`}
+        className={`collection-cover collection-${colorClass(item.color)}`}
+        style={colorStyle(item.color)}
         to={`/museum/${item.category}/${item.slug}`}
       >
         {previewImage ? <img src={previewImage} alt={item.title} /> : <span>{item.icon}</span>}

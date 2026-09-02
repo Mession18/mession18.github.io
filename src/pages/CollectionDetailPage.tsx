@@ -3,6 +3,7 @@ import { ArrowLeft, CalendarDays, Star } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { categoryLabels, collections, getCollectionDetailImage } from '../data/collections'
 import { MarkdownContent } from '../components/MarkdownContent'
+import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function CollectionDetailPage() {
   const { category, slug } = useParams()
@@ -27,7 +28,8 @@ export function CollectionDetailPage() {
       </Link>
       <div className="collection-detail-grid">
         <div
-          className={`collection-feature collection-${item.color} ${detailImage ? 'has-image' : ''}`}
+          className={`collection-feature collection-${colorClass(item.color)} ${detailImage ? 'has-image' : ''}`}
+          style={colorStyle(item.color)}
         >
           {detailImage ? (
             <Image src={detailImage} alt={item.title} preview className="detail-preview-image" />

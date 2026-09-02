@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { MarkdownContent } from '../components/MarkdownContent'
 import { contentSectionInfo, sectionContent, type ContentSectionKey } from '../data/contentSections'
 import { getPostDetailImage } from '../data/posts'
+import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
   const { slug } = useParams()
@@ -28,7 +29,8 @@ export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
         </Link>
         <div className="collection-detail-grid">
           <div
-            className={`collection-feature collection-${item.color} ${image ? 'has-image' : ''}`}
+            className={`collection-feature collection-${colorClass(item.color)} ${image ? 'has-image' : ''}`}
+            style={colorStyle(item.color)}
           >
             {image ? (
               <Image src={image} alt={item.title} preview className="detail-preview-image" />
@@ -63,7 +65,7 @@ export function ContentDetailPage({ section }: { section: ContentSectionKey }) {
       <Link className="back-link" to={`/${section}`}>
         <ArrowLeft size={16} /> 全部{info.title}
       </Link>
-      <header className={`article-header ${item.color}`}>
+      <header className={`article-header ${colorClass(item.color)}`} style={colorStyle(item.color)}>
         <span className="article-icon">{item.icon}</span>
         <Tag size="small" variant="soft" color="app-green">
           {item.tag}

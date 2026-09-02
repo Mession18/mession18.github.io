@@ -8,6 +8,9 @@ rating: 4.7
 icon: 🎧
 color: sky
 excerpt: 没有固定目的地时，音乐就是散步的路线。
+date: 2026-09-02
+previewImage: ""
+detailImage: ""
 ---
 
 ## 收藏理由

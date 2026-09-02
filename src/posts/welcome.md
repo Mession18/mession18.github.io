@@ -1,11 +1,16 @@
 ---
 title: 欢迎来到我的小岛
 date: 2026-08-28
-tags: [岛民文章]
+tags:
+  - 岛民文章
 excerpt: 潮水送来第一封信，也送来了这个博客的第一天。
 icon: 🌊
 color: mint
 readingTime: 3
+id: 20260902202553-bzpcft
+subtitle: ""
+previewImage: ""
+detailImage: ""
 ---
 
 ## 潮水送来的第一封信

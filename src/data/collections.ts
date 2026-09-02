@@ -1,5 +1,6 @@
 export type CollectionCategory = string
 import { resolveColor, type IslandColor } from './colorPalette'
+import { resolveMarkdownImage } from './markdownAssets'
 export type CollectionColor = IslandColor
 export type CollectionItem = {
   id: string
@@ -50,20 +51,25 @@ function parseCollection(path: string, source: string): CollectionItem | null {
         ]
       }),
   )
-  if (!metadata.id || !metadata.title || !metadata.category || !metadata.excerpt)
-    throw new Error(`藏品 ${filename} 必须填写 id、title、category 和 excerpt`)
+  if (!metadata.id || !metadata.category || !metadata.excerpt)
+    throw new Error(`藏品 ${filename} 必须填写 id、category 和 excerpt`)
+  const slug = filename.replace(/\.md$/, '')
   const color = resolveColor(metadata.color) as CollectionColor
   return {
     id: metadata.id,
-    slug: filename.replace(/\.md$/, ''),
+    slug,
     category: metadata.category as CollectionCategory,
-    title: metadata.title,
+    title: metadata.title || slug,
     subtitle: metadata.subtitle || '',
     year: metadata.year || '',
     rating: Number(metadata.rating) || 0,
     icon: metadata.icon || '🏝️',
-    previewImage: metadata.previewImage || undefined,
-    detailImage: metadata.detailImage || undefined,
+    previewImage: metadata.previewImage
+      ? resolveMarkdownImage(metadata.previewImage, 'collections')
+      : undefined,
+    detailImage: metadata.detailImage
+      ? resolveMarkdownImage(metadata.detailImage, 'collections')
+      : undefined,
     color,
     excerpt: metadata.excerpt,
     content: match[2].trim(),

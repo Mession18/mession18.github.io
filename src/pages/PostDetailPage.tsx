@@ -3,6 +3,7 @@ import { ArrowLeft, CalendarDays, Clock3 } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { getPostDetailImage, posts } from '../data/posts'
 import { MarkdownContent } from '../components/MarkdownContent'
+import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function PostDetailPage() {
   const { slug } = useParams()
@@ -25,7 +26,7 @@ export function PostDetailPage() {
       <Link className="back-link" to="/posts">
         <ArrowLeft size={16} /> 全部文章
       </Link>
-      <header className={`article-header ${post.color}`}>
+      <header className={`article-header ${colorClass(post.color)}`} style={colorStyle(post.color)}>
         <span className="article-icon">{post.icon}</span>
         <Tag size="small" variant="soft" color="app-green" className="article-island-tag">
           {post.tag}

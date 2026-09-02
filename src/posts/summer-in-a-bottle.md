@@ -1,11 +1,16 @@
 ---
 title: 把夏天收进玻璃瓶
 date: 2026-08-21
-tags: [生活记录]
+tags:
+  - 生活记录
 excerpt: 傍晚的风、冰柠檬水，还有走过很多次的那条小路。
 icon: 🍋
 color: sunshine
 readingTime: 4
+id: 20260902202553-5zy5ru
+subtitle: ""
+previewImage: ""
+detailImage: ""
 ---
 
 ## 傍晚六点的风
