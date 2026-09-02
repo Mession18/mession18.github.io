@@ -6,6 +6,13 @@ import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostPreviewImage(post)
+  if (basePath === '/recipes') {
+    return <article className="post recipe-plate-card"><Link className="recipe-plate" to={`${basePath}/${post.slug}`} aria-label={`查看：${post.title}`}>
+      <img src="/images/recipe-plate.png" alt="" />
+      <strong>{post.title}</strong>
+      <svg viewBox="0 0 360 220" aria-hidden="true"><defs><path id={`recipe-arc-${post.slug}`} d="M 68 105 A 112 112 0 0 0 292 105" /></defs><text><textPath href={`#recipe-arc-${post.slug}`} startOffset="50%">于{post.publishedAt}制作</textPath></text></svg>
+    </Link></article>
+  }
 
   return (
     <article className="post">

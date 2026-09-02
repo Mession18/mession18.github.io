@@ -4752,6 +4752,13 @@ h1 em {
   font-weight: 800;
 }
 
+.recipe-plate-card { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+.recipe-plate { position: relative; display: block; min-height: 300px; color: #6d4b2b; }
+.recipe-plate > img { display: block; width: 100%; height: 300px; object-fit: contain; }
+.recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 69%; text-align: center; font-size: 18px; line-height: 1.2; }
+.recipe-plate > svg { position: absolute; inset: 0; width: 100%; height: 78%; pointer-events: none; overflow: visible; }
+.recipe-plate > svg text { fill: #8d632c; font-size: 10px; letter-spacing: .04em; }
+
 /* 博物馆展厅：每件藏品使用自适应拍立得和独立展台。 */
 .collection-exhibit {
   display: grid;
