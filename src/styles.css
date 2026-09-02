@@ -4778,16 +4778,16 @@ h1 em {
   box-shadow: none;
   color: #59635c;
   text-align: center;
-  transform: rotate(-1deg);
+  transform: none;
   transition: 0.25s ease;
 }
 
 .collection-exhibit:nth-child(even) .collection-polaroid {
-  transform: rotate(1deg);
+  transform: none;
 }
 
 .collection-exhibit:hover .collection-polaroid {
-  transform: translateY(-7px) rotate(0deg);
+  transform: translateY(-7px);
 }
 
 .collection-picture {
@@ -4797,6 +4797,7 @@ h1 em {
   max-height: 230px;
   place-items: center;
   overflow: hidden;
+  background: transparent;
 }
 
 .collection-polaroid:has(.is-portrait) .collection-picture {
@@ -4844,6 +4845,7 @@ h1 em {
   isolation: isolate;
   color: #fff3dc;
   text-shadow: 0 1px 2px #2a130dcc;
+  background: transparent;
 }
 
 .collection-pedestal::before {
