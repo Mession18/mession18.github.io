@@ -4847,12 +4847,12 @@ h1 em {
 }
 
 /* 外借藏品保留原有藏品色块背景，避免被图片容器的透明背景覆盖。 */
-.collection-picture.collection-mint { background: #c8e7d6; }
-.collection-picture.collection-sun { background: #f5dda0; }
-.collection-picture.collection-sunshine { background: #f8e3a0; }
-.collection-picture.collection-sky { background: #bee1eb; }
-.collection-picture.collection-rose { background: #efc9bc; }
-.collection-picture.collection-lavender { background: #d8cbe6; }
+.collection-picture:has(.collection-away).collection-mint { background: #c8e7d6; }
+.collection-picture:has(.collection-away).collection-sun { background: #f5dda0; }
+.collection-picture:has(.collection-away).collection-sunshine { background: #f8e3a0; }
+.collection-picture:has(.collection-away).collection-sky { background: #bee1eb; }
+.collection-picture:has(.collection-away).collection-rose { background: #efc9bc; }
+.collection-picture:has(.collection-away).collection-lavender { background: #d8cbe6; }
 
 .collection-pedestal {
   position: relative;
