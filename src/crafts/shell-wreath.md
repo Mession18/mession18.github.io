@@ -1,7 +1,7 @@
 ---
 title: 贝壳花环
 date: 2026-08-31
-tag: 海边手作
+tags: [海边手作]
 excerpt: 把散步时捡到的贝壳，做成一圈海风。
 icon: 🐚
 color: sky

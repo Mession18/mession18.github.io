@@ -1,7 +1,7 @@
 ---
 title: 首尔的晚风
 date: 2026-08-30
-tag: 韩国·首尔
+tags: [韩国·首尔]
 excerpt: 从小巷的咖啡店走到汉江边，城市的灯一盏一盏亮起来。
 icon: 🌃
 color: mint

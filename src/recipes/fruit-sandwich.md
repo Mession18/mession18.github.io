@@ -1,7 +1,7 @@
 ---
 title: 水果三明治
 date: 2026-08-29
-tag: 小甜点
+tags: [小甜点]
 excerpt: 奶油与当季水果夹在柔软吐司中，切开就是好心情。
 icon: 🥪
 color: mint

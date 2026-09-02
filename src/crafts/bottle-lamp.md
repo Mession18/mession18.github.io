@@ -1,7 +1,7 @@
 ---
 title: 星光玻璃瓶
 date: 2026-08-29
-tag: 房间装饰
+tags: [房间装饰]
 excerpt: 旧玻璃瓶里放进一串暖色小灯，晚上就会亮起来。
 icon: 🌟
 color: sunshine

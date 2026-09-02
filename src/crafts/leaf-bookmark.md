@@ -1,7 +1,7 @@
 ---
 title: 压花叶书签
 date: 2026-08-30
-tag: 纸品手工
+tags: [纸品手工]
 excerpt: 把一枚喜欢的叶子留在透明书签里。
 icon: 🌿
 color: mint

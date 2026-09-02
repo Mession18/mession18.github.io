@@ -1,7 +1,7 @@
 ---
 title: 奶油黄郁金香
 date: 2026-08-30
-tag: 春日球根
+tags: [春日球根]
 excerpt: 像装了一小杯阳光，适合种在小径边。
 icon: 🌷
 color: sunshine

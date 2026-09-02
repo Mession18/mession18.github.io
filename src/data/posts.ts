@@ -1,4 +1,6 @@
-export type PostColor = 'mint' | 'sunshine' | 'sky'
+import { resolveColor, type IslandColor } from './colorPalette'
+
+export type PostColor = IslandColor
 
 export type Post = {
   slug: string
@@ -6,6 +8,7 @@ export type Post = {
   publishedAt: string
   readingTime: number
   tag: string
+  tags: string[]
   title: string
   excerpt: string
   color: PostColor
@@ -28,35 +31,46 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
   const slug = filename.replace(/\.md$/, '')
   const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/)
   if (!match) throw new Error(`文章 ${filename} 缺少 Markdown 头部信息`)
-  const metadata = Object.fromEntries(
-    match[1]
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map((line) => {
-        const separator = line.indexOf(':')
-        if (separator < 0) return [line.trim(), '']
-        const key = line.slice(0, separator).trim()
-        const value = line
-          .slice(separator + 1)
-          .trim()
-          .replace(/^['"]|['"]$/g, '')
-        return [key, value]
-      }),
-  )
+  const metadata: Record<string, string> = {}
+  const tagList: string[] = []
+  let readingTags = false
+  for (const line of match[1].split(/\r?\n/)) {
+    const listItem = line.match(/^\s*-\s*(.+?)\s*$/)
+    if (readingTags && listItem) {
+      tagList.push(listItem[1].replace(/^['"]|['"]$/g, ''))
+      continue
+    }
+    const separator = line.indexOf(':')
+    if (separator < 0) continue
+    const key = line.slice(0, separator).trim()
+    const value = line
+      .slice(separator + 1)
+      .trim()
+      .replace(/^['"]|['"]$/g, '')
+    metadata[key] = value
+    readingTags = key === 'tags' && !value
+  }
+  const inlineTags = metadata.tags
+    ? metadata.tags
+        .replace(/^\[|\]$/g, '')
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+    : []
+  const tags = [...new Set([...tagList, ...inlineTags, ...(metadata.tag ? [metadata.tag] : [])])]
   const content = match[2].trim()
   const publishedAt = metadata.date
   if (!metadata.title || !publishedAt || !metadata.excerpt)
     throw new Error(`文章 ${filename} 必须填写 title、date 和 excerpt`)
-  const color = (
-    ['mint', 'sunshine', 'sky'].includes(metadata.color) ? metadata.color : 'mint'
-  ) as PostColor
+  const color = resolveColor(metadata.color) as PostColor
   const wordCount = content.replace(/\s+/g, '').length
   return {
     slug,
     date: publishedAt.slice(5).replace('-', ' / '),
     publishedAt,
     readingTime: Number(metadata.readingTime) || Math.max(1, Math.ceil(wordCount / 400)),
-    tag: metadata.tag || defaultTag,
+    tag: tags[0] || defaultTag,
+    tags: tags.length ? tags : [defaultTag],
     title: metadata.title,
     excerpt: metadata.excerpt,
     color,

@@ -1,7 +1,7 @@
 ---
 title: 岛民咖喱饭
 date: 2026-08-30
-tag: 一锅料理
+tags: [一锅料理]
 excerpt: 土豆和胡萝卜煮得绵软，非常适合忙碌的晚上。
 icon: 🍛
 color: sunshine

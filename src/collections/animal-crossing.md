@@ -5,9 +5,11 @@ title: 动物森友会
 subtitle: 一座可以随时回去的小岛
 year: 2026
 rating: 5
-previewImage: /images/collections/ACHN.png
+previewImage: public/images/cover/animal-crossing.png
+detailImage: public/images/cover/animal-crossing.png
 color: mint
 excerpt: 每天看看天气，和岛民聊几句话，再慢慢整理自己的小屋。
+date: 2026-09-02
 ---
 
 ## 收藏理由

@@ -1,7 +1,7 @@
 ---
 title: 雨后绣球
 date: 2026-08-29
-tag: 梅雨花园
+tags: [梅雨花园]
 excerpt: 一丛丛蓝紫色的小花，在雨天反而显得更精神。
 icon: 🪻
 color: sky

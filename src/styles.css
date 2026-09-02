@@ -2493,8 +2493,17 @@ h1 em {
 .sunshine {
   background: #f8e3a0;
 }
+.sun {
+  background: #f5dda0;
+}
 .sky {
   background: #bde3ec;
+}
+.rose {
+  background: #efc9bc;
+}
+.lavender {
+  background: #d8cbe6;
 }
 .post-body {
   padding: 25px;
@@ -4663,6 +4672,9 @@ h1 em {
 }
 .collection-sun {
   background: #f5dda0;
+}
+.collection-sunshine {
+  background: #f8e3a0;
 }
 .collection-sky {
   background: #bee1eb;

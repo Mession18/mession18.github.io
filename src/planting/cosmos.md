@@ -1,7 +1,7 @@
 ---
 title: 粉色波斯菊
 date: 2026-08-31
-tag: 秋日小花
+tags: [秋日小花]
 excerpt: 看起来轻轻的，却能从夏末一直开到深秋。
 icon: 🌸
 color: mint

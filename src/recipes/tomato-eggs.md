@@ -1,7 +1,7 @@
 ---
 title: 番茄炒蛋
 date: 2026-08-31
-tag: 家常菜
+tags: [家常菜]
 excerpt: 酸甜汤汁裹住软嫩鸡蛋，是最安心的一碗下饭菜。
 icon: 🍅
 color: sunshine

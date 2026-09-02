@@ -1,7 +1,7 @@
 ---
 title: 把夏天收进玻璃瓶
 date: 2026-08-21
-tag: 生活记录
+tags: [生活记录]
 excerpt: 傍晚的风、冰柠檬水，还有走过很多次的那条小路。
 icon: 🍋
 color: sunshine

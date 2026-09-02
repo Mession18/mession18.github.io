@@ -1,5 +1,6 @@
 export type CollectionCategory = string
-export type CollectionColor = 'mint' | 'sun' | 'sky' | 'rose' | 'lavender'
+import { resolveColor, type IslandColor } from './colorPalette'
+export type CollectionColor = IslandColor
 export type CollectionItem = {
   id: string
   slug: string
@@ -51,9 +52,7 @@ function parseCollection(path: string, source: string): CollectionItem | null {
   )
   if (!metadata.id || !metadata.title || !metadata.category || !metadata.excerpt)
     throw new Error(`藏品 ${filename} 必须填写 id、title、category 和 excerpt`)
-  const color = (
-    ['mint', 'sun', 'sky', 'rose', 'lavender'].includes(metadata.color) ? metadata.color : 'mint'
-  ) as CollectionColor
+  const color = resolveColor(metadata.color) as CollectionColor
   return {
     id: metadata.id,
     slug: filename.replace(/\.md$/, ''),

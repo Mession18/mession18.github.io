@@ -1,7 +1,7 @@
 ---
 title: 树莓松饼
 date: 2026-08-27
-tag: 早午餐
+tags: [早午餐]
 excerpt: 松软的小松饼叠在一起，淋上蜂蜜和树莓。
 icon: 🥞
 color: sunshine
