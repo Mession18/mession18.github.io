@@ -2461,7 +2461,8 @@ h1 em {
   transform: translateY(-7px) rotate(-0.5deg);
 }
 .post-art {
-  height: 190px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   display: grid;
   place-items: center;
   position: relative;
@@ -2813,7 +2814,7 @@ h1 em {
 .recipe-choices a > span {
   display: grid;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 3 / 2;
   place-items: center;
   object-fit: cover;
   font-size: 72px;
@@ -2899,7 +2900,7 @@ h1 em {
 .craft-note > span:first-child {
   display: grid;
   width: 72px;
-  height: 60px;
+  height: 48px;
   flex: 0 0 72px;
   place-items: center;
   object-fit: cover;
@@ -2950,7 +2951,8 @@ h1 em {
 .travel-photo > span {
   display: grid;
   width: 100%;
-  height: 360px;
+  aspect-ratio: 3 / 2;
+  height: auto;
   place-items: center;
   object-fit: cover;
   font-size: 90px;
@@ -3034,7 +3036,8 @@ h1 em {
 .flower-feature > div > span {
   display: grid;
   width: 100%;
-  height: 340px;
+  aspect-ratio: 3 / 2;
+  height: auto;
   place-items: center;
   object-fit: cover;
   font-size: 90px;
@@ -3164,8 +3167,8 @@ h1 em {
 }
 
 .home-recipes .recipe-choices img {
-  height: clamp(160px, 18vw, 220px);
-  aspect-ratio: auto;
+  height: auto;
+  aspect-ratio: 3 / 2;
 }
 
 .museum .photo div {
@@ -3189,7 +3192,22 @@ h1 em {
 }
 
 .home-recipes .recipe-choices img {
-  height: clamp(160px, 18vw, 220px);
+  height: auto;
+  aspect-ratio: 3 / 2;
+}
+
+.home-travel .travel-photo,
+.home-planting .flower-feature > div {
+  aspect-ratio: 3 / 2;
+}
+
+.museum .photo:has(.is-portrait) div {
+  width: 145px;
+  height: 218px;
+}
+
+.museum .photo:has(.is-portrait) {
+  padding-bottom: 34px;
 }
 .p1 {
   left: 8px;
@@ -4719,6 +4737,129 @@ h1 em {
   color: var(--dark);
   font-size: 10px;
   font-weight: 800;
+}
+
+/* 博物馆展厅：每件藏品使用自适应拍立得和独立展台。 */
+.collection-exhibit {
+  display: grid;
+  min-height: 440px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  grid-template-rows: 285px auto;
+}
+
+.collection-display-space {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 16px 0;
+}
+
+.collection-polaroid {
+  display: block;
+  padding: 10px 10px 31px;
+  border: 1px solid #e3ded1;
+  background: #fffdf7;
+  box-shadow: 0 12px 25px #40564a2b;
+  color: #59635c;
+  text-align: center;
+  transform: rotate(-1deg);
+  transition: 0.25s ease;
+}
+
+.collection-exhibit:nth-child(even) .collection-polaroid {
+  transform: rotate(1deg);
+}
+
+.collection-exhibit:hover .collection-polaroid {
+  transform: translateY(-7px) rotate(0deg);
+}
+
+.collection-picture {
+  display: grid;
+  width: 230px;
+  aspect-ratio: 3 / 2;
+  place-items: center;
+  overflow: hidden;
+}
+
+.collection-polaroid:has(.is-portrait) .collection-picture {
+  width: 150px;
+  aspect-ratio: 2 / 3;
+}
+
+.adaptive-preview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.collection-polaroid > small {
+  display: block;
+  margin: 9px 0 -20px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.collection-away {
+  padding: 9px 13px;
+  border: 2px dashed currentColor;
+  border-radius: 8px;
+  color: #718078;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 18px;
+  font-weight: 400;
+  transform: rotate(-5deg);
+}
+
+.collection-pedestal {
+  position: relative;
+  min-height: 145px;
+  padding: 25px 28px 22px;
+  border-radius: 7px 7px 20px 20px;
+  background: linear-gradient(100deg, #d8c5a4, #f0e1c3 48%, #ccb58f);
+  box-shadow:
+    inset 0 3px #fff8e3,
+    0 16px 24px #4e5d5130;
+  color: #554c3e;
+}
+
+.collection-pedestal::before {
+  content: '';
+  position: absolute;
+  top: -13px;
+  right: -10px;
+  left: -10px;
+  height: 18px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #c5ab82, #f3e5c8 50%, #bca078);
+  box-shadow: 0 5px 8px #66543d28;
+}
+
+.collection-pedestal h2 {
+  margin-top: 7px;
+}
+
+.collection-empty {
+  opacity: 0.72;
+}
+
+.collection-empty-sign {
+  display: grid;
+  width: 160px;
+  aspect-ratio: 3 / 2;
+  place-items: center;
+  border: 3px dashed #a9ad9d;
+  border-radius: 10px;
+  color: #80867a;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 24px;
+  transform: rotate(-2deg);
 }
 .collection-detail {
   min-height: 65vh;

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CollectionCard } from '../components/CollectionCard'
+import { CollectionCard, EmptyCollectionCard } from '../components/CollectionCard'
 import { MuseumFilters } from '../components/MuseumFilters'
 import { IslandPagination } from '../components/IslandPagination'
 import { SectionIcon } from '../components/SectionIcon'
@@ -12,8 +12,10 @@ export function MuseumPage() {
   const [page, setPage] = useState(1)
   const visibleItems =
     filter === 'all' ? collections : collections.filter((item) => item.category === filter)
-  const totalPages = Math.max(1, Math.ceil(visibleItems.length / 30))
-  const pageItems = visibleItems.slice((page - 1) * 30, page * 30)
+  const pageSize = 9
+  const totalPages = Math.max(1, Math.ceil(visibleItems.length / pageSize))
+  const pageItems = visibleItems.slice((page - 1) * pageSize, page * pageSize)
+  const emptySlots = Math.max(0, pageSize - pageItems.length)
   return (
     <div className="museum-page page-surface">
       <header className="page-heading museum-page-heading">
@@ -34,6 +36,9 @@ export function MuseumPage() {
       <section className="collection-grid" aria-live="polite">
         {pageItems.map((item) => (
           <CollectionCard key={item.slug} item={item} />
+        ))}
+        {Array.from({ length: emptySlots }, (_, index) => (
+          <EmptyCollectionCard key={`empty-${page}-${index}`} />
         ))}
       </section>
       <IslandPagination page={page} total={totalPages} onChange={setPage} />
