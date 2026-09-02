@@ -32,10 +32,10 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
             <Star size={12} fill="currentColor" /> {item.rating}
           </span>
         </div>
-        <h2>
+        <h2 className="collection-exhibit-name">
           <Link to={`/museum/${item.category}/${item.slug}`}>{item.title}</Link>
         </h2>
-        <p>{item.excerpt}</p>
+        <p className="collection-exhibit-description">{item.excerpt}</p>
       </div>
     </article>
   )

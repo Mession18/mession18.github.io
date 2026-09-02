@@ -4856,7 +4856,7 @@ h1 em {
   right: -18px;
   bottom: -18px;
   left: -18px;
-  background: url('/images/museum-pedestal.png') center 43% / 116% auto no-repeat;
+  background: url('/images/museum-pedestal-v3.png') center 43% / 116% auto no-repeat;
   filter: drop-shadow(0 16px 13px #4e352f38);
   pointer-events: none;
 }
@@ -4867,6 +4867,40 @@ h1 em {
 
 .collection-pedestal h2 {
   margin-top: 7px;
+}
+
+.collection-pedestal.has-pedestal > div {
+  visibility: hidden;
+}
+
+.collection-pedestal.has-pedestal .collection-exhibit-name {
+  position: absolute;
+  z-index: 1;
+  top: -126px;
+  right: 14%;
+  left: 14%;
+  margin: 0;
+  color: #6d4b2b;
+  font-size: clamp(14px, 1.8vw, 19px);
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: none;
+}
+
+.collection-pedestal.has-pedestal .collection-exhibit-name a {
+  color: inherit;
+}
+
+.collection-pedestal.has-pedestal .collection-exhibit-description {
+  position: relative;
+  z-index: 1;
+  max-width: 78%;
+  margin: 17px auto 0;
+  color: #6d4b2b;
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: center;
+  text-shadow: none;
 }
 
 .collection-empty {
