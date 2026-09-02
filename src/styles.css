@@ -4765,7 +4765,7 @@ h1 em {
 .recipe-eaten-card.sky .recipe-eaten { background: #bee1eb; }
 .recipe-eaten-card.rose .recipe-eaten { background: #efc9bc; }
 .recipe-eaten-card.lavender .recipe-eaten { background: #d8cbe6; }
-.recipe-plate > svg { position: absolute; inset: 0; width: 100%; height: 74%; pointer-events: none; overflow: visible; }
+.recipe-plate > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .recipe-plate > svg text { fill: #8d632c; font-size: 10px; letter-spacing: .04em; }
 .recipe-empty-card { min-height: 300px; }
 .recipe-empty-sign { position: absolute; top: 28%; left: 11%; right: 11%; display: grid; min-height: 82px; place-items: center; padding: 14px; border: 3px dashed #a9ad9d; border-radius: 14px; color: #80867a; font-family: 'ZCOOL KuaiLe'; font-size: 22px; line-height: 1.35; text-align: center; }

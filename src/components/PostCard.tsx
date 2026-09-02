@@ -12,7 +12,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
       {previewImage && <img className="recipe-dish-image" src={previewImage} alt={post.title} />}
       {!previewImage && <em className="recipe-eaten">被吃掉了</em>}
       <strong>{post.title}</strong>
-      <svg viewBox="0 0 360 220" aria-hidden="true"><defs><path id={`recipe-arc-${post.slug}`} d="M 68 105 A 112 112 0 0 0 292 105" /></defs><text><textPath href={`#recipe-arc-${post.slug}`} startOffset="50%">于{post.publishedAt}制作</textPath></text></svg>
+      <svg viewBox="0 0 360 220" aria-hidden="true"><defs><path id={`recipe-arc-${post.slug}`} d="M 70 172 A 110 62 0 0 1 290 172" /></defs><text><textPath href={`#recipe-arc-${post.slug}`} startOffset="50%">于{post.publishedAt}制作</textPath></text></svg>
     </Link></article>
   }
 
