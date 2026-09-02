@@ -4844,24 +4844,22 @@ h1 em {
   position: relative;
   min-height: 145px;
   padding: 25px 28px 22px;
-  border-radius: 7px 7px 20px 20px;
-  background: linear-gradient(100deg, #d8c5a4, #f0e1c3 48%, #ccb58f);
-  box-shadow:
-    inset 0 3px #fff8e3,
-    0 16px 24px #4e5d5130;
-  color: #554c3e;
+  isolation: isolate;
+  color: #fff3dc;
+  text-shadow: 0 1px 2px #2a130dcc;
 }
 
 .collection-pedestal::before {
   content: '';
   position: absolute;
-  top: -13px;
-  right: -10px;
-  left: -10px;
-  height: 18px;
-  border-radius: 7px;
-  background: linear-gradient(90deg, #c5ab82, #f3e5c8 50%, #bca078);
-  box-shadow: 0 5px 8px #66543d28;
+  z-index: -1;
+  top: -29px;
+  right: -18px;
+  bottom: -18px;
+  left: -18px;
+  background: url('/images/museum-pedestal.jpg') center 43% / 116% auto no-repeat;
+  filter: drop-shadow(0 16px 13px #4e352f38);
+  pointer-events: none;
 }
 
 .collection-pedestal h2 {
