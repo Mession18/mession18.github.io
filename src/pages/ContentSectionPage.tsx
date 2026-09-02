@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IslandPagination } from '../components/IslandPagination'
-import { PostCard } from '../components/PostCard'
+import { EmptyRecipeCard, PostCard } from '../components/PostCard'
 import { SectionIcon } from '../components/SectionIcon'
 import { contentSectionInfo, sectionContent, type ContentSectionKey } from '../data/contentSections'
 
@@ -8,7 +8,10 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
   const [page, setPage] = useState(1)
   const items = sectionContent[section]
   const info = contentSectionInfo[section]
-  const total = Math.max(1, Math.ceil(items.length / 30))
+  const pageSize = section === 'recipes' ? 9 : 30
+  const total = Math.max(1, Math.ceil(items.length / pageSize))
+  const pageItems = items.slice((page - 1) * pageSize, page * pageSize)
+  const emptySlots = section === 'recipes' ? Math.max(0, pageSize - pageItems.length) : 0
   return (
     <div className="page-surface">
       <header className="page-heading">
@@ -21,9 +24,10 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
       </header>
       <section className="posts-library">
         <div className="post-grid">
-          {items.slice((page - 1) * 30, page * 30).map((item) => (
+          {pageItems.map((item) => (
             <PostCard key={item.slug} post={item} basePath={`/${section}`} />
           ))}
+          {section === 'recipes' && Array.from({ length: emptySlots }, (_, index) => <EmptyRecipeCard key={`recipe-empty-${page}-${index}`} />)}
         </div>
         {items.length === 0 && <p className="empty-section">这一页还在等待第一篇内容。</p>}
         <IslandPagination page={page} total={total} onChange={setPage} />
