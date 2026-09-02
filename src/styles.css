@@ -4778,16 +4778,16 @@ h1 em {
   box-shadow: none;
   color: #59635c;
   text-align: center;
-  transform: none;
+  transform: translateY(-72px);
   transition: 0.25s ease;
 }
 
 .collection-exhibit:nth-child(even) .collection-polaroid {
-  transform: none;
+  transform: translateY(-72px);
 }
 
 .collection-exhibit:hover .collection-polaroid {
-  transform: translateY(-7px);
+  transform: translateY(-79px);
 }
 
 .collection-picture {
@@ -4894,7 +4894,7 @@ h1 em {
 .collection-pedestal.has-pedestal .collection-exhibit-description {
   position: absolute;
   z-index: 1;
-  top: 101px;
+  top: 84px;
   right: 15%;
   left: 15%;
   max-width: none;
