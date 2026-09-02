@@ -4772,10 +4772,10 @@ h1 em {
 
 .collection-polaroid {
   display: block;
-  padding: 10px 10px 31px;
-  border: 1px solid #e3ded1;
-  background: #fffdf7;
-  box-shadow: 0 12px 25px #40564a2b;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   color: #59635c;
   text-align: center;
   transform: rotate(-1deg);
@@ -4822,22 +4822,19 @@ h1 em {
 }
 
 .collection-polaroid > small {
-  display: block;
-  margin: 9px 0 -20px;
+  display: none;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
 
 .collection-away {
-  padding: 9px 13px;
-  border: 2px dashed currentColor;
-  border-radius: 8px;
-  color: #718078;
+  padding: 0;
+  color: #80867a;
   font-family: 'ZCOOL KuaiLe';
   font-size: 18px;
   font-weight: 400;
-  transform: rotate(-5deg);
+  transform: rotate(-2deg);
 }
 
 .collection-pedestal {
@@ -4857,9 +4854,13 @@ h1 em {
   right: -18px;
   bottom: -18px;
   left: -18px;
-  background: url('/images/museum-pedestal.jpg') center 43% / 116% auto no-repeat;
+  background: url('/images/museum-pedestal.png') center 43% / 116% auto no-repeat;
   filter: drop-shadow(0 16px 13px #4e352f38);
   pointer-events: none;
+}
+
+.collection-pedestal:not(.has-pedestal)::before {
+  display: none;
 }
 
 .collection-pedestal h2 {

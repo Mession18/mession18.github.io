@@ -1,11 +1,15 @@
 import { Star } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { categoryLabels, getCollectionPreviewImage, type CollectionItem } from '../data/collections'
+import { getCollectionPreviewImage, type CollectionItem } from '../data/collections'
 import { colorClass, colorStyle } from '../data/colorPalette'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
 
+const famousMuseums = ['大英博物馆', '卢浮宫', '大都会艺术博物馆', '故宫博物院', '梵蒂冈博物馆', '纽约现代艺术博物馆', '乌菲兹美术馆', '普拉多博物馆']
+
 export function CollectionCard({ item }: { item: CollectionItem }) {
   const previewImage = getCollectionPreviewImage(item)
+  const [loanMuseum] = useState(() => famousMuseums[Math.floor(Math.random() * famousMuseums.length)])
 
   return (
     <article className="collection-card collection-exhibit">
@@ -18,13 +22,12 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
             {previewImage ? (
               <AdaptivePreviewImage src={previewImage} alt={item.title} />
             ) : (
-              <b className="collection-away">藏品出差</b>
+              <b className="collection-away">藏品外借至{loanMuseum}</b>
             )}
           </span>
-          <small>{categoryLabels[item.category]}</small>
         </Link>
       </div>
-      <div className="collection-card-body collection-pedestal">
+      <div className="collection-card-body collection-pedestal has-pedestal">
         <div>
           <span>{item.year}</span>
           <span className="collection-rating">
