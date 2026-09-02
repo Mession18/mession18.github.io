@@ -7,7 +7,7 @@ import { colorClass, colorStyle } from '../data/colorPalette'
 export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostPreviewImage(post)
   if (basePath === '/recipes') {
-    return <article className="post recipe-plate-card"><Link className="recipe-plate" to={`${basePath}/${post.slug}`} aria-label={`查看：${post.title}`}>
+    return <article className={`post recipe-plate-card ${!previewImage ? `recipe-eaten-card ${colorClass(post.color)}` : ''}`}><Link className="recipe-plate" to={`${basePath}/${post.slug}`} aria-label={`查看：${post.title}`}>
       <img src="/images/recipe-plate-plain.png" alt="" />
       {!previewImage && <em className="recipe-eaten">被吃掉了</em>}
       <strong>{post.title}</strong>

@@ -4756,7 +4756,14 @@ h1 em {
 .recipe-plate { position: relative; display: block; min-height: 300px; color: #6d4b2b; }
 .recipe-plate > img { display: block; width: 100%; height: 300px; object-fit: contain; }
 .recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 64%; text-align: center; font-size: 18px; line-height: 1.2; }
-.recipe-eaten { position: absolute; top: 28%; left: 0; right: 0; color: #8d632c; font-size: 15px; font-style: normal; text-align: center; }
+.recipe-eaten { position: absolute; top: 26%; left: 18%; right: 18%; display: grid; min-height: 72px; place-items: center; border-radius: 14px; color: #6d4b2b; font-size: 17px; font-style: normal; text-align: center; }
+.recipe-eaten-card .recipe-eaten { background: currentColor; color: #6d4b2b; }
+.recipe-eaten-card.mint .recipe-eaten { background: #c8e7d6; }
+.recipe-eaten-card.sun .recipe-eaten { background: #f5dda0; }
+.recipe-eaten-card.sunshine .recipe-eaten { background: #f8e3a0; }
+.recipe-eaten-card.sky .recipe-eaten { background: #bee1eb; }
+.recipe-eaten-card.rose .recipe-eaten { background: #efc9bc; }
+.recipe-eaten-card.lavender .recipe-eaten { background: #d8cbe6; }
 .recipe-plate > svg { position: absolute; inset: 0; width: 100%; height: 74%; pointer-events: none; overflow: visible; }
 .recipe-plate > svg text { fill: #8d632c; font-size: 10px; letter-spacing: .04em; }
 .recipe-empty-card { display: flex; align-items: center; justify-content: center; min-height: 300px; }
