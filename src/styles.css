@@ -4779,16 +4779,16 @@ h1 em {
   box-shadow: none;
   color: #59635c;
   text-align: center;
-  transform: translateY(-72px);
+  transform: translateY(-60px);
   transition: 0.25s ease;
 }
 
 .collection-exhibit:nth-child(even) .collection-polaroid {
-  transform: translateY(-72px);
+  transform: translateY(-60px);
 }
 
 .collection-exhibit:hover .collection-polaroid {
-  transform: translateY(-79px);
+  transform: translateY(-67px);
 }
 
 .collection-picture {
@@ -4940,7 +4940,7 @@ h1 em {
   color: #80867a;
   font-family: 'ZCOOL KuaiLe';
   font-size: 24px;
-  transform: none;
+  transform: translateY(-72px);
 }
 .collection-detail {
   min-height: 65vh;
