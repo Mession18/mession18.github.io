@@ -4757,7 +4757,7 @@ h1 em {
 .recipe-plate > img { display: block; width: 100%; height: 300px; object-fit: contain; }
 .recipe-plate > .recipe-dish-image { position: absolute; top: 8%; left: 23%; width: 54%; height: 43%; object-fit: contain; border-radius: 50%; transform: scale(1.5); transform-origin: center; }
 .recipe-plate > .recipe-dish-image.recipe-dish-portrait { top: 1%; }
-.recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 62%; text-align: center; font-size: 18px; line-height: 1.2; }
+.recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 62%; text-align: center; font-size: 22px; line-height: 1.2; }
 .recipe-eaten { position: absolute; top: 26%; left: 18%; right: 18%; display: grid; min-height: 72px; place-items: center; border-radius: 14px; color: #6d4b2b; font-size: 17px; font-style: normal; text-align: center; }
 .recipe-eaten-card .recipe-eaten { background: currentColor; color: #6d4b2b; }
 .recipe-eaten-card.mint .recipe-eaten { background: #c8e7d6; }
@@ -4925,7 +4925,7 @@ h1 em {
 .collection-exhibit-date {
   position: absolute;
   z-index: 1;
-  top: -34px;
+  top: -10px;
   right: 0;
   left: 0;
   width: 100%;
@@ -4935,10 +4935,10 @@ h1 em {
 }
 
 .collection-exhibit-date text {
-  fill: #7d542b;
-  font-size: 10px;
+  fill: #4f2f1b;
+  font-size: 14px;
   letter-spacing: .04em;
-  text-shadow: 0 1px 0 #f5c66a;
+  text-shadow: 0 1px 0 #f9d477;
 }
 
 .collection-pedestal.has-pedestal .collection-exhibit-name a {
