@@ -2,6 +2,7 @@ import { Star } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getCollectionPreviewImage, type CollectionItem } from '../data/collections'
+import { colorStyle } from '../data/colorPalette'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
 
 const famousMuseums = ['大英博物馆', '卢浮宫', '大都会艺术博物馆', '故宫博物院', '梵蒂冈博物馆', '纽约现代艺术博物馆', '乌菲兹美术馆', '普拉多博物馆']
@@ -16,6 +17,7 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
         <Link className="collection-polaroid" to={`/museum/${item.category}/${item.slug}`}>
           <span
             className="collection-picture"
+            style={previewImage ? undefined : colorStyle(item.color)}
           >
             {previewImage ? (
               <AdaptivePreviewImage src={previewImage} alt={item.title} />
@@ -50,7 +52,7 @@ export function EmptyCollectionCard() {
       <div className="collection-display-space">
         <div className="collection-empty-sign">待收藏</div>
       </div>
-      <div className="collection-card-body collection-pedestal">
+      <div className="collection-card-body collection-pedestal has-pedestal">
         <h2>待收藏</h2>
         <p>这里正在等待下一件值得珍藏的东西。</p>
       </div>

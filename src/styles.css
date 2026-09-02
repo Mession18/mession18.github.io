@@ -4656,7 +4656,8 @@ h1 em {
 .collection-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  column-gap: 38px;
+  row-gap: 72px;
   max-width: 1160px;
   margin: auto;
 }
@@ -4754,7 +4755,7 @@ h1 em {
 /* 博物馆展厅：每件藏品使用自适应拍立得和独立展台。 */
 .collection-exhibit {
   display: grid;
-  min-height: 440px;
+  min-height: 500px;
   overflow: visible;
   border: 0;
   border-radius: 0;
@@ -4835,7 +4836,13 @@ h1 em {
   font-family: 'ZCOOL KuaiLe';
   font-size: 18px;
   font-weight: 400;
-  transform: rotate(-2deg);
+  transform: none;
+}
+
+.collection-picture:has(.collection-away) {
+  width: 230px;
+  height: 160px;
+  border-radius: 14px;
 }
 
 .collection-pedestal {
@@ -4894,14 +4901,14 @@ h1 em {
 .collection-pedestal.has-pedestal .collection-exhibit-description {
   position: absolute;
   z-index: 1;
-  top: 84px;
+  top: 78px;
   right: 15%;
   left: 15%;
   max-width: none;
   margin: 0;
   color: #6d4b2b;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.35;
   text-align: center;
   text-shadow: none;
 }
@@ -4920,7 +4927,7 @@ h1 em {
   color: #80867a;
   font-family: 'ZCOOL KuaiLe';
   font-size: 24px;
-  transform: rotate(-2deg);
+  transform: none;
 }
 .collection-detail {
   min-height: 65vh;
