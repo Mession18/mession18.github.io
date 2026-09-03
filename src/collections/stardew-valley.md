@@ -3,7 +3,6 @@ id: G-002
 category: games
 title: 星露谷物语
 subtitle: 四季循环里的慢生活
-year: 2025
 rating: 4.8
 icon: 🌾
 previewImage: /src/collections/preview/stardew-valley-封面.png

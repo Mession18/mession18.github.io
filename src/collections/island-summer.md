@@ -3,7 +3,6 @@ id: P-001
 category: photos
 title: 岛上的夏日
 subtitle: 花与冰柠檬水
-year: 2026.08
 rating: 4.8
 icon: 🌼
 color: rose

@@ -1,0 +1,16 @@
+:root {
+  --display-stand-columns: 3;
+  --display-stand-column-gap: 38px;
+  --display-stand-row-gap: 72px;
+  --display-stand-max-width: 1160px;
+}
+
+/* Reusable by museum, recipes, crafts, planting, and future display pages. */
+.display-stand-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--display-stand-columns), minmax(0, 1fr));
+  column-gap: var(--display-stand-column-gap);
+  row-gap: var(--display-stand-row-gap);
+  max-width: var(--display-stand-max-width);
+  margin: auto;
+}

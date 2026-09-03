@@ -5,11 +5,22 @@ import { getCollectionPreviewImage, type CollectionItem } from '../data/collecti
 import { colorClass, colorStyle } from '../data/colorPalette'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
 
-const famousMuseums = ['大英博物馆', '卢浮宫', '大都会艺术博物馆', '故宫博物院', '梵蒂冈博物馆', '纽约现代艺术博物馆', '乌菲兹美术馆', '普拉多博物馆']
+const famousMuseums = [
+  '大英博物馆',
+  '卢浮宫',
+  '大都会艺术博物馆',
+  '故宫博物院',
+  '梵蒂冈博物馆',
+  '纽约现代艺术博物馆',
+  '乌菲兹美术馆',
+  '普拉多博物馆',
+]
 
 export function CollectionCard({ item }: { item: CollectionItem }) {
   const previewImage = getCollectionPreviewImage(item)
-  const [loanMuseum] = useState(() => famousMuseums[Math.floor(Math.random() * famousMuseums.length)])
+  const [loanMuseum] = useState(
+    () => famousMuseums[Math.floor(Math.random() * famousMuseums.length)],
+  )
   const collectionDate = item.date
     ? (() => {
         const [year, month, day] = item.date.split('-')
@@ -34,10 +45,18 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
         </Link>
       </div>
       <div className="collection-card-body collection-pedestal has-pedestal">
-        {collectionDate && <svg className="collection-exhibit-date" viewBox="0 0 360 90" aria-hidden="true">
-          <defs><path id={`collection-date-arc-${item.slug}`} d="M 92 30 Q 180 52 268 30" /></defs>
-          <text textAnchor="middle"><textPath href={`#collection-date-arc-${item.slug}`} startOffset="50%">于{collectionDate}收藏</textPath></text>
-        </svg>}
+        {collectionDate && (
+          <svg className="collection-exhibit-date" viewBox="0 0 360 90" aria-hidden="true">
+            <defs>
+              <path id={`collection-date-arc-${item.slug}`} d="M 92 30 Q 180 52 268 30" />
+            </defs>
+            <text textAnchor="middle">
+              <textPath href={`#collection-date-arc-${item.slug}`} startOffset="50%">
+                于{collectionDate}收藏
+              </textPath>
+            </text>
+          </svg>
+        )}
         <div>
           <span>{item.year}</span>
           <span className="collection-rating">

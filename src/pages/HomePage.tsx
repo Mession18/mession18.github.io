@@ -25,4 +25,3 @@ export function HomePage() {
     </>
   )
 }
-import { Divider } from 'animal-island-ui'

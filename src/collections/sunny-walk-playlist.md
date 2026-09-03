@@ -3,7 +3,6 @@ id: M-001
 category: music
 title: 晴天散步歌单
 subtitle: 适合戴着耳机慢慢走
-year: 2026
 rating: 4.7
 icon: 🎧
 color: sky

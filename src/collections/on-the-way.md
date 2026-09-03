@@ -3,7 +3,6 @@ id: P-002
 category: photos
 title: 散步途中
 subtitle: 走过很多次的小路
-year: 2026.07
 rating: 4.6
 icon: 🌳
 color: mint

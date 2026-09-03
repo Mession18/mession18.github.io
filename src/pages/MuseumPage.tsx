@@ -33,7 +33,7 @@ export function MuseumPage() {
           setPage(1)
         }}
       />
-      <section className="collection-grid" aria-live="polite">
+      <section className="collection-grid display-stand-grid" aria-live="polite">
         {pageItems.map((item) => (
           <CollectionCard key={item.slug} item={item} />
         ))}

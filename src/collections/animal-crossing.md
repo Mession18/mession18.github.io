@@ -3,7 +3,6 @@ id: G-001
 category: games
 title: 动物森友会
 subtitle: 一座可以随时回去的小岛
-year: 2026
 rating: 5
 previewImage: public/images/cover/animal-crossing.png
 detailImage: public/images/cover/animal-crossing.png

@@ -4630,40 +4630,6 @@ h1 em {
     color 0.45s ease,
     border-color 0.45s ease;
 }
-.museum-page-heading {
-  margin-bottom: 28px;
-}
-.museum-filters {
-  display: flex;
-  justify-content: center;
-  gap: 9px;
-  margin-bottom: 42px;
-  flex-wrap: wrap;
-}
-.museum-filters button {
-  padding: 9px 15px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: #fffdf8;
-  color: var(--muted);
-  font: inherit;
-  font-size: 11px;
-  font-weight: 800;
-  cursor: pointer;
-}
-.museum-filters button.active {
-  border-color: var(--green);
-  background: var(--green);
-  color: white;
-}
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 38px;
-  row-gap: 72px;
-  max-width: 1160px;
-  margin: auto;
-}
 .collection-card {
   overflow: hidden;
   border: 1px solid var(--line);
@@ -4754,25 +4720,6 @@ h1 em {
   font-size: 10px;
   font-weight: 800;
 }
-
-.recipe-plate-card { overflow: visible; border: 0; background: transparent; box-shadow: none; }
-.recipe-plate { position: relative; display: block; width: 100%; aspect-ratio: 3 / 2; color: #6d4b2b; }
-.recipe-plate > img { display: block; width: 100%; height: 100%; object-fit: fill; }
-.recipe-plate > .recipe-dish-image { position: absolute; top: 2%; left: 23%; width: 54%; height: 43%; object-fit: contain; border-radius: 50%; transform: scale(1.5); transform-origin: center; }
-.recipe-plate > .recipe-dish-image.recipe-dish-portrait { top: -20%; }
-.recipe-plate > strong { position: absolute; left: 16%; right: 16%; top: 65%; text-align: center; font-size: 22px; line-height: 1.2; }
-.recipe-eaten { position: absolute; top: 26%; left: 18%; right: 18%; display: grid; min-height: 72px; place-items: center; border-radius: 14px; color: #6d4b2b; font-size: 17px; font-style: normal; text-align: center; }
-.recipe-eaten-card .recipe-eaten { background: currentColor; color: #6d4b2b; }
-.recipe-eaten-card.mint .recipe-eaten { background: #c8e7d6; }
-.recipe-eaten-card.sun .recipe-eaten { background: #f5dda0; }
-.recipe-eaten-card.sunshine .recipe-eaten { background: #f8e3a0; }
-.recipe-eaten-card.sky .recipe-eaten { background: #bee1eb; }
-.recipe-eaten-card.rose .recipe-eaten { background: #efc9bc; }
-.recipe-eaten-card.lavender .recipe-eaten { background: #d8cbe6; }
-.recipe-plate > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-.recipe-plate > svg text { fill: #8d632c; font-size: 12px; letter-spacing: .04em; }
-.recipe-empty-card { min-height: 0; }
-.recipe-empty-sign { position: absolute; top: 28%; left: 11%; right: 11%; display: grid; min-height: 82px; place-items: center; padding: 14px; border: 3px dashed #a9ad9d; border-radius: 14px; color: #80867a; font-family: 'ZCOOL KuaiLe'; font-size: 22px; line-height: 1.35; text-align: center; }
 
 /* 博物馆展厅：每件藏品使用自适应拍立得和独立展台。 */
 .collection-exhibit {

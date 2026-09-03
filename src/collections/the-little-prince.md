@@ -3,7 +3,6 @@ id: B-001
 category: books
 title: 小王子
 subtitle: 写给大人的童话
-year: 2024
 rating: 4.9
 icon: 🌟
 color: lavender
