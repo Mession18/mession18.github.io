@@ -5168,11 +5168,7 @@ footer {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-/* 手机端字块调参入口（仅定位，不改变布局）：修改下面 max-width 规则中的 top 值即可。 */
 @media (max-width: 850px) {
-  .recipe-plate > strong { top: 63%; }
-  .collection-exhibit-date { top: -22px; }
-  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 84px; }
   .island-cat {
     left: 8px;
     bottom: 76px;
@@ -5329,9 +5325,6 @@ footer {
   }
 }
 @media (max-width: 480px) {
-  .recipe-plate > strong { top: 58%; }
-  .collection-exhibit-date { top: -8px; }
-  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 50px; }
   .topbar {
     padding-left: 18px;
     padding-right: 18px;

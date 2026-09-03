@@ -7,6 +7,7 @@ import 'animal-island-ui/style'
 import './styles.css'
 import './styles/display-stand.css'
 import './styles/recipes.css'
+import './styles/planting.css'
 import './styles/museum.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

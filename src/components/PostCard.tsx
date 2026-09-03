@@ -6,6 +6,19 @@ import { colorClass, colorStyle } from '../data/colorPalette'
 
 export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostPreviewImage(post)
+  if (basePath === '/planting') {
+    const plantingImage = previewImage && !/\.svg(?:$|\?)/i.test(previewImage) ? previewImage : undefined
+    return (
+      <article className={`post planting-pot-card ${!plantingImage ? `planting-missing-card ${colorClass(post.color)}` : ''}`}>
+        <Link className="planting-pot" to={`${basePath}/${post.slug}`} aria-label={`阅读：${post.title}`}>
+          <img src="/images/planting/flower-pot.png" alt="" />
+          {plantingImage && <img className="planting-preview" src={plantingImage} alt={post.title} />}
+          {!plantingImage && <em className="planting-missing">去农场打僵尸了</em>}
+          <strong>{post.title}</strong>
+        </Link>
+      </article>
+    )
+  }
   if (basePath === '/recipes') {
     const recipeImage =
       previewImage && !/\.svg(?:$|\?)/i.test(previewImage) ? previewImage : undefined
@@ -81,6 +94,17 @@ export function EmptyRecipeCard() {
       <div className="recipe-plate">
         <img src="/images/recipe-plate-plain.png" alt="" />
         <div className="recipe-empty-sign">正在研发新菜品</div>
+      </div>
+    </article>
+  )
+}
+
+export function EmptyPlantingCard() {
+  return (
+    <article className="post planting-pot-card planting-empty-card">
+      <div className="planting-pot">
+        <img src="/images/planting/flower-pot.png" alt="" />
+        <div className="planting-empty-sign">等待新植物到来</div>
       </div>
     </article>
   )
