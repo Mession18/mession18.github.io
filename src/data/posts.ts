@@ -8,6 +8,8 @@ export type Post = {
   slug: string
   date: string
   publishedAt: string
+  startDate?: string
+  finalDate?: string
   readingTime: number
   tag: string
   tags: string[]
@@ -62,17 +64,23 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     : []
   const tags = [...new Set([...tagList, ...inlineTags, ...(metadata.tag ? [metadata.tag] : [])])]
   const content = match[2].trim()
-  const publishedAt = metadata.date
-  if (!publishedAt || !metadata.excerpt)
-    throw new Error(`文章 ${filename} 必须填写 date 和 excerpt`)
-  const title = metadata.title || slug
   const sourceDir = path.match(/\.\.\/([^/]+)\//)?.[1] ?? 'posts'
+  const startDate = metadata.date || undefined
+  const finalDate = metadata.finaldate || undefined
+  const publishedAt = startDate || finalDate
+  if (!publishedAt || !metadata.excerpt)
+    throw new Error(`文章 ${filename} 必须填写 date 或 finaldate，并填写 excerpt`)
+  if (sourceDir === 'crafts' && !startDate)
+    throw new Error(`手工 ${filename} 必须填写开工时间 date`)
+  const title = metadata.title || slug
   const color = resolveColor(metadata.color) as PostColor
   const wordCount = content.replace(/\s+/g, '').length
   return {
     slug,
     date: publishedAt.slice(5).replace('-', ' / '),
     publishedAt,
+    startDate,
+    finalDate,
     readingTime: Number(metadata.readingTime) || Math.max(1, Math.ceil(wordCount / 400)),
     tag: tags[0] || defaultTag,
     tags: tags.length ? tags : [defaultTag],

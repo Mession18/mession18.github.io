@@ -10,6 +10,7 @@ previewImage: /images/examples/bottle-lamp.svg
 detailImage: /images/examples/bottle-lamp.svg
 id: 20260902202553-4mvtmc
 subtitle: ""
+finaldate: 2026-09-03
 ---
 
 ## 制作方法

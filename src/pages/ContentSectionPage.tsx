@@ -4,6 +4,7 @@ import {
   EmptyPlantingCard,
   EmptyRecipeCard,
   EmptyTravelCard,
+  EmptyCraftCard,
   PostCard,
 } from '../components/PostCard'
 import { SectionIcon } from '../components/SectionIcon'
@@ -23,11 +24,18 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
   const items = sectionContent[section]
   const info = contentSectionInfo[section]
   const pageSize = sectionPageSize(section)
-  const tags = [...new Set(items.flatMap((item) => item.tags))]
+  const markdownTags = [...new Set(items.flatMap((item) => item.tags))]
+  const craftStatusTags = ['制作中', '制作完成']
+  const tags =
+    section === 'crafts'
+      ? [...craftStatusTags, ...markdownTags.filter((tag) => !craftStatusTags.includes(tag))]
+      : markdownTags
   const visibleItems =
-    filterableSections.has(section) && activeTag !== 'all'
-      ? items.filter((item) => item.tags.includes(activeTag))
-      : items
+    section === 'crafts' && craftStatusTags.includes(activeTag)
+      ? items.filter((item) => (item.finalDate ? '制作完成' : '制作中') === activeTag)
+      : filterableSections.has(section) && activeTag !== 'all'
+        ? items.filter((item) => item.tags.includes(activeTag))
+        : items
   const total = Math.max(1, Math.ceil(visibleItems.length / pageSize))
   const pageItems = visibleItems.slice((page - 1) * pageSize, page * pageSize)
   const emptySlots = displayStandSections.has(section)
@@ -68,24 +76,19 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
           ))}
           {section === 'recipes' &&
             Array.from({ length: emptySlots }, (_, index) => (
-              <EmptyRecipeCard
-                key={`recipe-empty-${page}-${index}`}
-                slotKey={`recipe-empty-${page}-${index}`}
-              />
+              <EmptyRecipeCard key={`recipe-empty-${page}-${index}`} />
             ))}
           {section === 'planting' &&
             Array.from({ length: emptySlots }, (_, index) => (
-              <EmptyPlantingCard
-                key={`planting-empty-${page}-${index}`}
-                slotKey={`planting-empty-${page}-${index}`}
-              />
+              <EmptyPlantingCard key={`planting-empty-${page}-${index}`} />
             ))}
           {section === 'travel' &&
             Array.from({ length: emptySlots }, (_, index) => (
-              <EmptyTravelCard
-                key={`travel-empty-${page}-${index}`}
-                slotKey={`travel-empty-${page}-${index}`}
-              />
+              <EmptyTravelCard key={`travel-empty-${page}-${index}`} />
+            ))}
+          {section === 'crafts' &&
+            Array.from({ length: emptySlots }, (_, index) => (
+              <EmptyCraftCard key={`craft-empty-${page}-${index}`} />
             ))}
         </div>
         {visibleItems.length === 0 && <p className="empty-section">这一页还在等待第一篇内容。</p>}

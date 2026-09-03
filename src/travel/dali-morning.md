@@ -10,6 +10,7 @@ previewImage: /images/examples/dali.svg
 detailImage: /images/examples/dali.svg
 id: 20260902202553-pwm9qu
 subtitle: ""
+finaldate: 2026-09-04
 ---
 
 ## 这一站

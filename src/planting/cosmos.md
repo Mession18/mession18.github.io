@@ -10,6 +10,7 @@ previewImage: /images/examples/cosmos.svg
 detailImage: /images/examples/cosmos.svg
 id: 20260902202553-984rlb
 subtitle: ""
+finaldate: 2026-09-04
 ---
 
 ## 种植小记

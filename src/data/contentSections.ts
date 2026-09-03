@@ -1,8 +1,18 @@
 import { parseMarkdown, type Post } from './posts'
 
 export type ContentSectionKey = 'recipes' | 'crafts' | 'travel' | 'planting'
-export const displayStandSections = new Set<ContentSectionKey>(['recipes', 'travel', 'planting'])
-export const filterableSections = new Set<ContentSectionKey>(['recipes', 'planting'])
+export const displayStandSections = new Set<ContentSectionKey>([
+  'recipes',
+  'crafts',
+  'travel',
+  'planting',
+])
+export const filterableSections = new Set<ContentSectionKey>([
+  'recipes',
+  'crafts',
+  'travel',
+  'planting',
+])
 
 export function sectionPageSize(section: ContentSectionKey) {
   return displayStandSections.has(section) ? 9 : 30
@@ -11,6 +21,8 @@ export function sectionPageSize(section: ContentSectionKey) {
 export function allItemsLabel(section: ContentSectionKey) {
   const labels: Partial<Record<ContentSectionKey, string>> = {
     recipes: '全部菜品',
+    crafts: '全部手工',
+    travel: '全部明信片',
     planting: '全部植物',
   }
   return labels[section] ?? '全部内容'

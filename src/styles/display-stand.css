@@ -1,6 +1,6 @@
 :root {
   --display-stand-columns: 3;
-  --display-stand-column-gap: 38px;
+  --display-stand-column-gap: 50px;
   --display-stand-row-gap: 72px;
   --display-stand-max-width: 1160px;
 }

@@ -90,9 +90,10 @@
 }
 .travel-card-message time {
   position: absolute;
-  right: 9px;
-  bottom: 8px;
-  font-size: 11px;
+  right: 4px;
+  bottom: 3px;
+  font-size: 9px;
+  white-space: nowrap;
   color: #9a7e60;
 }
 .travel-card-stamp {

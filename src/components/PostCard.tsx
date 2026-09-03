@@ -3,12 +3,14 @@ import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getPostDisplayImage, type Post } from '../data/posts'
 import { colorClass, colorStyle } from '../data/colorPalette'
-import { getContentMessage } from '../data/contentMessages'
+import { ContentMessageText } from './ContentPlaceholder'
+import { formatDateRange, splitDisplayDate } from '../data/dates'
 
 export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?: string }) {
   const previewImage = getPostDisplayImage(post)
   if (basePath === '/travel') {
     const travelImage = previewImage
+    const travelDates = formatDateRange(post.startDate, post.finalDate)
     return (
       <article className="post travel-postcard-card">
         <Link
@@ -22,7 +24,9 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
             {travelImage ? (
               <img src={travelImage} alt={post.title} />
             ) : (
-              <em>{getContentMessage('travel', 'missing', post.slug)}</em>
+              <em>
+                <ContentMessageText section="travel" kind="missing" />
+              </em>
             )}
           </div>
           <div className="travel-card-message">
@@ -31,7 +35,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
             </span>
             <strong>{post.title}</strong>
             <p>{post.excerpt}</p>
-            <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+            {travelDates && <time>{travelDates}</time>}
             <span className="travel-card-lines" aria-hidden="true" />
           </div>
         </Link>
@@ -40,6 +44,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
   }
   if (basePath === '/planting') {
     const plantingImage = previewImage
+    const plantingDates = formatDateRange(post.startDate, post.finalDate)
     return (
       <article
         className={`post planting-pot-card ${!plantingImage ? `planting-missing-card ${colorClass(post.color)}` : ''}`}
@@ -55,10 +60,68 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           )}
           {!plantingImage && (
             <em className="planting-missing">
-              {getContentMessage('planting', 'missing', post.slug)}
+              <ContentMessageText section="planting" kind="missing" />
             </em>
           )}
           <strong>{post.title}</strong>
+          {plantingDates && (
+            <svg className="planting-dates" viewBox="0 0 360 360" aria-hidden="true">
+              <defs>
+                <path id={`planting-date-arc-${post.slug}`} d="M 82 166 Q 180 184 278 166" />
+              </defs>
+              <text textAnchor="middle">
+                <textPath href={`#planting-date-arc-${post.slug}`} startOffset="50%">
+                  {plantingDates}
+                </textPath>
+              </text>
+            </svg>
+          )}
+        </Link>
+      </article>
+    )
+  }
+  if (basePath === '/crafts') {
+    const start = splitDisplayDate(post.startDate)
+    const finish = splitDisplayDate(post.finalDate)
+    return (
+      <article className="post craft-workbench-card">
+        <Link
+          className="craft-workbench-display"
+          to={`${basePath}/${post.slug}`}
+          aria-label={`阅读：${post.title}`}
+        >
+          <img
+            className="craft-workbench-base"
+            src="/images/crafts/workbench_2.png"
+            alt=""
+          />
+          <div className={`craft-art-frame ${!previewImage ? colorClass(post.color) : ''}`}>
+            {previewImage ? (
+              <img src={previewImage} alt={post.title} />
+            ) : (
+              <em>
+                <ContentMessageText section="crafts" kind="missing" />
+              </em>
+            )}
+          </div>
+          <div className="craft-nameplate">
+            <strong>{post.title}</strong>
+          </div>
+          <p className="craft-blueprint-description">{post.excerpt}</p>
+          {start && (
+            <time className="craft-date craft-start-date" dateTime={post.startDate}>
+              <b>{start.year}</b>
+              <span>{start.monthDay}</span>
+              <em>开工</em>
+            </time>
+          )}
+          {finish && (
+            <time className="craft-date craft-finish-date" dateTime={post.finalDate}>
+              <b>{finish.year}</b>
+              <span>{finish.monthDay}</span>
+              <em>完工</em>
+            </time>
+          )}
         </Link>
       </article>
     )
@@ -88,7 +151,9 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
             />
           )}
           {!recipeImage && (
-            <em className="recipe-eaten">{getContentMessage('recipes', 'missing', post.slug)}</em>
+            <em className="recipe-eaten">
+              <ContentMessageText section="recipes" kind="missing" />
+            </em>
           )}
           <strong>{post.title}</strong>
           <svg viewBox="0 0 360 220" aria-hidden="true">
@@ -133,34 +198,38 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
   )
 }
 
-export function EmptyRecipeCard({ slotKey }: { slotKey: string }) {
+export function EmptyRecipeCard() {
   return (
     <article className="post recipe-plate-card recipe-empty-card">
       <div className="recipe-plate">
         <img src="/images/recipe-plate-plain.png" alt="" />
-        <div className="recipe-empty-sign">{getContentMessage('recipes', 'empty', slotKey)}</div>
+        <div className="recipe-empty-sign">
+          <ContentMessageText section="recipes" kind="empty" />
+        </div>
       </div>
     </article>
   )
 }
 
-export function EmptyPlantingCard({ slotKey }: { slotKey: string }) {
+export function EmptyPlantingCard() {
   return (
     <article className="post planting-pot-card planting-empty-card">
       <div className="planting-pot">
         <img src="/images/planting/flower-pot.png" alt="" />
-        <div className="planting-empty-sign">{getContentMessage('planting', 'empty', slotKey)}</div>
+        <div className="planting-empty-sign">
+          <ContentMessageText section="planting" kind="empty" />
+        </div>
       </div>
     </article>
   )
 }
 
-export function EmptyTravelCard({ slotKey }: { slotKey: string }) {
+export function EmptyTravelCard() {
   return (
     <article className="post travel-postcard-card travel-empty-card">
       <div className="travel-card-postcard">
         <div className="travel-card-photo travel-card-photo-empty">
-          {getContentMessage('travel', 'empty', slotKey)}
+          <ContentMessageText section="travel" kind="empty" />
         </div>
         <div className="travel-card-message">
           <span className="travel-card-stamp" aria-hidden="true">
@@ -168,6 +237,19 @@ export function EmptyTravelCard({ slotKey }: { slotKey: string }) {
           </span>
           <strong>目的地待定</strong>
           <span className="travel-card-lines" aria-hidden="true" />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+export function EmptyCraftCard() {
+  return (
+    <article className="post craft-workbench-card craft-empty-card">
+      <div className="craft-workbench-display">
+        <img className="craft-workbench-base" src="/images/crafts/workbench_2.png" alt="" />
+        <div className="craft-art-frame craft-empty-sign">
+          <ContentMessageText section="crafts" kind="empty" />
         </div>
       </div>
     </article>

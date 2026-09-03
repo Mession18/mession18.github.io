@@ -40,7 +40,7 @@ function ContentImage({ item }: { item: Post }) {
   return image ? (
     <img src={image} alt={item.title} />
   ) : (
-    <ContentPlaceholder section={section} itemKey={item.slug} color={item.color} />
+    <ContentPlaceholder section={section} color={item.color} />
   )
 }
 
@@ -120,11 +120,10 @@ export function CraftHomeSection() {
               key={item.slug}
               className={`craft-note note-${index + 1}`}
             >
-              <ContentImage item={item} />
-              <span>
-                <small>{item.tag}</small>
-                <strong>{item.title}</strong>
-              </span>
+              <div className="craft-note-photo">
+                <ContentImage item={item} />
+              </div>
+              <strong>{item.title}</strong>
             </Link>
           ))}
         </div>

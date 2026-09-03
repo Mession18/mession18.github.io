@@ -2451,7 +2451,8 @@ h1 em {
 .post-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  column-gap: 12px; /* 左右间隔 */
+  row-gap: 28px; 
 }
 .post {
   background: var(--paper);
@@ -2898,7 +2899,7 @@ h1 em {
 }
 .craft-board {
   position: relative;
-  min-height: 520px;
+  min-height: 630px;
   border: 16px solid #ba8a5d;
   border-radius: 20px;
   background: #d3ae79;
@@ -2911,11 +2912,10 @@ h1 em {
 .craft-note {
   position: absolute;
   display: flex;
-  width: 44%;
-  min-height: 112px;
-  align-items: center;
-  gap: 15px;
-  padding: 16px;
+  width: 40%;
+  flex-direction: column;
+  gap: 8px;
+  padding: 11px 11px 24px;
   background: #fff8dc;
   box-shadow: 0 8px 15px #60492830;
 }
@@ -2929,42 +2929,39 @@ h1 em {
   background: #e7c675b8;
   transform: translateX(-50%) rotate(-2deg);
 }
-.craft-note img,
-.craft-note > span:first-child {
+.craft-note-photo {
   display: grid;
-  width: 112px;
-  height: 84px;
-  flex: 0 0 112px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   place-items: center;
+  background: #efe8d8;
+}
+.craft-note-photo img,
+.craft-note-photo > span {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  font-size: 36px;
-}
-.craft-note span:last-child {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-}
-.craft-note small {
-  color: #8c7861;
-  font-size: 10px;
 }
 .craft-note strong {
-  margin-top: 5px;
   color: #55483d;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
 }
 .note-1 {
-  top: 48px;
-  left: 3%;
+  top: 32px;
+  left: 5%;
   transform: rotate(-3deg);
 }
 .note-2 {
-  top: 72px;
-  right: 3%;
+  top: 48px;
+  right: 5%;
   transform: rotate(2deg);
 }
 .note-3 {
-  right: 28%;
-  bottom: 58px;
+  right: 30%;
+  bottom: 30px;
   transform: rotate(-1deg);
 }
 .home-travel {
@@ -3280,6 +3277,10 @@ h1 em {
   font-size: 17px;
   line-height: 1.45;
   text-wrap: balance;
+  color: #675d50 !important;
+}
+.museum .photo div.photo-missing * {
+  color: #675d50 !important;
 }
 .museum .photo div.photo-missing.mint {
   background: #ccebdc;

@@ -38,10 +38,7 @@ export function MuseumPage() {
           <CollectionCard key={item.slug} item={item} />
         ))}
         {Array.from({ length: emptySlots }, (_, index) => (
-          <EmptyCollectionCard
-            key={`empty-${page}-${index}`}
-            slotKey={`museum-empty-${page}-${index}`}
-          />
+          <EmptyCollectionCard key={`empty-${page}-${index}`} />
         ))}
       </section>
       <IslandPagination page={page} total={totalPages} onChange={setPage} />

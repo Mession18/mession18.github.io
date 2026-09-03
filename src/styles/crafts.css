@@ -1,0 +1,146 @@
+.crafts-page .display-stand-grid {
+  column-gap: 15px;
+  row-gap: 50px;
+}
+.craft-workbench-card {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.craft-workbench-display {
+  position: relative;
+  display: block;
+  width: 130%;
+  margin-left: -10%;
+  aspect-ratio: 3 / 2;
+  color: #60401f;
+}
+.craft-workbench-base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.craft-art-frame {
+  position: absolute;
+  top: 13%;
+  left: 34%;
+  display: grid;
+  width: 32%;
+  height: 32%;
+  padding: 5px;
+  overflow: hidden;
+  place-items: center;
+  border: 7px solid #8d5a2b;
+  border-radius: 4px;
+  background: #f9efd9;
+  box-shadow: 0 5px 10px #51331545;
+  transform: rotate(-1deg);
+}
+.craft-art-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fffaf0;
+}
+.craft-art-frame em {
+  padding: 8px;
+  font-size: 15px;
+  font-style: normal;
+  line-height: 1.3;
+  text-align: center;
+}
+.craft-art-frame.mint {
+  background: #ccebdc;
+}
+.craft-art-frame.sunshine {
+  background: #f8e3a0;
+}
+.craft-art-frame.sun {
+  background: #f5dda0;
+}
+.craft-art-frame.sky {
+  background: #bde3ec;
+}
+.craft-art-frame.rose {
+  background: #efc9bc;
+}
+.craft-art-frame.lavender {
+  background: #d8cbe6;
+}
+.craft-nameplate {
+  position: absolute;
+  top: 78%;
+  right: 25%;
+  left: 25%;
+  display: flex;
+  height: 11%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.craft-nameplate strong {
+  font-size: 20px;
+  line-height: 1.15;
+}
+.post .craft-blueprint-description {
+  position: absolute;
+  top: 58%;
+  right: 23%;
+  left: 25%;
+  display: flex;
+  height: 12%;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  color: #fff8df;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow: 0 1px 1px #31566a;
+}
+.craft-date {
+  position: absolute;
+  top: 59.5%;
+  display: flex;
+  width: 10%;
+  flex-direction: column;
+  align-items: center;
+  color: #775126;
+  font-style: normal;
+  line-height: 1.05;
+  text-align: center;
+}
+.craft-start-date {
+  left: 16%;
+}
+.craft-finish-date {
+  right: 15.5%;
+}
+.craft-date b {
+  font-size: 9px;
+}
+.craft-date span {
+  margin-top: 1px;
+  font-size: 8px;
+}
+.craft-date em {
+  margin-top: 2px;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+}
+.craft-empty-sign {
+  border-style: dashed;
+  border-color: #a59b82;
+  background: #eef0e6;
+  color: #777568;
+  font-size: 20px;
+  line-height: 1.35;
+  text-align: center;
+}

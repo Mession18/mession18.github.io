@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { collections, getCollectionDisplayImage } from '../data/collections'
 import { sectionContent } from '../data/contentSections'
-import { getContentMessage } from '../data/contentMessages'
+import { ContentMessageText } from './ContentPlaceholder'
 import { colorClass, colorStyle } from '../data/colorPalette'
 import { posts } from '../data/posts'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
@@ -94,7 +94,9 @@ export function Museum() {
                 {previewImage ? (
                   <AdaptivePreviewImage src={previewImage} alt={item.title} />
                 ) : (
-                  <span>{getContentMessage('museum', 'missing', item.slug)}</span>
+                  <span>
+                    <ContentMessageText section="museum" kind="missing" />
+                  </span>
                 )}
               </div>
               <span>{item.title}</span>

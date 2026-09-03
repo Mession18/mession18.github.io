@@ -38,18 +38,22 @@ export const contentMessages = {
 type MessageSection = Exclude<keyof typeof contentMessages, 'museums'>
 type MessageKind = 'missing' | 'empty'
 
-function stableIndex(key: string, length: number) {
-  let hash = 0
-  for (const character of key) hash = (hash * 31 + character.charCodeAt(0)) >>> 0
-  return length ? hash % length : 0
+const messageBags = new Map<string, string[]>()
+
+function drawRandom(key: string, items: readonly string[]) {
+  let bag = messageBags.get(key)
+  if (!bag?.length) {
+    bag = [...items].sort(() => Math.random() - 0.5)
+    messageBags.set(key, bag)
+  }
+  return bag.pop() ?? items[0] ?? ''
 }
 
-export function getContentMessage(section: MessageSection, kind: MessageKind, key: string) {
+export function getContentMessage(section: MessageSection, kind: MessageKind) {
   const messages = contentMessages[section][kind]
-  let message: string = messages[stableIndex(key, messages.length)]
+  let message: string = drawRandom(`${section}:${kind}`, messages)
   if (message.includes('{museum}')) {
-    const museums = contentMessages.museums
-    message = message.replace('{museum}', museums[stableIndex(`${key}-museum`, museums.length)])
+    message = message.replace('{museum}', drawRandom('museums', contentMessages.museums))
   }
   return message
 }
