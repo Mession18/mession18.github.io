@@ -5220,6 +5220,7 @@ footer {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+/* 手机端字块调参入口（仅定位，不改变布局）：修改下面 max-width 规则中的 top 值即可。 */
 @media (max-width: 850px) {
   .recipe-plate > strong { top: 63%; }
   .collection-exhibit-date { top: -22px; }
@@ -5638,13 +5639,4 @@ footer {
   .p2 {
     right: 20px;
   }
-}
-
-/* 手机端专用调参区：只修改这里即可微调手机文字位置，不影响电脑端。 */
-@media (max-width: 480px) {
-  .post-grid,
-  .collection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .recipe-plate > strong { top: 58%; }
-  .collection-exhibit-date { top: -8px; }
-  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 78px; }
 }
