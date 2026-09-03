@@ -56,7 +56,7 @@ export function App() {
       window.clearTimeout(closeTimer)
       window.clearTimeout(removeTimer)
     }
-  }, [location.pathname, location.hash])
+  }, [location])
 
   useLayoutEffect(() => {
     if (displayLocation.hash) {

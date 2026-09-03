@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../context/useTheme'
 
 type ParticleStyle = CSSProperties & Record<`--${string}`, string>
 
@@ -69,7 +69,6 @@ export function AmbientWeather() {
   useEffect(() => {
     timers.current.forEach(window.clearTimeout)
     timers.current = []
-    setMeteors([])
     if (!isClearNight) return
 
     function scheduleBurst() {

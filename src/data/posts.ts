@@ -1,5 +1,6 @@
 import { resolveColor, type IslandColor } from './colorPalette'
 import { resolveMarkdownImage } from './markdownAssets'
+import { displayImageOrUndefined } from './media'
 
 export type PostColor = IslandColor
 
@@ -14,6 +15,7 @@ export type Post = {
   excerpt: string
   color: PostColor
   icon: string
+  customIcon?: string
   previewImage?: string
   detailImage?: string
   content: string
@@ -78,6 +80,7 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     excerpt: metadata.excerpt,
     color,
     icon: metadata.icon || '🌊',
+    customIcon: metadata.icon || undefined,
     previewImage: metadata.previewImage
       ? resolveMarkdownImage(metadata.previewImage, sourceDir)
       : undefined,
@@ -96,6 +99,10 @@ export const posts = Object.entries(markdownFiles)
 
 export function getPostPreviewImage(post: Post) {
   return post.previewImage || post.detailImage
+}
+
+export function getPostDisplayImage(post: Post) {
+  return displayImageOrUndefined(getPostPreviewImage(post))
 }
 
 export function getPostDetailImage(post: Post) {

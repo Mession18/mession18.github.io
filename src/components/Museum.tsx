@@ -2,12 +2,14 @@ import { Icon } from 'animal-island-ui'
 import { Map } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { collections, getCollectionPreviewImage } from '../data/collections'
+import { collections, getCollectionDisplayImage } from '../data/collections'
+import { sectionContent } from '../data/contentSections'
+import { getContentMessage } from '../data/contentMessages'
+import { colorClass, colorStyle } from '../data/colorPalette'
 import { posts } from '../data/posts'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
 
 export function Museum() {
-  const photos = collections.filter((item) => item.category === 'photos')
   const [featured, setFeatured] = useState(() =>
     [...collections].sort(() => Math.random() - 0.5).slice(0, 2),
   )
@@ -30,13 +32,46 @@ export function Museum() {
         <p>照片、游戏、书和音乐。喜欢的东西不必昂贵，只要在看到它时，心里会亮起一盏小灯。</p>
         <div className="stats">
           <span>
-            <b>{String(posts.length).padStart(2, '0')}</b> 篇文章
+            <b>{String(posts.length).padStart(2, '0')}</b>
+            <em>
+              <img src="/images/nav/article-461.png" alt="" />
+              文章
+            </em>
           </span>
           <span>
-            <b>{String(photos.length).padStart(2, '0')}</b> 张照片
+            <b>{String(collections.length).padStart(2, '0')}</b>
+            <em>
+              <Icon name="icon-camera" size={16} />
+              藏品
+            </em>
           </span>
           <span>
-            <b>{String(collections.length).padStart(2, '0')}</b> 件收藏
+            <b>{String(sectionContent.recipes.length).padStart(2, '0')}</b>
+            <em>
+              <img src="/images/nav/cooking-recipe.png" alt="" />
+              菜谱
+            </em>
+          </span>
+          <span>
+            <b>{String(sectionContent.crafts.length).padStart(2, '0')}</b>
+            <em>
+              <Icon name="icon-diy" size={16} />
+              手工
+            </em>
+          </span>
+          <span>
+            <b>{String(sectionContent.travel.length).padStart(2, '0')}</b>
+            <em>
+              <Icon name="icon-miles" size={16} />
+              明信片
+            </em>
+          </span>
+          <span>
+            <b>{String(sectionContent.planting.length).padStart(2, '0')}</b>
+            <em>
+              <img src="/images/nav/planting-073.png" alt="" />
+              植物
+            </em>
           </span>
         </div>
         <Link to="/museum" className="secondary">
@@ -45,18 +80,21 @@ export function Museum() {
       </div>
       <div className="photo-stack">
         {featured.map((item, index) => {
-          const previewImage = getCollectionPreviewImage(item)
+          const previewImage = getCollectionDisplayImage(item)
           return (
             <Link
               key={item.slug}
               className={`photo p${index + 1}`}
               to={`/museum/${item.category}/${item.slug}`}
             >
-              <div>
+              <div
+                className={previewImage ? '' : `photo-missing ${colorClass(item.color)}`}
+                style={previewImage ? undefined : colorStyle(item.color)}
+              >
                 {previewImage ? (
                   <AdaptivePreviewImage src={previewImage} alt={item.title} />
                 ) : (
-                  <span>藏品出差</span>
+                  <span>{getContentMessage('museum', 'missing', item.slug)}</span>
                 )}
               </div>
               <span>{item.title}</span>

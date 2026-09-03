@@ -3,11 +3,14 @@ import { ArrowRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../data/contentSections'
-import { getPostPreviewImage, type Post } from '../data/posts'
+import { getPostDisplayImage, type Post } from '../data/posts'
+import { ContentPlaceholder } from './ContentPlaceholder'
 
 function shuffled<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5)
 }
+
+const currentDayNumber = Math.floor(Date.now() / 86400000)
 
 function animateItemRefresh(button: HTMLButtonElement, action: () => void) {
   button
@@ -26,8 +29,19 @@ function animateItemRefresh(button: HTMLButtonElement, action: () => void) {
 }
 
 function ContentImage({ item }: { item: Post }) {
-  const image = getPostPreviewImage(item)
-  return image ? <img src={image} alt={item.title} /> : <span>{item.icon}</span>
+  const image = getPostDisplayImage(item)
+  const section =
+    item.sourceDir === 'recipes' ||
+    item.sourceDir === 'crafts' ||
+    item.sourceDir === 'travel' ||
+    item.sourceDir === 'planting'
+      ? item.sourceDir
+      : 'posts'
+  return image ? (
+    <img src={image} alt={item.title} />
+  ) : (
+    <ContentPlaceholder section={section} itemKey={item.slug} color={item.color} />
+  )
 }
 
 export function RecipeHomeSection() {
@@ -166,7 +180,7 @@ export function TravelHomeSection() {
 export function PlantingHomeSection() {
   const flowers = sectionContent.planting
   const dailyIndex = useMemo(
-    () => (flowers.length ? Math.floor(Date.now() / 86400000) % flowers.length : 0),
+    () => (flowers.length ? currentDayNumber % flowers.length : 0),
     [flowers],
   )
   const [flowerIndex, setFlowerIndex] = useState(dailyIndex)

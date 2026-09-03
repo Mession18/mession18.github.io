@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap');
 :root {
+  --theme-font: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
   --ink: #4d4439;
   --muted: #827568;
   --cream: #fffaf0;
@@ -45,7 +46,7 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font-family: Nunito, 'Microsoft YaHei', sans-serif;
+  font-family: var(--theme-font);
   transition:
     background 0.45s ease,
     color 0.45s ease;
@@ -2822,6 +2823,34 @@ h1 em {
   object-fit: cover;
   font-size: 72px;
 }
+.content-placeholder {
+  box-sizing: border-box;
+  padding: 14px;
+  color: #675d50;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 23px !important;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+}
+.content-placeholder.mint {
+  background: #ccebdc;
+}
+.content-placeholder.sunshine {
+  background: #f8e3a0;
+}
+.content-placeholder.sun {
+  background: #f5dda0;
+}
+.content-placeholder.sky {
+  background: #bde3ec;
+}
+.content-placeholder.rose {
+  background: #efc9bc;
+}
+.content-placeholder.lavender {
+  background: #d8cbe6;
+}
 .recipe-choices strong {
   display: block;
   padding: 16px 10px 13px;
@@ -2869,7 +2898,7 @@ h1 em {
 }
 .craft-board {
   position: relative;
-  min-height: 420px;
+  min-height: 520px;
   border: 16px solid #ba8a5d;
   border-radius: 20px;
   background: #d3ae79;
@@ -2882,10 +2911,11 @@ h1 em {
 .craft-note {
   position: absolute;
   display: flex;
-  width: 40%;
+  width: 44%;
+  min-height: 112px;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
+  gap: 15px;
+  padding: 16px;
   background: #fff8dc;
   box-shadow: 0 8px 15px #60492830;
 }
@@ -2902,9 +2932,9 @@ h1 em {
 .craft-note img,
 .craft-note > span:first-child {
   display: grid;
-  width: 72px;
-  height: 54px;
-  flex: 0 0 72px;
+  width: 112px;
+  height: 84px;
+  flex: 0 0 112px;
   place-items: center;
   object-fit: cover;
   font-size: 36px;
@@ -2923,18 +2953,18 @@ h1 em {
   color: #55483d;
 }
 .note-1 {
-  top: 42px;
-  left: 5%;
+  top: 48px;
+  left: 3%;
   transform: rotate(-3deg);
 }
 .note-2 {
-  top: 58px;
-  right: 4%;
+  top: 72px;
+  right: 3%;
   transform: rotate(2deg);
 }
 .note-3 {
-  right: 30%;
-  bottom: 48px;
+  right: 28%;
+  bottom: 58px;
   transform: rotate(-1deg);
 }
 .home-travel {
@@ -3045,6 +3075,14 @@ h1 em {
   object-fit: cover;
   font-size: 90px;
 }
+.flower-feature > div img {
+  box-sizing: border-box;
+  padding: 12% 7% 4%;
+  object-fit: contain;
+}
+.flower-feature > div > .content-placeholder {
+  padding: 18% 8% 8%;
+}
 .flower-feature > span {
   display: flex;
   flex-direction: column;
@@ -3106,6 +3144,7 @@ h1 em {
 }
 .stats {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   margin: 26px 0;
 }
@@ -3114,6 +3153,18 @@ h1 em {
   color: var(--muted);
   display: flex;
   flex-direction: column;
+}
+.stats em {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-style: normal;
+}
+.stats em img,
+.stats em > span {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 .stats b {
   font-size: 24px;
@@ -3169,11 +3220,6 @@ h1 em {
   overflow: hidden;
 }
 
-.home-recipes .recipe-choices img {
-  height: auto;
-  aspect-ratio: 4 / 3;
-}
-
 .museum .photo div {
   height: 119px;
   aspect-ratio: auto;
@@ -3218,11 +3264,40 @@ h1 em {
 }
 
 .museum .photo div .adaptive-preview-image.is-landscape {
-  width: 190px;
+  width: 215px;
+  max-width: 215px;
 }
 
 .museum .photo div .adaptive-preview-image.is-portrait {
   height: 190px;
+}
+.museum .photo div.photo-missing {
+  box-sizing: border-box;
+  width: 205px;
+  height: 135px;
+  padding: 18px;
+  overflow: visible;
+  font-size: 17px;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+.museum .photo div.photo-missing.mint {
+  background: #ccebdc;
+}
+.museum .photo div.photo-missing.sunshine {
+  background: #f8e3a0;
+}
+.museum .photo div.photo-missing.sun {
+  background: #f5dda0;
+}
+.museum .photo div.photo-missing.sky {
+  background: #bde3ec;
+}
+.museum .photo div.photo-missing.rose {
+  background: #efc9bc;
+}
+.museum .photo div.photo-missing.lavender {
+  background: #d8cbe6;
 }
 .p1 {
   left: 8px;
@@ -4816,12 +4891,24 @@ h1 em {
 }
 
 /* 外借藏品保留原有藏品色块背景，避免被图片容器的透明背景覆盖。 */
-.collection-picture:has(.collection-away).collection-mint { background: #c8e7d6; }
-.collection-picture:has(.collection-away).collection-sun { background: #f5dda0; }
-.collection-picture:has(.collection-away).collection-sunshine { background: #f8e3a0; }
-.collection-picture:has(.collection-away).collection-sky { background: #bee1eb; }
-.collection-picture:has(.collection-away).collection-rose { background: #efc9bc; }
-.collection-picture:has(.collection-away).collection-lavender { background: #d8cbe6; }
+.collection-picture:has(.collection-away).collection-mint {
+  background: #c8e7d6;
+}
+.collection-picture:has(.collection-away).collection-sun {
+  background: #f5dda0;
+}
+.collection-picture:has(.collection-away).collection-sunshine {
+  background: #f8e3a0;
+}
+.collection-picture:has(.collection-away).collection-sky {
+  background: #bee1eb;
+}
+.collection-picture:has(.collection-away).collection-rose {
+  background: #efc9bc;
+}
+.collection-picture:has(.collection-away).collection-lavender {
+  background: #d8cbe6;
+}
 
 .collection-pedestal {
   position: relative;
@@ -4887,7 +4974,7 @@ h1 em {
 .collection-exhibit-date text {
   fill: #4f2f1b;
   font-size: 16px;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   text-shadow: 0 1px 0 #f9d477;
 }
 
@@ -5131,6 +5218,15 @@ footer {
   position: relative;
   margin-top: 120px;
   padding: 75px 20px 35px;
+}
+
+/* 全站文字统一使用岛屿主题字体；颜色仍由各组件和昼夜主题分别控制。 */
+body :where(*),
+button,
+input,
+textarea,
+select {
+  font-family: var(--theme-font) !important;
 }
 .footer-wave {
   position: absolute;

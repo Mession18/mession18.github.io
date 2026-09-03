@@ -1,6 +1,6 @@
 import { CloudSun, X } from 'lucide-react'
 import { useState } from 'react'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../context/useTheme'
 import type { TimePeriod, WeatherIntensity, WeatherKind } from '../hooks/useLocalWeather'
 
 const weatherOptions: Array<{ kind: WeatherKind; intensity: WeatherIntensity; label: string }> = [

@@ -8,13 +8,6 @@ import { MusicPlayer } from './MusicPlayer'
 
 const navItems = [
   {
-    to: '/',
-    section: 'top',
-    label: '首页',
-    match: (path: string, hash: string) => path === '/' && !hash,
-    image: '/images/nav/icon-home.svg',
-  },
-  {
     to: '/posts',
     section: 'journal',
     label: '文章',

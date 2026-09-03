@@ -1,0 +1,117 @@
+.travel-postcard-card {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.travel-card-postcard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58% 42%;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid #d7c7a8;
+  border-radius: 5px;
+  background: #fffaf0;
+  color: #68533e;
+  box-shadow: 0 10px 22px #61472b29;
+  transform: rotate(-1deg);
+}
+
+.travel-card-photo {
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  place-items: center;
+  border: 7px solid #f5ead7;
+  background: #d9eadf;
+}
+
+.travel-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.travel-card-photo em,
+.travel-card-photo-empty {
+  padding: 12px;
+  color: #6f7165;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 20px;
+  font-style: normal;
+  text-align: center;
+}
+
+.travel-card-photo-missing.sun {
+  background: #f5dda0;
+}
+.travel-card-photo-missing.sky {
+  background: #bee1eb;
+}
+.travel-card-photo-missing.rose {
+  background: #efc9bc;
+}
+.travel-card-photo-missing.lavender {
+  background: #d8cbe6;
+}
+.travel-card-photo-empty {
+  border: 3px dashed #aaa897;
+  background: #eff0e7;
+}
+
+.travel-card-message {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 7px;
+  padding: 62px 10px 30px 16px;
+  border-left: 1px solid #d8c8aa;
+}
+
+.travel-card-message strong {
+  font-size: 20px;
+  line-height: 1.2;
+}
+.travel-card-message p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: #88735e;
+  font-size: 11px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.travel-card-message time {
+  position: absolute;
+  right: 9px;
+  bottom: 8px;
+  font-size: 11px;
+  color: #9a7e60;
+}
+.travel-card-stamp {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  display: grid;
+  width: 42px;
+  height: 50px;
+  place-items: center;
+  border: 2px dashed #bd8f70;
+  color: #ad6f56;
+  font-size: 20px;
+}
+.travel-card-lines {
+  display: none;
+  height: 24px;
+  background: repeating-linear-gradient(to bottom, transparent 0 7px, #cdbd9f 8px 9px);
+}
+.travel-empty-card .travel-card-postcard {
+  transform: rotate(1deg);
+}

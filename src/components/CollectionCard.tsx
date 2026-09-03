@@ -1,26 +1,12 @@
 import { Star } from 'lucide-react'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getCollectionPreviewImage, type CollectionItem } from '../data/collections'
+import { getCollectionDisplayImage, type CollectionItem } from '../data/collections'
 import { colorClass, colorStyle } from '../data/colorPalette'
+import { getContentMessage } from '../data/contentMessages'
 import { AdaptivePreviewImage } from './AdaptivePreviewImage'
 
-const famousMuseums = [
-  '大英博物馆',
-  '卢浮宫',
-  '大都会艺术博物馆',
-  '故宫博物院',
-  '梵蒂冈博物馆',
-  '纽约现代艺术博物馆',
-  '乌菲兹美术馆',
-  '普拉多博物馆',
-]
-
 export function CollectionCard({ item }: { item: CollectionItem }) {
-  const previewImage = getCollectionPreviewImage(item)
-  const [loanMuseum] = useState(
-    () => famousMuseums[Math.floor(Math.random() * famousMuseums.length)],
-  )
+  const previewImage = getCollectionDisplayImage(item)
   const collectionDate = item.date
     ? (() => {
         const [year, month, day] = item.date.split('-')
@@ -39,7 +25,7 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
             {previewImage ? (
               <AdaptivePreviewImage src={previewImage} alt={item.title} />
             ) : (
-              <b className="collection-away">藏品外借至{loanMuseum}</b>
+              <b className="collection-away">{getContentMessage('museum', 'missing', item.slug)}</b>
             )}
           </span>
         </Link>
@@ -72,14 +58,14 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
   )
 }
 
-export function EmptyCollectionCard() {
+export function EmptyCollectionCard({ slotKey }: { slotKey: string }) {
   return (
     <article
       className="collection-card collection-exhibit collection-empty"
       aria-label="待收藏展位"
     >
       <div className="collection-display-space">
-        <div className="collection-empty-sign">待收藏</div>
+        <div className="collection-empty-sign">{getContentMessage('museum', 'empty', slotKey)}</div>
       </div>
       <div className="collection-card-body collection-pedestal has-pedestal">
         <h2 className="collection-exhibit-name">待收藏</h2>

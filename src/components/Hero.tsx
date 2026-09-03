@@ -12,7 +12,7 @@ import {
   Sun,
 } from 'lucide-react'
 import { type TimePeriod, type WeatherKind } from '../hooks/useLocalWeather'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../context/useTheme'
 
 const weatherLabels: Record<WeatherKind, string> = {
   clear: '晴朗',

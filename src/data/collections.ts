@@ -1,6 +1,7 @@
 export type CollectionCategory = string
 import { resolveColor, type IslandColor } from './colorPalette'
 import { resolveMarkdownImage } from './markdownAssets'
+import { displayImageOrUndefined } from './media'
 export type CollectionColor = IslandColor
 export type CollectionItem = {
   id: string
@@ -90,6 +91,9 @@ export const categoryLabels: Record<string, string> = Object.fromEntries(
 )
 export function getCollectionPreviewImage(item: CollectionItem) {
   return item.previewImage || item.detailImage
+}
+export function getCollectionDisplayImage(item: CollectionItem) {
+  return displayImageOrUndefined(getCollectionPreviewImage(item))
 }
 export function getCollectionDetailImage(item: CollectionItem) {
   return item.detailImage || item.previewImage

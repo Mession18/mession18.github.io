@@ -1,25 +1,6 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useLocalWeather, type TimePeriod } from '../hooks/useLocalWeather'
-import type { WeatherIntensity, WeatherKind } from '../hooks/useLocalWeather'
-
-export type ThemeMode = 'day' | 'auto' | 'night'
-export type WeatherOverride = {
-  kind: WeatherKind
-  intensity: WeatherIntensity
-  period: TimePeriod
-} | null
-
-type ThemeContextValue = {
-  mode: ThemeMode
-  setMode: (mode: ThemeMode) => void
-  effectiveTheme: 'day' | 'night'
-  scenePeriod: TimePeriod
-  weather: ReturnType<typeof useLocalWeather>
-  weatherOverride: WeatherOverride
-  setWeatherOverride: (override: WeatherOverride) => void
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null)
+import { ThemeContext, type ThemeMode, type WeatherOverride } from './ThemeState'
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const liveWeather = useLocalWeather()
@@ -72,10 +53,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     [mode, effectiveTheme, scenePeriod, weather, weatherOverride],
   )
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext)
-  if (!context) throw new Error('useTheme must be used inside ThemeProvider')
-  return context
 }
