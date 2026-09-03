@@ -5641,17 +5641,3 @@ footer {
     right: 20px;
   }
 }
-
-/* 手机 Chrome 专用调参区：修改变量即可单独控制手机字块位置。 */
-@media (max-width: 480px) {
-  :root {
-    --mobile-recipe-title-top: 58%;
-    --mobile-museum-date-top: -8px;
-    --mobile-museum-description-top: 78px;
-  }
-  .post-grid,
-  .collection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .recipe-plate > strong { top: var(--mobile-recipe-title-top); }
-  .collection-exhibit-date { top: var(--mobile-museum-date-top); }
-  .collection-pedestal.has-pedestal .collection-exhibit-description { top: var(--mobile-museum-description-top); }
-}
