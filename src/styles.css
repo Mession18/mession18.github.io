@@ -191,6 +191,7 @@ body {
     display: none;
   }
 }
+
 .ambient-rain,
 .ambient-snow,
 .ambient-meteors {
@@ -198,6 +199,7 @@ body {
   inset: 0;
   overflow: hidden;
 }
+
 .ambient-rain > i {
   position: absolute;
   top: -14px;
@@ -4925,7 +4927,7 @@ h1 em {
 .collection-exhibit-date {
   position: absolute;
   z-index: 1;
-  top: -28px;
+  top: -22px;
   right: 0;
   left: 0;
   width: 100%;
@@ -4948,7 +4950,7 @@ h1 em {
 .collection-pedestal.has-pedestal .collection-exhibit-description {
   position: absolute;
   z-index: 1;
-  top: 90px;
+  top: 100px;
   right: 15%;
   left: 15%;
   max-width: none;
@@ -5220,7 +5222,7 @@ footer {
 }
 @media (max-width: 850px) {
   .recipe-plate > strong { top: 63%; }
-  .collection-exhibit-date { top: -18px; }
+  .collection-exhibit-date { top: -22px; }
   .collection-pedestal.has-pedestal .collection-exhibit-description { top: 84px; }
   .island-cat {
     left: 8px;
@@ -5380,7 +5382,7 @@ footer {
 @media (max-width: 480px) {
   .recipe-plate > strong { top: 58%; }
   .collection-exhibit-date { top: -8px; }
-  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 78px; }
+  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 50px; }
   .topbar {
     padding-left: 18px;
     padding-right: 18px;
@@ -5636,4 +5638,13 @@ footer {
   .p2 {
     right: 20px;
   }
+}
+
+/* 手机端专用调参区：只修改这里即可微调手机文字位置，不影响电脑端。 */
+@media (max-width: 480px) {
+  .post-grid,
+  .collection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .recipe-plate > strong { top: 58%; }
+  .collection-exhibit-date { top: -8px; }
+  .collection-pedestal.has-pedestal .collection-exhibit-description { top: 78px; }
 }
