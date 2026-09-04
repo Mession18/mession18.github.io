@@ -42,7 +42,7 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
     ? Math.max(0, pageSize - pageItems.length)
     : 0
   return (
-    <div className="page-surface">
+    <div className={`page-surface ${section}-page`}>
       <header className="page-heading">
         <p className="eyebrow">{info.eyebrow}</p>
         <h1>
@@ -52,7 +52,7 @@ export function ContentSectionPage({ section }: { section: ContentSectionKey }) 
         <p>{info.description}</p>
       </header>
       {filterableSections.has(section) && (
-        <div className="museum-filters recipe-filters" aria-label={`${info.title}标签`}>
+        <div className="content-filters" aria-label={`${info.title}标签`}>
           {['all', ...tags].map((tag) => (
             <button
               className={activeTag === tag ? 'active' : ''}

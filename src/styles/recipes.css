@@ -1,3 +1,26 @@
+/* 底座素材与日期弧线：更换图片只修改 URL，不需要改组件。 */
+:root {
+  --recipe-base-image: url('/images/recipe-plate-plain.png');
+  --recipe-date-arc: path('M 72 118 Q 180 150 288 118');
+}
+
+/* 本页标签调参。下方正文保留图片、名称、介绍、日期、占位的定位规则。 */
+.recipes-page {
+  --tags-top: 0px;
+  --tags-gap: 9px;
+  --tags-bottom-gap: 42px;
+  --tags-align: center;
+  --tags-font-size: 11px;
+  --tags-padding: 9px 15px;
+  --tags-radius: 20px;
+  /* 独立调整本页底座间距时，取消下面两行注释；默认跟随 display-stand.css。 */
+  /* --display-stand-column-gap: 50px; */
+  /* --display-stand-row-gap: 72px; */
+}
+
+/* 菜谱：餐盘、菜品图、名称、日期、缺图与空位。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
 .recipe-plate-card {
   overflow: visible;
   border: 0;
@@ -13,11 +36,15 @@
   color: #6d4b2b;
 }
 
-.recipe-plate > img {
+.recipe-plate-base {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  background: var(--recipe-base-image) center / 100% 100% no-repeat;
+}
+
+.recipe-date-arc {
+  d: var(--recipe-date-arc);
 }
 
 .recipe-plate > .recipe-dish-image {

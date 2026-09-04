@@ -4,13 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import { App } from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import 'animal-island-ui/style'
-import './styles.css'
-import './styles/display-stand.css'
-import './styles/recipes.css'
-import './styles/planting.css'
-import './styles/travel.css'
-import './styles/crafts.css'
-import './styles/museum.css'
+import './styles/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

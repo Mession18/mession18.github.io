@@ -13,7 +13,7 @@ export function PostsPage() {
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / 30))
   const visiblePosts = filteredPosts.slice((page - 1) * 30, page * 30)
   return (
-    <div className="page-surface">
+    <div className="page-surface posts-page">
       <header className="page-heading">
         <p className="eyebrow">ALL ISLAND LETTERS</p>
         <h1>
@@ -22,7 +22,7 @@ export function PostsPage() {
         </h1>
         <p>把日子折成信纸，慢慢寄给未来的自己。</p>
       </header>
-      <div className="museum-filters recipe-filters" aria-label="文章标签">
+      <div className="content-filters" aria-label="文章标签">
         {['all', ...tags].map((tag) => (
           <button
             className={activeTag === tag ? 'active' : ''}

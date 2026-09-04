@@ -1,3 +1,6 @@
+/* 共享底座网格：三列布局与默认行列间距。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
 :root {
   --display-stand-columns: 3;
   --display-stand-column-gap: 50px;

@@ -1,0 +1,164 @@
+/* 全站基础：主题变量、字体、重置、加载与页面过渡。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap');
+:root {
+  --theme-font: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+  --ink: #4d4439;
+  --muted: #827568;
+  --cream: #fffaf0;
+  --paper: #fffdf8;
+  --green: #5faa83;
+  --dark: #38735c;
+  --mint: #b9e4cf;
+  --yellow: #f6d978;
+  --sky: #9ed9e8;
+  --line: #e5dccb;
+  --shadow: 0 16px 40px #6a705019;
+  color-scheme: light;
+}
+
+[data-theme='night'] {
+  --ink: #e8e4dc;
+  --muted: #aaa9a5;
+  --cream: #171d24;
+  --paper: #222a33;
+  --green: #68ad91;
+  --dark: #91c9b3;
+  --mint: #315c50;
+  --yellow: #dac77d;
+  --sky: #365d68;
+  --line: #3a444e;
+  --shadow: 0 16px 40px #05080c42;
+  color-scheme: dark;
+  --animal-text-color: #e8e4dc;
+  --animal-text-color-secondary: #aaa9a5;
+  --animal-text-color-muted: #aaa9a5;
+  --animal-border-color: #526058;
+  --animal-border-color-light: #3a444e;
+  --animal-bg-color: #222a33;
+  --animal-bg-color-secondary: #29343c;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--theme-font);
+  transition:
+    background 0.45s ease,
+    color 0.45s ease;
+}
+@property --opening-mask-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 150vmax;
+}
+.opening-loading-overlay {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  --opening-mask-r: 150vmax;
+  mask-image: radial-gradient(
+    circle at center,
+    transparent var(--opening-mask-r),
+    #000 calc(var(--opening-mask-r) + 1px)
+  );
+  pointer-events: none;
+  transition: --opening-mask-r 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: --opening-mask-r;
+}
+.opening-loading-overlay.is-visible {
+  --opening-mask-r: 0px;
+}
+.opening-loading-overlay > div {
+  width: 100%;
+  height: 100%;
+}
+.island-opening-loading {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.island-opening-loading .illustration {
+  transform: translateZ(0);
+  will-change: transform;
+}
+[data-theme='night'][data-weather='cloudy'] body,
+[data-theme='night'][data-weather='fog'] body {
+  background: #1b2229;
+}
+[data-theme='night'][data-weather='rain'] body,
+[data-theme='night'][data-weather='thunder'] body {
+  background: #131a22;
+}
+.route-transition {
+  animation: route-enter 0.42s ease both;
+}
+@keyframes route-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-transition {
+    animation: none;
+  }
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.mint {
+  background: #ccebdc;
+}
+.sunshine {
+  background: #f8e3a0;
+}
+.sun {
+  background: #f5dda0;
+}
+.sky {
+  background: #bde3ec;
+}
+.rose {
+  background: #efc9bc;
+}
+.lavender {
+  background: #d8cbe6;
+}
+[data-scene-period='dawn'] body {
+  background: #171d25;
+}
+[data-scene-period='morning'] body {
+  background: #fffaf0;
+}
+[data-scene-period='noon'] body {
+  background: #fffdf5;
+}
+[data-scene-period='afternoon'] body {
+  background: #fff6e7;
+}
+[data-scene-period='evening'] body {
+  background: #161c24;
+}
+body :where(*),
+button,
+input,
+textarea,
+select {
+  font-family: var(--theme-font) !important;
+}

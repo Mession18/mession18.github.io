@@ -11,7 +11,7 @@ export function MuseumFilters({
 }) {
   const filters: Filter[] = ['all', ...collectionCategories]
   return (
-    <div className="museum-filters" aria-label="藏品分类">
+    <div className="content-filters" aria-label="藏品分类">
       {filters.map((filter) => (
         <button
           className={value === filter ? 'active' : ''}

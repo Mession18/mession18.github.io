@@ -20,6 +20,7 @@ export function HomePage() {
       <CraftHomeSection />
       <TravelHomeSection />
       <PlantingHomeSection />
+      {/* 护照不是独立页面：导航 /#about 指向此组件的 id="about"。样式：styles/passport.css */}
       <Passport />
       <Bottle />
     </>

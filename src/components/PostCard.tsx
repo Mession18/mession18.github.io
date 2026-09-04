@@ -54,7 +54,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           to={`${basePath}/${post.slug}`}
           aria-label={`阅读：${post.title}`}
         >
-          <img src="/images/planting/flower-pot.png" alt="" />
+          <span className="planting-pot-base" aria-hidden="true" />
           {plantingImage && (
             <img className="planting-preview" src={plantingImage} alt={post.title} />
           )}
@@ -67,7 +67,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           {plantingDates && (
             <svg className="planting-dates" viewBox="0 0 360 360" aria-hidden="true">
               <defs>
-                <path id={`planting-date-arc-${post.slug}`} d="M 82 166 Q 180 184 278 166" />
+                <path className="planting-date-arc" id={`planting-date-arc-${post.slug}`} />
               </defs>
               <text textAnchor="middle">
                 <textPath href={`#planting-date-arc-${post.slug}`} startOffset="50%">
@@ -90,11 +90,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           to={`${basePath}/${post.slug}`}
           aria-label={`阅读：${post.title}`}
         >
-          <img
-            className="craft-workbench-base"
-            src="/images/crafts/workbench_2.png"
-            alt=""
-          />
+          <span className="craft-workbench-base" aria-hidden="true" />
           <div className={`craft-art-frame ${!previewImage ? colorClass(post.color) : ''}`}>
             {previewImage ? (
               <img src={previewImage} alt={post.title} />
@@ -137,7 +133,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           to={`${basePath}/${post.slug}`}
           aria-label={`查看：${post.title}`}
         >
-          <img src="/images/recipe-plate-plain.png" alt="" />
+          <span className="recipe-plate-base" aria-hidden="true" />
           {recipeImage && (
             <img
               className="recipe-dish-image"
@@ -158,7 +154,7 @@ export function PostCard({ post, basePath = '/posts' }: { post: Post; basePath?:
           <strong>{post.title}</strong>
           <svg viewBox="0 0 360 220" aria-hidden="true">
             <defs>
-              <path id={`recipe-arc-${post.slug}`} d="M 72 118 Q 180 150 288 118" />
+              <path className="recipe-date-arc" id={`recipe-arc-${post.slug}`} />
             </defs>
             <text textAnchor="middle">
               <textPath href={`#recipe-arc-${post.slug}`} startOffset="50%">
@@ -202,7 +198,7 @@ export function EmptyRecipeCard() {
   return (
     <article className="post recipe-plate-card recipe-empty-card">
       <div className="recipe-plate">
-        <img src="/images/recipe-plate-plain.png" alt="" />
+        <span className="recipe-plate-base" aria-hidden="true" />
         <div className="recipe-empty-sign">
           <ContentMessageText section="recipes" kind="empty" />
         </div>
@@ -215,7 +211,7 @@ export function EmptyPlantingCard() {
   return (
     <article className="post planting-pot-card planting-empty-card">
       <div className="planting-pot">
-        <img src="/images/planting/flower-pot.png" alt="" />
+        <span className="planting-pot-base" aria-hidden="true" />
         <div className="planting-empty-sign">
           <ContentMessageText section="planting" kind="empty" />
         </div>
@@ -247,7 +243,7 @@ export function EmptyCraftCard() {
   return (
     <article className="post craft-workbench-card craft-empty-card">
       <div className="craft-workbench-display">
-        <img className="craft-workbench-base" src="/images/crafts/workbench_2.png" alt="" />
+        <span className="craft-workbench-base" aria-hidden="true" />
         <div className="craft-art-frame craft-empty-sign">
           <ContentMessageText section="crafts" kind="empty" />
         </div>

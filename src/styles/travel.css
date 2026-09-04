@@ -1,3 +1,20 @@
+/* 本页标签调参。下方正文保留图片、名称、介绍、日期、占位的定位规则。 */
+.travel-page {
+  --tags-top: 0px;
+  --tags-gap: 9px;
+  --tags-bottom-gap: 42px;
+  --tags-align: center;
+  --tags-font-size: 11px;
+  --tags-padding: 9px 15px;
+  --tags-radius: 20px;
+  /* 独立调整本页底座间距时，取消下面两行注释；默认跟随 display-stand.css。 */
+  /* --display-stand-column-gap: 50px; */
+  /* --display-stand-row-gap: 72px; */
+}
+
+/* 旅游：明信片、图片、邮票、标题、介绍与日期。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
 .travel-postcard-card {
   overflow: visible;
   border: 0;
@@ -8,8 +25,8 @@
 .travel-card-postcard {
   position: relative;
   display: grid;
-  grid-template-columns: 58% 42%;
-  width: 100%;
+  grid-template-columns: 50% 50%;
+  width: 110%;
   aspect-ratio: 3 / 2;
   padding: 12px;
   overflow: hidden;

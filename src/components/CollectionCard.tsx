@@ -32,7 +32,7 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
         {collectionDate && (
           <svg className="collection-exhibit-date" viewBox="0 0 360 90" aria-hidden="true">
             <defs>
-              <path id={`collection-date-arc-${item.slug}`} d="M 92 30 Q 180 52 268 30" />
+              <path className="collection-date-arc" id={`collection-date-arc-${item.slug}`} />
             </defs>
             <text textAnchor="middle">
               <textPath href={`#collection-date-arc-${item.slug}`} startOffset="50%">

@@ -1,0 +1,18 @@
+/* 样式唯一入口。基础和共用组件在前，页面专属样式在后。 */
+@import './base.css';
+@import './content.css';
+@import './display-stand.css';
+@import './header.css';
+@import './weather.css';
+@import './search.css';
+@import './music.css';
+@import './cat.css';
+@import './footer.css';
+@import './home.css';
+@import './posts.css';
+@import './passport.css';
+@import './museum.css';
+@import './recipes.css';
+@import './crafts.css';
+@import './travel.css';
+@import './planting.css';

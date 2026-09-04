@@ -1,0 +1,172 @@
+/* 全局左下角猫：模型、对话框、隐藏按钮与动画。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+.island-cat.island-cat-3d {
+  bottom: 12px;
+  width: 180px;
+  height: 215px;
+  pointer-events: auto;
+  filter: drop-shadow(0 12px 11px #1a21194a);
+  will-change: transform;
+}
+.island-cat-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+.cat-model-hit-area {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+.cat-model-hit-area:focus-visible {
+  border-radius: 42%;
+  outline: 3px solid color-mix(in srgb, var(--mint) 75%, white);
+  outline-offset: -5px;
+}
+.cat-dialog.cat-model-dialog {
+  z-index: 4;
+  left: 48px;
+  bottom: 260px;
+  pointer-events: none;
+}
+.island-cat-3d-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 24px;
+}
+.island-cat-3d-loading span {
+  width: 44px;
+  height: 10px;
+  border-radius: 50%;
+  background: #18221924;
+  filter: blur(4px);
+  animation: cat-model-loading 1.2s ease-in-out infinite alternate;
+}
+@keyframes cat-model-loading {
+  to {
+    opacity: 0.35;
+    transform: scaleX(0.72);
+  }
+}
+
+.island-cat {
+  position: fixed;
+  z-index: 48;
+  left: 28px;
+  bottom: 18px;
+  width: 158px;
+  text-align: center;
+  pointer-events: none;
+  perspective: 600px;
+}
+.cat-dialog {
+  position: absolute;
+  left: 55px;
+  bottom: 170px;
+  width: 205px;
+  padding: 13px 15px;
+  border: 2px solid #fff;
+  border-radius: 20px 20px 20px 6px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+  box-shadow: 0 10px 30px #19251e30;
+  backdrop-filter: blur(10px);
+  animation: cat-talk 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  pointer-events: auto;
+}
+.cat-dialog::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  bottom: -8px;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  background: var(--paper);
+  transform: rotate(45deg);
+}
+.cat-close {
+  position: absolute;
+  z-index: 4;
+  top: 7px;
+  left: 4px;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: auto;
+  transition: opacity 0.2s;
+}
+.island-cat:hover .cat-close {
+  opacity: 1;
+}
+.cat-return {
+  position: fixed;
+  z-index: 48;
+  left: 20px;
+  bottom: 22px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+@keyframes cat-talk {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+}
+@media (max-width: 850px) {
+  .island-cat {
+    left: 8px;
+    bottom: 76px;
+    width: 118px;
+    transform: scale(0.88);
+    transform-origin: left bottom;
+  }
+  .island-cat.island-cat-3d {
+    bottom: 66px;
+    width: 140px;
+    height: 165px;
+  }
+  .cat-dialog {
+    left: 43px;
+    bottom: 131px;
+    width: min(200px, calc(100vw - 90px));
+  }
+  .cat-dialog.cat-model-dialog {
+    left: 35px;
+    bottom: 210px;
+  }
+  .cat-return {
+    left: 12px;
+    bottom: 80px;
+  }
+}

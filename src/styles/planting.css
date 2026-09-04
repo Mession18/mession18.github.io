@@ -1,3 +1,26 @@
+/* 底座素材与日期弧线：更换图片只修改 URL，不需要改组件。 */
+:root {
+  --planting-base-image: url('/images/planting/flower-pot.png');
+  --planting-date-arc: path('M 82 166 Q 180 184 278 166');
+}
+
+/* 本页标签调参。下方正文保留图片、名称、介绍、日期、占位的定位规则。 */
+.planting-page {
+  --tags-top: 0px;
+  --tags-gap: 9px;
+  --tags-bottom-gap: 42px;
+  --tags-align: center;
+  --tags-font-size: 11px;
+  --tags-padding: 9px 15px;
+  --tags-radius: 20px;
+  /* 独立调整本页底座间距时，取消下面两行注释；默认跟随 display-stand.css。 */
+  /* --display-stand-column-gap: 50px; */
+  /* --display-stand-row-gap: 72px; */
+}
+
+/* 种植：花盆、植物图、名称、日期、缺图与空位。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
 .planting-pot-card {
   overflow: visible;
   border: 0;
@@ -10,11 +33,15 @@
   aspect-ratio: 1 / 1;
   color: #6d4b2b;
 }
-.planting-pot > img:first-child {
+.planting-pot-base {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  background: var(--planting-base-image) center / contain no-repeat;
+}
+
+.planting-date-arc {
+  d: var(--planting-date-arc);
 }
 .planting-pot > strong {
   position: absolute;
@@ -27,7 +54,7 @@
 }
 .planting-preview {
   position: absolute;
-  top: 8%;
+  top: 0%;
   right: 25%;
   left: 25%;
   width: 50%;
