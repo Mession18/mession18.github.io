@@ -6,8 +6,6 @@ import type {
   WeatherKind,
 } from '../hooks/useLocalWeather'
 
-/** 用户选择的日间、自动或夜间模式。 */
-export type ThemeMode = 'day' | 'auto' | 'night'
 /** 天气测试覆盖值；null 表示使用实际天气。 */
 export type WeatherOverride = {
   kind: WeatherKind
@@ -17,9 +15,6 @@ export type WeatherOverride = {
 
 /** 主题上下文公开的数据和修改方法，供 useTheme 消费。 */
 export type ThemeContextValue = {
-  mode: ThemeMode
-  setMode: (mode: ThemeMode) => void
-  effectiveTheme: 'day' | 'night'
   scenePeriod: TimePeriod
   weather: ReturnType<typeof useLocalWeather>
   weatherOverride: WeatherOverride

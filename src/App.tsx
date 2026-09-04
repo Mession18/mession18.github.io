@@ -4,20 +4,34 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { AmbientWeather } from './components/ambient-weather/AmbientWeather'
 import { Footer } from './components/footer/Footer'
 import { Header } from './components/header/Header'
-import { CraftsDetailPage } from './pages/crafts/detailpage'
 import { CraftsPage } from './pages/crafts/page'
 import { HomePage } from './pages/home/page'
-import { CollectionDetailPage } from './pages/museum/detailpage'
 import { MuseumPage } from './pages/museum/page'
 import { Passport } from './pages/passport/page'
-import { PlantingDetailPage } from './pages/planting/detailpage'
 import { PlantingPage } from './pages/planting/page'
-import { PostDetailPage } from './pages/posts/detailpage'
 import { PostsPage } from './pages/posts/page'
-import { RecipesDetailPage } from './pages/recipes/detailpage'
 import { RecipesPage } from './pages/recipes/page'
-import { TravelDetailPage } from './pages/travel/detailpage'
 import { TravelPage } from './pages/travel/page'
+
+/** 详情页只在首次进入时加载；列表与首页可先呈现，访问后的模块由浏览器缓存。 */
+const CraftsDetailPage = lazy(() =>
+  import('./pages/crafts/detailpage').then((module) => ({ default: module.CraftsDetailPage })),
+)
+const CollectionDetailPage = lazy(() =>
+  import('./pages/museum/detailpage').then((module) => ({ default: module.CollectionDetailPage })),
+)
+const PlantingDetailPage = lazy(() =>
+  import('./pages/planting/detailpage').then((module) => ({ default: module.PlantingDetailPage })),
+)
+const PostDetailPage = lazy(() =>
+  import('./pages/posts/detailpage').then((module) => ({ default: module.PostDetailPage })),
+)
+const RecipesDetailPage = lazy(() =>
+  import('./pages/recipes/detailpage').then((module) => ({ default: module.RecipesDetailPage })),
+)
+const TravelDetailPage = lazy(() =>
+  import('./pages/travel/detailpage').then((module) => ({ default: module.TravelDetailPage })),
+)
 
 /** 将较大的 3D 猫组件延迟加载，使普通页面内容先显示。 */
 const IslandCat3D = lazy(() =>
@@ -53,8 +67,9 @@ export function App() {
     setLoadingActive(true)
     setLoadingVisible(false)
 
+    let visibleFrame = 0
     const enterFrame = window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => setLoadingVisible(true))
+      visibleFrame = window.requestAnimationFrame(() => setLoadingVisible(true))
     })
     const swapTimer = window.setTimeout(() => setDisplayLocation(location), 480)
     const closeTimer = window.setTimeout(() => setLoadingActive(false), 820)
@@ -63,6 +78,7 @@ export function App() {
     }, 1450)
     return () => {
       window.cancelAnimationFrame(enterFrame)
+      window.cancelAnimationFrame(visibleFrame)
       window.clearTimeout(swapTimer)
       window.clearTimeout(closeTimer)
       window.clearTimeout(removeTimer)
@@ -72,10 +88,12 @@ export function App() {
   // 新页面显示后滚动到锚点或回到顶部，避免沿用上一页的滚动位置。
   useLayoutEffect(() => {
     if (displayLocation.hash) {
-      requestAnimationFrame(() =>
-        document.querySelector(displayLocation.hash)?.scrollIntoView({ behavior: 'smooth' }),
+      const frame = requestAnimationFrame(() =>
+        document
+          .getElementById(displayLocation.hash.slice(1))
+          ?.scrollIntoView({ behavior: 'smooth' }),
       )
-      return
+      return () => cancelAnimationFrame(frame)
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [displayLocation.pathname, displayLocation.hash])
@@ -95,24 +113,32 @@ export function App() {
       </Suspense>
       {/* 在这里注册页面路由：静态路径对应列表，带 :slug 的路径对应单条详情。 */}
       <div className="route-transition" key={displayLocation.pathname}>
-        <Routes location={displayLocation}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/posts" element={<PostsPage />} />
-          <Route path="/posts/:slug" element={<PostDetailPage />} />
-          <Route path="/museum" element={<MuseumPage />} />
-          <Route path="/museum/:category/:slug" element={<CollectionDetailPage />} />
+        <Suspense
+          fallback={
+            <p className="empty-section" role="status">
+              正在打开内容…
+            </p>
+          }
+        >
+          <Routes location={displayLocation}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="/posts/:slug" element={<PostDetailPage />} />
+            <Route path="/museum" element={<MuseumPage />} />
+            <Route path="/museum/:category/:slug" element={<CollectionDetailPage />} />
 
-          <Route path="/travel" element={<TravelPage />} />
-          <Route path="/travel/:slug" element={<TravelDetailPage />} />
-          <Route path="/planting" element={<PlantingPage />} />
-          <Route path="/planting/:slug" element={<PlantingDetailPage />} />
-          <Route path="/crafts" element={<CraftsPage />} />
-          <Route path="/crafts/:slug" element={<CraftsDetailPage />} />
-          <Route path="/recipes" element={<RecipesPage />} />
-          <Route path="/recipes/:slug" element={<RecipesDetailPage />} />
-          <Route path="/passport" element={<Passport standalone />} />
-          <Route path="*" element={<PostsPage />} />
-        </Routes>
+            <Route path="/travel" element={<TravelPage />} />
+            <Route path="/travel/:slug" element={<TravelDetailPage />} />
+            <Route path="/planting" element={<PlantingPage />} />
+            <Route path="/planting/:slug" element={<PlantingDetailPage />} />
+            <Route path="/crafts" element={<CraftsPage />} />
+            <Route path="/crafts/:slug" element={<CraftsDetailPage />} />
+            <Route path="/recipes" element={<RecipesPage />} />
+            <Route path="/recipes/:slug" element={<RecipesDetailPage />} />
+            <Route path="/passport" element={<Passport standalone />} />
+            <Route path="*" element={<PostsPage />} />
+          </Routes>
+        </Suspense>
       </div>
       <BackTop visibilityHeight={650} />
       <Footer />

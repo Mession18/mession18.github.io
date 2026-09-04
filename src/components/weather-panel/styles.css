@@ -266,65 +266,6 @@
     display: none;
   }
 }
-
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
-.theme-switch {
-  position: relative;
-  width: 174px;
-  height: 38px;
-  padding: 3px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid #ffffff55;
-  border-radius: 22px;
-  background: #ffffff17;
-  overflow: hidden;
-}
-/* 公共界面基础样式：布局排列与对齐、定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
-.theme-switch button {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  border: 0;
-  background: transparent;
-  color: #ffffffb8;
-  font: inherit;
-  font-size: 9px;
-  font-weight: 800;
-  cursor: pointer;
-  padding: 0;
-}
-/* 公共界面基础样式：配色与背景。 */
-.theme-switch button.active {
-  color: #45695e;
-}
-/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形。 */
-.theme-slider {
-  position: absolute;
-  z-index: 1;
-  left: 3px;
-  top: 3px;
-  width: calc((100% - 6px) / 3);
-  height: 30px;
-  border-radius: 17px;
-  background: #fff;
-  box-shadow: 0 3px 10px #243d3630;
-  transition: transform 0.3s ease;
-}
-/* 公共界面基础样式：动画与变形。 */
-.theme-switch.selected-auto .theme-slider {
-  transform: translateX(100%);
-}
-.theme-switch.selected-night .theme-slider {
-  transform: translateX(200%);
-}
-/* 导航基础样式：边框、圆角或阴影。 */
-.inner-topbar .theme-switch {
-  border-color: #ffffff3d;
-}
 /* 天气基础样式：配色与背景、边框、圆角或阴影。 */
 [data-scene-period='noon'] .weather-test-trigger,
 [data-scene-period='noon'] .weather-test-content {
@@ -386,14 +327,4 @@
     border-color 0.7s ease,
     color 0.45s ease,
     box-shadow 0.7s ease;
-}
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
-@media (max-width: 480px) {
-  .theme-switch {
-    width: 116px;
-  }
-  /* 公共界面响应式适配：布局排列与对齐。 */
-  .theme-switch button span {
-    display: none;
-  }
 }

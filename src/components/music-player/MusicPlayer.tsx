@@ -68,6 +68,12 @@ function readTrackOrder() {
 
 /** 播放器总成：管理音频状态、切歌、歌单排序和本机偏好，界面事件驱动 audio 元素。 */
 export function MusicPlayer() {
+  // 歌曲清空时不挂载控制器，避免读取不存在的 track.src 或注册无用监听。
+  return islandPlaylist.length ? <MusicPlayerControls /> : null
+}
+
+/** 有歌曲时才维护播放器状态和音频事件；外层只负责是否显示。 */
+function MusicPlayerControls() {
   /** 保存音频与弹窗 DOM 引用，后续直接调用播放、暂停和外部点击检测。 */
   const audioRef = useRef<HTMLAudioElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -124,10 +130,6 @@ export function MusicPlayer() {
       localStorage.setItem('island-track-order', JSON.stringify(playlist.map((item) => item.src))),
     [playlist],
   )
-  // 广播音乐播放状态，供页面中其他视觉组件订阅。
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent('island-music-state', { detail: { playing } }))
-  }, [playing])
 
   /** 切换到指定可用曲目，重置进度并保留调用者要求的播放状态。 */
   const selectTrack = (index: number, shouldPlay = playing) => {

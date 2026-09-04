@@ -1,7 +1,8 @@
 /* 全站基础：主题变量、字体、重置、加载与页面过渡。
  * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
  */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap');
+/* 只请求实际使用的站点字体，避免下载没有任何选择器使用的 Nunito。 */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 /* 公共界面基础样式：配色与背景、可调自定义参数。 */
 :root {
   --theme-font: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;

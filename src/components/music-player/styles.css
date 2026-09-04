@@ -209,32 +209,6 @@
   box-shadow: 0 6px 16px color-mix(in srgb, var(--green) 35%, transparent);
 }
 /* 播放器基础样式：布局排列与对齐、内外留白。 */
-.music-modes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-  margin: -2px 0 11px;
-}
-/* 播放器基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
-.music-modes button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 6px 4px;
-  border-radius: 9px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 800;
-}
-/* 播放器悬停状态：配色与背景。 */
-.music-modes button:hover,
-.music-modes button.active {
-  background: color-mix(in srgb, var(--mint) 42%, transparent);
-  color: var(--dark);
-}
-/* 播放器基础样式：布局排列与对齐、内外留白。 */
 .music-control-row {
   display: grid;
   grid-template-columns: 64px 1fr 36px;

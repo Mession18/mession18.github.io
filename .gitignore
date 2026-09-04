@@ -1,8 +1,10 @@
+# 依赖和构建结果可重新生成，不提交到 GitHub。
 node_modules/
 dist/
 .vscode/
 .DS_Store
 *.log
+# 保留在本机的编辑器设置与会话附件。
 .obsidian/
 .claudian/
 .codex-remote-attachments/

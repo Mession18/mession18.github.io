@@ -22,7 +22,6 @@
  * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
  */
 
-.collection-cover > img,
 .collection-feature > img {
   width: 100%;
   height: 100%;
@@ -64,11 +63,6 @@
 [data-theme='night'] .museum-page {
   background: linear-gradient(180deg, #1b2928 0, var(--cream) 300px);
 }
-/* 藏品夜间主题：配色与背景。 */
-[data-theme='night'] .collection-cover > small {
-  background: #29333cdc;
-  color: var(--ink);
-}
 /* 藏品基础样式：动画与变形。 */
 .collection-card {
   transition:
@@ -87,36 +81,6 @@
 /* 藏品悬停状态：动画与变形。 */
 .collection-card:hover {
   transform: translateY(-6px);
-}
-/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级。 */
-.collection-cover {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-}
-/* 藏品基础样式：文字排版、透明度与视觉效果。 */
-.collection-cover > span {
-  font-size: 72px;
-  filter: drop-shadow(0 8px 6px #536f4f25);
-}
-/* 藏品基础样式：定位与层级、图片适配与裁切。 */
-.collection-cover > img {
-  position: absolute;
-  inset: 0;
-  object-fit: contain;
-}
-/* 藏品基础样式：定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
-.collection-cover > small {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  padding: 5px 9px;
-  border-radius: 12px;
-  background: #ffffffcc;
-  color: var(--dark);
-  font-size: 9px;
-  font-weight: 800;
 }
 /* 藏品基础样式：配色与背景。 */
 .collection-mint {
@@ -167,16 +131,6 @@
   color: var(--muted);
   font-size: 12px;
   line-height: 1.75;
-}
-/* 藏品基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
-.collection-open {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 17px;
-  color: var(--dark);
-  font-size: 10px;
-  font-weight: 800;
 }
 /* 展厅：藏品图 / 缺图与空位。 */
 .collection-exhibit {

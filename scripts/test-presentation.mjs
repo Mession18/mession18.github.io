@@ -8,6 +8,7 @@ const {
   standPoolByFiles,
   resolveMarkdownImage,
   parseMarkdown,
+  shuffled,
 } = await loadUtils()
 
 // 文件名筛选使用实际图片池，支持中文和空格；拼错或缺失文件不会制造无效图片地址。
@@ -88,3 +89,16 @@ assert.deepEqual(parseMarkdownTags('tags:\n  - 木工\n  - 手作\ntitle: 标题
   '手作',
 ])
 console.log('通过：标签优先级、any/all、随机边界、默认回退、空位、布局、文案和 Markdown 标签。')
+
+// 同一洗牌函数用于首页和文案：不改原数组、不丢项目，并覆盖空数组和随机边界。
+const original = ['a', 'b', 'c']
+assert.deepEqual(
+  shuffled(original, () => 0),
+  ['b', 'c', 'a'],
+)
+assert.deepEqual(
+  shuffled(original, () => 0.999),
+  original,
+)
+assert.deepEqual(original, ['a', 'b', 'c'])
+assert.deepEqual(shuffled([]), [])

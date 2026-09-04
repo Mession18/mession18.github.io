@@ -285,6 +285,18 @@ export function standAttributes(stand: Stand) {
   }
 }
 
+/** Fisher–Yates 洗牌：线性遍历副本，每个元素等机会落在任一位置。
+ * 首页换一批和文案抽签共用此实现；传入固定 random 可验证边界，原数组不会被修改。
+ */
+export function shuffled<T>(items: readonly T[], random: () => number = Math.random): T[] {
+  const result = [...items]
+  for (let index = result.length - 1; index > 0; index--) {
+    const other = Math.floor(random() * (index + 1))
+    ;[result[index], result[other]] = [result[other], result[index]]
+  }
+  return result
+}
+
 /** 同一个文案列表抽完一轮再洗牌，避免长期固定使用首条文案。 */
 const messageBags = new WeakMap<readonly string[], string[]>()
 /** 复用文案抽签袋；抽完后重新洗牌，保证每轮覆盖全部文案。 */
@@ -292,11 +304,7 @@ function drawMessage(items: readonly string[]) {
   /** 从上次尚未抽完的文案袋继续抽取，空袋再复制并洗牌。 */
   let bag = messageBags.get(items)
   if (!bag?.length) {
-    bag = [...items]
-    for (let index = bag.length - 1; index > 0; index--) {
-      const other = Math.floor(Math.random() * (index + 1))
-      ;[bag[index], bag[other]] = [bag[other], bag[index]]
-    }
+    bag = shuffled(items)
     messageBags.set(items, bag)
   }
   return bag.pop() ?? ''

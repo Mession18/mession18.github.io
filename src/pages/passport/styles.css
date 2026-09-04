@@ -284,26 +284,6 @@
   font-family: 'ZCOOL KuaiLe';
   font-size: 14px;
 }
-/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、动画与变形。 */
-.passport-stamp {
-  width: 90px;
-  height: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #dc816b;
-  border-radius: 50%;
-  color: #c66d5b;
-  transform: rotate(-9deg);
-}
-/* 护照基础样式：文字排版。 */
-.passport-stamp b {
-  font-size: 12px;
-}
-.passport-stamp small {
-  font-size: 7px;
-}
 /* 公共界面基础样式：定位与层级、配色与背景、透明度与视觉效果、鼠标或触摸交互。 */
 .security-guilloche {
   position: absolute;
@@ -837,11 +817,6 @@
   }
   .passport-bottom {
     align-items: center;
-  }
-  .passport-stamp {
-    width: 78px;
-    height: 78px;
-    flex: 0 0 78px;
   }
   .mrz code {
     font-size: 8px;

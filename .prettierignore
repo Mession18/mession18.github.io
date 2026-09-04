@@ -1,5 +1,10 @@
 node_modules/
 dist/
 public/
-src/posts/
+# 内容由 Markdown 编辑器维护，代码格式化不重排文章和图片字段。
+src/content/
+# 本机编辑器配置和会话附件不属于网站源码。
+.claudian/
+.obsidian/
+.codex-remote-attachments/
 pnpm-lock.yaml

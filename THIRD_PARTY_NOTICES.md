@@ -1,13 +1,3 @@
----
-id: 20260902202552-fz8tpi
-title: THIRD_PARTY_NOTICES
-date: 2026-09-02
-color: sky
-subtitle: ""
-previewImage: ""
-detailImage: ""
-excerpt: ""
----
 # Third-party notices
 
 ## Animal-Island-UI

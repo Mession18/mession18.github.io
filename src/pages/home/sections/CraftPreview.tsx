@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../../../shared/data'
-import { animateItemRefresh, shuffled } from '../home.data'
+import { animateItemRefresh } from '../home.data'
+import { shuffled } from '../../../shared/utils'
 import { ContentImage } from './ContentImage'
 
 /** 首页手作展示板：抽取三件作品、响应换一批，并链接到手工列表及详情。 */

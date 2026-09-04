@@ -12,21 +12,20 @@ import { AdaptivePreviewImage } from '../../../components/adaptive-image/Adaptiv
 import { ContentMessageText } from '../../../components/content-placeholder/ContentPlaceholder'
 import { colorClass, colorStyle } from '../../../shared/config'
 import { sectionContent } from '../../../shared/data'
+import { shuffled } from '../../../shared/utils'
 
 import { posts } from '../../posts/posts.data'
 
 /** 首页博物馆预览：选择藏品并通过闪光效果刷新照片组合。 */
 export function Museum() {
   /** 保存本次首页抽取的藏品，点击刷新后才重新选取。 */
-  const [featured, setFeatured] = useState(() =>
-    [...collections].sort(() => Math.random() - 0.5).slice(0, 2),
-  )
+  const [featured, setFeatured] = useState(() => shuffled(collections).slice(0, 2))
   const [flashing, setFlashing] = useState(false)
   /** 播放闪光反馈后重新选择首页藏品。 */
   const refreshFeatured = () => {
     setFlashing(true)
     window.setTimeout(() => {
-      setFeatured([...collections].sort(() => Math.random() - 0.5).slice(0, 2))
+      setFeatured(shuffled(collections).slice(0, 2))
       setFlashing(false)
     }, 240)
   }
