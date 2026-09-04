@@ -8,9 +8,11 @@
   font-weight: 800;
   margin: 0 0 18px;
 }
+/* 公共界面基础样式：配色与背景。 */
 .eyebrow span {
   color: var(--yellow);
 }
+/* 公共界面基础样式：内外留白、文字排版。 */
 h1 {
   font-family: 'ZCOOL KuaiLe', sans-serif;
   font-size: 72px;
@@ -20,10 +22,12 @@ h1 {
   font-weight: 400;
   text-shadow: 0 4px 0 #4d8c7850;
 }
+/* 公共界面基础样式：文字排版、配色与背景。 */
 h1 em {
   font-style: normal;
   color: #fff4b5;
 }
+/* 公共界面基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .primary,
 .secondary {
   display: inline-flex;
@@ -37,23 +41,27 @@ h1 em {
   font-weight: 800;
   box-shadow: 0 7px 0 #54967f;
 }
+/* 公共界面基础样式：尺寸与宽高比例、内外留白。 */
 .section {
   max-width: 1160px;
   margin: auto;
   padding: 96px 30px;
 }
+/* 公共界面基础样式：布局排列与对齐、内外留白。 */
 .section-heading {
   display: flex;
   justify-content: space-between;
   align-items: end;
   margin-bottom: 32px;
 }
+/* 公共界面基础样式：内外留白、文字排版。 */
 .section-heading h2 {
   font-family: 'ZCOOL KuaiLe';
   font-size: 36px;
   font-weight: 400;
   margin: 0;
 }
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
 .section-heading > a {
   display: flex;
   align-items: center;
@@ -62,12 +70,14 @@ h1 em {
   font-weight: 800;
   font-size: 13px;
 }
+/* 文章基础样式：布局排列与对齐。 */
 .post-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 12px; /* 左右间隔 */
   row-gap: 28px;
 }
+/* 文章基础样式：配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切。 */
 .post {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -76,9 +86,11 @@ h1 em {
   box-shadow: var(--shadow);
   transition: 0.25s;
 }
+/* 文章悬停状态：动画与变形。 */
 .post:hover {
   transform: translateY(-7px) rotate(-0.5deg);
 }
+/* 文章基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、图片适配与裁切。 */
 .post-art {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -87,16 +99,19 @@ h1 em {
   position: relative;
   overflow: hidden;
 }
+/* 文章基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
 .post-art > img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
+/* 文章基础样式：文字排版、透明度与视觉效果。 */
 .post-art span {
   font-size: 68px;
   filter: drop-shadow(0 8px 4px #536f4f23);
 }
+/* 文章基础样式：定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .post-art time {
   position: absolute;
   right: 14px;
@@ -107,12 +122,15 @@ h1 em {
   font-size: 11px;
   font-weight: 800;
 }
+/* 文章基础样式：内外留白。 */
 .post-body {
   padding: 25px;
 }
+/* 公共界面基础样式：文字排版。 */
 .island-ui-tag {
   vertical-align: middle;
 }
+/* 公共界面基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .tag {
   font-size: 11px;
   background: #edf5e9;
@@ -121,16 +139,19 @@ h1 em {
   border-radius: 10px;
   font-weight: 800;
 }
+/* 文章基础样式：内外留白、文字排版。 */
 .post h3 {
   font-size: 21px;
   margin: 14px 0 8px;
 }
+/* 文章基础样式：尺寸与宽高比例、文字排版、配色与背景。 */
 .post p {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.8;
   min-height: 48px;
 }
+/* 文章基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
 .post-body a {
   display: flex;
   align-items: center;
@@ -140,6 +161,7 @@ h1 em {
   color: var(--dark);
   margin-top: 18px;
 }
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .content-placeholder {
   box-sizing: border-box;
   padding: 14px;
@@ -150,48 +172,58 @@ h1 em {
   text-align: center;
   text-wrap: balance;
 }
+/* 公共界面基础样式：配色与背景。 */
 .content-placeholder.mint {
   background: #ccebdc;
 }
+/* 太阳基础样式：配色与背景。 */
 .content-placeholder.sunshine {
   background: #f8e3a0;
 }
 .content-placeholder.sun {
   background: #f5dda0;
 }
+/* 天空基础样式：配色与背景。 */
 .content-placeholder.sky {
   background: #bde3ec;
 }
+/* 公共界面基础样式：配色与背景。 */
 .content-placeholder.rose {
   background: #efc9bc;
 }
 .content-placeholder.lavender {
   background: #d8cbe6;
 }
+/* 公共界面基础样式：配色与背景、边框、圆角或阴影。 */
 .secondary {
   background: var(--green);
   color: #fff;
   box-shadow: none;
 }
+/* 公共界面基础样式：尺寸与宽高比例、内外留白。 */
 .page-surface {
   min-height: 70vh;
   padding: 86px max(5vw, 28px) 40px;
 }
+/* 公共界面基础样式：尺寸与宽高比例、内外留白、文字排版。 */
 .page-heading {
   max-width: 1100px;
   margin: 0 auto 45px;
   text-align: center;
 }
+/* 公共界面基础样式：布局排列与对齐。 */
 .page-heading h1 {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .section-title-icon {
   width: 42px !important;
   height: 42px !important;
   object-fit: contain;
 }
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .page-heading h1,
 .not-found h1 {
   margin: 0 0 13px;
@@ -199,14 +231,17 @@ h1 em {
   font-size: 48px;
   text-shadow: none;
 }
+/* 公共界面基础样式：文字排版、配色与背景。 */
 .page-heading > p:last-child {
   color: var(--muted);
   font-size: 14px;
 }
+/* 文章基础样式：尺寸与宽高比例、内外留白。 */
 .posts-library {
   max-width: 1160px;
   margin: auto;
 }
+/* 公共界面基础样式：布局排列与对齐、内外留白。 */
 .island-pagination {
   display: flex;
   align-items: center;
@@ -214,6 +249,7 @@ h1 em {
   gap: 12px;
   margin: 38px auto 0;
 }
+/* 公共界面基础样式：内外留白、配色与背景、边框、圆角或阴影。 */
 .island-pagination button,
 .island-pagination select {
   border: 1px solid var(--line);
@@ -222,14 +258,17 @@ h1 em {
   color: var(--dark);
   padding: 9px 13px;
 }
+/* 公共界面基础样式：布局排列与对齐、鼠标或触摸交互。 */
 .island-pagination button {
   display: grid;
   place-items: center;
   cursor: pointer;
 }
+/* 公共界面禁用状态：透明度与视觉效果。 */
 .island-pagination button:disabled {
   opacity: 0.35;
 }
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
 .island-pagination label {
   display: flex;
   align-items: center;
@@ -237,6 +276,7 @@ h1 em {
   color: var(--muted);
   font-size: 11px;
 }
+/* 公共界面基础样式：布局排列与对齐、文字排版。 */
 .not-found {
   display: flex;
   flex-direction: column;
@@ -244,12 +284,15 @@ h1 em {
   justify-content: center;
   text-align: center;
 }
+/* 公共界面基础样式：文字排版。 */
 .not-found > span {
   font-size: 60px;
 }
+/* 公共界面基础样式：配色与背景。 */
 .not-found > p {
   color: var(--muted);
 }
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
 .not-found > a {
   display: flex;
   align-items: center;
@@ -257,16 +300,19 @@ h1 em {
   color: var(--dark);
   font-weight: 800;
 }
+/* 文章夜间主题：配色与背景。 */
 [data-theme='night'] .post-art time {
   background: #29333cdc;
   color: var(--ink);
 }
+/* 公共界面夜间主题：配色与背景。 */
 [data-theme='night'] .tag {
   background: #2d423b;
 }
 [data-theme='night'] .content-filters button {
   background: var(--paper);
 }
+/* 文章基础样式：动画与变形。 */
 .post,
 .page-surface {
   transition:
@@ -275,6 +321,7 @@ h1 em {
     border-color 0.45s ease;
 }
 
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
 .adaptive-preview-image {
   display: block;
   width: auto;
@@ -283,6 +330,7 @@ h1 em {
   max-height: 230px;
   object-fit: contain;
 }
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、透明度与视觉效果、图片适配与裁切。 */
 .detail-preview-image img {
   position: static !important;
   display: block !important;
@@ -293,6 +341,7 @@ h1 em {
   max-height: 72vh !important;
   object-fit: contain !important;
 }
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
 .markdown-preview-image {
   display: block !important;
   width: fit-content !important;
@@ -304,6 +353,7 @@ h1 em {
   background: var(--paper) !important;
   box-shadow: var(--shadow);
 }
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .markdown-preview-image img {
   width: auto !important;
   height: auto !important;
@@ -311,6 +361,7 @@ h1 em {
   max-height: 68vh !important;
   object-fit: contain !important;
 }
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {
   .post-grid {
     grid-template-columns: 1fr;
@@ -319,6 +370,7 @@ h1 em {
     padding: 70px 22px;
   }
 }
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .page-surface {
     padding: 58px 20px 20px;
@@ -335,6 +387,7 @@ h1 em {
   }
 }
 
+/* 公共界面基础样式：布局排列与对齐、定位与层级、内外留白。 */
 .content-filters {
   position: relative;
   top: var(--tags-top, 0px);
@@ -345,6 +398,7 @@ h1 em {
   margin-bottom: var(--tags-bottom-gap, 42px);
 }
 
+/* 公共界面基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
 .content-filters button {
   padding: var(--tags-padding, 9px 15px);
   border: 1px solid var(--line);
@@ -357,6 +411,7 @@ h1 em {
   cursor: pointer;
 }
 
+/* 公共界面基础样式：配色与背景、边框、圆角或阴影。 */
 .content-filters button.active {
   border-color: var(--green);
   background: var(--green);

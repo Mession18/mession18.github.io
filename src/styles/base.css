@@ -2,6 +2,7 @@
  * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
  */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap');
+/* 公共界面基础样式：配色与背景、可调自定义参数。 */
 :root {
   --theme-font: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
   --ink: #4d4439;
@@ -18,6 +19,7 @@
   color-scheme: light;
 }
 
+/* 公共界面夜间主题：配色与背景、可调自定义参数。 */
 [data-theme='night'] {
   --ink: #e8e4dc;
   --muted: #aaa9a5;
@@ -45,6 +47,7 @@
 html {
   scroll-behavior: smooth;
 }
+/* 公共界面基础样式：内外留白、文字排版、配色与背景、动画与变形。 */
 body {
   margin: 0;
   background: var(--cream);
@@ -59,6 +62,7 @@ body {
   inherits: false;
   initial-value: 150vmax;
 }
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、动画与变形、图片适配与裁切、鼠标或触摸交互、可调自定义参数。 */
 .opening-loading-overlay {
   position: fixed;
   z-index: 10000;
@@ -77,13 +81,16 @@ body {
   transition: --opening-mask-r 0.42s cubic-bezier(0.65, 0, 0.35, 1);
   will-change: --opening-mask-r;
 }
+/* 公共界面基础样式：可调自定义参数。 */
 .opening-loading-overlay.is-visible {
   --opening-mask-r: 0px;
 }
+/* 公共界面基础样式：尺寸与宽高比例。 */
 .opening-loading-overlay > div {
   width: 100%;
   height: 100%;
 }
+/* 公共界面基础样式：动画与变形。 */
 .island-opening-loading {
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -92,6 +99,7 @@ body {
   transform: translateZ(0);
   will-change: transform;
 }
+/* 天气夜间主题：配色与背景。 */
 [data-theme='night'][data-weather='cloudy'] body,
 [data-theme='night'][data-weather='fog'] body {
   background: #1b2229;
@@ -100,9 +108,11 @@ body {
 [data-theme='night'][data-weather='thunder'] body {
   background: #131a22;
 }
+/* 公共界面基础样式：动画与变形。 */
 .route-transition {
   animation: route-enter 0.42s ease both;
 }
+/* 动画 route-enter：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
 @keyframes route-enter {
   from {
     opacity: 0;
@@ -113,27 +123,33 @@ body {
     transform: translateY(0);
   }
 }
+/* 条件覆盖 (prefers-reduced-motion: reduce)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (prefers-reduced-motion: reduce) {
   .route-transition {
     animation: none;
   }
 }
+/* 公共界面基础样式：文字排版、配色与背景。 */
 a {
   color: inherit;
   text-decoration: none;
 }
+/* 公共界面基础样式：配色与背景。 */
 .mint {
   background: #ccebdc;
 }
+/* 太阳基础样式：配色与背景。 */
 .sunshine {
   background: #f8e3a0;
 }
 .sun {
   background: #f5dda0;
 }
+/* 天空基础样式：配色与背景。 */
 .sky {
   background: #bde3ec;
 }
+/* 公共界面基础样式：配色与背景。 */
 .rose {
   background: #efc9bc;
 }
@@ -155,6 +171,7 @@ a {
 [data-scene-period='evening'] body {
   background: #161c24;
 }
+/* 公共界面基础样式：文字排版。 */
 body :where(*),
 button,
 input,

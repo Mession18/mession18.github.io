@@ -1,0 +1,821 @@
+/* 首屏自然场景：天空在前、地景在后，保留原有层叠顺序。 */
+/* 首页 sky：默认、主题和响应式规则集中维护。 */
+
+.hero.time-dawn .hero-sun,
+.hero.time-evening .hero-sun {
+  opacity: 0 !important;
+  filter: none !important;
+}
+/* 首屏基础样式：透明度与视觉效果。 */
+.hero.time-morning .hero-moon,
+.hero.time-noon .hero-moon,
+.hero.time-afternoon .hero-moon {
+  opacity: 0 !important;
+  filter: none !important;
+}
+/* 首屏基础样式：定位与层级。 */
+.hero.time-morning .hero-sun {
+  right: 30%;
+  top: 65px;
+}
+.hero.time-noon .hero-sun {
+  right: 47%;
+  top: 5px;
+}
+/* 首屏基础样式：定位与层级、配色与背景。 */
+.hero.time-afternoon .hero-sun {
+  right: 16%;
+  top: 78px;
+  background: #ffd477;
+}
+/* 首屏基础样式：定位与层级、透明度与视觉效果。 */
+.hero.time-dawn .hero-moon {
+  opacity: 1;
+  right: 38%;
+  top: 112px;
+}
+.hero.time-evening .hero-moon {
+  opacity: 1;
+  right: 24%;
+  top: 54px;
+}
+/* 首屏基础样式：透明度与视觉效果。 */
+.hero.time-dawn .sky-stars,
+.hero.time-evening .sky-stars {
+  opacity: 0.75;
+}
+/* 天气基础样式：透明度与视觉效果。 */
+.hero.weather-rain .hero-sun,
+.hero.weather-snow .hero-sun,
+.hero.weather-thunder .hero-sun {
+  opacity: 0;
+}
+.hero.weather-fog .hero-sun {
+  opacity: 0.12;
+  filter: blur(5px);
+}
+.hero.weather-cloudy .hero-sun {
+  opacity: 0.38;
+}
+.hero.weather-rain .hero-moon,
+.hero.weather-snow .hero-moon,
+.hero.weather-thunder .hero-moon {
+  opacity: 0;
+}
+.hero.weather-fog .hero-moon {
+  opacity: 0.12;
+  filter: blur(5px);
+}
+.hero.weather-cloudy .hero-moon {
+  opacity: 0.38;
+}
+.hero.weather-pending .hero-sun {
+  filter: none;
+}
+.hero.weather-pending .hero-moon {
+  filter: none;
+}
+.hero.weather-rain .cloud,
+.hero.weather-thunder .cloud {
+  opacity: 0.72;
+  filter: grayscale(0.7);
+}
+.hero.weather-cloudy .cloud {
+  opacity: 0.82;
+}
+.hero.weather-fog .cloud {
+  opacity: 0.22;
+  filter: blur(3px);
+}
+.hero.weather-snow .cloud {
+  opacity: 0.7;
+  filter: grayscale(0.35) brightness(1.15);
+}
+/* 首屏基础样式：配色与背景。 */
+.hero.time-dawn .cloud,
+.hero.time-evening .cloud {
+  background: #afbec56b;
+}
+/* 天气基础样式：配色与背景、透明度与视觉效果。 */
+.hero.weather-cloudy.time-dawn .cloud,
+.hero.weather-cloudy.time-evening .cloud {
+  background: #74858da8;
+  filter: saturate(0.6);
+}
+/* 天气基础样式：配色与背景。 */
+.hero.weather-rain.time-dawn .cloud,
+.hero.weather-rain.time-evening .cloud,
+.hero.weather-thunder.time-dawn .cloud,
+.hero.weather-thunder.time-evening .cloud {
+  background: #3f505dbd;
+}
+/* 首屏基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形。 */
+.hero-sun {
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #ffe792;
+  right: 23%;
+  top: 22px;
+  box-shadow: 0 0 0 14px #ffec9c2e;
+  z-index: 1;
+  transition:
+    right 1.2s ease,
+    top 1.2s ease,
+    opacity 0.8s ease,
+    background 0.8s ease,
+    filter 0.8s ease;
+}
+/* 首屏基础样式：尺寸与宽高比例、定位与层级、动画与变形、透明度与视觉效果、图片适配与裁切。 */
+.hero-moon {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  right: 24%;
+  top: 54px;
+  z-index: 1;
+  opacity: 0;
+  overflow: visible;
+  filter: drop-shadow(0 0 16px #fff2bd70);
+  transition:
+    right 1.2s ease,
+    top 1.2s ease,
+    opacity 0.8s ease,
+    filter 0.8s ease;
+}
+/* 月亮基础样式：配色与背景、透明度与视觉效果。 */
+.moon-disc {
+  fill: none;
+  stroke: #f8efc7;
+  stroke-width: 1;
+  opacity: 0.18;
+}
+/* 月亮基础样式：配色与背景。 */
+.moon-light {
+  fill: #fff3c4;
+}
+/* 月亮基础样式：配色与背景、透明度与视觉效果、鼠标或触摸交互。 */
+.moon-crater {
+  fill: #d8cfa9;
+  opacity: 0.24;
+  pointer-events: none;
+}
+/* 天空基础样式：定位与层级、配色与背景、动画与变形、透明度与视觉效果、鼠标或触摸交互。 */
+.sky-stars {
+  position: absolute;
+  inset: 20px 0 45% 0;
+  opacity: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, #fff 0 1px, transparent 2px),
+    radial-gradient(circle, #fff8c9 0 1.5px, transparent 2.5px);
+  background-size:
+    93px 87px,
+    147px 123px;
+  background-position:
+    12px 8px,
+    43px 31px;
+  transition: opacity 0.8s ease;
+  animation: star-twinkle 3s ease-in-out infinite alternate;
+}
+/* 天气基础样式：定位与层级、图片适配与裁切、鼠标或触摸交互。 */
+.weather-effects {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 4;
+}
+/* 雾气基础样式：定位与层级、透明度与视觉效果。 */
+.fog-bank,
+.lightning-bolt {
+  position: absolute;
+  opacity: 0;
+}
+/* 雾气基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、透明度与视觉效果。 */
+.fog-bank {
+  left: -10%;
+  width: 120%;
+  height: 90px;
+  border-radius: 50%;
+  background: #f2f5e5a8;
+  filter: blur(18px);
+}
+/* 雾气基础样式：定位与层级。 */
+.fog-one {
+  top: 30%;
+}
+/* 雾气基础样式：定位与层级、动画与变形。 */
+.fog-two {
+  top: 51%;
+  transform: scaleX(0.8);
+}
+/* 天气基础样式：动画与变形、透明度与视觉效果。 */
+.hero.weather-fog .fog-bank {
+  opacity: 0.78;
+  animation: fog-drift 8s ease-in-out infinite alternate;
+}
+/* 天气基础样式：动画与变形。 */
+.hero.weather-fog .fog-two {
+  animation-delay: -4s;
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、透明度与视觉效果、图片适配与裁切。 */
+.lightning-bolt {
+  top: 90px;
+  right: 25%;
+  width: 13px;
+  height: 145px;
+  background: #fff7ad;
+  clip-path: polygon(48% 0, 100% 0, 66% 40%, 100% 40%, 15% 100%, 39% 52%, 0 52%);
+  filter: drop-shadow(0 0 14px #fff5a8);
+}
+/* 天气基础样式：动画与变形。 */
+.hero.weather-thunder .lightning-bolt {
+  animation: lightning 4.5s steps(1) infinite;
+}
+/* 动画 fog-drift：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes fog-drift {
+  from {
+    transform: translateX(-3%) scaleX(0.9);
+  }
+  to {
+    transform: translateX(5%) scaleX(1.05);
+  }
+}
+/* 动画 lightning：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes lightning {
+  0%,
+  88%,
+  92%,
+  100% {
+    opacity: 0;
+  }
+  89%,
+  91% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.18;
+  }
+}
+/* 动画 star-twinkle：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes star-twinkle {
+  from {
+    filter: brightness(0.75);
+  }
+  to {
+    filter: brightness(1.2);
+  }
+}
+/* 条件覆盖 (prefers-reduced-motion: reduce)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (prefers-reduced-motion: reduce) {
+  /* 天空响应式适配：动画与变形。 */
+  .sky-stars,
+  .fog-bank,
+  .lightning-bolt {
+    animation: none !important;
+  }
+  .hero.weather-thunder .lightning-bolt {
+    opacity: 0.45;
+  }
+}
+/* 云层基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+.cloud {
+  position: absolute;
+  background: #ffffff82;
+  width: 115px;
+  height: 32px;
+  border-radius: 40px;
+}
+/* 云层基础样式：定位与层级、配色与背景、边框、圆角或阴影。 */
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+/* 云层基础样式：尺寸与宽高比例、定位与层级。 */
+.cloud:before {
+  width: 48px;
+  height: 48px;
+  left: 20px;
+  bottom: 0;
+}
+.cloud:after {
+  width: 62px;
+  height: 62px;
+  right: 14px;
+  bottom: 0;
+}
+/* 云层基础样式：定位与层级。 */
+.cloud-a {
+  top: 120px;
+  right: 43%;
+}
+/* 云层基础样式：定位与层级、动画与变形。 */
+.cloud-b {
+  top: 195px;
+  right: 6%;
+  transform: scale(0.7);
+}
+/* 云层基础样式：定位与层级、动画与变形、透明度与视觉效果。 */
+.cloud-c {
+  top: 82px;
+  right: 15%;
+  transform: scale(1.15);
+  opacity: 0;
+}
+/* 天气基础样式：透明度与视觉效果。 */
+.hero.weather-cloudy .cloud-c,
+.hero.weather-rain .cloud-c,
+.hero.weather-snow .cloud-c,
+.hero.weather-thunder .cloud-c {
+  opacity: 0.88;
+}
+/* 天气基础样式：配色与背景。 */
+.hero.weather-rain .cloud-c,
+.hero.weather-thunder .cloud-c {
+  background: #64777ebd;
+}
+
+/* 首页 landscape：默认、主题和响应式规则集中维护。 */
+.tree .crown b {
+  position: absolute;
+  border-radius: 50%;
+  background: #58a970;
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、鼠标或触摸交互。 */
+.island-scene {
+  position: absolute;
+  width: 100%;
+  height: 430px;
+  right: 0;
+  bottom: 18px;
+  pointer-events: none;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级。 */
+.horizon-forest {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 150px;
+  height: 115px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+.horizon-forest i {
+  position: relative;
+  width: 62px;
+  height: 88px;
+  flex: 0 0 62px;
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+.horizon-forest i:before {
+  content: '';
+  position: absolute;
+  left: 25px;
+  bottom: 0;
+  width: 12px;
+  height: 45px;
+  border-radius: 8px;
+  background: #8d6649;
+}
+.horizon-forest i:after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 0;
+  width: 60px;
+  height: 61px;
+  border-radius: 46% 54% 48% 52%;
+  background: #4d9568;
+}
+/* 公共界面基础样式：动画与变形。 */
+.horizon-forest i:nth-child(3n) {
+  transform: scale(0.82);
+  transform-origin: bottom;
+}
+/* 公共界面基础样式：配色与背景。 */
+.horizon-forest i:nth-child(3n + 1):after {
+  background: #579f70;
+}
+/* 公共界面基础样式：动画与变形。 */
+.horizon-forest i:nth-child(4n) {
+  transform: scale(0.68);
+  transform-origin: bottom;
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+.horizon-forest i:nth-child(4n + 2):after {
+  width: 64px;
+  height: 70px;
+  left: -1px;
+  top: -8px;
+  border-radius: 0;
+  clip-path: polygon(
+    50% 0,
+    70% 30%,
+    61% 30%,
+    82% 60%,
+    68% 60%,
+    94% 100%,
+    6% 100%,
+    32% 60%,
+    18% 60%,
+    39% 30%,
+    30% 30%
+  );
+  background: #477f61;
+}
+/* 公共界面基础样式：透明度与视觉效果。 */
+.horizon-forest i:nth-child(9) {
+  visibility: hidden;
+}
+/* 地面基础样式：尺寸与宽高比例、定位与层级、配色与背景。 */
+.ground {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 0;
+  height: 150px;
+  z-index: 3;
+  background: #72ad78;
+}
+/* 地面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+.ground:before {
+  content: '';
+  position: absolute;
+  left: -4%;
+  top: -25px;
+  width: 108%;
+  height: 52px;
+  border-radius: 50%;
+  background: #72ad78;
+  border-top: 7px solid #a4ce8d;
+}
+.ground i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff0a4;
+}
+/* 地面基础样式：尺寸与宽高比例、定位与层级、配色与背景。 */
+.ground i:after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  left: 3px;
+  top: 7px;
+  background: #43845e;
+}
+/* 地面基础样式：定位与层级。 */
+.ground i:nth-child(1) {
+  left: 8%;
+  top: 38px;
+}
+/* 地面基础样式：定位与层级、配色与背景。 */
+.ground i:nth-child(2) {
+  left: 28%;
+  top: 100px;
+  background: #f3a6a0;
+}
+/* 地面基础样式：定位与层级。 */
+.ground i:nth-child(3) {
+  left: 48%;
+  top: 55px;
+}
+/* 地面基础样式：定位与层级、配色与背景。 */
+.ground i:nth-child(4) {
+  left: 71%;
+  top: 112px;
+  background: #d7c3ef;
+}
+.ground i:nth-child(5) {
+  left: 91%;
+  top: 42px;
+  background: #f3a6a0;
+}
+/* 树木基础样式：尺寸与宽高比例、定位与层级。 */
+.tree {
+  position: absolute;
+  z-index: 4;
+  width: 96px;
+  height: 142px;
+}
+/* 树木基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+.tree .trunk {
+  position: absolute;
+  bottom: 0;
+  width: 19px;
+  height: 72px;
+  left: 39px;
+  border-radius: 10px;
+  background: #a46d49;
+  box-shadow: none;
+}
+.tree .crown {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 96px;
+  height: 90px;
+  border-radius: 48% 52% 46% 54%;
+  background: #438e62;
+  box-shadow: none;
+}
+/* 树木基础样式：尺寸与宽高比例、定位与层级。 */
+.tree .crown b:nth-child(1) {
+  width: 49px;
+  height: 49px;
+  left: -3px;
+  top: 25px;
+}
+/* 树木基础样式：尺寸与宽高比例、定位与层级、配色与背景。 */
+.tree .crown b:nth-child(2) {
+  width: 54px;
+  height: 54px;
+  right: -5px;
+  top: 19px;
+  background: #4b9968;
+}
+.tree .crown b:nth-child(3) {
+  width: 42px;
+  height: 42px;
+  left: 28px;
+  top: -7px;
+  background: #64ad76;
+}
+/* 树木基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+.tree.pine .crown {
+  width: 106px;
+  height: 112px;
+  left: -5px;
+  top: -13px;
+  border-radius: 0;
+  clip-path: polygon(
+    50% 0,
+    68% 30%,
+    60% 30%,
+    80% 58%,
+    68% 58%,
+    94% 100%,
+    6% 100%,
+    32% 58%,
+    20% 58%,
+    40% 30%,
+    32% 30%
+  );
+  background: #3d805d;
+}
+/* 树木基础样式：布局排列与对齐。 */
+.tree.pine .crown b {
+  display: none;
+}
+/* 公共界面基础样式：定位与层级。 */
+.t1 {
+  right: 7%;
+  bottom: 116px;
+}
+/* 公共界面基础样式：定位与层级、动画与变形。 */
+.t2 {
+  right: 36%;
+  bottom: 118px;
+  transform: scale(0.88);
+}
+/* 房屋基础样式：尺寸与宽高比例、定位与层级、透明度与视觉效果、图片适配与裁切。 */
+.reference-house {
+  position: absolute;
+  z-index: 5;
+  right: 19%;
+  bottom: 101px;
+  width: 300px;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 7px 0 #39745a24);
+}
+/* 房屋基础样式：配色与背景。 */
+.reference-house .house-wall {
+  fill: #f7ecc0;
+}
+.reference-house .house-chimney {
+  fill: #efd477;
+  stroke: #dfc365;
+  stroke-width: 2;
+}
+.reference-house .house-roof,
+.reference-house .house-gable-border {
+  fill: #d95b40;
+}
+.reference-house .house-gable {
+  fill: #f7ecc0;
+}
+/* 房屋基础样式：布局排列与对齐、配色与背景、透明度与视觉效果。 */
+.reference-house .house-roof-snow {
+  display: none;
+  fill: none;
+  stroke: #f5fbfc;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 0 #cddfe2);
+}
+/* 天气基础样式：布局排列与对齐。 */
+.hero.weather-snow .reference-house .house-roof-snow {
+  display: block;
+}
+/* 天气基础样式：配色与背景。 */
+.hero.weather-snow.intensity-light .reference-house .house-roof-snow {
+  stroke-width: 3px;
+}
+.hero.weather-snow.intensity-moderate .reference-house .house-roof-snow {
+  stroke-width: 7px;
+}
+.hero.weather-snow.intensity-heavy .reference-house .house-roof-snow {
+  stroke-width: 12px;
+}
+/* 房屋基础样式：配色与背景、动画与变形。 */
+.reference-house .house-attic-window rect,
+.reference-house .house-window rect {
+  fill: #dce6d8;
+  stroke: #e2d39a;
+  stroke-width: 2.5;
+  transition:
+    fill 0.8s ease,
+    filter 0.8s ease;
+}
+/* 房屋基础样式：配色与背景。 */
+.reference-house .house-attic-window path,
+.reference-house .house-window path {
+  fill: none;
+  stroke: #e2d39a;
+  stroke-width: 2;
+}
+.reference-house .house-door {
+  fill: #b59261;
+  stroke: #e5d6a1;
+  stroke-width: 3;
+}
+.reference-house .house-doorknob {
+  fill: #8d714b;
+}
+.reference-house .house-foundation {
+  fill: #71684c;
+}
+/* 首屏基础样式：透明度与视觉效果。 */
+.hero.time-dawn .reference-house,
+.hero.time-evening .reference-house {
+  filter: brightness(0.76) saturate(0.86) drop-shadow(0 7px 0 #243f3524);
+}
+/* 首屏基础样式：配色与背景、透明度与视觉效果。 */
+.hero.time-evening .reference-house .house-window rect,
+.hero.time-evening .reference-house .house-attic-window rect {
+  fill: #fffbd2;
+  stroke: #fffef0;
+  filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 11px #ffd84f);
+}
+.hero.time-dawn .reference-house .house-window rect,
+.hero.time-dawn .reference-house .house-attic-window rect {
+  fill: #65726a;
+  filter: brightness(0.72);
+}
+/* 房屋基础样式：布局排列与对齐、鼠标或触摸交互。 */
+.house-smoke-svg {
+  display: none;
+  pointer-events: none;
+}
+/* 首屏基础样式：布局排列与对齐。 */
+.hero.time-noon .house-smoke-svg {
+  display: block;
+}
+/* 房屋基础样式：配色与背景、动画与变形、透明度与视觉效果。 */
+.house-smoke-svg circle {
+  fill: #eef2edb5;
+  opacity: 0;
+  filter: blur(0.8px);
+  transform-origin: 135px 38px;
+  animation: svg-chimney-smoke 5.6s ease-out infinite;
+}
+/* 房屋基础样式：动画与变形。 */
+.house-smoke-svg circle:nth-child(2) {
+  animation-delay: -1.4s;
+}
+.house-smoke-svg circle:nth-child(3) {
+  animation-delay: -2.8s;
+}
+.house-smoke-svg circle:nth-child(4) {
+  animation-delay: -4.2s;
+}
+/* 动画 svg-chimney-smoke：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes svg-chimney-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2px) scale(0.55);
+  }
+  18% {
+    opacity: 0.42;
+  }
+  52% {
+    opacity: 0.3;
+    transform: translate(-5px, -18px) scale(1.18);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(7px, -42px) scale(2.05);
+  }
+}
+/* 首屏基础样式：配色与背景。 */
+.hero.time-dawn .ground,
+.hero.time-evening .ground,
+.hero.time-dawn .ground:before,
+.hero.time-evening .ground:before {
+  background: #557965;
+}
+/* 首屏基础样式：边框、圆角或阴影。 */
+.hero.time-dawn .ground:before,
+.hero.time-evening .ground:before {
+  border-top-color: #78967a;
+}
+/* 首屏基础样式：配色与背景。 */
+.hero.time-dawn .horizon-forest i:after,
+.hero.time-evening .horizon-forest i:after {
+  background: #3e6557;
+}
+/* 首屏基础样式：透明度与视觉效果。 */
+.hero.time-dawn .tree .crown,
+.hero.time-evening .tree .crown {
+  filter: brightness(0.76) saturate(0.8);
+}
+/* 天气基础样式：配色与背景。 */
+.hero.weather-snow .ground,
+.hero.weather-snow .ground:before {
+  background: #dce9e4;
+}
+.hero.weather-snow .ground {
+  background: #e8f1ef;
+}
+/* 天气基础样式：边框、圆角或阴影。 */
+.hero.weather-snow .ground:before {
+  border-top-color: #f2f7ef;
+}
+.hero.weather-snow.intensity-light .ground:before {
+  border-top-width: 5px;
+}
+.hero.weather-snow.intensity-moderate .ground:before {
+  border-top-width: 11px;
+}
+.hero.weather-snow.intensity-heavy .ground:before {
+  border-top-width: 18px;
+}
+/* 天气基础样式：透明度与视觉效果。 */
+.hero.weather-snow .horizon-forest,
+.hero.weather-snow .tree {
+  filter: saturate(0.5) brightness(1.12);
+}
+/* 天气装饰伪元素：边框、圆角或阴影。 */
+.hero.weather-snow .tree:not(.pine) .crown,
+.hero.weather-snow .tree:not(.pine) .crown b,
+.hero.weather-snow .horizon-forest i::after {
+  box-shadow: inset 0 var(--tree-snow-depth) 0 #edf6f5;
+}
+/* 天气基础样式：配色与背景、可调自定义参数。 */
+.hero.weather-snow .tree.pine .crown {
+  --pine-snow-edge: 4px;
+  background: #edf6f5;
+}
+/* 天气基础样式：可调自定义参数。 */
+.hero.weather-snow.intensity-moderate .tree.pine .crown {
+  --pine-snow-edge: 7px;
+}
+.hero.weather-snow.intensity-heavy .tree.pine .crown {
+  --pine-snow-edge: 11px;
+}
+/* 天气装饰伪元素：定位与层级、配色与背景、动画与变形、图片适配与裁切。 */
+.hero.weather-snow .tree.pine .crown::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #477f61;
+  clip-path: inherit;
+  transform: translateY(var(--pine-snow-edge));
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .island-scene {
+    width: 100%;
+    right: -10%;
+    transform: scale(0.8);
+    transform-origin: bottom right;
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .island-scene {
+    transform: scale(0.62);
+    right: -32%;
+    bottom: 0;
+  }
+}

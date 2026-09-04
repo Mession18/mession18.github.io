@@ -1,0 +1,184 @@
+/* 全局搜索：按钮、弹窗、输入框与结果。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+.search {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #ffffff77;
+  background: #ffffff1c;
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+/* 搜索基础样式：布局排列与对齐、定位与层级、内外留白、配色与背景。 */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: start center;
+  padding: 100px 20px 30px;
+  background: #17211dcc;
+  backdrop-filter: blur(8px);
+}
+/* 搜索基础样式：尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+.search-dialog {
+  width: min(650px, 100%);
+  max-height: calc(100vh - 130px);
+  overflow: auto;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 30px 90px #07100c66;
+}
+/* 搜索基础样式：布局排列与对齐、内外留白。 */
+.search-dialog > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 20px;
+}
+/* 搜索基础样式：文字排版、配色与背景。 */
+.search-dialog > header span {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+/* 搜索基础样式：内外留白、文字排版。 */
+.search-dialog h2 {
+  margin: 5px 0 0;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 30px;
+  font-weight: 400;
+}
+/* 搜索基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
+.search-dialog > header button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+}
+/* 搜索基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影。 */
+.search-input {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: var(--cream);
+  color: var(--muted);
+}
+/* 搜索基础样式：边框、圆角或阴影。 */
+.search-input:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #68ad9122;
+}
+/* 搜索基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景、边框、圆角或阴影。 */
+.search-input input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+/* 搜索基础样式：布局排列与对齐、内外留白。 */
+.search-results {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+/* 搜索基础样式：布局排列与对齐、内外留白、边框、圆角或阴影、动画与变形。 */
+.search-results > a {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 13px;
+  align-items: center;
+  padding: 11px;
+  border-radius: 17px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+/* 搜索悬停状态：配色与背景、动画与变形。 */
+.search-results > a:hover {
+  background: var(--cream);
+  transform: translateX(4px);
+}
+/* 搜索基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、边框、圆角或阴影。 */
+.search-result-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  font-size: 25px;
+}
+/* 搜索基础样式：布局排列与对齐、尺寸与宽高比例。 */
+.search-results > a > span:last-child {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+/* 搜索基础样式：文字排版。 */
+.search-results b {
+  font-size: 14px;
+}
+/* 搜索基础样式：文字排版、配色与背景。 */
+.search-results small {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+}
+/* 搜索基础样式：文字排版、配色与背景、图片适配与裁切。 */
+.search-results em {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 搜索基础样式：内外留白、文字排版、配色与背景。 */
+.search-empty {
+  padding: 32px 10px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .search {
+    width: 36px;
+    height: 36px;
+  }
+  .search-overlay {
+    padding: 82px 12px 20px;
+  }
+  .search-dialog {
+    padding: 20px 15px;
+    border-radius: 22px;
+  }
+  .search-results > a {
+    grid-template-columns: 46px 1fr;
+  }
+  .search-result-icon {
+    width: 46px;
+    height: 46px;
+  }
+}

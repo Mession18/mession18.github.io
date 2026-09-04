@@ -1,0 +1,442 @@
+/* 全局音乐播放器：按钮、播放控制、歌单与动画。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* 播放器响应式适配：动画与变形。 */
+  .music-cover,
+  .music-trigger > span:first-child {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+/* 播放器基础样式：定位与层级、配色与背景。 */
+.music-player {
+  position: relative;
+  color: var(--ink);
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
+.music-trigger {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid #ffffff77;
+  border-radius: 50%;
+  background: #ffffff1c;
+  cursor: pointer;
+}
+/* 播放器基础样式：动画与变形、透明度与视觉效果、图片适配与裁切。 */
+.music-trigger > span:first-child {
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px #24372d33);
+  transform-origin: center;
+}
+/* 播放器基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+.music-trigger i {
+  position: absolute;
+  right: 1px;
+  bottom: 2px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #66c391;
+}
+/* 播放器基础样式：动画与变形。 */
+.music-trigger.is-playing > span:first-child {
+  animation: music-spin 3.8s linear infinite;
+}
+/* 播放器基础样式：尺寸与宽高比例、定位与层级、内外留白、配色与背景、边框、圆角或阴影、动画与变形。 */
+.music-popover {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 310px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  box-shadow: 0 20px 55px #16251d4a;
+  backdrop-filter: blur(16px);
+  animation: music-drop 0.24s ease both;
+}
+/* 播放器装饰伪元素：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形。 */
+.music-popover::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  right: 13px;
+  width: 14px;
+  height: 14px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  background: var(--paper);
+  transform: rotate(45deg);
+}
+/* 播放器基础样式：布局排列与对齐。 */
+.music-popover header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+.music-popover header span {
+  display: flex;
+  flex-direction: column;
+}
+/* 播放器基础样式：文字排版、配色与背景。 */
+.music-popover header small {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+/* 播放器基础样式：内外留白、文字排版。 */
+.music-popover header b {
+  margin-top: 1px;
+  font-size: 17px;
+}
+/* 播放器基础样式：文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
+.music-popover button {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白、配色与背景、边框、圆角或阴影。 */
+.music-popover header button {
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  background: transparent;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-now {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 12px;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例。 */
+.music-now > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+/* 播放器基础样式：文字排版、图片适配与裁切。 */
+.music-now b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+}
+/* 播放器基础样式：内外留白、文字排版、配色与背景。 */
+.music-now small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+.music-cover {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--mint) 48%, var(--paper));
+  box-shadow: inset 0 0 0 5px #ffffff4a;
+  overflow: hidden;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
+.music-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 播放器基础样式：动画与变形。 */
+.music-cover.spinning {
+  animation: music-spin 7s linear infinite;
+}
+/* 播放器基础样式：尺寸与宽高比例、鼠标或触摸交互。 */
+.music-progress,
+.music-volume input {
+  height: 4px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、内外留白。 */
+.music-progress {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
+.music-time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 9px;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 4px 0 10px;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影。 */
+.music-controls button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+}
+/* 播放器基础样式：尺寸与宽高比例、配色与背景、边框、圆角或阴影。 */
+.music-controls .music-play {
+  width: 43px;
+  height: 43px;
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--green) 35%, transparent);
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin: -2px 0 11px;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.music-modes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 4px;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+/* 播放器悬停状态：配色与背景。 */
+.music-modes button:hover,
+.music-modes button.active {
+  background: color-mix(in srgb, var(--mint) 42%, transparent);
+  color: var(--dark);
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-control-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 36px;
+  align-items: center;
+  gap: 7px;
+  margin: 5px 0 10px;
+}
+.music-control-row .music-controls {
+  gap: 5px;
+  margin: 0;
+}
+/* 播放器基础样式：布局排列与对齐、配色与背景、边框、圆角或阴影。 */
+.music-mode-toggle,
+.music-list-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例。 */
+.music-mode-toggle {
+  flex-direction: column;
+  gap: 1px;
+  min-height: 39px;
+}
+/* 播放器基础样式：文字排版。 */
+.music-mode-toggle small {
+  font-size: 8px;
+  white-space: nowrap;
+}
+/* 播放器基础样式：尺寸与宽高比例。 */
+.music-list-toggle {
+  width: 36px;
+  height: 36px;
+}
+/* 播放器悬停状态：配色与背景。 */
+.music-mode-toggle:hover,
+.music-list-toggle:hover,
+.music-list-toggle.active {
+  background: color-mix(in srgb, var(--mint) 42%, transparent);
+  color: var(--dark);
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 5px 11px;
+}
+/* 播放器基础样式：尺寸与宽高比例。 */
+.music-volume input {
+  width: 100%;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白、边框、圆角或阴影。 */
+.music-playlist {
+  display: grid;
+  gap: 3px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--line);
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.music-playlist button {
+  display: grid;
+  grid-template-columns: 25px 1fr auto;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 8px;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+}
+/* 播放器悬停状态：配色与背景。 */
+.music-playlist button:hover,
+.music-playlist button.active {
+  background: color-mix(in srgb, var(--mint) 35%, transparent);
+}
+/* 播放器基础样式：文字排版、配色与背景。 */
+.music-playlist span {
+  color: var(--muted);
+  font-size: 10px;
+}
+/* 播放器基础样式：文字排版。 */
+.music-playlist b {
+  font-size: 11px;
+}
+/* 播放器基础样式：文字排版、配色与背景、动画与变形。 */
+.music-playlist i {
+  color: var(--green);
+  font-style: normal;
+  animation: music-bob 0.8s ease-in-out infinite;
+}
+/* 播放器基础样式：布局排列与对齐、边框、圆角或阴影。 */
+.music-track {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+}
+/* 播放器悬停状态：配色与背景。 */
+.music-track:hover,
+.music-track.active {
+  background: color-mix(in srgb, var(--mint) 35%, transparent);
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景。 */
+.music-playlist .music-track-select {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) auto;
+  gap: 6px;
+  min-width: 0;
+  padding: 7px 8px;
+  background: transparent;
+}
+/* 播放器基础样式：文字排版、图片适配与裁切。 */
+.music-playlist .music-track-select b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.music-playlist .music-track-toggle {
+  display: block;
+  width: auto;
+  margin-right: 5px;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 9px;
+}
+/* 播放器基础样式：透明度与视觉效果。 */
+.music-track.disabled {
+  opacity: 0.58;
+}
+/* 播放器基础样式：文字排版、鼠标或触摸交互。 */
+.music-track.disabled .music-track-select {
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+/* 播放器基础样式：布局排列与对齐、内外留白。 */
+.music-track-order {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  margin-right: 4px;
+}
+/* 播放器基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影。 */
+.music-playlist .music-track-order button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 17px;
+  padding: 0;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--mint) 28%, transparent);
+}
+/* 播放器禁用状态：透明度与视觉效果、鼠标或触摸交互。 */
+.music-playlist .music-track-order button:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+/* 动画 music-spin：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes music-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* 动画 music-bob：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes music-bob {
+  50% {
+    transform: translateY(-2px) rotate(-3deg);
+  }
+}
+/* 动画 music-drop：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes music-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .music-trigger {
+    width: 36px;
+    height: 36px;
+  }
+  .music-trigger > span:first-child {
+    width: 29px !important;
+    height: 29px !important;
+  }
+  .music-popover {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+  .music-popover::before {
+    right: 12px;
+  }
+}

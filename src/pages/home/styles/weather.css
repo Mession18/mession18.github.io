@@ -1,0 +1,94 @@
+/* 首页 weather：默认、主题和响应式规则集中维护。 */
+.weather-summary {
+  display: flex;
+  min-width: 142px;
+  align-items: center;
+  gap: 11px;
+}
+/* 天气基础样式：动画与变形。 */
+.weather-loading {
+  animation: weather-spin 1.2s linear infinite;
+}
+/* 动画 weather-spin：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes weather-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* 天气基础样式：布局排列与对齐、尺寸与宽高比例、文字排版。 */
+.weather-summary span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
+}
+/* 天气基础样式：文字排版、图片适配与裁切。 */
+.weather-summary b {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 天气基础样式：文字排版、配色与背景。 */
+.weather-summary small {
+  color: #6f766f;
+  font-size: 10px;
+  white-space: nowrap;
+}
+/* 天气基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、边框、圆角或阴影、图片适配与裁切。 */
+.weather-clock {
+  display: flex;
+  width: 118px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
+}
+/* 天气基础样式：布局排列与对齐、内外留白、动画与变形。 */
+.weather-game-time {
+  flex: 0 0 auto;
+  margin: -32px -30px;
+  padding: 0 !important;
+  transform: scale(0.43);
+  transform-origin: center;
+}
+/* 天气夜间主题：配色与背景。 */
+[data-theme='night'] .weather {
+  background: #222c34e8;
+  color: var(--ink);
+}
+/* 天气基础样式：布局排列与对齐、定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影、动画与变形。 */
+.weather {
+  position: absolute;
+  z-index: 8;
+  right: 6%;
+  top: 92px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffffdf;
+  color: var(--ink);
+  padding: 10px 12px 10px 15px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  font-size: 11px;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .weather {
+    top: 92px;
+    bottom: auto;
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .weather {
+    right: 18px;
+  }
+}

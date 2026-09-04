@@ -1,0 +1,186 @@
+/* 全局顶部栏：品牌、导航与操作按钮布局。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+.topbar {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(5vw, 28px);
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  color: #fff;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版。 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 19px;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、动画与变形。 */
+.brand-leaf {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 32px;
+  border-radius: 70% 30% 70% 30%;
+  background: transparent;
+  color: var(--green);
+  transform: none;
+}
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.brand-leaf img {
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+}
+nav a > span:not(.nav-label) {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+/* 公共界面基础样式：文字排版。 */
+.nav-label {
+  font-size: 13px;
+}
+/* 导航基础样式：布局排列与对齐。 */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* 导航基础样式：尺寸与宽高比例、定位与层级、配色与背景。 */
+.inner-topbar {
+  position: relative;
+  height: 78px;
+  background: #62aa91;
+}
+/* 导航夜间主题：配色与背景。 */
+[data-theme='night'] .inner-topbar {
+  background: #263f43;
+}
+/* 导航基础样式：定位与层级、边框、圆角或阴影。 */
+.section-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  box-shadow: 0 8px 24px #345f5025;
+}
+.inner-topbar {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版。 */
+nav {
+  display: flex;
+  gap: 13px;
+  font-size: 14px;
+  font-weight: 700;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、文字排版。 */
+nav a {
+  display: flex;
+  gap: 5px;
+  place-items: center;
+  align-items: center;
+  width: auto;
+  height: 42px;
+  white-space: nowrap;
+}
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
+nav a img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+nav a {
+  opacity: 0.78;
+  position: relative;
+}
+/* 公共界面悬停状态：透明度与视觉效果。 */
+nav a.active,
+nav a:hover {
+  opacity: 1;
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
+nav a.active:after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: var(--yellow);
+  border-radius: 50%;
+  left: 50%;
+  bottom: -11px;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  /* 导航响应式适配：布局排列与对齐、定位与层级、内外留白、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+  .topbar nav {
+    position: fixed;
+    z-index: 55;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 7px 8px;
+    border-radius: 22px;
+    background: #315f52e8;
+    box-shadow: 0 8px 25px #1d332b40;
+    backdrop-filter: blur(12px);
+    scrollbar-width: none;
+  }
+  /* 导航装饰伪元素：布局排列与对齐。 */
+  .topbar nav::-webkit-scrollbar {
+    display: none;
+  }
+  /* 导航响应式适配：布局排列与对齐、尺寸与宽高比例。 */
+  .topbar nav a {
+    min-width: 65px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    height: 52px;
+  }
+  /* 导航响应式适配：尺寸与宽高比例。 */
+  .topbar nav a img,
+  .topbar nav a > span:not(.nav-label) {
+    width: 25px;
+    height: 25px;
+  }
+  /* 导航响应式适配：文字排版。 */
+  .topbar nav .nav-label {
+    font-size: 10px;
+  }
+  /* 导航装饰伪元素：定位与层级。 */
+  .topbar nav a.active::after {
+    bottom: 1px;
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .topbar {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .brand {
+    font-size: 15px;
+  }
+  .brand-leaf {
+    width: 31px;
+    height: 29px;
+  }
+  .header-actions {
+    gap: 7px;
+  }
+}

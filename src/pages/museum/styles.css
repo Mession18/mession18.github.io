@@ -1,0 +1,610 @@
+/* 底图由本栏目文件夹自动生成的图片池提供；下方保留页面布局参数。 */
+:root {
+  --museum-base-image: none;
+  --museum-date-arc: path('M 92 30 Q 180 52 268 30');
+}
+
+/* 本页标签调参。下方正文保留图片、名称、介绍、日期、占位的定位规则。 */
+.museum-page {
+  --tags-top: 0px;
+  --tags-gap: 9px;
+  --tags-bottom-gap: 42px;
+  --tags-align: center;
+  --tags-font-size: 11px;
+  --tags-padding: 9px 15px;
+  --tags-radius: 20px;
+  /* 独立调整本页底座间距时，取消下面两行注释；默认跟随 display-stand.css。 */
+  /* --display-stand-column-gap: 50px; */
+  /* --display-stand-row-gap: 72px; */
+}
+
+/* 博物馆：展台、藏品、名称、介绍、日期与详情。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+.collection-cover > img,
+.collection-feature > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+/* 藏品基础样式：尺寸与宽高比例、内外留白、边框、圆角或阴影、图片适配与裁切。 */
+.collection-info table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+/* 藏品基础样式：内外留白、文字排版、边框、圆角或阴影。 */
+.collection-info th,
+.collection-info td {
+  padding: 10px 13px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+/* 藏品基础样式：配色与背景。 */
+.collection-info th {
+  background: #eaf5e9;
+  color: var(--dark);
+}
+/* 藏品基础样式：动画与变形。 */
+.collection-info input[type='checkbox'] {
+  accent-color: #62aa91;
+  transform: scale(1.15);
+}
+.museum-page {
+  background: linear-gradient(180deg, #edf4e8 0, var(--cream) 300px);
+}
+/* 博物馆夜间主题：配色与背景。 */
+[data-theme='night'] .museum-page {
+  background: linear-gradient(180deg, #1b2928 0, var(--cream) 300px);
+}
+/* 藏品夜间主题：配色与背景。 */
+[data-theme='night'] .collection-cover > small {
+  background: #29333cdc;
+  color: var(--ink);
+}
+/* 藏品基础样式：动画与变形。 */
+.collection-card {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+.collection-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s;
+}
+/* 藏品悬停状态：动画与变形。 */
+.collection-card:hover {
+  transform: translateY(-6px);
+}
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级。 */
+.collection-cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+}
+/* 藏品基础样式：文字排版、透明度与视觉效果。 */
+.collection-cover > span {
+  font-size: 72px;
+  filter: drop-shadow(0 8px 6px #536f4f25);
+}
+/* 藏品基础样式：定位与层级、图片适配与裁切。 */
+.collection-cover > img {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+}
+/* 藏品基础样式：定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.collection-cover > small {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 9px;
+  border-radius: 12px;
+  background: #ffffffcc;
+  color: var(--dark);
+  font-size: 9px;
+  font-weight: 800;
+}
+/* 藏品基础样式：配色与背景。 */
+.collection-mint {
+  background: #c8e7d6;
+}
+.collection-sun {
+  background: #f5dda0;
+}
+.collection-sunshine {
+  background: #f8e3a0;
+}
+.collection-sky {
+  background: #bee1eb;
+}
+.collection-rose {
+  background: #efc9bc;
+}
+.collection-lavender {
+  background: #d8cbe6;
+}
+/* 藏品基础样式：内外留白。 */
+.collection-card-body {
+  padding: 22px;
+}
+/* 藏品基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.collection-card-body > div {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 9px;
+}
+/* 藏品基础样式：布局排列与对齐、配色与背景。 */
+.collection-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #b88235;
+}
+/* 藏品基础样式：内外留白、文字排版。 */
+.collection-card h2 {
+  margin: 10px 0 7px;
+  font-size: 20px;
+}
+/* 藏品基础样式：尺寸与宽高比例、内外留白、文字排版、配色与背景。 */
+.collection-card p {
+  min-height: 43px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+/* 藏品基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
+.collection-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 17px;
+  color: var(--dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+/* 展厅：藏品图 / 缺图与空位。 */
+.collection-exhibit {
+  display: grid;
+  min-height: 500px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  grid-template-rows: 285px auto;
+}
+
+/* 藏品基础样式：布局排列与对齐、内外留白。 */
+.collection-display-space {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 16px 0;
+}
+
+/* 藏品基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影、动画与变形。 */
+.collection-polaroid {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #59635c;
+  text-align: center;
+  transform: translateY(-30px);
+  transition: 0.25s ease;
+}
+
+/* 藏品基础样式：动画与变形。 */
+.collection-exhibit:nth-child(even) .collection-polaroid {
+  transform: translateY(-30px);
+}
+
+/* 藏品悬停状态：动画与变形。 */
+.collection-exhibit:hover .collection-polaroid {
+  transform: translateY(-37px);
+}
+
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、图片适配与裁切。 */
+.collection-picture {
+  display: grid;
+  width: fit-content;
+  max-width: 230px;
+  max-height: 230px;
+  place-items: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* 藏品基础样式：尺寸与宽高比例。 */
+.collection-polaroid:has(.is-portrait) .collection-picture {
+  width: fit-content;
+  aspect-ratio: auto;
+}
+.collection-picture .adaptive-preview-image.is-landscape {
+  width: 230px;
+}
+.collection-picture .adaptive-preview-image.is-portrait {
+  height: 230px;
+}
+
+/* 藏品基础样式：布局排列与对齐、文字排版。 */
+.collection-polaroid > small {
+  display: none;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* 藏品基础样式：内外留白、文字排版、配色与背景、动画与变形。 */
+.collection-away {
+  padding: 0;
+  color: #80867a;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 18px;
+  font-weight: 400;
+  transform: none;
+  text-align: center;
+}
+
+/* 藏品基础样式：尺寸与宽高比例、边框、圆角或阴影。 */
+.collection-picture:has(.collection-away) {
+  width: 230px;
+  height: 160px;
+  border-radius: 14px;
+}
+/* 藏品基础样式：配色与背景。 */
+.collection-picture:has(.collection-away).collection-mint {
+  background: #c8e7d6;
+}
+.collection-picture:has(.collection-away).collection-sun {
+  background: #f5dda0;
+}
+.collection-picture:has(.collection-away).collection-sunshine {
+  background: #f8e3a0;
+}
+.collection-picture:has(.collection-away).collection-sky {
+  background: #bee1eb;
+}
+.collection-picture:has(.collection-away).collection-rose {
+  background: #efc9bc;
+}
+.collection-picture:has(.collection-away).collection-lavender {
+  background: #d8cbe6;
+}
+
+/* 底座及覆盖文字。位置参数保留你当前的数值。 */
+.collection-pedestal {
+  position: relative;
+  min-height: 180px;
+  padding: 0;
+  isolation: isolate;
+  color: #fff3dc;
+  text-shadow: 0 1px 2px #2a130dcc;
+  background: transparent;
+}
+
+/* 藏品装饰伪元素：定位与层级、配色与背景、透明度与视觉效果、鼠标或触摸交互。 */
+.collection-pedestal::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -80px;
+  right: -18px;
+  bottom: -10px;
+  left: -18px;
+  background: var(--museum-base-image) center 43% / 116% auto no-repeat;
+  filter: drop-shadow(0 16px 13px #4e352f38);
+  pointer-events: none;
+}
+
+/* 藏品装饰伪元素：布局排列与对齐。 */
+.collection-pedestal:not(.has-pedestal)::before {
+  display: none;
+}
+
+/* 藏品基础样式：内外留白。 */
+.collection-pedestal h2 {
+  margin-top: 7px;
+}
+
+/* 藏品基础样式：透明度与视觉效果。 */
+.collection-pedestal.has-pedestal > div {
+  visibility: hidden;
+}
+
+/* 藏品基础样式：定位与层级、内外留白、文字排版、配色与背景。 */
+.collection-pedestal.has-pedestal .collection-exhibit-name {
+  position: absolute;
+  z-index: 1;
+  top: 40px;
+  right: 12%;
+  left: 12%;
+  margin: 0;
+  color: #6d4b2b;
+  font-size: clamp(16px, 2vw, 21px);
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: none;
+}
+
+/* 藏品基础样式：尺寸与宽高比例、定位与层级、图片适配与裁切、鼠标或触摸交互。 */
+.collection-exhibit-date {
+  position: absolute;
+  z-index: 1;
+  top: -22px;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* 藏品基础样式：文字排版、配色与背景。 */
+.collection-exhibit-date text {
+  fill: #4f2f1b;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 0 #f9d477;
+}
+
+.collection-date-arc {
+  d: var(--museum-date-arc);
+}
+
+/* 藏品基础样式：配色与背景。 */
+.collection-pedestal.has-pedestal .collection-exhibit-name a {
+  color: inherit;
+}
+
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白、文字排版、配色与背景。 */
+.collection-pedestal.has-pedestal .collection-exhibit-description {
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  right: 15%;
+  left: 15%;
+  max-width: none;
+  height: 52px;
+  margin: 0;
+  color: #6d4b2b;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 藏品基础样式：透明度与视觉效果。 */
+.collection-empty {
+  opacity: 0.72;
+}
+
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景、边框、圆角或阴影、动画与变形。 */
+.collection-empty-sign {
+  display: grid;
+  width: 160px;
+  aspect-ratio: 3 / 2;
+  place-items: center;
+  border: 3px dashed #a9ad9d;
+  border-radius: 10px;
+  color: #80867a;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 24px;
+  transform: translateY(-72px);
+}
+/* 藏品详情与教程详情。 */
+.collection-detail {
+  min-height: 65vh;
+  max-width: 1000px;
+  margin: 60px auto 0;
+  padding: 0 28px;
+}
+/* 藏品基础样式：布局排列与对齐。 */
+.collection-detail-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 55px;
+  align-items: start;
+}
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、边框、圆角或阴影、动画与变形。 */
+.collection-feature {
+  position: sticky;
+  top: 25px;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 12px solid white;
+  box-shadow: 0 18px 40px #59634c2a;
+  transform: rotate(-2deg);
+}
+/* 藏品基础样式：文字排版。 */
+.collection-feature > span {
+  font-size: 105px;
+}
+/* 藏品基础样式：定位与层级。 */
+.collection-feature > img {
+  position: absolute;
+  inset: 0;
+}
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、内外留白。 */
+.collection-feature.has-image {
+  aspect-ratio: auto;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  justify-self: center;
+  padding: 12px 12px 42px;
+}
+/* 藏品基础样式：尺寸与宽高比例、定位与层级、图片适配与裁切。 */
+.collection-feature.has-image > img {
+  position: static;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+/* 藏品基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影。 */
+.collection-feature.has-image > .detail-preview-image {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* 藏品基础样式：定位与层级、文字排版、配色与背景。 */
+.collection-feature > small {
+  position: absolute;
+  bottom: 20px;
+  color: #685f52;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+/* 藏品基础样式：内外留白。 */
+.collection-info {
+  padding-top: 18px;
+}
+/* 公共界面基础样式：尺寸与宽高比例。 */
+.tutorial-detail {
+  max-width: 1120px;
+}
+/* 藏品基础样式：布局排列与对齐。 */
+.tutorial-detail .collection-detail-grid {
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+}
+/* 藏品基础样式：文字排版。 */
+.tutorial-info .collection-subtitle {
+  font-size: 14px;
+  line-height: 1.8;
+}
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
+.tutorial-content {
+  margin-top: 32px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.95;
+}
+.tutorial-content h2 {
+  margin-top: 30px;
+  color: var(--ink);
+  font-size: 23px;
+}
+/* 公共界面基础样式：配色与背景。 */
+.tutorial-content p,
+.tutorial-content li {
+  color: var(--muted);
+}
+/* 藏品基础样式：内外留白、文字排版、配色与背景。 */
+.collection-info h1 {
+  margin: 15px 0 5px;
+  color: var(--ink);
+  font-size: 46px;
+  text-shadow: none;
+}
+/* 藏品基础样式：内外留白、配色与背景。 */
+.collection-subtitle {
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+/* 藏品基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.collection-meta {
+  display: flex;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  color: #887b68;
+  font-size: 10px;
+}
+/* 藏品基础样式：布局排列与对齐。 */
+.collection-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* 藏品基础样式：内外留白、文字排版。 */
+.collection-info h2 {
+  margin-top: 30px;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 25px;
+  font-weight: 400;
+}
+/* 藏品基础样式：文字排版、配色与背景。 */
+.collection-info > p:not(.collection-subtitle),
+.collection-info blockquote {
+  color: #62594e;
+  font-size: 14px;
+  line-height: 1.9;
+}
+/* 藏品基础样式：内外留白、配色与背景、边框、圆角或阴影。 */
+.collection-info blockquote {
+  margin: 24px 0;
+  padding: 13px 18px;
+  border-left: 4px solid var(--green);
+  background: #edf4e8;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  /* 藏品响应式适配：布局排列与对齐。 */
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
+  .collection-detail {
+    margin-top: 35px;
+    padding: 0 18px;
+  }
+  .collection-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .tutorial-detail .collection-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .collection-feature {
+    position: relative;
+    top: auto;
+    max-height: 340px;
+  }
+  .collection-info h1 {
+    font-size: 38px;
+  }
+}
+/* 博物馆基础样式：内外留白。 */
+.museum-page-heading {
+  margin-bottom: 28px;
+}
+
+/* 每个 layout 可单独覆盖原有坐标变量。 */
+.collection-exhibit[data-stand-image] {
+  --museum-base-image: var(--stand-image);
+}

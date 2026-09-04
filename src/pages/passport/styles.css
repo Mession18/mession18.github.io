@@ -1,0 +1,869 @@
+/* 护照：首页 #about 与独立 /passport 页面共用。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+
+/* 首页锚点 #about 的外部布局。 */
+.passport {
+  scroll-margin-top: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、内外留白。 */
+.passport-intro {
+  width: min(410px, 100%);
+  align-self: flex-start;
+  margin-left: max(0px, calc((100% - 760px) / 2));
+}
+/* 护照基础样式：布局排列与对齐、内外留白、文字排版。 */
+.passport-intro h2 {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 38px;
+  font-weight: 400;
+  margin: 0 0 18px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、透明度与视觉效果。 */
+.passport-heading-icon {
+  width: 29px !important;
+  height: 43px !important;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 5px 5px #4c3c3324);
+}
+/* 护照基础样式：文字排版、配色与背景。 */
+.passport-intro > p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 14px;
+}
+/* 护照基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
+.passport-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+/* 护照纸张尺寸与内边距。 */
+.passport-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 125 / 82;
+  min-height: 465px;
+  padding: 26px 30px 20px;
+  border: 1px solid #cec19f;
+  border-radius: 26px;
+  background: #f5efd9;
+  box-shadow: 0 18px 45px #6a705028;
+  --ink: #4f4a40;
+  --dark: #355f50;
+  --muted: #807666;
+  color: #4f4a40;
+}
+/* 公共界面基础样式：定位与层级、文字排版、配色与背景、鼠标或触摸交互。 */
+.page-watermark {
+  position: absolute;
+  right: -14px;
+  bottom: -55px;
+  color: #5faa8310;
+  font-size: 190px;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+}
+/* 护照基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.passport-topline {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed #baab88;
+  color: var(--dark);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+}
+/* 护照基础样式：布局排列与对齐、定位与层级、内外留白。 */
+.passport-profile {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 28px;
+  padding: 18px 0 14px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、文字排版、配色与背景、边框、圆角或阴影。 */
+.passport-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 170px;
+  border: 7px solid #fffdf8;
+  border-radius: 16px;
+  background: #b9dfcb;
+  font-size: 58px;
+  box-shadow: 0 9px 20px #5c6f5c1c;
+}
+/* 护照基础样式：定位与层级、内外留白、文字排版、配色与背景。 */
+.passport-avatar span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 7px;
+  background: #fffdf8dc;
+  color: var(--dark);
+  text-align: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、边框、圆角或阴影、图片适配与裁切。 */
+.passport-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 9px;
+}
+/* 护照基础样式：布局排列与对齐。 */
+.passport-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 24px;
+}
+.passport-details p:first-child {
+  grid-column: 1 / -1;
+}
+/* 护照基础样式：内外留白、边框、圆角或阴影。 */
+.passport-details p {
+  margin: 0;
+  padding: 5px 0 11px;
+  border-bottom: 1px solid #d9cbaa;
+}
+/* 护照基础样式：布局排列与对齐。 */
+.passport-details small,
+.passport-details strong {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* 护照基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.passport-details strong em {
+  margin-left: auto;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 14px;
+  background: #f4d889aa;
+  color: #6c5b36;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.3px;
+}
+/* 公共界面基础样式：布局排列与对齐、定位与层级、内外留白。 */
+.document-codes {
+  display: grid;
+  grid-template-columns: 0.55fr 0.8fr 1.5fr;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+  margin-top: 11px;
+}
+/* 公共界面基础样式：内外留白。 */
+.document-codes p {
+  margin: 0;
+}
+/* 公共界面基础样式：文字排版。 */
+.document-codes p:nth-child(2) {
+  text-align: center;
+}
+.document-codes p:nth-child(3) {
+  text-align: right;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.document-codes small {
+  display: block;
+  color: #8c7b67;
+  font-size: 7px;
+  letter-spacing: 0.8px;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.document-codes b {
+  color: #355f50;
+  font-family: monospace;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形、透明度与视觉效果、鼠标或触摸交互。 */
+.seam-seal {
+  position: absolute;
+  z-index: 5;
+  top: 56px;
+  left: 112px;
+  width: 82px;
+  height: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #bc6159;
+  border-radius: 50%;
+  color: #b5554e;
+  opacity: 0.72;
+  transform: rotate(-17deg);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* 公共界面装饰伪元素：定位与层级、文字排版、边框、圆角或阴影。 */
+.seam-seal::before {
+  content: '✦　✦　✦';
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed currentColor;
+  border-radius: 50%;
+  font-size: 7px;
+  text-align: center;
+}
+/* 公共界面基础样式：文字排版。 */
+.seam-seal b {
+  font-size: 9px;
+}
+.seam-seal small {
+  font-family: monospace;
+  font-size: 7px;
+}
+/* 护照基础样式：内外留白、文字排版、配色与背景。 */
+.passport-details small {
+  margin-bottom: 6px;
+  color: #93846e;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+/* 护照基础样式：文字排版、配色与背景。 */
+.passport-details strong {
+  color: var(--ink);
+  font-size: 15px;
+}
+/* 护照基础样式：布局排列与对齐、定位与层级。 */
+.passport-likes {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+/* 护照基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.passport-likes span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 18px;
+  background: #fffaf0;
+  color: var(--dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白。 */
+.passport-bottom {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+  min-height: 42px;
+}
+/* 护照基础样式：尺寸与宽高比例、内外留白、文字排版、配色与背景。 */
+.passport-bottom > p {
+  max-width: 310px;
+  margin: 0;
+  color: var(--muted);
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 14px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、动画与变形。 */
+.passport-stamp {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #dc816b;
+  border-radius: 50%;
+  color: #c66d5b;
+  transform: rotate(-9deg);
+}
+/* 护照基础样式：文字排版。 */
+.passport-stamp b {
+  font-size: 12px;
+}
+.passport-stamp small {
+  font-size: 7px;
+}
+/* 公共界面基础样式：定位与层级、配色与背景、透明度与视觉效果、鼠标或触摸交互。 */
+.security-guilloche {
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  background:
+    radial-gradient(circle at 12px 12px, #82b99b55 2px, transparent 2.5px) 0 0 / 34px 34px,
+    radial-gradient(circle at 29px 29px, #e8c96e66 3px, transparent 3.5px) 0 0 / 46px 46px,
+    linear-gradient(145deg, #fbf4dcaa, #edf3dbaa);
+  pointer-events: none;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形。 */
+.security-watermark {
+  position: absolute;
+  z-index: 0;
+  top: 47%;
+  left: 58%;
+  width: 190px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  color: #4d80672e;
+  transform: translate(-50%, -50%) rotate(-7deg);
+}
+/* 公共界面装饰伪元素：定位与层级、边框、圆角或阴影。 */
+.security-watermark::before,
+.security-watermark::after {
+  content: '';
+  position: absolute;
+  inset: 21px;
+  border: 2px dotted currentColor;
+  border-radius: 44% 56% 47% 53%;
+}
+.security-watermark::after {
+  inset: 38px;
+  border-style: dashed;
+}
+/* 公共界面基础样式：文字排版、透明度与视觉效果。 */
+.security-watermark span {
+  font-size: 46px;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+/* 公共界面基础样式：内外留白、文字排版。 */
+.security-watermark small {
+  margin-top: 7px;
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+/* 身份页。 */
+.identity-page {
+  display: flex;
+  flex-direction: column;
+}
+/* 公共界面基础样式：定位与层级。 */
+.identity-page > :not(.security-guilloche, .security-watermark) {
+  position: relative;
+  z-index: 1;
+}
+/* 公共界面基础样式：布局排列与对齐、定位与层级、内外留白、配色与背景、边框、圆角或阴影、图片适配与裁切。 */
+.mrz {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  margin: auto -10px -5px;
+  padding: 7px 10px 5px;
+  border-top: 1px solid #688f7b55;
+  background: #e7e6c5aa;
+  overflow: hidden;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景。 */
+.mrz code {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
+  color: #263f36;
+  font-family: 'Courier New', monospace;
+  font-size: clamp(9px, 1.03vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+/* 公共界面基础样式：布局排列与对齐。 */
+.mrz code span {
+  flex: 0 0 auto;
+}
+/* 公共界面基础样式：布局排列与对齐、定位与层级、图片适配与裁切。 */
+.summary-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* 公共界面基础样式：定位与层级。 */
+.summary-page > :not(.security-guilloche) {
+  position: relative;
+  z-index: 1;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白。 */
+.summary-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 25px 0 18px;
+}
+/* 公共界面基础样式：布局排列与对齐、透明度与视觉效果。 */
+.summary-title-icon {
+  flex: 0 0 auto;
+  filter: drop-shadow(0 5px 6px #4c3c3320);
+}
+/* 公共界面基础样式：内外留白。 */
+.summary-title p {
+  margin: 0;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.summary-title small {
+  display: block;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
+.summary-title b {
+  display: block;
+  margin-top: 3px;
+  color: var(--dark);
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 24px;
+  font-weight: 400;
+}
+/* 公共界面基础样式：布局排列与对齐。 */
+.journey-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+/* 公共界面基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.journey-stats p {
+  margin: 0;
+  padding: 15px 10px;
+  border-radius: 17px;
+  background: #fffaf0bb;
+  text-align: center;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.journey-stats b {
+  display: block;
+  color: var(--dark);
+  font-size: 23px;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.journey-stats small {
+  color: var(--muted);
+  font-size: 8px;
+}
+/* 公共界面基础样式：内外留白、配色与背景、边框、圆角或阴影。 */
+.journey-message {
+  margin-top: 18px;
+  padding: 14px 17px;
+  border-left: 4px solid #efcf71;
+  border-radius: 0 15px 15px 0;
+  background: #fffdf7aa;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.journey-message small {
+  color: #8b7a60;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+}
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
+.journey-message p {
+  margin: 5px 0 0;
+  color: var(--ink);
+  font-size: 12px;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白、边框、圆角或阴影。 */
+.next-stop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-bottom: 9px;
+  border-bottom: 1px dashed #a99a7d;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.next-stop span {
+  color: var(--muted);
+  font-size: 8px;
+}
+.next-stop b {
+  color: var(--dark);
+  font-size: 11px;
+}
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
+.next-stop i {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 22px;
+  font-style: normal;
+}
+.summary-code {
+  margin-top: auto;
+  color: #51725f88;
+  font-family: monospace;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+}
+/* 护照基础样式：尺寸与宽高比例、动画与变形。 */
+.passport-book {
+  width: min(760px, 100%);
+  min-width: 0;
+  perspective: 1400px;
+}
+/* 护照基础样式：尺寸与宽高比例。 */
+.passport-card-stage {
+  min-width: 0;
+}
+.passport-card-scaler {
+  width: 100%;
+}
+.passport-page {
+  height: 100%;
+  min-height: 415px;
+}
+/* 公共界面基础样式：动画与变形。 */
+.page-turn-next {
+  animation: page-turn-next 0.42s ease both;
+  transform-origin: top center;
+}
+.page-turn-prev {
+  animation: page-turn-prev 0.42s ease both;
+  transform-origin: bottom center;
+}
+/* 动画 page-turn-next：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes page-turn-next {
+  from {
+    opacity: 0;
+    transform: rotateX(-16deg) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0) translateY(0);
+  }
+}
+/* 动画 page-turn-prev：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes page-turn-prev {
+  from {
+    opacity: 0;
+    transform: rotateX(16deg) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0) translateY(0);
+  }
+}
+/* 护照基础样式：布局排列与对齐、内外留白。 */
+.passport-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 18px;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
+.passport-controls button {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--dark);
+  cursor: pointer;
+  box-shadow: 0 6px 16px #6a705015;
+}
+/* 护照禁用状态：透明度与视觉效果、鼠标或触摸交互。 */
+.passport-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景。 */
+.passport-controls span {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 72px;
+  color: var(--muted);
+  font-size: 11px;
+}
+/* 护照基础样式：文字排版、配色与背景。 */
+.passport-controls span b {
+  color: var(--dark);
+  font-size: 18px;
+}
+/* 护照基础样式：内外留白、文字排版。 */
+.passport-controls span small {
+  margin-left: 5px;
+  white-space: nowrap;
+}
+/* 公共界面基础样式：布局排列与对齐。 */
+.vertical-controls {
+  flex-direction: column;
+  gap: 8px;
+}
+.vertical-controls span {
+  justify-content: center;
+}
+/* 签证页与旅行印章。 */
+.visa-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* 签证装饰伪元素：定位与层级、配色与背景、透明度与视觉效果。 */
+.visa-page::before {
+  content: '';
+  position: absolute;
+  inset: 58px 0 0;
+  opacity: 0.22;
+  background-image: radial-gradient(#8ab69d 0.8px, transparent 0.8px);
+  background-size: 17px 17px;
+}
+/* 护照基础样式：定位与层级。 */
+.visa-page .passport-topline,
+.visa-grid,
+.visa-code {
+  position: relative;
+  z-index: 1;
+}
+/* 签证基础样式：布局排列与对齐、尺寸与宽高比例、内外留白。 */
+.visa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 24px 18px;
+  flex: 1;
+  min-height: 315px;
+  padding: 18px 5px 2px;
+}
+/* 旅行基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、边框、圆角或阴影、透明度与视觉效果。 */
+.travel-stamp {
+  width: 132px;
+  height: 132px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px double currentColor;
+  border-radius: 50%;
+  opacity: 0.78;
+  text-align: center;
+  filter: saturate(0.75);
+  mix-blend-mode: multiply;
+}
+/* 旅行装饰伪元素：文字排版。 */
+.travel-stamp::before,
+.travel-stamp::after {
+  content: '• • • • •';
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+/* 旅行基础样式：边框、圆角或阴影。 */
+.travel-stamp.stamp-square {
+  border-radius: 15px;
+}
+/* 印章基础样式：配色与背景。 */
+.stamp-green {
+  color: #39775c;
+}
+.stamp-blue {
+  color: #477c98;
+}
+.stamp-red {
+  color: #b25f57;
+}
+.stamp-violet {
+  color: #7c658f;
+}
+/* 印章基础样式：文字排版。 */
+.stamp-mark {
+  font-size: 23px;
+  line-height: 1;
+}
+/* 印章基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、边框、圆角或阴影、图片适配与裁切。 */
+.stamp-flag {
+  width: 34px;
+  height: 25px;
+  display: block;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px #4d44392e;
+}
+/* 旅行基础样式：内外留白、文字排版。 */
+.travel-stamp b {
+  margin-top: 3px;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+/* 旅行基础样式：文字排版。 */
+.travel-stamp small {
+  font-size: 8px;
+}
+/* 旅行基础样式：内外留白、文字排版。 */
+.travel-stamp time {
+  margin-top: 3px;
+  font-family: monospace;
+  font-size: 9px;
+}
+/* 旅行基础样式：文字排版。 */
+.travel-stamp em {
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 800;
+}
+/* 签证基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.empty-visa {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--muted);
+  text-align: center;
+}
+/* 签证基础样式：文字排版。 */
+.empty-visa span {
+  font-size: 38px;
+}
+/* 签证基础样式：内外留白。 */
+.empty-visa b {
+  margin: 12px 0 5px;
+}
+/* 签证基础样式：文字排版。 */
+.empty-visa small {
+  font-size: 10px;
+}
+/* 签证基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.visa-code {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid #7b917a55;
+  color: #416856aa;
+  font-family: monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-top: auto;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .passport {
+    gap: 38px;
+    width: 100%;
+    min-width: 0;
+    overflow: clip;
+  }
+  /* 护照响应式适配：尺寸与宽高比例。 */
+  .passport-book,
+  .passport-card-stage {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .passport-intro {
+    width: min(560px, 100%);
+    align-self: center;
+    margin-left: 0;
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .passport-card-scaler {
+    position: absolute;
+    inset: 0 auto auto 2%;
+    width: 208%;
+    height: 208%;
+    transform: scale(0.46);
+    transform-origin: top left;
+  }
+  .passport-card {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: 125 / 82;
+    padding: 26px 30px 20px;
+  }
+  .passport-card-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 125 / 82;
+    overflow: clip;
+    border-radius: 14px;
+  }
+  .passport-page {
+    min-height: 415px;
+  }
+  .passport-profile {
+    grid-template-columns: 105px 1fr;
+    gap: 18px;
+  }
+  .passport-avatar {
+    min-height: 145px;
+  }
+  .document-codes {
+    grid-template-columns: 0.55fr 0.8fr 1.45fr;
+    gap: 8px;
+  }
+  .seam-seal {
+    left: 75px;
+    top: 45px;
+    width: 70px;
+    height: 70px;
+  }
+  .passport-details {
+    grid-template-columns: 1fr;
+  }
+  .passport-details p:first-child {
+    grid-column: auto;
+  }
+  .passport-likes {
+    flex-wrap: wrap;
+  }
+  .passport-bottom {
+    align-items: center;
+  }
+  .passport-stamp {
+    width: 78px;
+    height: 78px;
+    flex: 0 0 78px;
+  }
+  .mrz code {
+    font-size: 8px;
+    letter-spacing: 0.75px;
+  }
+  /* 签证响应式适配：布局排列与对齐。 */
+  .visa-code code {
+    display: none;
+  }
+  .visa-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 8px;
+    min-height: 455px;
+  }
+  .travel-stamp {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+/* 护照基础样式：尺寸与宽高比例、内外留白。 */
+.passport-standalone {
+  padding-top: 140px;
+  min-height: 85vh;
+}

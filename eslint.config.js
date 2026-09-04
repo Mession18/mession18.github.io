@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
+// 忽略构建产物；检查 TypeScript、浏览器变量、Hooks 调用和热更新导出约定。
 export default tseslint.config(
   { ignores: ['dist', 'node_modules', '.codex-remote-attachments'] },
   js.configs.recommended,

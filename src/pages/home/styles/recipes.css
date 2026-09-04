@@ -1,0 +1,112 @@
+/* 首页 recipes：默认、主题和响应式规则集中维护。 */
+
+.recipe-refresh {
+  margin-left: auto;
+  background: #fffaf0;
+  color: #554a3e;
+}
+/* 菜谱基础样式：配色与背景。 */
+.home-recipes {
+  background: #f6e7c9;
+}
+/* 菜谱基础样式：布局排列与对齐。 */
+.recipe-choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+/* 菜谱悬停状态：动画与变形。 */
+.recipe-choices a:hover {
+  transform: translateY(-7px) rotate(-1deg);
+}
+/* 菜谱基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、图片适配与裁切。 */
+.recipe-choices img,
+.recipe-choices a > span {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  place-items: center;
+  object-fit: cover;
+  font-size: 72px;
+}
+/* 菜谱基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
+.recipe-choices strong {
+  display: block;
+  padding: 16px 10px 13px;
+  color: #554a3e;
+  font-size: 17px;
+  text-align: center;
+}
+/* 菜谱基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.home-recipes .recipe-choices a {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 菜谱基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
+.home-recipes .recipe-choices img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+/* 菜谱基础样式：配色与背景。 */
+[data-scene-period='dawn'] .home-recipes {
+  background: #242938;
+}
+[data-scene-period='morning'] .home-recipes {
+  background: #f6e7c9;
+}
+[data-scene-period='noon'] .home-recipes {
+  background: #f9e9ba;
+}
+[data-scene-period='afternoon'] .home-recipes {
+  background: #f2d9b8;
+}
+[data-scene-period='evening'] .home-recipes {
+  background: #302936;
+}
+/* 菜谱基础样式：配色与背景、边框、圆角或阴影。 */
+[data-scene-period='noon'] .recipe-choices a {
+  border-color: #fffdf5;
+  background: #fffdf5;
+}
+[data-scene-period='afternoon'] .recipe-choices a {
+  border-color: #fff4df;
+  background: #fff4df;
+}
+[data-scene-period='dawn'] .recipe-choices a,
+[data-scene-period='evening'] .recipe-choices a {
+  border-color: #35404a;
+  background: #303941;
+  box-shadow: 0 12px 30px #05080c55;
+}
+/* 菜谱基础样式：配色与背景。 */
+[data-scene-period='dawn'] .recipe-choices strong,
+[data-scene-period='evening'] .recipe-choices strong {
+  color: #e8e3d7;
+}
+/* 菜谱基础样式：配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切。 */
+.recipe-choices a {
+  overflow: hidden;
+  border: 8px solid #fffaf0;
+  border-radius: 24px;
+  background: #fffaf0;
+  box-shadow: 0 12px 30px #7f643325;
+  transition:
+    background-color 0.8s ease,
+    border-color 0.8s ease,
+    color 0.45s ease,
+    box-shadow 0.8s ease;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .recipe-choices {
+    grid-template-columns: 1fr;
+  }
+}

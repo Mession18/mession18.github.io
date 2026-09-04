@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src vite.config.ts",
+    "lint": "eslint src build vite.config.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

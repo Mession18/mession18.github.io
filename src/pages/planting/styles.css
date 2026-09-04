@@ -1,0 +1,135 @@
+/* 底图由本栏目文件夹自动生成的图片池提供；下方保留页面布局参数。 */
+:root {
+  --planting-base-image: none;
+  --planting-date-arc: path('M 82 166 Q 180 184 278 166');
+}
+
+/* 本页标签调参。下方正文保留图片、名称、介绍、日期、占位的定位规则。 */
+.planting-page {
+  --tags-top: 0px;
+  --tags-gap: 9px;
+  --tags-bottom-gap: 42px;
+  --tags-align: center;
+  --tags-font-size: 11px;
+  --tags-padding: 9px 15px;
+  --tags-radius: 20px;
+  /* 独立调整本页底座间距时，取消下面两行注释；默认跟随 display-stand.css。 */
+  /* --display-stand-column-gap: 50px; */
+  /* --display-stand-row-gap: 72px; */
+}
+
+/* 种植：花盆、植物图、名称、日期、缺图与空位。
+ * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
+ */
+.planting-pot-card {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+/* 种植基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、配色与背景。 */
+.planting-pot {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  color: #6d4b2b;
+}
+/* 种植基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景。 */
+.planting-pot-base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--planting-base-image) center / contain no-repeat;
+}
+
+.planting-date-arc {
+  d: var(--planting-date-arc);
+}
+/* 种植基础样式：定位与层级、文字排版。 */
+.planting-pot > strong {
+  position: absolute;
+  top: 57%;
+  right: 24%;
+  left: 24%;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.2;
+}
+/* 种植基础样式：尺寸与宽高比例、定位与层级、图片适配与裁切。 */
+.planting-preview {
+  position: absolute;
+  top: 0%;
+  right: 25%;
+  left: 25%;
+  width: 50%;
+  height: 38%;
+  object-fit: contain;
+}
+/* 种植基础样式：尺寸与宽高比例、定位与层级、图片适配与裁切、鼠标或触摸交互。 */
+.planting-dates {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+/* 种植基础样式：文字排版、配色与背景。 */
+.planting-dates text {
+  fill: #ffe0bd;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  paint-order: stroke;
+  stroke: #74351f;
+  stroke-width: 0.7px;
+}
+/* 种植基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、文字排版、配色与背景、边框、圆角或阴影。 */
+.planting-missing {
+  position: absolute;
+  top: 10%;
+  right: 18%;
+  left: 18%;
+  display: grid;
+  min-height: 72px;
+  place-items: center;
+  border-radius: 14px;
+  color: #6d4b2b;
+  font-size: 17px;
+  font-style: normal;
+  text-align: center;
+  background: #c8e7d6;
+}
+/* 种植基础样式：配色与背景。 */
+.planting-missing-card.sun .planting-missing {
+  background: #f5dda0;
+}
+.planting-missing-card.sky .planting-missing {
+  background: #bee1eb;
+}
+.planting-missing-card.rose .planting-missing {
+  background: #efc9bc;
+}
+/* 种植基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.planting-empty-sign {
+  position: absolute;
+  top: 10%;
+  right: 11%;
+  left: 11%;
+  display: grid;
+  min-height: 82px;
+  place-items: center;
+  padding: 14px;
+  border: 3px dashed #a9ad9d;
+  border-radius: 14px;
+  color: #80867a;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 22px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* 每个 layout 可单独覆盖原有坐标变量。 */
+.planting-pot-card[data-stand-image] {
+  --planting-base-image: var(--stand-image);
+}

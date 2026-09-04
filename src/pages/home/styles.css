@@ -1,0 +1,12 @@
+/* 首页样式索引：具体样式按展示区域维护。 */
+@import './styles/common.css';
+@import './styles/hero.css';
+@import './styles/scenery.css';
+@import './styles/weather.css';
+@import './styles/journal.css';
+@import './styles/recipes.css';
+@import './styles/crafts.css';
+@import './styles/travel.css';
+@import './styles/planting.css';
+@import './styles/museum.css';
+@import './styles/bottle.css';

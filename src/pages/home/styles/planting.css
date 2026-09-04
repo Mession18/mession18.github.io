@@ -1,0 +1,203 @@
+/* 首页 planting：默认、主题和响应式规则集中维护。 */
+
+.flower-title h2 {
+  margin: 0;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 38px;
+  font-weight: 400;
+}
+/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
+.flower-title > p:last-child {
+  margin: 5px 0 0;
+  color: #6f746a;
+  font-size: 13px;
+}
+/* 公共界面基础样式：内外留白、配色与背景。 */
+.flower-refresh {
+  margin-top: 20px;
+  background: #fffdf2;
+  color: #567052;
+}
+/* 种植基础样式：配色与背景。 */
+.home-planting {
+  background: #e5f0d9;
+}
+/* 公共界面基础样式：布局排列与对齐。 */
+.flower-garden {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  align-items: center;
+  gap: 65px;
+}
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.flower-title img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、图片适配与裁切。 */
+.flower-feature > div img,
+.flower-feature > div > span {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  place-items: center;
+  object-fit: cover;
+  font-size: 90px;
+}
+/* 公共界面基础样式：内外留白、图片适配与裁切。 */
+.flower-feature > div img {
+  box-sizing: border-box;
+  padding: 12% 7% 4%;
+  object-fit: contain;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白、配色与背景。 */
+.flower-feature > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+  color: #4c584b;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.flower-feature small {
+  color: #739071;
+  font-size: 11px;
+  font-weight: 900;
+}
+/* 公共界面基础样式：内外留白、文字排版。 */
+.flower-feature strong {
+  margin: 7px 0 13px;
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 31px;
+  font-weight: 400;
+}
+/* 公共界面基础样式：文字排版。 */
+.flower-feature em {
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.8;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白、文字排版。 */
+.flower-feature b {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  font-size: 11px;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景。 */
+.garden-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  margin: 28px 0 0 auto;
+  color: #496e60;
+  font-size: 13px;
+  font-weight: 900;
+  grid-column: 2;
+  margin-top: -30px;
+}
+
+/* 种植基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
+.home-planting .flower-feature > div img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* 种植基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.home-planting .flower-feature > div {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+/* 种植基础样式：配色与背景。 */
+[data-scene-period='dawn'] .home-planting {
+  background: #263328;
+}
+[data-scene-period='morning'] .home-planting {
+  background: #e5f0d9;
+}
+[data-scene-period='noon'] .home-planting {
+  background: #e7f2cf;
+}
+[data-scene-period='afternoon'] .home-planting {
+  background: #e5e8c8;
+}
+[data-scene-period='evening'] .home-planting {
+  background: #293328;
+}
+/* 公共界面基础样式：配色与背景、边框、圆角或阴影。 */
+[data-scene-period='noon'] .flower-feature {
+  border-color: #fffff7;
+  background: #fffff7;
+}
+[data-scene-period='afternoon'] .flower-feature {
+  border-color: #fbf3dc;
+  background: #fbf3dc;
+}
+[data-scene-period='dawn'] .flower-feature,
+[data-scene-period='evening'] .flower-feature {
+  border-color: #344139;
+  background: #2d3832;
+  box-shadow: 0 15px 35px #05080c55;
+}
+/* 公共界面基础样式：配色与背景。 */
+[data-scene-period='dawn'] .flower-feature > span,
+[data-scene-period='evening'] .flower-feature > span {
+  color: #e8e5dc;
+}
+[data-scene-period='dawn'] .flower-feature small,
+[data-scene-period='evening'] .flower-feature small {
+  color: #9fc4a4;
+}
+/* 公共界面基础样式：布局排列与对齐、配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切。 */
+.flower-feature {
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  overflow: hidden;
+  border: 12px solid #fffdf2;
+  border-radius: 50% 50% 24px 24px;
+  background: #fffdf2;
+  box-shadow: 0 15px 35px #597e5930;
+  transition:
+    background-color 0.8s ease,
+    border-color 0.8s ease,
+    color 0.45s ease,
+    box-shadow 0.8s ease;
+}
+/* 公共界面基础样式：配色与背景。 */
+[data-scene-period='dawn'] .flower-title > p:last-child,
+[data-scene-period='evening'] .flower-title > p:last-child {
+  color: #bdc8c2;
+}
+[data-scene-period='dawn'] .garden-link,
+[data-scene-period='evening'] .garden-link {
+  color: #9fcdbd;
+}
+/* 公共界面基础样式：内外留白。 */
+.flower-feature > div > .content-placeholder {
+  padding: 18% 8% 8%;
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .flower-garden {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+  .flower-feature {
+    grid-template-columns: 1fr;
+  }
+  .garden-link {
+    grid-column: 1;
+    margin-top: -10px;
+  }
+}

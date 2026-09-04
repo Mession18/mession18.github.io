@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 
+/** 页面支持的天气种类，与 CSS data-weather 选择器保持对应。 */
 export type WeatherKind = 'clear' | 'cloudy' | 'fog' | 'rain' | 'snow' | 'thunder'
+/** 雨雪强度的三个等级，用于粒子数量和动画变化。 */
 export type WeatherIntensity = 'light' | 'moderate' | 'heavy'
+/** 首屏支持的五个时间段，与 data-scene-period 对应。 */
 export type TimePeriod = 'dawn' | 'morning' | 'noon' | 'afternoon' | 'evening'
 
+/** 天气接口原始数据及加载状态，后续据此计算中文时钟和场景。 */
 type WeatherState = {
   city: string
   temperature: number
@@ -15,8 +19,10 @@ type WeatherState = {
   loading: boolean
 }
 
+/** 天气定位失败时使用浏览器时区，浏览器未提供时回退上海。 */
 const fallbackTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai'
 
+/** 把天气服务的数字代码转换成页面支持的天气分类。 */
 function weatherKind(code: number): WeatherKind {
   if (code >= 95) return 'thunder'
   if ((code >= 71 && code <= 77) || code === 85 || code === 86) return 'snow'
@@ -26,6 +32,7 @@ function weatherKind(code: number): WeatherKind {
   return 'clear'
 }
 
+/** 结合天气代码和雨雪量确定视觉强度；阈值调整会影响粒子效果。 */
 function weatherIntensity(
   code: number,
   kind: WeatherKind,
@@ -44,6 +51,7 @@ function weatherIntensity(
   return 'light'
 }
 
+/** 按当地小时划分场景时间段；调整这里即可改变早晨、正午等切换时刻。 */
 function timePeriod(hour: number): TimePeriod {
   if (hour < 6) return 'dawn'
   if (hour < 11) return 'morning'
@@ -52,7 +60,9 @@ function timePeriod(hour: number): TimePeriod {
   return 'evening'
 }
 
+/** 根据 IP 获取地区和天气，并以当地时区更新时钟；请求失败保留初始场景。 */
 export function useLocalWeather() {
+  /** 维护当前时刻和天气初始值，请求失败时仍可显示完整首屏。 */
   const [now, setNow] = useState(new Date())
   const [state, setState] = useState<WeatherState>({
     city: '风铃岛',
@@ -65,11 +75,13 @@ export function useLocalWeather() {
     loading: true,
   })
 
+  // 每 30 秒更新本地时钟，卸载时停止计时器。
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 30_000)
     return () => window.clearInterval(timer)
   }, [])
 
+  // 先用 IP 定位再请求该坐标的天气；中止控制器在卸载时取消未完成请求。
   useEffect(() => {
     const controller = new AbortController()
     async function loadWeather() {

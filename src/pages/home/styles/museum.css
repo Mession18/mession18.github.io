@@ -1,0 +1,359 @@
+/* 首页 museum：默认、主题和响应式规则集中维护。 */
+
+.museum h2 {
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 36px;
+  font-weight: 400;
+  margin: 0;
+}
+/* 博物馆基础样式：尺寸与宽高比例。 */
+.museum-copy {
+  max-width: 460px;
+}
+/* 博物馆基础样式：布局排列与对齐。 */
+.museum-home-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.museum-home-title > span {
+  flex: 0 0 auto;
+}
+/* 博物馆基础样式：文字排版、配色与背景。 */
+.museum-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.9;
+}
+/* 公共界面基础样式：布局排列与对齐、内外留白。 */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 26px 0;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
+.stats span {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+}
+/* 公共界面基础样式：布局排列与对齐、文字排版。 */
+.stats em {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-style: normal;
+}
+/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.stats em img,
+.stats em > span {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+/* 公共界面基础样式：文字排版、配色与背景。 */
+.stats b {
+  font-size: 24px;
+  color: var(--dark);
+}
+/* 公共界面基础样式：尺寸与宽高比例、定位与层级。 */
+.photo-stack {
+  width: 500px;
+  height: 300px;
+  position: relative;
+}
+/* 公共界面基础样式：定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
+.photo {
+  position: absolute;
+  background: #fff;
+  padding: 12px 12px 36px;
+  box-shadow: 0 12px 30px #53664b35;
+  text-align: center;
+  font-family: 'ZCOOL KuaiLe';
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景。 */
+.photo div {
+  width: 190px;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  font-size: 70px;
+  background: #b5dfc0;
+}
+/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
+.photo div img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+/* 博物馆基础样式：尺寸与宽高比例、图片适配与裁切。 */
+.museum .photo div {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  height: 119px;
+  aspect-ratio: auto;
+}
+
+/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
+.museum .photo div img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+/* 博物馆基础样式：尺寸与宽高比例、内外留白、文字排版、配色与背景、图片适配与裁切。 */
+.museum .photo div.photo-missing {
+  box-sizing: border-box;
+  width: 205px;
+  height: 135px;
+  padding: 18px;
+  overflow: visible;
+  font-size: 17px;
+  line-height: 1.45;
+  text-wrap: balance;
+  color: #675d50 !important;
+}
+/* 博物馆基础样式：配色与背景。 */
+.museum .photo div.photo-missing * {
+  color: #675d50 !important;
+}
+.museum .photo div.photo-missing.mint {
+  background: #ccebdc;
+}
+.museum .photo div.photo-missing.sunshine {
+  background: #f8e3a0;
+}
+.museum .photo div.photo-missing.sun {
+  background: #f5dda0;
+}
+.museum .photo div.photo-missing.sky {
+  background: #bde3ec;
+}
+.museum .photo div.photo-missing.rose {
+  background: #efc9bc;
+}
+.museum .photo div.photo-missing.lavender {
+  background: #d8cbe6;
+}
+/* 公共界面基础样式：定位与层级、动画与变形。 */
+.p1 {
+  left: 8px;
+  top: 25px;
+  transform: rotate(-7deg);
+}
+.p2 {
+  right: 8px;
+  top: 5px;
+  transform: rotate(8deg);
+}
+/* 公共界面基础样式：配色与背景。 */
+.p2 div {
+  background: #f5dc9f;
+}
+/* 公共界面基础样式：定位与层级、配色与背景、动画与变形。 */
+.camera {
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  color: var(--dark);
+  transform: rotate(12deg);
+}
+/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切、鼠标或触摸交互。 */
+.museum-refresh {
+  display: flex;
+  width: auto;
+  min-width: 104px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  overflow: visible;
+  padding: 7px 13px;
+  border: 2px solid #ffffffb8;
+  border-radius: 25px;
+  background: #fffaf0dc;
+  box-shadow: 0 8px 20px #52664b2c;
+  color: #47735f;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+/* 博物馆悬停状态：动画与变形。 */
+.museum-refresh:hover {
+  transform: rotate(7deg) scale(1.08);
+}
+/* 博物馆基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形、透明度与视觉效果、鼠标或触摸交互。 */
+.museum-refresh i {
+  position: absolute;
+  top: -42px;
+  left: -42px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 8%, #fffbdcdd 18%, transparent 62%);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.25);
+}
+/* 博物馆基础样式：尺寸与宽高比例。 */
+.museum-refresh > span:not(:first-child) {
+  width: auto;
+  height: auto;
+}
+/* 博物馆基础样式：动画与变形。 */
+.museum-refresh.is-flashing i {
+  animation: museum-camera-flash 0.48s ease-out;
+}
+.museum-refresh.is-flashing > span {
+  animation: camera-shutter 0.42s ease;
+}
+/* 动画 museum-camera-flash：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes museum-camera-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+/* 动画 camera-shutter：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
+@keyframes camera-shutter {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.82) rotate(-7deg);
+  }
+}
+/* 博物馆夜间主题：配色与背景。 */
+[data-theme='night'] .museum {
+  background: #1d2d2a;
+}
+/* 公共界面夜间主题：配色与背景。 */
+[data-theme='night'] .photo {
+  background: #303942;
+}
+/* 博物馆基础样式：配色与背景。 */
+[data-scene-period='dawn'] .museum {
+  background: #1d2b2b;
+}
+[data-scene-period='morning'] .museum {
+  background: #e6f1df;
+}
+[data-scene-period='noon'] .museum {
+  background: #e2f2dc;
+}
+[data-scene-period='afternoon'] .museum {
+  background: #e8e8d3;
+}
+[data-scene-period='evening'] .museum {
+  background: #1d2d2a;
+}
+/* 博物馆基础样式：配色与背景、边框、圆角或阴影。 */
+[data-scene-period='dawn'] .museum-refresh,
+[data-scene-period='evening'] .museum-refresh {
+  border-color: #ffffff24;
+  background: #2d3b3ae8 !important;
+  color: #d7e4dc !important;
+  box-shadow: 0 8px 20px #05080c42;
+}
+/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、动画与变形。 */
+.museum {
+  max-width: none;
+  background: #e6f1df;
+  display: flex;
+  justify-content: center;
+  gap: 12vw;
+  align-items: center;
+  padding-top: 85px;
+  padding-bottom: 85px;
+  transition:
+    background-color 0.8s ease,
+    color 0.45s ease;
+}
+/* 博物馆基础样式：动画与变形。 */
+.museum,
+.photo {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+
+/* 博物馆基础样式：尺寸与宽高比例。 */
+.museum .photo div:has(.adaptive-preview-image) {
+  width: fit-content;
+  height: fit-content;
+  aspect-ratio: auto;
+}
+.museum .photo div .adaptive-preview-image {
+  width: auto;
+  height: auto;
+  max-width: 190px;
+  max-height: 190px;
+}
+.museum .photo div .adaptive-preview-image.is-landscape {
+  width: 215px;
+  max-width: 215px;
+}
+.museum .photo div .adaptive-preview-image.is-portrait {
+  height: 190px;
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .museum .photo div .adaptive-preview-image.is-portrait {
+    height: 140px;
+  }
+  .museum .photo div .adaptive-preview-image.is-landscape {
+    width: 140px;
+  }
+  .museum .photo div .adaptive-preview-image {
+    max-width: 140px;
+    max-height: 140px;
+  }
+}
+/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 850px) {
+  .museum {
+    flex-direction: column;
+    gap: 50px;
+  }
+  .photo-stack {
+    transform: scale(0.9);
+  }
+}
+/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
+@media (max-width: 480px) {
+  .stats {
+    justify-content: space-between;
+  }
+  .photo-stack {
+    width: 320px;
+  }
+  .photo div {
+    width: 140px;
+  }
+  .museum .photo div {
+    height: 88px;
+  }
+  .p1 {
+    left: 0;
+  }
+  .p2 {
+    right: 20px;
+  }
+}
