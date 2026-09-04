@@ -59,7 +59,7 @@ const navItems = [
 ] as const
 
 /** 全站导航：根据首页滚动位置或当前路由高亮入口，挂载搜索、音乐和天气控制。 */
-export function Header({ pathname, hash }: { pathname: string; hash: string }) {
+export function Header({ pathname }: { pathname: string }) {
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [activeHomeSection, setActiveHomeSection] = useState('top')
@@ -81,7 +81,8 @@ export function Header({ pathname, hash }: { pathname: string; hash: string }) {
     return () => window.removeEventListener('scroll', updateHeader)
   }, [isHome])
 
-  const showSectionHeader = isHome && (Boolean(hash) || scrolled)
+  // 只依据实际滚动位置；即使 URL 保留首页锚点，回到顶部也恢复透明。
+  const showSectionHeader = isHome && scrolled
   return (
     <>
       <header

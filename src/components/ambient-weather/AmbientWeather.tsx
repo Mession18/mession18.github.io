@@ -20,16 +20,13 @@ function randomBetween(min: number, max: number) {
 
 /** 根据全站天气生成雨雪或晴夜流星；定时任务随场景退出清理。 */
 export function AmbientWeather() {
-  const { weather } = useTheme()
+  const { weather, sky } = useTheme()
   const [meteors, setMeteors] = useState<Meteor[]>([])
   const nextMeteorId = useRef(0)
   const timers = useRef<number[]>([])
   // 实时天气或面板覆盖准备好后再显示粒子；面板覆盖已在 Provider 中统一处理。
   const isAutomatic = !weather.loading
-  const isClearNight =
-    isAutomatic &&
-    weather.kind === 'clear' &&
-    (weather.period === 'dawn' || weather.period === 'evening')
+  const isClearNight = isAutomatic && weather.kind === 'clear' && sky.isNight
 
   /** 一次生成雨滴的随机位置、速度和尺寸；天气强度只改变实际显示数量。 */
   const rainDrops = useMemo(

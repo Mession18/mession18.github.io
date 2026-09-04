@@ -20,7 +20,7 @@
 /* 手作基础样式：配色与背景、图片适配与裁切。 */
 .home-crafts {
   overflow: hidden;
-  background: #dbe9dc;
+  background: var(--page-gradient);
 }
 /* 手作基础样式：布局排列与对齐、可调自定义参数。 */
 .craft-workbench {
@@ -151,62 +151,6 @@
   object-fit: contain;
   object-position: center;
 }
-/* 手作基础样式：配色与背景。 */
-[data-scene-period='dawn'] .home-crafts {
-  background: #20302e;
-}
-[data-scene-period='morning'] .home-crafts {
-  background: #dbe9dc;
-}
-[data-scene-period='noon'] .home-crafts {
-  background: #d3ebd8;
-}
-[data-scene-period='afternoon'] .home-crafts {
-  background: #d9e2d0;
-}
-[data-scene-period='evening'] .home-crafts {
-  background: #24322e;
-}
-[data-scene-period='noon'] .craft-note {
-  background: #fffbe8;
-}
-/* 手作基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='afternoon'] .craft-board {
-  border-color: #a87953;
-  background: #c79b67;
-}
-/* 手作基础样式：配色与背景。 */
-[data-scene-period='afternoon'] .craft-note {
-  background: #faedcf;
-}
-/* 手作基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='dawn'] .craft-board,
-[data-scene-period='evening'] .craft-board {
-  border-color: #66513f;
-  background: #70583f;
-  box-shadow:
-    inset 0 0 0 4px #4d3d31,
-    0 18px 35px #05080c55;
-}
-[data-scene-period='dawn'] .craft-note,
-[data-scene-period='evening'] .craft-note {
-  background: #35403d;
-  box-shadow: 0 8px 15px #05080c55;
-}
-/* 手作装饰伪元素：配色与背景。 */
-[data-scene-period='dawn'] .craft-note::before,
-[data-scene-period='evening'] .craft-note::before {
-  background: #9d8962b8;
-}
-/* 手作基础样式：配色与背景。 */
-[data-scene-period='dawn'] .craft-note small,
-[data-scene-period='evening'] .craft-note small {
-  color: #abb9b1;
-}
-[data-scene-period='dawn'] .craft-note strong,
-[data-scene-period='evening'] .craft-note strong {
-  color: #f0eadf;
-}
 /* 手作基础样式：动画与变形。 */
 .craft-board,
 .craft-note {
@@ -215,17 +159,6 @@
     border-color 0.8s ease,
     color 0.45s ease,
     box-shadow 0.8s ease;
-}
-/* 手作基础样式：配色与背景。 */
-[data-scene-period='dawn'] .craft-copy,
-[data-scene-period='dawn'] .craft-copy > p:last-of-type,
-[data-scene-period='evening'] .craft-copy,
-[data-scene-period='evening'] .craft-copy > p:last-of-type {
-  color: #bdc8c2;
-}
-[data-scene-period='dawn'] .craft-copy > a,
-[data-scene-period='evening'] .craft-copy > a {
-  color: #9fcdbd;
 }
 /* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {

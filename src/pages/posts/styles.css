@@ -238,17 +238,9 @@
   font-weight: 800;
 }
 /* 公共界面夜间主题：配色与背景。 */
-[data-theme='night'] .article-body {
-  color: #cbc7bf;
-}
-[data-theme='night'] .article-body blockquote {
-  background: #25362f;
-}
+
 /* 公共界面夜间主题：配色与背景、边框、圆角或阴影。 */
-[data-theme='night'] .article-ending {
-  background: var(--paper);
-  border-color: #526058;
-}
+
 /* 公共界面基础样式：动画与变形。 */
 .article-body,
 .article-ending {
@@ -293,4 +285,12 @@
   background-image: var(--stand-image);
   background-size: cover;
   background-position: center;
+}
+
+/* 正文和引用共享全站纸面色，晨昏时不再单独切换黑白。 */
+.article-body {
+  color: var(--ink);
+}
+.article-body blockquote {
+  background: var(--paper);
 }

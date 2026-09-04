@@ -4,74 +4,10 @@
   height: 720px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #83cdbf 0%, #9ad9c8 60%, #d7efcf 100%);
+  background: var(--scene-gradient);
   color: #fff;
   padding: 150px max(8vw, 45px);
   transition: background 0.8s ease;
-}
-/* 首屏基础样式：定位与层级、配色与背景、动画与变形、透明度与视觉效果、鼠标或触摸交互。 */
-.hero:before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: var(--weather-tint, transparent);
-  opacity: var(--weather-tint-opacity, 0);
-  transition:
-    background 0.8s ease,
-    opacity 0.8s ease;
-}
-/* 首屏基础样式：配色与背景。 */
-.hero.time-dawn {
-  background: linear-gradient(180deg, #384a68 0%, #61768a 58%, #a1b49b 100%);
-}
-.hero.time-morning {
-  background: linear-gradient(180deg, #87cec0 0%, #a6ddc9 60%, #dcefcf 100%);
-}
-.hero.time-noon {
-  background: linear-gradient(180deg, #65c2bb 0%, #91d8c2 58%, #d8efc7 100%);
-}
-.hero.time-afternoon {
-  background: linear-gradient(180deg, #7fc6b6 0%, #b6d59c 58%, #efdda6 100%);
-}
-.hero.time-evening {
-  background: linear-gradient(180deg, #435875 0%, #777b91 55%, #ba9a83 100%);
-}
-/* 天气基础样式：可调自定义参数。 */
-.hero.weather-cloudy {
-  --weather-tint: linear-gradient(180deg, #526d77, #82908a 65%, #aab39a);
-  --weather-tint-opacity: 0.3;
-}
-.hero.weather-fog {
-  --weather-tint: linear-gradient(180deg, #d9ddd5, #eef0e5);
-  --weather-tint-opacity: 0.42;
-}
-.hero.weather-rain {
-  --weather-tint: linear-gradient(180deg, #263d51, #456775 70%, #658478);
-  --weather-tint-opacity: 0.52;
-}
-.hero.weather-thunder {
-  --weather-tint: linear-gradient(180deg, #121a2b, #29394d 70%, #3e5457);
-  --weather-tint-opacity: 0.68;
-}
-.hero.weather-cloudy.time-dawn,
-.hero.weather-cloudy.time-evening {
-  --weather-tint: linear-gradient(180deg, #192738, #354657 70%, #566363);
-  --weather-tint-opacity: 0.28;
-}
-.hero.weather-fog.time-dawn,
-.hero.weather-fog.time-evening {
-  --weather-tint: linear-gradient(180deg, #8997a2, #b2b8b1);
-  --weather-tint-opacity: 0.3;
-}
-.hero.weather-snow.time-dawn,
-.hero.weather-snow.time-evening {
-  --weather-tint: linear-gradient(180deg, #6f8193, #b0bdba);
-  --weather-tint-opacity: 0.32;
-}
-.hero.weather-pending {
-  --weather-tint-opacity: 0;
 }
 /* 首屏基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
 .hero:after {
@@ -100,8 +36,6 @@
 }
 /* 天气基础样式：可调自定义参数。 */
 .hero.weather-snow {
-  --weather-tint: linear-gradient(180deg, #c7d9e2, #eef4ed);
-  --weather-tint-opacity: 0.4;
   --tree-snow-depth: 6px;
 }
 .hero.weather-snow.intensity-moderate {

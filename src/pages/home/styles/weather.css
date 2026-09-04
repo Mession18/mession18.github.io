@@ -31,14 +31,14 @@
 }
 /* 天气基础样式：文字排版、配色与背景。 */
 .weather-summary small {
-  color: #6f766f;
+  color: var(--muted);
   font-size: 10px;
   white-space: nowrap;
 }
 /* 天气基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、边框、圆角或阴影、图片适配与裁切。 */
 .weather-clock {
   display: flex;
-  width: 118px;
+  min-width: 118px;
   height: 54px;
   align-items: center;
   justify-content: center;
@@ -49,15 +49,8 @@
 /* 天气基础样式：布局排列与对齐、内外留白、动画与变形。 */
 .weather-game-time {
   flex: 0 0 auto;
-  margin: -32px -30px;
-  padding: 0 !important;
-  transform: scale(0.43);
-  transform-origin: center;
-}
-/* 天气夜间主题：配色与背景。 */
-[data-theme='night'] .weather {
-  background: #222c34e8;
-  color: var(--ink);
+  margin: 0;
+  padding: 0;
 }
 /* 天气基础样式：布局排列与对齐、定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影、动画与变形。 */
 .weather {
@@ -68,7 +61,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: #ffffffdf;
+  background: var(--paper);
   color: var(--ink);
   padding: 10px 12px 10px 15px;
   border-radius: 16px;
@@ -90,5 +83,184 @@
 @media (max-width: 480px) {
   .weather {
     right: 18px;
+  }
+}
+
+/* 时钟跟随控制器日期时间；不再挂载始终读取真实系统时间的第三方时钟。 */
+.weather-game-time {
+  display: grid;
+  gap: 3px;
+  text-align: right;
+}
+.weather-game-time b {
+  font-size: 28px;
+}
+.weather-game-time small {
+  font-size: 11px;
+}
+
+/* 整块天气卡作为日历入口；两排时钟分别左右对齐，保留阶段名称的小字号。 */
+.weather {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+.weather:focus-visible {
+  outline: 3px solid var(--dark);
+  outline-offset: 4px;
+}
+.weather-game-time {
+  min-width: 0;
+}
+.weather-time-row,
+.weather-date-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.weather-time-row small {
+  font-size: 12px;
+}
+.weather-date-row {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* 日历与音乐播放器采用同类浮层：入口下方展开，无全屏遮罩，短屏内部滚动。 */
+.island-calendar {
+  position: fixed;
+  z-index: 100;
+  width: min(350px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  margin: 0;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  color: var(--ink);
+  box-shadow: 0 20px 55px #16251d4a;
+  backdrop-filter: blur(16px);
+}
+.island-calendar header,
+.island-calendar nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.island-calendar h2 {
+  margin: 5px 0 5px;
+  font-size: 24px;
+}
+.island-calendar h3 {
+  font-size: 14px;
+  margin: 16px 0 12px;
+}
+.island-calendar small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.island-calendar button {
+  color: inherit;
+  font: inherit;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+}
+.island-calendar button:hover {
+  background: var(--cream);
+}
+.island-calendar button:focus-visible {
+  outline: 2px solid var(--dark);
+  outline-offset: 1px;
+}
+.island-calendar button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+/* 日期格保留足够高度容纳农历及重合节日；当前日圆点与选中边框采用不同标记。 */
+.calendar-week,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: -4px;
+  text-align: center;
+}
+.calendar-week {
+  padding: 10px 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.calendar-grid button {
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 2px;
+}
+.calendar-grid button[aria-pressed='true'] {
+  background: var(--cream);
+  outline: 2px solid var(--dark);
+  outline-offset: -2px;
+}
+.calendar-grid small {
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.calendar-grid i {
+  margin-left: 2px;
+  font-style: normal;
+}
+.calendar-grid .has-festival small {
+  color: var(--dark);
+  font-weight: 700;
+}
+.calendar-detail {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.calendar-detail p {
+  margin: 8px 0 0;
+}
+/* 预报在窄屏时横向滑动；各天按钮可直接跳到对应日历日期。 */
+.forecast-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(30px, 1fr));
+  gap: 3px;
+  overflow-x: auto;
+  padding: 3px 0px 6px;
+}
+.forecast-days button {
+  display: grid;
+  gap: 4px;
+  padding: 4px 2px;
+  text-align: center;
+  font-size: 12px;
+}
+.forecast-days b {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.calendar-forecast > small {
+  display: block;
+  margin-top: 5px;
+}
+.calendar-forecast a {
+  color: inherit;
+}
+@media (max-width: 480px) {
+  .island-calendar {
+    padding: 16px;
   }
 }

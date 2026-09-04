@@ -9,18 +9,18 @@
 /* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .flower-title > p:last-child {
   margin: 5px 0 0;
-  color: #6f746a;
+  color: var(--muted);
   font-size: 13px;
 }
 /* 公共界面基础样式：内外留白、配色与背景。 */
 .flower-refresh {
   margin-top: 20px;
-  background: #fffdf2;
-  color: #567052;
+  background: var(--paper);
+  color: var(--dark);
 }
 /* 种植基础样式：配色与背景。 */
 .home-planting {
-  background: #e5f0d9;
+  background: var(--page-gradient);
 }
 /* 公共界面基础样式：布局排列与对齐。 */
 .flower-garden {
@@ -58,11 +58,11 @@
   flex-direction: column;
   justify-content: center;
   padding: 30px;
-  color: #4c584b;
+  color: var(--ink);
 }
 /* 公共界面基础样式：文字排版、配色与背景。 */
 .flower-feature small {
-  color: #739071;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 900;
 }
@@ -94,7 +94,7 @@
   align-items: center;
   gap: 8px;
   margin: 28px 0 0 auto;
-  color: #496e60;
+  color: var(--dark);
   font-size: 13px;
   font-weight: 900;
   grid-column: 2;
@@ -119,46 +119,6 @@
   overflow: hidden;
   aspect-ratio: 4 / 3;
 }
-/* 种植基础样式：配色与背景。 */
-[data-scene-period='dawn'] .home-planting {
-  background: #263328;
-}
-[data-scene-period='morning'] .home-planting {
-  background: #e5f0d9;
-}
-[data-scene-period='noon'] .home-planting {
-  background: #e7f2cf;
-}
-[data-scene-period='afternoon'] .home-planting {
-  background: #e5e8c8;
-}
-[data-scene-period='evening'] .home-planting {
-  background: #293328;
-}
-/* 公共界面基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='noon'] .flower-feature {
-  border-color: #fffff7;
-  background: #fffff7;
-}
-[data-scene-period='afternoon'] .flower-feature {
-  border-color: #fbf3dc;
-  background: #fbf3dc;
-}
-[data-scene-period='dawn'] .flower-feature,
-[data-scene-period='evening'] .flower-feature {
-  border-color: #344139;
-  background: #2d3832;
-  box-shadow: 0 15px 35px #05080c55;
-}
-/* 公共界面基础样式：配色与背景。 */
-[data-scene-period='dawn'] .flower-feature > span,
-[data-scene-period='evening'] .flower-feature > span {
-  color: #e8e5dc;
-}
-[data-scene-period='dawn'] .flower-feature small,
-[data-scene-period='evening'] .flower-feature small {
-  color: #9fc4a4;
-}
 /* 公共界面基础样式：布局排列与对齐、配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切。 */
 .flower-feature {
   display: grid;
@@ -166,22 +126,13 @@
   overflow: hidden;
   border: 12px solid #fffdf2;
   border-radius: 50% 50% 24px 24px;
-  background: #fffdf2;
+  background: var(--paper);
   box-shadow: 0 15px 35px #597e5930;
   transition:
     background-color 0.8s ease,
     border-color 0.8s ease,
     color 0.45s ease,
     box-shadow 0.8s ease;
-}
-/* 公共界面基础样式：配色与背景。 */
-[data-scene-period='dawn'] .flower-title > p:last-child,
-[data-scene-period='evening'] .flower-title > p:last-child {
-  color: #bdc8c2;
-}
-[data-scene-period='dawn'] .garden-link,
-[data-scene-period='evening'] .garden-link {
-  color: #9fcdbd;
 }
 /* 公共界面基础样式：内外留白。 */
 .flower-feature > div > .content-placeholder {

@@ -22,36 +22,20 @@
 
 /* 公共界面夜间主题：配色与背景、可调自定义参数。 */
 [data-theme='night'] {
-  --ink: #e8e4dc;
-  --muted: #aaa9a5;
-  --cream: #171d24;
-  --paper: #222a33;
-  --green: #68ad91;
-  --dark: #91c9b3;
-  --mint: #315c50;
-  --yellow: #dac77d;
-  --sky: #365d68;
-  --line: #3a444e;
-  --shadow: 0 16px 40px #05080c42;
   color-scheme: dark;
-  --animal-text-color: #e8e4dc;
-  --animal-text-color-secondary: #aaa9a5;
-  --animal-text-color-muted: #aaa9a5;
-  --animal-border-color: #526058;
-  --animal-border-color-light: #3a444e;
-  --animal-bg-color: #222a33;
-  --animal-bg-color-secondary: #29343c;
 }
 * {
   box-sizing: border-box;
 }
 html {
+  scroll-padding-top: 94px;
   scroll-behavior: smooth;
 }
 /* 公共界面基础样式：内外留白、文字排版、配色与背景、动画与变形。 */
 body {
   margin: 0;
-  background: var(--cream);
+  background: var(--page-gradient);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--theme-font);
   transition:
@@ -99,15 +83,6 @@ body {
 .island-opening-loading .illustration {
   transform: translateZ(0);
   will-change: transform;
-}
-/* 天气夜间主题：配色与背景。 */
-[data-theme='night'][data-weather='cloudy'] body,
-[data-theme='night'][data-weather='fog'] body {
-  background: #1b2229;
-}
-[data-theme='night'][data-weather='rain'] body,
-[data-theme='night'][data-weather='thunder'] body {
-  background: #131a22;
 }
 /* 公共界面基础样式：动画与变形。 */
 .route-transition {
@@ -157,21 +132,7 @@ a {
 .lavender {
   background: #d8cbe6;
 }
-[data-scene-period='dawn'] body {
-  background: #171d25;
-}
-[data-scene-period='morning'] body {
-  background: #fffaf0;
-}
-[data-scene-period='noon'] body {
-  background: #fffdf5;
-}
-[data-scene-period='afternoon'] body {
-  background: #fff6e7;
-}
-[data-scene-period='evening'] body {
-  background: #161c24;
-}
+
 /* 公共界面基础样式：文字排版。 */
 body :where(*),
 button,
@@ -179,4 +140,46 @@ input,
 textarea,
 select {
   font-family: var(--theme-font) !important;
+}
+
+/* 深夜使用接近黑色的纸面，暮色沿用蓝灰夜间变量，晨昏保留暖橙强调色。 */
+
+/* 天空、导航和页面共享三个渐变色标；纸面混色保持长篇正文的可读性。 */
+:root {
+  --sky-top: #79c8c4;
+  --sky-middle: #a9e0d1;
+  --sky-bottom: #e0edbd;
+  --scene-gradient: linear-gradient(
+    180deg,
+    var(--sky-top),
+    var(--sky-middle) 60%,
+    var(--sky-bottom)
+  );
+  --page-gradient: linear-gradient(
+    180deg,
+    var(--page-top, var(--paper)),
+    var(--page-middle, var(--paper)) 55%,
+    var(--cream)
+  );
+  --green: color-mix(in srgb, var(--dark) 75%, var(--paper));
+  --yellow: color-mix(in srgb, var(--sky-bottom) 70%, var(--paper));
+  --sky: color-mix(in srgb, var(--sky-middle) 60%, var(--paper));
+  --line: color-mix(in srgb, var(--muted) 30%, var(--paper));
+  --animal-text-color: var(--ink);
+  --animal-text-color-secondary: var(--muted);
+  --animal-text-color-muted: var(--muted);
+  --animal-bg-color: var(--paper);
+  --animal-bg-color-secondary: var(--cream);
+  --animal-border-color: var(--line);
+  --animal-border-color-light: var(--line);
+}
+
+/* 根变量由 Provider 逐帧计算；禁止浏览器再次插值颜色，否则会绕过对比度保护。
+ * 仅调色期间限制颜色过渡，仍保留悬停位移、粒子透明度及阴影等动画。
+ */
+html[data-palette-changing] body,
+html[data-palette-changing] body *,
+html[data-palette-changing] body *::before,
+html[data-palette-changing] body *::after {
+  transition-property: transform, opacity, box-shadow, filter !important;
 }

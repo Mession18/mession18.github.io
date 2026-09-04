@@ -9,6 +9,14 @@ export type TimePeriod = 'dawn' | 'morning' | 'noon' | 'afternoon' | 'evening'
 
 /** 天气接口原始数据及加载状态，后续据此计算中文时钟和场景。 */
 type WeatherState = {
+  forecast: {
+    date: string
+    code: number | null
+    low: number | null
+    high: number | null
+    rain: number | null
+  }[]
+  forecastLoading: boolean
   city: string
   temperature: number
   windSpeed: number
@@ -16,11 +24,14 @@ type WeatherState = {
   precipitation: number
   snowfall: number
   timezone: string
+  latitude: number
+  longitude: number
+  located: boolean
   loading: boolean
 }
 
-/** 天气定位失败时使用浏览器时区，浏览器未提供时回退上海。 */
-const fallbackTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai'
+/** 定位失败时明确使用上海坐标及其时区，不能将未知坐标与电脑时区混用。 */
+const fallbackTimezone = 'Asia/Shanghai'
 
 /** 把天气服务的数字代码转换成页面支持的天气分类。 */
 function weatherKind(code: number): WeatherKind {
@@ -51,20 +62,13 @@ function weatherIntensity(
   return 'light'
 }
 
-/** 按当地小时划分场景时间段；调整这里即可改变早晨、正午等切换时刻。 */
-function timePeriod(hour: number): TimePeriod {
-  if (hour < 6) return 'dawn'
-  if (hour < 11) return 'morning'
-  if (hour < 14) return 'noon'
-  if (hour < 18) return 'afternoon'
-  return 'evening'
-}
-
 /** 根据 IP 获取地区和天气，并以当地时区更新时钟；请求失败保留初始场景。 */
 export function useLocalWeather() {
   /** 维护当前时刻和天气初始值，请求失败时仍可显示完整首屏。 */
   const [now, setNow] = useState(new Date())
   const [state, setState] = useState<WeatherState>({
+    forecast: [],
+    forecastLoading: true,
     city: '风铃岛',
     temperature: 28,
     windSpeed: 8,
@@ -72,6 +76,9 @@ export function useLocalWeather() {
     precipitation: 0,
     snowfall: 0,
     timezone: fallbackTimezone,
+    latitude: 31.23,
+    longitude: 121.47,
+    located: false,
     loading: true,
   })
 
@@ -84,6 +91,10 @@ export function useLocalWeather() {
   // 先用 IP 定位再请求该坐标的天气；中止控制器在卸载时取消未完成请求。
   useEffect(() => {
     const controller = new AbortController()
+    const timeout = window.setTimeout(() => {
+      controller.abort()
+      setState((current) => ({ ...current, loading: false, forecastLoading: false }))
+    }, 10_000)
     async function loadWeather() {
       try {
         const geoResponse = await fetch('https://get.geojs.io/v1/ip/geo.json', {
@@ -101,10 +112,21 @@ export function useLocalWeather() {
         const longitude = Number(geo.longitude)
         if (!Number.isFinite(latitude) || !Number.isFinite(longitude))
           throw new Error('Location coordinates unavailable')
+        setState((current) => ({
+          ...current,
+          latitude,
+          longitude,
+          located: true,
+          city: geo.city || geo.region || '当前位置',
+          timezone: geo.timezone || fallbackTimezone,
+        }))
         const query = new URLSearchParams({
           latitude: String(latitude),
           longitude: String(longitude),
           current: 'temperature_2m,weather_code,wind_speed_10m,precipitation,rain,snowfall',
+          // 日历复用这次请求的七日预报，切换月份不重复请求，也不伪造历史天气。
+          daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
+          forecast_days: '7',
           timezone: 'auto',
         })
         const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`, {
@@ -112,6 +134,13 @@ export function useLocalWeather() {
         })
         if (!weatherResponse.ok) throw new Error('Weather lookup failed')
         const weather = (await weatherResponse.json()) as {
+          daily?: {
+            time: string[]
+            weather_code: (number | null)[]
+            temperature_2m_min: (number | null)[]
+            temperature_2m_max: (number | null)[]
+            precipitation_probability_max: (number | null)[]
+          }
           timezone?: string
           current?: {
             temperature_2m?: number
@@ -122,6 +151,17 @@ export function useLocalWeather() {
           }
         }
         setState({
+          forecastLoading: false,
+          forecast: (weather.daily?.time ?? []).map((date, index) => ({
+            date,
+            code: weather.daily?.weather_code?.[index] ?? null,
+            low: weather.daily?.temperature_2m_min?.[index] ?? null,
+            high: weather.daily?.temperature_2m_max?.[index] ?? null,
+            rain: weather.daily?.precipitation_probability_max?.[index] ?? null,
+          })),
+          latitude,
+          longitude,
+          located: true,
           city: geo.city || geo.region || '当前位置',
           temperature: Math.round(weather.current?.temperature_2m ?? 28),
           windSpeed: Math.round(weather.current?.wind_speed_10m ?? 8),
@@ -133,34 +173,25 @@ export function useLocalWeather() {
         })
       } catch (error) {
         if ((error as Error).name !== 'AbortError')
-          setState((current) => ({ ...current, loading: false }))
+          setState((current) => ({ ...current, loading: false, forecastLoading: false }))
       }
     }
-    loadWeather()
-    return () => controller.abort()
+    void loadWeather().finally(() => window.clearTimeout(timeout))
+    return () => {
+      window.clearTimeout(timeout)
+      controller.abort()
+    }
   }, [])
 
   return useMemo(() => {
-    const hourText = new Intl.DateTimeFormat('en-GB', {
-      timeZone: state.timezone,
-      hour: '2-digit',
-      hour12: false,
-    }).format(now)
-    const hour = Number(hourText) % 24
     let kind = weatherKind(state.weatherCode)
     const intensity = weatherIntensity(state.weatherCode, kind, state.precipitation, state.snowfall)
     if (kind === 'rain' && intensity === 'heavy') kind = 'thunder'
     return {
       ...state,
-      time: new Intl.DateTimeFormat('zh-CN', {
-        timeZone: state.timezone,
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }).format(now),
+      now,
       kind,
       intensity,
-      period: timePeriod(hour),
     }
   }, [now, state])
 }

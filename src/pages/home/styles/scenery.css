@@ -1,79 +1,29 @@
-/* 首屏自然场景：天空在前、地景在后，保留原有层叠顺序。 */
-/* 首页 sky：默认、主题和响应式规则集中维护。 */
-
-.hero.time-dawn .hero-sun,
-.hero.time-evening .hero-sun {
-  opacity: 0 !important;
-  filter: none !important;
+/* 日月坐标和透明度由天文计算内联提供；天气只控制雾化，不再使用固定时间位置。 */
+.hero[data-sky-stage='night'] .sky-stars {
+  opacity: 0.8;
 }
-/* 首屏基础样式：透明度与视觉效果。 */
-.hero.time-morning .hero-moon,
-.hero.time-noon .hero-moon,
-.hero.time-afternoon .hero-moon {
-  opacity: 0 !important;
-  filter: none !important;
+.hero[data-sky-stage='dusk'] .sky-stars {
+  opacity: 0.35;
 }
-/* 首屏基础样式：定位与层级。 */
-.hero.time-morning .hero-sun {
-  right: 30%;
-  top: 65px;
-}
-.hero.time-noon .hero-sun {
-  right: 47%;
-  top: 5px;
-}
-/* 首屏基础样式：定位与层级、配色与背景。 */
-.hero.time-afternoon .hero-sun {
-  right: 16%;
-  top: 78px;
-  background: #ffd477;
-}
-/* 首屏基础样式：定位与层级、透明度与视觉效果。 */
-.hero.time-dawn .hero-moon {
-  opacity: 1;
-  right: 38%;
-  top: 112px;
-}
-.hero.time-evening .hero-moon {
-  opacity: 1;
-  right: 24%;
-  top: 54px;
-}
-/* 首屏基础样式：透明度与视觉效果。 */
-.hero.time-dawn .sky-stars,
-.hero.time-evening .sky-stars {
-  opacity: 0.75;
-}
-/* 天气基础样式：透明度与视觉效果。 */
-.hero.weather-rain .hero-sun,
-.hero.weather-snow .hero-sun,
-.hero.weather-thunder .hero-sun {
-  opacity: 0;
-}
-.hero.weather-fog .hero-sun {
-  opacity: 0.12;
-  filter: blur(5px);
-}
-.hero.weather-cloudy .hero-sun {
-  opacity: 0.38;
-}
-.hero.weather-rain .hero-moon,
-.hero.weather-snow .hero-moon,
-.hero.weather-thunder .hero-moon {
-  opacity: 0;
-}
+.hero.weather-fog .hero-sun,
 .hero.weather-fog .hero-moon {
-  opacity: 0.12;
   filter: blur(5px);
 }
-.hero.weather-cloudy .hero-moon {
-  opacity: 0.38;
+.hero.weather-rain .sky-stars,
+.hero.weather-snow .sky-stars,
+.hero.weather-thunder .sky-stars {
+  opacity: 0;
 }
-.hero.weather-pending .hero-sun {
-  filter: none;
+/* 天空独立于地景，太阳从左侧东方升起，向右侧西方落下。 */
+.celestial-sky {
+  position: absolute;
+  inset: 100px 3% 130px 42%;
+  pointer-events: none;
 }
-.hero.weather-pending .hero-moon {
-  filter: none;
+@media (max-width: 850px) {
+  .celestial-sky {
+    inset: 340px 5% 100px 5%;
+  }
 }
 .hero.weather-rain .cloud,
 .hero.weather-thunder .cloud {
@@ -116,13 +66,12 @@
   height: 86px;
   border-radius: 50%;
   background: #ffe792;
-  right: 23%;
-  top: 22px;
+  transform: translate(-50%, -50%);
   box-shadow: 0 0 0 14px #ffec9c2e;
   z-index: 1;
   transition:
-    right 1.2s ease,
-    top 1.2s ease,
+    left 0.15s linear,
+    top 0.15s linear,
     opacity 0.8s ease,
     background 0.8s ease,
     filter 0.8s ease;
@@ -132,15 +81,14 @@
   position: absolute;
   width: 92px;
   height: 92px;
-  right: 24%;
-  top: 54px;
+  transform: translate(-50%, -50%);
   z-index: 1;
   opacity: 0;
   overflow: visible;
   filter: drop-shadow(0 0 16px #fff2bd70);
   transition:
-    right 1.2s ease,
-    top 1.2s ease,
+    left 0.15s linear,
+    top 0.15s linear,
     opacity 0.8s ease,
     filter 0.8s ease;
 }

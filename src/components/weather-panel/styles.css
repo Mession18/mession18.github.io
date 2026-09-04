@@ -1,7 +1,4 @@
-/* 全局天气控制：天气面板、环境特效与主题切换。
- * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
- */
-
+/* 全站天气控制器：颜色继承主题变量，日期、时间、天文摘要和天气统一排列。 */
 .ambient-weather {
   position: fixed;
   z-index: 15;
@@ -9,116 +6,165 @@
   overflow: hidden;
   pointer-events: none;
 }
-/* 天气基础样式：定位与层级、文字排版、配色与背景。 */
 .weather-test-panel {
   position: relative;
   z-index: 60;
-  color: #4d4539;
+  color: var(--ink);
   font-size: 12px;
 }
-/* 天气基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
 .weather-test-trigger {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 13px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
   border: 1px solid #ffffffaa;
-  border-radius: 999px;
-  background: #fffaf0ed;
-  color: #456b5b;
-  font: inherit;
-  font-weight: 800;
-  box-shadow: 0 8px 24px #344f4230;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--dark);
   cursor: pointer;
 }
-/* 天气基础样式：尺寸与宽高比例、定位与层级、内外留白、配色与背景、边框、圆角或阴影。 */
+/* 固定面板不挤压导航；窄屏使用两侧留白，短屏允许整个控制器滚动。 */
 .weather-test-content {
   position: absolute;
-  top: 48px;
+  top: 50px;
   right: 0;
-  width: 260px;
-  padding: 16px;
-  border: 1px solid #dcd1b8;
-  border-radius: 20px;
-  background: #fffaf0f5;
-  box-shadow: 0 16px 40px #263d3340;
-  backdrop-filter: blur(12px);
+  width: 330px;
+  max-height: calc(100dvh - 110px);
+  overflow-y: auto;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: 0 16px 40px #10232940;
 }
-/* 天气基础样式：布局排列与对齐、内外留白。 */
 .weather-test-content header {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
-/* 天气基础样式：文字排版。 */
 .weather-test-content header b {
-  font-size: 14px;
+  font-size: 18px;
 }
-/* 天气基础样式：内外留白、配色与背景。 */
-.weather-test-content header small {
-  margin-top: 2px;
-  color: #857c6e;
+.weather-test-content small,
+.weather-location {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
 }
-/* 天气基础样式：布局排列与对齐。 */
+.weather-location {
+  margin: 8px 0 12px;
+  overflow-wrap: anywhere;
+}
+/* 日期保持浏览器原生日历；分钟滑条使用连续的昼夜渐变作为可视提示。 */
+.weather-test-content label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  font-weight: 800;
+}
+.weather-test-content input[type='date'] {
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+}
+.weather-time-label output {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.weather-time-slider {
+  width: 100%;
+  margin: 16px 0 9px;
+  height: 8px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+.weather-time-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #131c31, #deaa9e 24%, #a6dfd0 48%, #edb18a 73%, #141c31);
+}
+.weather-time-slider::-webkit-slider-thumb {
+  margin-top: -4px;
+}
+.weather-time-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--muted);
+}
+/* 三项天文摘要来自同一日历时区；极昼极夜以文字代替无效时间。 */
+.weather-astronomy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 16px 0;
+  padding: 12px 0;
+  border-block: 1px dashed var(--line);
+  text-align: center;
+}
+.weather-astronomy span {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.weather-astronomy b {
+  color: var(--ink);
+  font-size: 13px;
+}
+.weather-control-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 .weather-test-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
 }
-/* 天气基础样式：文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
 .weather-test-options button,
-.weather-test-reset,
-.weather-test-content select {
-  border: 1px solid #d8cdb5;
-  border-radius: 10px;
-  background: #fffdf8;
-  color: #5d5548;
+.weather-test-reset {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--cream);
+  color: var(--ink);
   font: inherit;
   cursor: pointer;
+  padding: 8px 4px;
 }
-/* 天气基础样式：内外留白。 */
-.weather-test-options button {
-  padding: 7px 4px;
-}
-/* 天气基础样式：文字排版、配色与背景、边框、圆角或阴影。 */
 .weather-test-options button.active {
-  border-color: #62aa91;
-  background: #dff3e9;
-  color: #32634f;
+  border-color: var(--green);
+  background: var(--mint);
+  color: var(--dark);
   font-weight: 800;
 }
-/* 天气基础样式：布局排列与对齐、内外留白、文字排版。 */
-.weather-test-content label {
+.weather-reset-row {
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 10px;
-  margin-top: 11px;
-  font-weight: 800;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
 }
-/* 天气基础样式：尺寸与宽高比例、内外留白。 */
-.weather-test-content select {
-  min-width: 0;
-  padding: 7px 9px;
-}
-.weather-test-reset {
-  width: 100%;
-  margin-top: 10px;
-  padding: 8px;
-}
-/* 天气禁用状态：透明度与视觉效果、鼠标或触摸交互。 */
 .weather-test-reset:disabled {
+  opacity: 0.4;
   cursor: default;
-  opacity: 0.45;
 }
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .weather-test-content {
-    width: min(260px, calc(100vw - 24px));
+    position: fixed;
+    top: 78px;
+    left: 12px;
+    right: 12px;
+    width: auto;
   }
-  /* 天气响应式适配：布局排列与对齐。 */
-  .weather-test-trigger span {
-    display: none;
+  .weather-test-trigger {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -267,64 +313,3 @@
   }
 }
 /* 天气基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='noon'] .weather-test-trigger,
-[data-scene-period='noon'] .weather-test-content {
-  border-color: #ead69e;
-  background: #fffdf2f2;
-}
-[data-scene-period='afternoon'] .weather-test-trigger,
-[data-scene-period='afternoon'] .weather-test-content {
-  border-color: #dfbd8c;
-  background: #fff2def2;
-  color: #675341;
-}
-[data-scene-period='afternoon'] .weather-test-options button,
-[data-scene-period='afternoon'] .weather-test-reset,
-[data-scene-period='afternoon'] .weather-test-content select {
-  border-color: #dfc19b;
-  background: #fff8e9;
-  color: #675341;
-}
-[data-scene-period='dawn'] .weather-test-trigger,
-[data-scene-period='dawn'] .weather-test-content,
-[data-scene-period='evening'] .weather-test-trigger,
-[data-scene-period='evening'] .weather-test-content {
-  border-color: #ffffff2e;
-  background: #27323bed;
-  color: #e4e9e5;
-  box-shadow: 0 16px 40px #05080c66;
-}
-/* 天气基础样式：配色与背景。 */
-[data-scene-period='dawn'] .weather-test-content header small,
-[data-scene-period='evening'] .weather-test-content header small {
-  color: #aab6b2;
-}
-/* 天气基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='dawn'] .weather-test-options button,
-[data-scene-period='dawn'] .weather-test-reset,
-[data-scene-period='dawn'] .weather-test-content select,
-[data-scene-period='evening'] .weather-test-options button,
-[data-scene-period='evening'] .weather-test-reset,
-[data-scene-period='evening'] .weather-test-content select {
-  border-color: #ffffff24;
-  background: #354149;
-  color: #e1e6e2;
-}
-[data-scene-period='dawn'] .weather-test-options button.active,
-[data-scene-period='evening'] .weather-test-options button.active {
-  border-color: #78b99f;
-  background: #426858;
-  color: #f1fff8;
-}
-/* 天气基础样式：动画与变形。 */
-.weather-test-trigger,
-.weather-test-content,
-.weather-test-options button,
-.weather-test-reset,
-.weather-test-content select {
-  transition:
-    background-color 0.7s ease,
-    border-color 0.7s ease,
-    color 0.45s ease,
-    box-shadow 0.7s ease;
-}

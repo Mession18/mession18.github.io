@@ -107,12 +107,15 @@ export function App() {
         <Loading active={loadingActive} className="island-opening-loading" />
       </div>
       <AmbientWeather />
-      <Header pathname={displayLocation.pathname} hash={displayLocation.hash} />
+      <Header pathname={displayLocation.pathname} />
       <Suspense fallback={null}>
         <IslandCat3D />
       </Suspense>
       {/* 在这里注册页面路由：静态路径对应列表，带 :slug 的路径对应单条详情。 */}
-      <div className="route-transition" key={displayLocation.pathname}>
+      <div
+        className={`route-transition${displayLocation.pathname === '/' ? '' : ' route-inner'}`}
+        key={displayLocation.pathname}
+      >
         <Suspense
           fallback={
             <p className="empty-section" role="status">

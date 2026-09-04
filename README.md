@@ -25,7 +25,7 @@ src/
 ├─ shared/
 │  ├─ config.ts              栏目元信息、色板、分页配置
 │  ├─ data.ts                栏目数据汇总、国旗、文案入口
-│  └─ utils.ts               日期、Markdown、图片、随机底图工具
+│  └─ utils.ts               日期、Markdown、图片、随机底图、天文与时区工具
 ├─ components/               导航、搜索、音乐、天气、猫等全站组件
 ├─ hooks/                    图片状态、天气请求、稳定随机选择
 ├─ context/                  全站日夜和天气状态
@@ -33,6 +33,7 @@ src/
 ├─ App.tsx                   路由与应用外壳
 └─ main.tsx                  React 启动、HashRouter、主题 Provider
 build/stand-assets.ts        扫描每个栏目自己的底图目录
+build/music-playlist.ts      扫描歌曲、按需提取/输出独立封面
 public/                     固定图片、模型、音频
 scripts/                    维护用验证脚本，不会在网页里运行
 docs/                       维护与扩展教程
@@ -50,6 +51,9 @@ npx tsc --noEmit
 npm run lint
 node scripts/test-presentation.mjs
 node scripts/test-stand-pools.mjs
+node scripts/test-sky.mjs
+node scripts/test-theme-contrast.mjs
+node scripts/test-music.mjs
 npm run build
 ```
 

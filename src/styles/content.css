@@ -33,7 +33,7 @@ h1 em {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: #fff;
+  background: var(--paper);
   color: var(--dark);
   padding: 14px 22px;
   border-radius: 25px;
@@ -116,7 +116,7 @@ h1 em {
   position: absolute;
   right: 14px;
   top: 14px;
-  background: #fff;
+  background: var(--paper);
   padding: 6px 10px;
   border-radius: 15px;
   font-size: 11px;
@@ -133,7 +133,7 @@ h1 em {
 /* 公共界面基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .tag {
   font-size: 11px;
-  background: #edf5e9;
+  background: var(--mint);
   color: var(--dark);
   padding: 5px 9px;
   border-radius: 10px;
@@ -197,7 +197,7 @@ h1 em {
 /* 公共界面基础样式：配色与背景、边框、圆角或阴影。 */
 .secondary {
   background: var(--green);
-  color: #fff;
+  color: var(--on-accent, white);
   box-shadow: none;
 }
 /* 公共界面基础样式：尺寸与宽高比例、内外留白。 */
@@ -300,18 +300,6 @@ h1 em {
   color: var(--dark);
   font-weight: 800;
 }
-/* 文章夜间主题：配色与背景。 */
-[data-theme='night'] .post-art time {
-  background: #29333cdc;
-  color: var(--ink);
-}
-/* 公共界面夜间主题：配色与背景。 */
-[data-theme='night'] .tag {
-  background: #2d423b;
-}
-[data-theme='night'] .content-filters button {
-  background: var(--paper);
-}
 /* 文章基础样式：动画与变形。 */
 .post,
 .page-surface {
@@ -403,7 +391,7 @@ h1 em {
   padding: var(--tags-padding, 9px 15px);
   border: 1px solid var(--line);
   border-radius: var(--tags-radius, 20px);
-  background: #fffdf8;
+  background: var(--paper);
   color: var(--muted);
   font: inherit;
   font-size: var(--tags-font-size, 11px);
@@ -415,5 +403,5 @@ h1 em {
 .content-filters button.active {
   border-color: var(--green);
   background: var(--green);
-  color: white;
+  color: var(--on-accent, white);
 }

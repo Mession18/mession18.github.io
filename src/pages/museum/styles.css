@@ -57,12 +57,10 @@
   transform: scale(1.15);
 }
 .museum-page {
-  background: linear-gradient(180deg, #edf4e8 0, var(--cream) 300px);
+  background: transparent;
 }
 /* 博物馆夜间主题：配色与背景。 */
-[data-theme='night'] .museum-page {
-  background: linear-gradient(180deg, #1b2928 0, var(--cream) 300px);
-}
+
 /* 藏品基础样式：动画与变形。 */
 .collection-card {
   transition:

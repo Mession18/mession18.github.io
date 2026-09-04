@@ -1,8 +1,3 @@
-/* 首页 bottle：默认、主题和响应式规则集中维护。 */
-
-[data-theme='night'] .bottle {
-  background: #26332f;
-}
 /* 漂流瓶基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影。 */
 .bottle {
   margin: 80px auto;

@@ -239,42 +239,10 @@
     transform: scale(0.82) rotate(-7deg);
   }
 }
-/* 博物馆夜间主题：配色与背景。 */
-[data-theme='night'] .museum {
-  background: #1d2d2a;
-}
-/* 公共界面夜间主题：配色与背景。 */
-[data-theme='night'] .photo {
-  background: #303942;
-}
-/* 博物馆基础样式：配色与背景。 */
-[data-scene-period='dawn'] .museum {
-  background: #1d2b2b;
-}
-[data-scene-period='morning'] .museum {
-  background: #e6f1df;
-}
-[data-scene-period='noon'] .museum {
-  background: #e2f2dc;
-}
-[data-scene-period='afternoon'] .museum {
-  background: #e8e8d3;
-}
-[data-scene-period='evening'] .museum {
-  background: #1d2d2a;
-}
-/* 博物馆基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='dawn'] .museum-refresh,
-[data-scene-period='evening'] .museum-refresh {
-  border-color: #ffffff24;
-  background: #2d3b3ae8 !important;
-  color: #d7e4dc !important;
-  box-shadow: 0 8px 20px #05080c42;
-}
 /* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、动画与变形。 */
 .museum {
   max-width: none;
-  background: #e6f1df;
+  background: var(--page-gradient);
   display: flex;
   justify-content: center;
   gap: 12vw;

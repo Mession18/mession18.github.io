@@ -8,10 +8,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 max(5vw, 28px);
-  position: absolute;
-  z-index: 20;
+  /* 全站固定在视口顶部；内页通过 route-inner 留出原来的导航高度。 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
   width: 100%;
+  /* 首页顶端透出天空；滚动后的纯色由 inner-topbar 提供。 */
   color: #fff;
+  background: transparent;
 }
 /* 公共界面基础样式：布局排列与对齐、文字排版。 */
 .brand {
@@ -55,14 +60,12 @@ nav a > span:not(.nav-label) {
 }
 /* 导航基础样式：尺寸与宽高比例、定位与层级、配色与背景。 */
 .inner-topbar {
-  position: relative;
   height: 78px;
-  background: #62aa91;
+  /* 随时间色调变化的纯色：晨昏暖棕/玫瑰色、正午绿色、夜间蓝灰。 */
+  background: var(--header-background, #39775e);
+  color: var(--header-ink, #fff);
 }
-/* 导航夜间主题：配色与背景。 */
-[data-theme='night'] .inner-topbar {
-  background: #263f43;
-}
+
 /* 导航基础样式：定位与层级、边框、圆角或阴影。 */
 .section-topbar {
   position: fixed;
@@ -101,7 +104,7 @@ nav a img {
   object-fit: contain;
 }
 nav a {
-  opacity: 0.78;
+  opacity: 1;
   position: relative;
 }
 /* 公共界面悬停状态：透明度与视觉效果。 */
@@ -135,7 +138,7 @@ nav a.active:after {
     overflow-x: auto;
     padding: 7px 8px;
     border-radius: 22px;
-    background: #315f52e8;
+    background: var(--paper);
     box-shadow: 0 8px 25px #1d332b40;
     backdrop-filter: blur(12px);
     scrollbar-width: none;
@@ -183,4 +186,9 @@ nav a.active:after {
   .header-actions {
     gap: 7px;
   }
+}
+
+/* 内页原本由相对定位导航占位；固定后统一补偿，避免遮住标题。 */
+.route-inner {
+  padding-top: 78px;
 }

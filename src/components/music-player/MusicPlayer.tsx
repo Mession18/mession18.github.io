@@ -3,6 +3,7 @@ import musicIcon from 'animal-island-ui/items/item-484.png'
 import {
   ChevronDown,
   ChevronUp,
+  GripVertical,
   ListMusic,
   Pause,
   Play,
@@ -12,7 +13,6 @@ import {
   SkipBack,
   SkipForward,
   Volume2,
-  X,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { islandPlaylist } from './music.data'
@@ -54,7 +54,7 @@ function readTrackOrder() {
   try {
     const saved = JSON.parse(localStorage.getItem('island-track-order') ?? '[]')
     if (!Array.isArray(saved)) return islandPlaylist
-    const ordered = saved
+    const ordered = [...new Set(saved)]
       .map((src) => islandPlaylist.find((track) => track.src === src))
       .filter((track): track is (typeof islandPlaylist)[number] => Boolean(track))
     const missing = islandPlaylist.filter(
@@ -83,6 +83,8 @@ function MusicPlayerControls() {
   const [playing, setPlaying] = useState(false)
   /** 从本机保存的排序初始化歌单，后续上移下移会更新此数组。 */
   const [playlist, setPlaylist] = useState(readTrackOrder)
+  // 拖动以歌曲 URL 标识条目；移动后索引变化也不会误认正在播放的歌曲。
+  const [draggedSrc, setDraggedSrc] = useState<string | null>(null)
   const [trackIndex, setTrackIndex] = useState(0)
   const [disabledTracks, setDisabledTracks] = useState<string[]>(readDisabledTracks)
   const [currentTime, setCurrentTime] = useState(0)
@@ -115,7 +117,7 @@ function MusicPlayerControls() {
   // 切歌或切换播放状态后尝试播放，浏览器拒绝播放时恢复暂停状态。
   useEffect(() => {
     if (playing && audioRef.current) audioRef.current.play().catch(() => setPlaying(false))
-  }, [trackIndex, playing])
+  }, [track.src, playing])
 
   // 保存播放模式，刷新页面后继续使用。
   useEffect(() => localStorage.setItem('island-play-mode', playMode), [playMode])
@@ -138,6 +140,7 @@ function MusicPlayerControls() {
     if (isDisabled(normalized)) return
     setTrackIndex(normalized)
     setCurrentTime(0)
+    setDuration(0)
     setPlaying(shouldPlay)
   }
 
@@ -221,13 +224,13 @@ function MusicPlayerControls() {
     }
   }
 
-  /** 交换相邻歌单条目，并按歌曲地址保持当前播放曲目不变。 */
-  const moveTrack = (index: number, direction: -1 | 1) => {
-    const target = index + direction
+  /** 插入到目标位置，拖动与键盘上下移共用；保持当前歌曲、进度和播放状态。 */
+  const reorderTrack = (index: number, target: number) => {
     if (target < 0 || target >= playlist.length) return
+    if (index < 0 || index === target) return
     const currentSrc = track.src
     const nextPlaylist = [...playlist]
-    ;[nextPlaylist[index], nextPlaylist[target]] = [nextPlaylist[target], nextPlaylist[index]]
+    nextPlaylist.splice(target, 0, nextPlaylist.splice(index, 1)[0])
     setPlaylist(nextPlaylist)
     setTrackIndex(nextPlaylist.findIndex((item) => item.src === currentSrc))
   }
@@ -249,7 +252,7 @@ function MusicPlayerControls() {
       <audio
         ref={audioRef}
         src={track.src}
-        preload="metadata"
+        preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
@@ -263,9 +266,6 @@ function MusicPlayerControls() {
               <small>NOW PLAYING</small>
               <b>风铃岛电台</b>
             </span>
-            <button type="button" onClick={() => setOpen(false)} aria-label="关闭播放器">
-              <X size={17} />
-            </button>
           </header>
           {/* 当前曲目的封面、标题和歌手；封面缺失时回退音乐图标。 */}
           <div className="music-now">
@@ -355,14 +355,51 @@ function MusicPlayerControls() {
             />
           </label>
           {playlistOpen && (
-            <div className="music-playlist">
+            <div
+              className="music-playlist"
+              onPointerMove={(event) => {
+                if (!draggedSrc) return
+                const list = event.currentTarget
+                const bounds = list.getBoundingClientRect()
+                if (event.clientY < bounds.top + 30) list.scrollBy(0, -12)
+                if (event.clientY > bounds.bottom - 30) list.scrollBy(0, 12)
+                const row = document
+                  .elementFromPoint(event.clientX, event.clientY)
+                  ?.closest<HTMLElement>('[data-track-src]')
+                if (row && list.contains(row))
+                  reorderTrack(
+                    playlist.findIndex((song) => song.src === draggedSrc),
+                    playlist.findIndex((song) => song.src === row.dataset.trackSrc),
+                  )
+              }}
+              onPointerUp={() => setDraggedSrc(null)}
+              onPointerCancel={() => setDraggedSrc(null)}
+              onLostPointerCapture={() => setDraggedSrc(null)}
+            >
               {playlist.map((item, index) => {
                 const disabled = isDisabled(index)
                 return (
                   <div
-                    className={`music-track${index === trackIndex ? ' active' : ''}${disabled ? ' disabled' : ''}`}
-                    key={item.title}
+                    className={`music-track${index === trackIndex ? ' active' : ''}${disabled ? ' disabled' : ''}${draggedSrc === item.src ? ' is-dragging' : ''}`}
+                    key={item.src}
+                    data-track-src={item.src}
                   >
+                    {/* 鼠标和触屏都从手柄拖动；列表其他区域仍可正常上下滚动。 */}
+                    <button
+                      type="button"
+                      className="music-drag-handle"
+                      aria-label={`拖动排序 ${item.title}`}
+                      onPointerDown={(event) => {
+                        if (event.button !== 0) return
+                        // 捕获放在稳定的列表容器，移动行节点时不会丢失拖动。
+                        event.currentTarget
+                          .closest<HTMLElement>('.music-playlist')!
+                          .setPointerCapture(event.pointerId)
+                        setDraggedSrc(item.src)
+                      }}
+                    >
+                      <GripVertical size={16} />
+                    </button>
                     <button
                       type="button"
                       className="music-track-select"
@@ -385,7 +422,7 @@ function MusicPlayerControls() {
                       <button
                         type="button"
                         disabled={index === 0}
-                        onClick={() => moveTrack(index, -1)}
+                        onClick={() => reorderTrack(index, index - 1)}
                         aria-label={`上移 ${item.title}`}
                       >
                         <ChevronUp size={13} />
@@ -393,7 +430,7 @@ function MusicPlayerControls() {
                       <button
                         type="button"
                         disabled={index === playlist.length - 1}
-                        onClick={() => moveTrack(index, 1)}
+                        onClick={() => reorderTrack(index, index + 1)}
                         aria-label={`下移 ${item.title}`}
                       >
                         <ChevronDown size={13} />

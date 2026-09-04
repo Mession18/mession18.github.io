@@ -1,4 +1,6 @@
-import { Time } from 'animal-island-ui'
+import { useRef, useState, type CSSProperties } from 'react'
+import { Calendar } from './Calendar'
+import { celestialStyle } from '../../../shared/utils'
 import {
   ArrowRight,
   Cloud,
@@ -25,16 +27,6 @@ const weatherLabels: Record<WeatherKind, string> = {
 }
 /** 把雨雪强度转成天气名称前的小、中、大字样。 */
 const intensityLabels = { light: '小', moderate: '中', heavy: '大' } as const
-/** 以已知新月为基准估算月龄及月相名称，用于首页装饰月亮。 */
-function getMoonPhase(date: Date) {
-  const synodicMonth = 29.530588853
-  const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14)
-  const days = (date.getTime() - knownNewMoon) / 86_400_000
-  const phase = (((days / synodicMonth) % 1) + 1) % 1
-  const names = ['新月', '娥眉月', '上弦月', '盈凸月', '满月', '亏凸月', '下弦月', '残月']
-  return { phase, name: names[Math.round(phase * 8) % 8] }
-}
-
 /** 根据月相计算月面受光区域 SVG 路径，表现盈亏变化。 */
 function moonLightPath(phase: number) {
   const radius = 44
@@ -50,21 +42,21 @@ function moonLightPath(phase: number) {
   for (let step = 48; step >= 0; step -= 1) {
     const y = -radius + (radius * 2 * step) / 48
     const edge = Math.sqrt(Math.max(0, radius * radius - y * y))
-    points.push(`${center + cosine * edge},${center + y}`)
+    points.push(`${center + (waxing ? cosine : -cosine) * edge},${center + y}`)
   }
   return `M ${points.join(' L ')} Z`
 }
 
 /** 组合月面底色、纹理与受光轮廓，显示当天估算月相。 */
-function Moon() {
-  const moon = getMoonPhase(new Date())
-  const lightPath = moonLightPath(moon.phase)
+function Moon({ phase, name, style }: { phase: number; name: string; style: CSSProperties }) {
+  const lightPath = moonLightPath(phase)
   return (
     <svg
       className="hero-moon"
+      style={style}
       viewBox="0 0 100 100"
       role="img"
-      aria-label={`今日月相：${moon.name}`}
+      aria-label={`所选日期月相：${name}`}
     >
       <defs>
         <clipPath id="moonlit-face">
@@ -87,10 +79,12 @@ function WeatherIcon({
   kind,
   period,
   loading,
+  isNight,
 }: {
   kind: WeatherKind
   period: TimePeriod
   loading: boolean
+  isNight: boolean
 }) {
   if (loading) return <LoaderCircle className="weather-loading" size={26} />
   if (kind === 'thunder') return <CloudLightning size={26} />
@@ -98,14 +92,25 @@ function WeatherIcon({
   if (kind === 'rain') return <CloudRain size={26} />
   if (kind === 'fog') return <CloudFog size={26} />
   if (kind === 'cloudy') return <Cloud size={26} />
-  if (period === 'dawn' || period === 'evening') return <MoonStar size={26} />
+  if (isNight) return <MoonStar size={26} />
   if (period === 'noon') return <Sun size={26} />
   return <CloudSun size={26} />
 }
 
 /** 首页首屏：组合天空、地景、标题、时钟和天气信息，场景由主题状态驱动。 */
 export function Hero() {
-  const { weather, scenePeriod } = useTheme()
+  const { weather, sky, scenePeriod } = useTheme()
+  const [calendarOpen, setCalendarOpen] = useState(false)
+  const calendarAnchor = useRef<HTMLButtonElement>(null)
+  // 星期使用天气定位时区，与主题日期保持一致。
+  const weekday = new Intl.DateTimeFormat('zh-CN', {
+    weekday: 'long',
+    timeZone: weather.timezone,
+  }).format(sky.instant)
+  // 降水遮挡日月，云雾降低亮度；天体地平线判断由统一投影函数处理。
+  const visibility = { clear: 1, cloudy: 0.38, fog: 0.12, rain: 0, snow: 0, thunder: 0 }[
+    weather.kind
+  ]
   const windLabel = weather.windSpeed <= 8 ? '微风' : weather.windSpeed <= 18 ? '轻风' : '有风'
   const weatherLabel =
     weather.kind === 'thunder'
@@ -116,6 +121,7 @@ export function Hero() {
   return (
     <section
       className={`hero weather-${weather.kind} intensity-${weather.intensity} time-${scenePeriod}${weather.loading ? ' weather-pending' : ''}`}
+      data-sky-stage={sky.stage}
       id="top"
     >
       {/* 天空装饰层：星星、云和天气特效，样式集中在 home/styles/scenery.css。 */}
@@ -127,6 +133,15 @@ export function Hero() {
         <div className="fog-bank fog-one" />
         <div className="fog-bank fog-two" />
         <div className="lightning-bolt" />
+      </div>
+      {/* 日月置于独立天空层，位置跟随真实方位与高度，不随地景缩放。 */}
+      <div className="celestial-sky">
+        <div className="hero-sun" aria-hidden="true" style={celestialStyle(sky.sun, visibility)} />
+        <Moon
+          phase={sky.illumination.phase}
+          name={sky.moonName}
+          style={celestialStyle(sky.moon, visibility * (sky.isNight ? 1 : 0.55))}
+        />
       </div>
       {/* 首页首屏文字和入口；改标题、简介及按钮文案从这里入手。 */}
       <div className="hero-copy">
@@ -149,8 +164,6 @@ export function Hero() {
       </div>
       {/* 岛屿场景层：日月、树林、地面和房屋；同类树木仅排列和尺寸不同。 */}
       <div className="island-scene" aria-label="树木环绕的宁静海岛平原">
-        <div className="hero-sun" aria-hidden="true" />
-        <Moon />
         {/* 用重复元素绘制远处树林，数量影响树木密度。 */}
         <div className="horizon-forest" aria-hidden="true">
           {Array.from({ length: 14 }, (_, index) => (
@@ -218,9 +231,22 @@ export function Hero() {
           <path className="house-foundation" d="M30 147H76V152H30ZM116 147H160V152H116Z" />
         </svg>
       </div>
-      <div className="weather">
+      <button
+        className="weather"
+        ref={calendarAnchor}
+        type="button"
+        aria-label="打开日历与天气预报"
+        aria-haspopup="dialog"
+        aria-expanded={calendarOpen}
+        onClick={() => setCalendarOpen((open) => !open)}
+      >
         <div className="weather-summary">
-          <WeatherIcon kind={weather.kind} period={scenePeriod} loading={weather.loading} />
+          <WeatherIcon
+            kind={weather.kind}
+            period={scenePeriod}
+            loading={weather.loading}
+            isNight={sky.isNight}
+          />
           <span>
             <b>{weather.city}</b>
             <small>
@@ -231,9 +257,19 @@ export function Hero() {
           </span>
         </div>
         <div className="weather-clock">
-          <Time type="game" className="weather-game-time" />
+          <time className="weather-game-time" dateTime={sky.instant.toISOString()}>
+            <span className="weather-time-row">
+              <small>{sky.label}</small>
+              <b>{weather.time}</b>
+            </span>
+            <span className="weather-date-row">
+              <span>{sky.date}</span>
+              <span>{weekday}</span>
+            </span>
+          </time>
         </div>
-      </div>
+      </button>
+      {calendarOpen && <Calendar anchor={calendarAnchor} onClose={() => setCalendarOpen(false)} />}
     </section>
   )
 }

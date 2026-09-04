@@ -3,7 +3,7 @@
 // 组件库样式入口没有额外类型导出，只声明其可被导入。
 declare module 'animal-island-ui/style'
 
-// 音乐插件输出的字段类型；实际清单由 vite.config.ts 生成。
+// 音乐插件输出的字段类型；实际清单由 build/music-playlist.ts 生成。
 declare module 'virtual:island-music-playlist' {
   const playlist: Array<{
     title: string

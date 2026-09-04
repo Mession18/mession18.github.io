@@ -2,12 +2,12 @@
 
 .recipe-refresh {
   margin-left: auto;
-  background: #fffaf0;
-  color: #554a3e;
+  background: var(--paper);
+  color: var(--ink);
 }
 /* 菜谱基础样式：配色与背景。 */
 .home-recipes {
-  background: #f6e7c9;
+  background: var(--page-gradient);
 }
 /* 菜谱基础样式：布局排列与对齐。 */
 .recipe-choices {
@@ -33,7 +33,7 @@
 .recipe-choices strong {
   display: block;
   padding: 16px 10px 13px;
-  color: #554a3e;
+  color: var(--ink);
   font-size: 17px;
   text-align: center;
 }
@@ -55,48 +55,12 @@
   height: auto;
   aspect-ratio: 4 / 3;
 }
-/* 菜谱基础样式：配色与背景。 */
-[data-scene-period='dawn'] .home-recipes {
-  background: #242938;
-}
-[data-scene-period='morning'] .home-recipes {
-  background: #f6e7c9;
-}
-[data-scene-period='noon'] .home-recipes {
-  background: #f9e9ba;
-}
-[data-scene-period='afternoon'] .home-recipes {
-  background: #f2d9b8;
-}
-[data-scene-period='evening'] .home-recipes {
-  background: #302936;
-}
-/* 菜谱基础样式：配色与背景、边框、圆角或阴影。 */
-[data-scene-period='noon'] .recipe-choices a {
-  border-color: #fffdf5;
-  background: #fffdf5;
-}
-[data-scene-period='afternoon'] .recipe-choices a {
-  border-color: #fff4df;
-  background: #fff4df;
-}
-[data-scene-period='dawn'] .recipe-choices a,
-[data-scene-period='evening'] .recipe-choices a {
-  border-color: #35404a;
-  background: #303941;
-  box-shadow: 0 12px 30px #05080c55;
-}
-/* 菜谱基础样式：配色与背景。 */
-[data-scene-period='dawn'] .recipe-choices strong,
-[data-scene-period='evening'] .recipe-choices strong {
-  color: #e8e3d7;
-}
 /* 菜谱基础样式：配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切。 */
 .recipe-choices a {
   overflow: hidden;
-  border: 8px solid #fffaf0;
+  border: 8px solid var(--paper);
   border-radius: 24px;
-  background: #fffaf0;
+  background: var(--paper);
   box-shadow: 0 12px 30px #7f643325;
   transition:
     background-color 0.8s ease,

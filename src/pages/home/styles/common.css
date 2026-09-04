@@ -20,7 +20,7 @@
 /* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .home-content-heading p:not(.eyebrow) {
   margin: 5px 0 0;
-  color: #6f746a;
+  color: var(--muted);
   font-size: 13px;
 }
 /* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、动画与变形。 */
@@ -64,8 +64,8 @@
   padding: 7px 15px 7px 8px;
   border: 0;
   border-radius: 24px;
-  background: #fffaf0d9;
-  color: #4f5149;
+  background: var(--paper);
+  color: var(--ink);
   font: inherit;
   font-size: 12px;
   font-weight: 900;
@@ -92,25 +92,9 @@
   align-items: center;
   gap: 8px;
   margin: 28px 0 0 auto;
-  color: #496e60;
+  color: var(--dark);
   font-size: 13px;
   font-weight: 900;
-}
-/* 公共界面基础样式：配色与背景。 */
-[data-scene-period='dawn'] .home-content-heading p:not(.eyebrow),
-[data-scene-period='evening'] .home-content-heading p:not(.eyebrow) {
-  color: #bdc8c2;
-}
-[data-scene-period='dawn'] .home-content-more,
-[data-scene-period='evening'] .home-content-more {
-  color: #9fcdbd;
-}
-/* 公共界面夜间主题：配色与背景、边框、圆角或阴影。 */
-[data-theme='night'] .item-refresh {
-  border-color: #ffffff24;
-  background: #2d3b3ae8 !important;
-  color: #d7e4dc !important;
-  box-shadow: 0 8px 20px #05080c42;
 }
 /* 公共界面基础样式：尺寸与宽高比例、内外留白、动画与变形。 */
 .home-content-section {
