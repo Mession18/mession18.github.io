@@ -8,7 +8,7 @@ const server = await createServer({
   optimizeDeps: { noDiscovery: true },
 })
 try {
-  const { splitTrackName, musicPlaylistPlugin } = await server.ssrLoadModule(
+  const { splitTrackName, musicPlaylistPlugin, musicFileUrl } = await server.ssrLoadModule(
     '/build/music-playlist.ts',
   )
   assert.deepEqual(splitTrackName('Geoff Knorr - Elizabeth Peace - England'), {
@@ -17,6 +17,12 @@ try {
   })
   assert.deepEqual(splitTrackName('歌手-歌名'), { artist: '歌手', title: '歌名' })
   assert.deepEqual(splitTrackName('纯音乐'), { artist: '未知歌手', title: '纯音乐' })
+  // 逗号与 & 保持字面形式；中文、空格、百分号、查询和片段标记仍安全编码并可还原。
+  const specialName = '歌手, A & B - 曲目 #1? 100%.mp3'
+  const encoded = musicFileUrl(specialName)
+  assert(encoded.includes(',') && encoded.includes('&'))
+  assert(!encoded.includes('#') && !encoded.includes('?') && !encoded.includes(' '))
+  assert.equal(decodeURIComponent(encoded), specialName)
   const plugin = musicPlaylistPlugin()
   const id = plugin.resolveId('virtual:island-music-playlist')
   const dev = await plugin.load(id)

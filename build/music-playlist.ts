@@ -10,6 +10,10 @@ const resolvedId = `\0${moduleId}`
 const coverRoute = '/__island_music_cover/'
 const audioExtensions = new Set(['.mp3', '.wav', '.m4a', '.mp4', '.mpeg', '.aac', '.ogg', '.flac'])
 const coverExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif', '.svg'])
+
+/** 保留路径中合法的逗号、& 等字符，兼容 Vite 的 decodeURI 文件匹配；
+ * # 和 ? 必须单独编码，防止文件名被浏览器当成片段或查询参数。 */
+export const musicFileUrl = (name: string) => encodeURI(name).replace(/[?#]/g, encodeURIComponent)
 type Cover = { data: Uint8Array; format: string } | null
 
 /** 文件名采用“歌手 - 歌名”；只拆第一个分隔符，保留歌名内部的连字符。 */
@@ -96,7 +100,7 @@ export function musicPlaylistPlugin(): Plugin {
         files.set(key, path)
         liveIds.add(key)
         let cover: string | null = external
-          ? `/music/covers/${encodeURIComponent(external)}`
+          ? `/music/covers/${musicFileUrl(external)}`
           : `${coverRoute}${key}`
         if (building && !external) {
           const picture = await readCover(key, path)
@@ -116,7 +120,7 @@ export function musicPlaylistPlugin(): Plugin {
             cover = `/${fileName}`
           }
         }
-        playlist.push({ title, artist, src: `/music/${encodeURIComponent(name)}`, cover })
+        playlist.push({ title, artist, src: `/music/${musicFileUrl(name)}`, cover })
       }
       // 删除歌曲或替换文件后释放旧封面缓存，避免长时间开发时持续占用内存。
       for (const key of files.keys())
