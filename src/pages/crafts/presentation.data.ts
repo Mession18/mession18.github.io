@@ -7,7 +7,7 @@ const workbenches = standPools.crafts.map((stand) => ({
   layout: stand.image.endsWith('/dark.png') ? 'dark' : 'default',
 }))
 
-/** 文案和底图统一在这里维护；byTags 从上到下匹配第一组。 */
+/** 文案和底图统一在这里维护；文章的多个标签会合并所有命中规则的底图。 */
 export const presentation: PresentationConfig = {
   messages: {
     missing: ['正在制作中', '材料采购中', '灵感正在施工'],

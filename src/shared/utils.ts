@@ -227,7 +227,7 @@ export type PresentationConfig = {
   }
   stands: {
     default: readonly Stand[]
-    /** 从上到下匹配，第一个命中且非空的图片集优先。 */
+    /** 合并所有命中且非空的标签图片集；同一底图只保留一次。 */
     byTags: readonly StandRule[]
     /** 不填写或为空时，空位使用 default 图片集。 */
     empty?: readonly Stand[]
@@ -246,28 +246,40 @@ export function standPoolByFiles<T extends Stand>(
   return pool.filter((stand) => names.has(stand.image?.split('/').pop() ?? ''))
 }
 
-/** 纯选择函数，random 可注入，便于验证标签优先级和随机边界。 */
+/** 纯选择函数，random 可注入，便于验证标签合并和随机边界。 */
 export function selectStand(
   config: PresentationConfig,
   tags: readonly string[] = [],
   random: () => number = Math.random,
   empty = false,
 ): Stand {
-  /** 统一去掉标签首尾空格；接着按配置顺序寻找第一条非空且命中的规则。 */
+  /** 统一去掉标签首尾空格；文章有多个标签时合并每条命中规则的候选底图。 */
   const normalized = new Set(tags.map((tag) => tag.trim()))
-  const rule = empty
-    ? undefined
-    : config.stands.byTags.find((candidate) => {
-        if (!candidate.tags.length || !candidate.pool.length) return false
-        return candidate.match === 'all'
+  const taggedPool: Stand[] = []
+  if (!empty) {
+    const seen = new Set<string>()
+    for (const candidate of config.stands.byTags) {
+      if (!candidate.tags.length || !candidate.pool.length) continue
+      const matches =
+        candidate.match === 'all'
           ? candidate.tags.every((tag) => normalized.has(tag.trim()))
           : candidate.tags.some((tag) => normalized.has(tag.trim()))
-      })
+      if (!matches) continue
+      for (const stand of candidate.pool) {
+        const key = stand.image ?? stand.id
+        if (seen.has(key)) continue
+        seen.add(key)
+        taggedPool.push(stand)
+      }
+    }
+  }
   /** 空位优先独立池，普通卡片优先标签池，最后回退默认池；无图时使用 CSS 外观。 */
   const pool =
     empty && config.stands.empty?.length
       ? config.stands.empty
-      : (rule?.pool ?? config.stands.default)
+      : taggedPool.length
+        ? taggedPool
+        : config.stands.default
   if (!pool.length) return { id: 'css-default', layout: 'default' }
   /** 把随机数映射为图片池下标，并限制范围以处理随机边界。 */
   const index = Math.min(pool.length - 1, Math.max(0, Math.floor(random() * pool.length)))

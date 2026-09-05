@@ -25,9 +25,10 @@ assert.notEqual(
   'preview/波罗蜜-封面.png',
 )
 assert.equal(parseMarkdown('src/content/crafts/_模板.md', ''), null)
-// 最小图片及文案配置：多标签 all 规则优先，随后是单标签规则和默认池。
+// 最小图片及文案配置：所有命中的标签池会合并并去重，未命中时使用默认池。
 const a = { id: 'a', image: '/a.png', layout: 'wood' },
   b = { id: 'b' },
+  c = { id: 'c' },
   fallback = { id: 'fallback' },
   empty = { id: 'empty' }
 const config = {
@@ -37,18 +38,18 @@ const config = {
     empty: [empty],
     byTags: [
       { tags: ['木工', '手作'], match: 'all', pool: [a, b] },
-      { tags: ['木工'], pool: [b] },
+      { tags: ['木工'], pool: [b, c] },
     ],
   },
 }
-// 注入可预测随机数，覆盖优先级、去空格、默认池、空位池与随机下标边界。
+// 注入可预测随机数，覆盖标签池合并、去空格、默认池、空位池与随机下标边界。
 assert.equal(
   selectStand(config, ['木工', '手作'], () => 0),
   a,
 )
 assert.equal(
   selectStand(config, ['木工', '手作'], () => 0.999),
-  b,
+  c,
 )
 assert.equal(
   selectStand(config, [' 木工 ', '手作'], () => 0),
@@ -57,6 +58,10 @@ assert.equal(
 assert.equal(
   selectStand(config, ['木工'], () => 0),
   b,
+)
+assert.equal(
+  selectStand(config, ['木工'], () => 0.999),
+  c,
 )
 assert.equal(
   selectStand(config, ['未知'], () => 0),
@@ -88,7 +93,7 @@ assert.deepEqual(parseMarkdownTags('tags:\n  - 木工\n  - 手作\ntitle: 标题
   '木工',
   '手作',
 ])
-console.log('通过：标签优先级、any/all、随机边界、默认回退、空位、布局、文案和 Markdown 标签。')
+console.log('通过：标签池合并去重、any/all、随机边界、默认回退、空位、布局、文案和 Markdown 标签。')
 
 // 同一洗牌函数用于首页和文案：不改原数组、不丢项目，并覆盖空数组和随机边界。
 const original = ['a', 'b', 'c']
