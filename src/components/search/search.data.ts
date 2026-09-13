@@ -1,4 +1,4 @@
-import { categoryLabels, collections } from '../../pages/museum/museum.data'
+import { collections } from '../../pages/museum/museum.data'
 import { posts } from '../../pages/posts/posts.data'
 import { contentSectionInfo, sectionContent, type ContentSectionKey } from '../../shared/data'
 
@@ -103,14 +103,14 @@ const postEntries = posts.map((post) =>
   ),
 )
 
-/** 为藏品生成带分类与 slug 的详情地址和搜索文本。 */
+/** 为藏品生成稳定的 slug 详情地址，并将全部标签纳入搜索文本。 */
 const collectionEntries = collections.map((item) =>
   searchable(
     {
-      id: `collection-${item.category}-${item.slug}`,
-      href: `/museum/${item.category}/${item.slug}`,
+      id: `collection-${item.slug}`,
+      href: `/museum/${item.slug}`,
       title: item.title,
-      meta: `博物馆 · ${categoryLabels[item.category]} · ${item.year}`,
+      meta: `博物馆 · ${item.tags.join(' / ')} · ${item.year}`,
       excerpt: item.excerpt,
       icon: item.icon,
       color: item.color,

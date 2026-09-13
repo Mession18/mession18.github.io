@@ -4,9 +4,8 @@ import {
   parseMarkdownTags,
   displayImageOrUndefined,
 } from '../../shared/utils'
+import { isMarkdownTemplate } from '../../shared/markdown'
 
-/** 藏品分类键，允许使用内置英文分类或新增自定义分类。 */
-export type CollectionCategory = string
 /** 藏品主题色，与共享色板解析规则一致。 */
 export type CollectionColor = IslandColor
 /** 藏品的统一数据结构；与普通文章相比多了分类、评分和年份等字段。 */
@@ -14,7 +13,6 @@ export type CollectionItem = {
   id: string
   slug: string
   tags: string[]
-  category: CollectionCategory
   title: string
   subtitle: string
   year: string
@@ -29,13 +27,6 @@ export type CollectionItem = {
   sourceDir: string
 }
 
-/** 内置分类的中文显示名；未列出的自定义分类直接显示其原始值。 */
-const builtInCategoryLabels: Record<string, string> = {
-  photos: '照片',
-  games: '游戏',
-  books: '书籍',
-  music: '音乐',
-}
 /** 构建时读取本栏目 Markdown 原文，后续统一解析为页面使用的数据。 */
 const markdownFiles = import.meta.glob('../../content/museum/*.md', {
   query: '?raw',
@@ -45,9 +36,9 @@ const markdownFiles = import.meta.glob('../../content/museum/*.md', {
 
 /** 解析藏品头部和正文，校验必填字段，生成卡片、详情和搜索所需字段。 */
 function parseCollection(path: string, source: string): CollectionItem | null {
-  /** 以文件名生成 slug，下划线开头视为模板；随后分离头部元信息和正文。 */
+  /** 下划线开头或以“模板”结尾的文件只供复制编辑，不生成藏品。 */
   const filename = path.split('/').pop() ?? ''
-  if (filename.startsWith('_')) return null
+  if (isMarkdownTemplate(path)) return null
   const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/)
   if (!match) throw new Error(`藏品 ${filename} 缺少 Markdown 头部信息`)
   /** 解析头部键值字段；正文不参与元数据解析，标签列表由专门函数处理。 */
@@ -66,15 +57,15 @@ function parseCollection(path: string, source: string): CollectionItem | null {
         ]
       }),
   )
-  if (!metadata.id || !metadata.category || !metadata.excerpt)
-    throw new Error(`藏品 ${filename} 必须填写 id、category 和 excerpt`)
+  const tags = parseMarkdownTags(match[1])
+  if (!metadata.id || !tags.length || !metadata.excerpt)
+    throw new Error(`藏品 ${filename} 必须填写 id、tags 和 excerpt`)
   const slug = filename.replace(/\.md$/, '')
   const color = resolveColor(metadata.color) as CollectionColor
   return {
     id: metadata.id,
-    tags: parseMarkdownTags(match[1]),
+    tags,
     slug,
-    category: metadata.category as CollectionCategory,
     title: metadata.title || slug,
     subtitle: metadata.subtitle || '',
     year: metadata.year || '',
@@ -99,13 +90,8 @@ export const collections = Object.entries(markdownFiles)
   .map(([path, source]) => parseCollection(path, source))
   .filter((item): item is CollectionItem => item !== null)
 
-/** 从藏品 category 自动去重生成分类按钮，新增分类无需手写按钮。 */
-export const collectionCategories = [...new Set(collections.map((item) => item.category))]
-
-/** 合并内置分类翻译与自定义分类名称，供列表筛选和详情展示。 */
-export const categoryLabels: Record<string, string> = Object.fromEntries(
-  collectionCategories.map((category) => [category, builtInCategoryLabels[category] ?? category]),
-)
+/** 从所有藏品标签自动生成筛选按钮；多标签藏品会出现在每个对应筛选中。 */
+export const collectionTags = [...new Set(collections.flatMap((item) => item.tags))]
 /** 藏品封面优先使用 previewImage，未填写则借用 detailImage。 */
 export function getCollectionPreviewImage(item: CollectionItem) {
   return item.previewImage || item.detailImage

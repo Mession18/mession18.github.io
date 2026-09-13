@@ -9,7 +9,7 @@ color: sunshine
 previewImage: /images/examples/tomato-eggs.svg
 detailImage: /images/examples/tomato-eggs.svg
 id: 20260902202553-ron860
-subtitle: ''
+subtitle: ""
 ---
 
 ## 食材

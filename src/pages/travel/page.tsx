@@ -4,24 +4,38 @@ import { ContentMessageText } from '../../components/content-placeholder/Content
 import { ContentListPage } from '../../components/content-list/ContentListPage'
 import { useStand } from '../../hooks/useStand'
 import { colorClass } from '../../shared/config'
+import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
 
-import {
-  formatDateRange,
-  getPostDisplayImage,
-  type Post,
-  standAttributes,
-} from '../../shared/utils'
+import { formatDateRange, getPostDisplayImage, type Post } from '../../shared/utils'
+import { standAttributes } from '../../shared/presentation'
 
 import { presentation } from './presentation.data'
 import { travel } from './travel.data'
+import { travelPostToStamp } from '../passport/travel-stamps.data'
 
 export function TravelPage() {
+  const countries = [...new Set(travel.flatMap((post) => post.tags))]
+  const provincesByCountry = Object.fromEntries(
+    countries.map((country) => [
+      country,
+      [
+        ...new Set(
+          travel
+            .filter((post) => post.tags.includes(country))
+            .map((post) => post.province)
+            .filter(Boolean),
+        ),
+      ] as string[],
+    ]),
+  )
   return (
     <ContentListPage
       section="travel"
       items={travel}
       renderCard={(post) => <TravelCard key={post.slug} post={post} />}
       renderEmpty={(key) => <EmptyTravelCard key={key} />}
+      getChildTags={(country) => provincesByCountry[country] ?? []}
+      matchesChildTag={(post, _country, province) => post.province === province}
     />
   )
 }
@@ -34,6 +48,7 @@ export function TravelCard({ post, basePath = '/travel' }: { post: Post; basePat
   const stand = useStand(presentation, post.tags)
 
   const travelDates = formatDateRange(post.startDate, post.finalDate)
+  const travelStamp = travelPostToStamp(post)
   return (
     <article {...standAttributes(stand)} className="post travel-postcard-card">
       <Link
@@ -63,6 +78,7 @@ export function TravelCard({ post, basePath = '/travel' }: { post: Post; basePat
               (post.customIcon ?? '')
             )}
           </span>
+          <TravelStamp stamp={travelStamp} compact />
           <strong>{post.title}</strong>
           <p>{post.excerpt}</p>
           {travelDates && <time>{travelDates}</time>}

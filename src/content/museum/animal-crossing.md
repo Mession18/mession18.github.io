@@ -1,6 +1,6 @@
 ---
 id: G-001
-category: games
+tags: 游戏
 title: 动物森友会
 subtitle: 一座可以随时回去的小岛
 rating: 5

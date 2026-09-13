@@ -1,6 +1,6 @@
 ---
 id: B-001
-category: books
+tags: 书籍
 title: 小王子
 subtitle: 写给大人的童话
 rating: 4.9
@@ -8,8 +8,8 @@ icon: 🌟
 color: lavender
 excerpt: 有些重要的东西，需要用心才能看见。
 date: 2026-09-02
-previewImage: ''
-detailImage: ''
+previewImage: ""
+detailImage: ""
 ---
 
 ## 收藏理由

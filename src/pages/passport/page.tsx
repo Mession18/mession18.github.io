@@ -12,9 +12,9 @@ import {
   Utensils,
 } from 'lucide-react'
 import { useState } from 'react'
-import { countryFlags } from '../../shared/data'
+import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
 import { STAMPS_PER_PAGE, mrzLines } from './passport.data'
-import { travelStamps, type TravelStamp } from './travel-stamps.data'
+import { passportTravelStamps, type TravelStamp as TravelStampData } from './travel-stamps.data'
 
 /** 把装饰性机器可读编码逐字符排列，使护照底部字距均匀。 */
 function MachineReadableLine({ value }: { value: string }) {
@@ -24,30 +24,6 @@ function MachineReadableLine({ value }: { value: string }) {
         <span key={index}>{character}</span>
       ))}
     </code>
-  )
-}
-
-/** 渲染一枚旅行章：可配置国家旗帜、形状、颜色、旋转角度和备注。 */
-function Stamp({ stamp }: { stamp: TravelStamp }) {
-  return (
-    <div
-      className={`travel-stamp stamp-${stamp.color} ${stamp.shape === 'square' ? 'stamp-square' : ''}`}
-      style={{ transform: `rotate(${stamp.rotation ?? 0}deg)` }}
-    >
-      {stamp.countryCode && countryFlags[stamp.countryCode] ? (
-        <img
-          className="stamp-flag"
-          src={countryFlags[stamp.countryCode]}
-          alt={`${stamp.countryOrRegion}旗帜`}
-        />
-      ) : (
-        <span className="stamp-mark">{stamp.mark}</span>
-      )}
-      <b>{stamp.place}</b>
-      <small>{stamp.region}</small>
-      <time>{stamp.date}</time>
-      {stamp.note && <em>{stamp.note}</em>}
-    </div>
   )
 }
 
@@ -151,7 +127,7 @@ function IdentityPage() {
 }
 
 /** 护照签证页；接收已经分页的旅行章，并显示页码和空页占位。 */
-function VisaPage({ stamps, pageNumber }: { stamps: TravelStamp[]; pageNumber: number }) {
+function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumber: number }) {
   return (
     <div className="passport-page visa-page">
       <div className="security-guilloche" aria-hidden="true" />
@@ -165,7 +141,13 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStamp[]; pageNumber: n
       {/* 本页旅行章网格，数据来自 travel-stamps.data.ts；空页显示旅行提示。 */}
       <div className="visa-grid">
         {stamps.map((stamp) => (
-          <Stamp key={`${stamp.region}-${stamp.place}-${stamp.date}`} stamp={stamp} />
+          <TravelStamp
+            key={
+              stamp.id ??
+              `${stamp.countryOrRegion}-${stamp.province}-${stamp.city}-${stamp.startDate}`
+            }
+            stamp={stamp}
+          />
         ))}
         {stamps.length === 0 && (
           <div className="empty-visa">
@@ -187,7 +169,7 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStamp[]; pageNumber: n
 
 /** 按旅行章统计国家地区与总次数，显示旅行年鉴和宣言。 */
 function JourneySummaryPage() {
-  const regions = new Set(travelStamps.map((stamp) => stamp.countryOrRegion)).size
+  const regions = new Set(passportTravelStamps.map((stamp) => stamp.countryOrRegion)).size
   return (
     <div className="passport-page summary-page">
       <div className="security-guilloche" aria-hidden="true" />
@@ -205,7 +187,7 @@ function JourneySummaryPage() {
       {/* 旅行统计：章数与国家地区数自动计算，无需手工更新数字。 */}
       <div className="journey-stats">
         <p>
-          <b>{String(travelStamps.length).padStart(2, '0')}</b>
+          <b>{String(passportTravelStamps.length).padStart(2, '0')}</b>
           <small>枚旅行章</small>
         </p>
         <p>
@@ -236,13 +218,16 @@ function JourneySummaryPage() {
 /** 首页与独立护照页共用的翻页组件；standalone 仅切换外层页面样式。 */
 export function Passport({ standalone = false }: { standalone?: boolean }) {
   /** 签证页数量按印章总数计算，另加身份页与年鉴页。 */
-  const visaPageCount = Math.max(1, Math.ceil(travelStamps.length / STAMPS_PER_PAGE))
+  const visaPageCount = Math.max(1, Math.ceil(passportTravelStamps.length / STAMPS_PER_PAGE))
   /** 总页数为签证页数加身份页与年鉴页。 */
   const totalPages = visaPageCount + 2
   /** 护照内部页码从 0 开始：第 0 页为身份页，最后一页为旅行年鉴。 */
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState<'next' | 'prev'>('next')
-  const pageStamps = travelStamps.slice((page - 1) * STAMPS_PER_PAGE, page * STAMPS_PER_PAGE)
+  const pageStamps = passportTravelStamps.slice(
+    (page - 1) * STAMPS_PER_PAGE,
+    page * STAMPS_PER_PAGE,
+  )
 
   /** 限制护照页码范围，并依据方向选择翻页动画。 */
   function turnPage(nextPage: number) {

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { getPosition, getTimes, getMoonPosition, getMoonIllumination } from 'suncalc'
 import { resolveColor, type IslandColor } from './config'
+import { isMarkdownTemplate } from './markdown'
 
 /** 把 YYYY-MM-DD 拆为中文年月日；不完整的值按原文显示。 */
 export function formatChineseDate(date?: string) {
@@ -119,6 +120,11 @@ export type Post = {
   icon: string
   customIcon?: string
   stampImage?: string
+  province?: string
+  city?: string
+  stampColor?: 'green' | 'blue' | 'red' | 'violet'
+  stampRotation?: number
+  stampNote?: string
   previewImage?: string
   detailImage?: string
   content: string
@@ -127,9 +133,9 @@ export type Post = {
 
 /** 解析普通内容：跳过模板、校验日期与摘要、解析标签和图片，并生成阅读时间等衍生字段。 */
 export function parseMarkdown(path: string, source: string, defaultTag = '岛民文章'): Post | null {
-  /** 以文件名生成 slug，下划线开头视为模板；随后分离头部元信息和正文。 */
+  /** 下划线开头或以“模板”结尾的文件只供复制编辑，不生成页面内容。 */
   const filename = path.split('/').pop() ?? ''
-  if (filename.startsWith('_')) return null
+  if (isMarkdownTemplate(path)) return null
   const slug = filename.replace(/\.md$/, '')
   const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/)
   if (!match) throw new Error(`文章 ${filename} 缺少 Markdown 头部信息`)
@@ -180,6 +186,13 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     stampImage: metadata.stampImage
       ? resolveMarkdownImage(metadata.stampImage, sourceDir)
       : undefined,
+    province: metadata.province || undefined,
+    city: metadata.city || undefined,
+    stampColor: ['green', 'blue', 'red', 'violet'].includes(metadata.stampColor)
+      ? (metadata.stampColor as Post['stampColor'])
+      : undefined,
+    stampRotation: metadata.stampRotation ? Number(metadata.stampRotation) || 0 : undefined,
+    stampNote: metadata.stampNote || undefined,
     previewImage: metadata.previewImage
       ? resolveMarkdownImage(metadata.previewImage, sourceDir)
       : undefined,
@@ -204,135 +217,6 @@ export function getPostDisplayImage(post: Post) {
 /** 详情页优先 detailImage，未设置则使用封面。 */
 export function getPostDetailImage(post: Post) {
   return post.detailImage || post.previewImage
-}
-
-/** 一张底图的标识、图片地址和布局名；布局名与 CSS data-stand-layout 联动。 */
-export type Stand = {
-  id: string
-  /** 不填写图片时继续使用页面原本的 CSS 外观（如明信片）。 */
-  image?: string
-  /** 对应本页 styles.css 中的 data-stand-layout 选择器。 */
-  layout?: string
-}
-
-/** 一组标签到图片池的映射；默认 any，all 要求该组每个标签同时存在。 */
-export type StandRule = {
-  tags: readonly string[]
-  match?: 'any' | 'all'
-  pool: readonly Stand[]
-}
-
-/** 各栏目展示配置契约：文案、替换词、默认池、标签规则和可选空位池。 */
-export type PresentationConfig = {
-  messages: {
-    missing: readonly string[]
-    empty: readonly string[]
-    tokens?: Readonly<Record<string, readonly string[]>>
-  }
-  stands: {
-    default: readonly Stand[]
-    /** 合并所有命中且非空的标签图片集；同一底图只保留一次。 */
-    byTags: readonly StandRule[]
-    /** 不填写或为空时，空位使用 default 图片集。 */
-    empty?: readonly Stand[]
-  }
-}
-
-/** 从本栏目的自动图片池按文件名取子集；中文、空格文件名先编码再匹配。
- * 不存在的文件会被忽略，返回空集时 selectStand 继续匹配下一条有效规则。
- * 示例：standPoolByFiles(workbenches, ['base.png', 'dark.png'])。
- */
-export function standPoolByFiles<T extends Stand>(
-  pool: readonly T[],
-  filenames: readonly string[],
-): T[] {
-  const names = new Set(filenames.map((filename) => encodeURIComponent(filename)))
-  return pool.filter((stand) => names.has(stand.image?.split('/').pop() ?? ''))
-}
-
-/** 纯选择函数，random 可注入，便于验证标签合并和随机边界。 */
-export function selectStand(
-  config: PresentationConfig,
-  tags: readonly string[] = [],
-  random: () => number = Math.random,
-  empty = false,
-): Stand {
-  /** 统一去掉标签首尾空格；文章有多个标签时合并每条命中规则的候选底图。 */
-  const normalized = new Set(tags.map((tag) => tag.trim()))
-  const taggedPool: Stand[] = []
-  if (!empty) {
-    const seen = new Set<string>()
-    for (const candidate of config.stands.byTags) {
-      if (!candidate.tags.length || !candidate.pool.length) continue
-      const matches =
-        candidate.match === 'all'
-          ? candidate.tags.every((tag) => normalized.has(tag.trim()))
-          : candidate.tags.some((tag) => normalized.has(tag.trim()))
-      if (!matches) continue
-      for (const stand of candidate.pool) {
-        const key = stand.image ?? stand.id
-        if (seen.has(key)) continue
-        seen.add(key)
-        taggedPool.push(stand)
-      }
-    }
-  }
-  /** 空位优先独立池，普通卡片优先标签池，最后回退默认池；无图时使用 CSS 外观。 */
-  const pool =
-    empty && config.stands.empty?.length
-      ? config.stands.empty
-      : taggedPool.length
-        ? taggedPool
-        : config.stands.default
-  if (!pool.length) return { id: 'css-default', layout: 'default' }
-  /** 把随机数映射为图片池下标，并限制范围以处理随机边界。 */
-  const index = Math.min(pool.length - 1, Math.max(0, Math.floor(random() * pool.length)))
-  return pool[index]
-}
-
-/** 把选中的底图写成卡片 data 属性和 --stand-image CSS 变量，连接选图逻辑与外观。 */
-export function standAttributes(stand: Stand) {
-  return {
-    'data-stand': stand.id,
-    'data-stand-layout': stand.layout ?? 'default',
-    'data-stand-image': Boolean(stand.image) || undefined,
-    style: stand.image
-      ? ({ '--stand-image': `url(${JSON.stringify(stand.image)})` } as CSSProperties)
-      : undefined,
-  }
-}
-
-/** Fisher–Yates 洗牌：线性遍历副本，每个元素等机会落在任一位置。
- * 首页换一批和文案抽签共用此实现；传入固定 random 可验证边界，原数组不会被修改。
- */
-export function shuffled<T>(items: readonly T[], random: () => number = Math.random): T[] {
-  const result = [...items]
-  for (let index = result.length - 1; index > 0; index--) {
-    const other = Math.floor(random() * (index + 1))
-    ;[result[index], result[other]] = [result[other], result[index]]
-  }
-  return result
-}
-
-/** 同一个文案列表抽完一轮再洗牌，避免长期固定使用首条文案。 */
-const messageBags = new WeakMap<readonly string[], string[]>()
-/** 复用文案抽签袋；抽完后重新洗牌，保证每轮覆盖全部文案。 */
-function drawMessage(items: readonly string[]) {
-  /** 从上次尚未抽完的文案袋继续抽取，空袋再复制并洗牌。 */
-  let bag = messageBags.get(items)
-  if (!bag?.length) {
-    bag = shuffled(items)
-    messageBags.set(items, bag)
-  }
-  return bag.pop() ?? ''
-}
-
-/** 抽取缺图或空位文案，并把 {占位词} 替换成配置中的随机词语。 */
-export function drawContentMessage(config: PresentationConfig, kind: 'missing' | 'empty') {
-  return drawMessage(config.messages[kind]).replace(/\{([^}]+)\}/g, (token, key: string) => {
-    const values = config.messages.tokens?.[key]
-    return values?.length ? drawMessage(values) : token
-  })
 }
 
 /** 按定位时区取得日历日期与分钟数，不受访客电脑的时区设置影响。 */

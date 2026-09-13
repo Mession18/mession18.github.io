@@ -128,7 +128,8 @@ export function App() {
             <Route path="/posts" element={<PostsPage />} />
             <Route path="/posts/:slug" element={<PostDetailPage />} />
             <Route path="/museum" element={<MuseumPage />} />
-            <Route path="/museum/:category/:slug" element={<CollectionDetailPage />} />
+            <Route path="/museum/:slug" element={<CollectionDetailPage />} />
+            <Route path="/museum/:legacyTag/:slug" element={<CollectionDetailPage />} />
 
             <Route path="/travel" element={<TravelPage />} />
             <Route path="/travel/:slug" element={<TravelDetailPage />} />

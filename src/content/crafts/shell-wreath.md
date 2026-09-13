@@ -2,14 +2,14 @@
 title: 贝壳花环
 date: 2026-08-31
 tags:
-  - 海边手作
+  - 首饰工艺
 excerpt: 把散步时捡到的贝壳，做成一圈海风。
 icon: 🐚
 color: sky
 previewImage: /images/examples/shell-wreath.svg
 detailImage: /images/examples/shell-wreath.svg
 id: 20260902202553-u70j1g
-subtitle: ''
+subtitle: ""
 ---
 
 ## 需要准备

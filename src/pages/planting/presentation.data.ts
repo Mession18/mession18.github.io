@@ -1,5 +1,12 @@
 import standPools from 'virtual:island-stand-pools'
-import type { PresentationConfig } from '../../shared/utils'
+import {
+  standPoolByFiles,
+  standRulesByImageNames,
+  type PresentationConfig,
+} from '../../shared/presentation'
+
+const pots = standPools.planting
+const basicPotFiles = ['flower-pot.png']
 
 /** 文案和底图统一在这里维护；文章的多个标签会合并所有命中规则的底图。 */
 export const presentation: PresentationConfig = {
@@ -8,8 +15,8 @@ export const presentation: PresentationConfig = {
     empty: ['等待新植物到来', '等待下一颗种子'],
   },
   stands: {
-    // 默认从本栏目指定素材文件夹自动读取，无需手写图片清单。
-    default: standPools.planting,
-    byTags: [],
+    default: standPoolByFiles(pots, basicPotFiles),
+    byTags: standRulesByImageNames(pots, basicPotFiles),
+    empty: pots,
   },
 }

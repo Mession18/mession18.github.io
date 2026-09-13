@@ -1,5 +1,12 @@
 import standPools from 'virtual:island-stand-pools'
-import type { PresentationConfig } from '../../shared/utils'
+import {
+  standPoolByFiles,
+  standRulesByImageNames,
+  type PresentationConfig,
+} from '../../shared/presentation'
+
+const pedestals = standPools.museum
+const basicPedestalFiles = ['museum-pedestal-v3.png']
 
 /** 文案和底图统一在这里维护；文章的多个标签会合并所有命中规则的底图。 */
 export const presentation: PresentationConfig = {
@@ -20,8 +27,8 @@ export const presentation: PresentationConfig = {
     },
   },
   stands: {
-    // 默认从本栏目指定素材文件夹自动读取，无需手写图片清单。
-    default: standPools.museum,
-    byTags: [],
+    default: standPoolByFiles(pedestals, basicPedestalFiles),
+    byTags: standRulesByImageNames(pedestals, basicPedestalFiles),
+    empty: pedestals,
   },
 }

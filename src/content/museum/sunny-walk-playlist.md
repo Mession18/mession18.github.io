@@ -1,6 +1,6 @@
 ---
 id: M-001
-category: music
+tags: 音乐
 title: 晴天散步歌单
 subtitle: 适合戴着耳机慢慢走
 rating: 4.7
@@ -8,8 +8,8 @@ icon: 🎧
 color: sky
 excerpt: 没有固定目的地时，音乐就是散步的路线。
 date: 2026-09-02
-previewImage: ''
-detailImage: ''
+previewImage: ""
+detailImage: ""
 ---
 
 ## 收藏理由

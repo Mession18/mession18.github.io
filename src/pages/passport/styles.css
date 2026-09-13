@@ -650,7 +650,7 @@
 /* 旅行装饰伪元素：文字排版。 */
 .travel-stamp::before,
 .travel-stamp::after {
-  content: '• • • • •';
+  content: '• • •';
   font-size: 7px;
   letter-spacing: 2px;
 }
@@ -687,20 +687,36 @@
   box-shadow: 0 2px 5px #4d44392e;
 }
 /* 旅行基础样式：内外留白、文字排版。 */
-.travel-stamp b {
-  margin-top: 3px;
+.travel-stamp .stamp-location {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin-top: 2px;
   font-size: 14px;
   letter-spacing: 2px;
 }
+.travel-stamp .stamp-location small {
+  font-size: 7px;
+  letter-spacing: 0;
+}
 /* 旅行基础样式：文字排版。 */
-.travel-stamp small {
+.travel-stamp .stamp-country {
   font-size: 8px;
+  font-weight: 700;
 }
 /* 旅行基础样式：内外留白、文字排版。 */
 .travel-stamp time {
-  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2px;
   font-family: monospace;
   font-size: 9px;
+  line-height: 1.05;
+}
+.travel-stamp time i {
+  font-size: 7px;
+  font-style: normal;
 }
 /* 旅行基础样式：文字排版。 */
 .travel-stamp em {

@@ -16,6 +16,8 @@ type Props = {
   renderEmpty: (key: string) => ReactNode
   extraTags?: readonly string[]
   matchesTag?: (item: Post, tag: string) => boolean
+  getChildTags?: (tag: string) => readonly string[]
+  matchesChildTag?: (item: Post, parent: string, child: string) => boolean
 }
 
 /** 四个展台栏目的共享标题、筛选与分页结构。 */
@@ -26,13 +28,20 @@ export function ContentListPage({
   renderEmpty,
   extraTags = [],
   matchesTag = (item, tag) => item.tags.includes(tag),
+  getChildTags,
+  matchesChildTag = () => true,
 }: Props) {
   const [page, setPage] = useState(1)
   const [activeTag, setActiveTag] = useState('all')
+  const [activeChildTag, setActiveChildTag] = useState('all')
   const info = contentSectionInfo[section]
   const tags = [...new Set([...extraTags, ...items.flatMap((item) => item.tags)])]
-  const visibleItems =
-    activeTag === 'all' ? items : items.filter((item) => matchesTag(item, activeTag))
+  const childTags = activeTag === 'all' ? [] : (getChildTags?.(activeTag) ?? [])
+  const visibleItems = items.filter(
+    (item) =>
+      (activeTag === 'all' || matchesTag(item, activeTag)) &&
+      (activeChildTag === 'all' || matchesChildTag(item, activeTag, activeChildTag)),
+  )
   const total = Math.max(1, Math.ceil(visibleItems.length / displayPageSize))
   const pageItems = visibleItems.slice((page - 1) * displayPageSize, page * displayPageSize)
   const emptySlots = displayPageSize - pageItems.length
@@ -56,6 +65,7 @@ export function ContentListPage({
             aria-pressed={activeTag === tag}
             onClick={() => {
               setActiveTag(tag)
+              setActiveChildTag('all')
               setPage(1)
             }}
           >
@@ -63,6 +73,24 @@ export function ContentListPage({
           </button>
         ))}
       </div>
+      {childTags.length > 0 && (
+        <div className="content-filters content-subfilters" aria-label={`${activeTag}省份`}>
+          {['all', ...childTags].map((child) => (
+            <button
+              key={child}
+              type="button"
+              className={activeChildTag === child ? 'active' : ''}
+              aria-pressed={activeChildTag === child}
+              onClick={() => {
+                setActiveChildTag(child)
+                setPage(1)
+              }}
+            >
+              {child === 'all' ? `全部${activeTag}` : child}
+            </button>
+          ))}
+        </div>
+      )}
       <section className="posts-library">
         <div className="post-grid display-stand-grid">
           {pageItems.map(renderCard)}

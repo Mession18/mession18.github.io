@@ -12,7 +12,7 @@ import { AdaptivePreviewImage } from '../../../components/adaptive-image/Adaptiv
 import { ContentMessageText } from '../../../components/content-placeholder/ContentPlaceholder'
 import { colorClass, colorStyle } from '../../../shared/config'
 import { sectionContent } from '../../../shared/data'
-import { shuffled } from '../../../shared/utils'
+import { shuffled } from '../../../shared/presentation'
 
 import { posts } from '../../posts/posts.data'
 
@@ -110,7 +110,7 @@ export function Museum() {
 function MuseumPreview({ item, index }: { item: CollectionItem; index: number }) {
   const { image: previewImage, onError } = useImageSource(getCollectionDisplayImage(item))
   return (
-    <Link className={`photo p${index + 1}`} to={`/museum/${item.category}/${item.slug}`}>
+    <Link className={`photo p${index + 1}`} to={`/museum/${item.slug}`}>
       <div
         className={previewImage ? '' : `photo-missing ${colorClass(item.color)}`}
         style={previewImage ? undefined : colorStyle(item.color)}

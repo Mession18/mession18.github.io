@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../../../shared/data'
 import { animateItemRefresh } from '../home.data'
-import { shuffled } from '../../../shared/utils'
+import { shuffled } from '../../../shared/presentation'
 import { ContentImage } from './ContentImage'
 
 /** 首页菜谱预览：从菜谱数据选三项，并提供换一批与列表入口。 */

@@ -4,12 +4,12 @@ import { ArrowLeft, CalendarDays, Star } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MarkdownContent } from '../../components/markdown/MarkdownContent'
 import { colorClass, colorStyle } from '../../shared/config'
-import { categoryLabels, collections, getCollectionDetailImage } from './museum.data'
+import { collections, getCollectionDetailImage } from './museum.data'
 
 /** 博物馆详情页：根据路由 slug 查找单条内容，显示大图、元信息和 Markdown；找不到时提供返回入口。 */
 export function CollectionDetailPage() {
-  const { category, slug } = useParams()
-  const item = collections.find((entry) => entry.category === category && entry.slug === slug)
+  const { slug } = useParams()
+  const item = collections.find((entry) => entry.slug === slug)
   const { image: detailImage, onError } = useImageSource(
     item ? getCollectionDetailImage(item) : undefined,
   )
@@ -50,9 +50,11 @@ export function CollectionDetailPage() {
           <small>COLLECTION · {item.id}</small>
         </div>
         <div className="collection-info">
-          <Tag size="small" variant="soft" color="app-green" className="island-ui-tag">
-            {categoryLabels[item.category]}
-          </Tag>
+          {item.tags.map((tag) => (
+            <Tag key={tag} size="small" variant="soft" color="app-green" className="island-ui-tag">
+              {tag}
+            </Tag>
+          ))}
           <h1>{item.title}</h1>
           <p className="collection-subtitle">{item.subtitle}</p>
           <div className="collection-meta">

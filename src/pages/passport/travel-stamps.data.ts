@@ -1,148 +1,165 @@
-/** 旅行章字段说明：地点、国家地区、日期、色彩及可选国旗等。 */
+import type { Post } from '../../shared/utils'
+import { countryCodeForChineseName } from '../../shared/country-flags'
+import { travel } from '../travel/travel.data'
+
+/** 旅行章字段说明：地点、国家地区、起止日期、色彩及可选国旗等。 */
 export type TravelStamp = {
-  place: string
-  region: string
+  id?: string
+  province?: string
+  city: string
   countryOrRegion: string
-  date: string
-  mark?: string
+  startDate: string
+  endDate?: string
   countryCode?: string
   color: 'green' | 'blue' | 'red' | 'violet'
-  shape?: 'round' | 'square'
   rotation?: number
   note?: string
 }
 
-// 每增加一条记录，护照签证页就会自动排版；每页最多显示 6 枚章。
-// countryOrRegion 用于年鉴统计：国内城市填“中国”，香港、澳门等可分别填写“香港”“澳门”。
+// 手动章继续在这里添加；startDate/endDate 使用 YYYY.MM.DD，全部章会按 startDate 排序。
+// countryOrRegion 填简体中文国家或地区名，国旗与方章/圆章形状会自动识别；每页最多 6 枚。
 export const travelStamps: TravelStamp[] = [
   {
-    place: '烟台',
-    region: '中国 · 山东',
+    province: '山东',
+    city: '烟台',
     countryOrRegion: '中国',
-    date: '2001.08.18',
-    mark: '🏠',
+    startDate: '2001.08.18',
     color: 'green',
-    shape: 'square',
     rotation: -8,
     note: '常驻地',
   },
   {
-    place: '北京',
-    region: '中国 · 北京',
+    city: '北京',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🏯',
+    startDate: '填写日期',
     color: 'red',
-    shape: 'square',
     rotation: -6,
   },
   {
-    place: '天津',
-    region: '中国 · 天津',
+    city: '天津',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🎡',
+    startDate: '填写日期',
     color: 'blue',
-    shape: 'square',
     rotation: 5,
   },
   {
-    place: '沈阳',
-    region: '中国 · 辽宁',
+    province: '辽宁',
+    city: '沈阳',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🏛️',
+    startDate: '填写日期',
     color: 'red',
-    shape: 'square',
     rotation: -3,
   },
   {
-    place: '丽江',
-    region: '中国 · 云南',
+    province: '云南',
+    city: '丽江',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🏔️',
+    startDate: '填写日期',
     color: 'blue',
-    shape: 'square',
     rotation: 7,
   },
   {
-    place: '香格里拉',
-    region: '中国 · 云南',
+    province: '云南',
+    city: '香格里拉',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🛕',
+    startDate: '填写日期',
     color: 'violet',
-    shape: 'square',
     rotation: -8,
   },
   {
-    place: '重庆',
-    region: '中国 · 重庆',
+    city: '重庆',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🚠',
+    startDate: '填写日期',
     color: 'red',
-    shape: 'square',
     rotation: 4,
   },
   {
-    place: '济南',
-    region: '中国 · 山东',
+    province: '山东',
+    city: '济南',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '⛲',
+    startDate: '填写日期',
     color: 'blue',
-    shape: 'square',
     rotation: -5,
   },
   {
-    place: '南京',
-    region: '中国 · 江苏',
+    province: '江苏',
+    city: '南京',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🧱',
+    startDate: '填写日期',
     color: 'red',
-    shape: 'square',
     rotation: 6,
   },
   {
-    place: '威海',
-    region: '中国 · 山东',
+    province: '山东',
+    city: '威海',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '⚓',
+    startDate: '填写日期',
     color: 'blue',
-    shape: 'square',
     rotation: -7,
   },
   {
-    place: '青岛',
-    region: '中国 · 山东',
+    province: '山东',
+    city: '青岛',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '🍺',
+    startDate: '填写日期',
     color: 'green',
-    shape: 'square',
     rotation: 5,
   },
   {
-    place: '泰安',
-    region: '中国 · 山东',
+    province: '山东',
+    city: '泰安',
     countryOrRegion: '中国',
-    date: '填写日期',
-    mark: '⛰️',
+    startDate: '填写日期',
     color: 'green',
-    shape: 'square',
     rotation: -4,
   },
   {
-    place: '首尔',
-    region: '韩国 · 首尔',
+    province: '首尔特别市',
+    city: '首尔',
     countryOrRegion: '韩国',
-    date: '填写日期',
-    countryCode: 'kr',
+    startDate: '填写日期',
     color: 'violet',
     rotation: 7,
   },
 ]
+
+const postColorToStampColor: Record<string, TravelStamp['color']> = {
+  mint: 'green',
+  sunshine: 'red',
+  sun: 'red',
+  sky: 'blue',
+  rose: 'red',
+  lavender: 'violet',
+}
+
+/** 旅游文章自动转换为旅行章；专用 stamp 字段缺省时从文章标签、日期和主题色推导。 */
+export function travelPostToStamp(post: Post): TravelStamp {
+  const countryOrRegion = post.tags[0] ?? '未分类'
+  return {
+    id: `travel-${post.slug}`,
+    province: post.province,
+    city: post.city ?? post.title,
+    countryOrRegion,
+    startDate: post.startDate?.replaceAll('-', '.') ?? post.publishedAt.replaceAll('-', '.'),
+    endDate: post.finalDate?.replaceAll('-', '.'),
+    countryCode: countryCodeForChineseName(countryOrRegion),
+    color: post.stampColor ?? postColorToStampColor[post.color] ?? 'green',
+    rotation: post.stampRotation,
+    note: post.stampNote,
+  }
+}
+
+function stampStartTime(stamp: TravelStamp) {
+  const normalized = stamp.startDate.replaceAll('.', '-')
+  return /^\d{4}-\d{2}-\d{2}$/u.test(normalized)
+    ? Date.parse(`${normalized}T00:00:00Z`)
+    : Number.POSITIVE_INFINITY
+}
+
+/** 补齐手工章的国旗与形状，并与文章章按开始日期从早到晚统一排序。 */
+export const passportTravelStamps = [...travelStamps, ...travel.map(travelPostToStamp)]
+  .map((stamp) => ({
+    ...stamp,
+    countryCode: stamp.countryCode ?? countryCodeForChineseName(stamp.countryOrRegion),
+  }))
+  .sort((left, right) => stampStartTime(left) - stampStartTime(right))

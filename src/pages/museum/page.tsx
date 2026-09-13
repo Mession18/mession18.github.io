@@ -8,19 +8,19 @@ import { IslandPagination } from '../../components/pagination/IslandPagination'
 import { SectionIcon } from '../../components/section-icon/SectionIcon'
 import { useStand } from '../../hooks/useStand'
 import { colorClass, colorStyle } from '../../shared/config'
-import { formatChineseDate, standAttributes } from '../../shared/utils'
+import { formatChineseDate } from '../../shared/utils'
+import { standAttributes } from '../../shared/presentation'
 
 import {
   collections,
+  collectionTags,
   getCollectionDisplayImage,
-  type CollectionCategory,
   type CollectionItem,
 } from './museum.data'
-import { MuseumFilters } from './MuseumFilters'
+import { MuseumTagFilters } from './components/MuseumTagFilters'
 import { presentation } from './presentation.data'
 
-/** 博物馆筛选值：all 显示全部，其余值匹配 category。 */
-type Filter = 'all' | CollectionCategory
+type Filter = 'all' | string
 
 /** 博物馆列表页：读取栏目数据，管理筛选与分页，并用本文件的卡片组件展示当前页。 */
 export function MuseumPage() {
@@ -29,7 +29,7 @@ export function MuseumPage() {
   const [page, setPage] = useState(1)
   /** 先筛选再分页，保证页数和空位数量反映当前筛选结果。 */
   const visibleItems =
-    filter === 'all' ? collections : collections.filter((item) => item.category === filter)
+    filter === 'all' ? collections : collections.filter((item) => item.tags.includes(filter))
   const pageSize = 9
   /** 根据过滤后的条目数量计算页数，至少保留一页供空状态展示。 */
   const totalPages = Math.max(1, Math.ceil(visibleItems.length / pageSize))
@@ -45,7 +45,8 @@ export function MuseumPage() {
         </h1>
         <p>收藏那些让心里亮起一盏小灯的东西。</p>
       </header>
-      <MuseumFilters
+      <MuseumTagFilters
+        tags={collectionTags}
         value={filter}
         onChange={(value) => {
           setFilter(value)
@@ -69,14 +70,14 @@ export function MuseumPage() {
 /** 博物馆单条卡片：组合随机底图、内容预览和详情链接；本页专属结构集中在这里修改。 */
 export function CollectionCard({ item }: { item: CollectionItem }) {
   /** 根据内容标签抽取底图；useStand 保存随机种子，使普通重绘不会换图。 */
-  const stand = useStand(presentation, [...item.tags, item.category])
+  const stand = useStand(presentation, item.tags)
   const { image: previewImage, onError } = useImageSource(getCollectionDisplayImage(item))
   const collectionDate = formatChineseDate(item.date)
 
   return (
     <article {...standAttributes(stand)} className="collection-card collection-exhibit">
       <div className="collection-display-space">
-        <Link className="collection-polaroid" to={`/museum/${item.category}/${item.slug}`}>
+        <Link className="collection-polaroid" to={`/museum/${item.slug}`}>
           <span
             className={`collection-picture collection-${colorClass(item.color)}`}
             style={previewImage ? undefined : colorStyle(item.color)}
@@ -111,7 +112,7 @@ export function CollectionCard({ item }: { item: CollectionItem }) {
           </span>
         </div>
         <h2 className="collection-exhibit-name">
-          <Link to={`/museum/${item.category}/${item.slug}`}>{item.title}</Link>
+          <Link to={`/museum/${item.slug}`}>{item.title}</Link>
         </h2>
         <p className="collection-exhibit-description">{item.excerpt}</p>
       </div>

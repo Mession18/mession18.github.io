@@ -2,7 +2,7 @@
 title: 25岁生日蛋糕
 date: 2026-08-18
 tags:
-  - 生日甜点
+  - 甜品
 excerpt: 老婆做的25岁生日蛋糕。
 icon: 🍰
 color: sunshine

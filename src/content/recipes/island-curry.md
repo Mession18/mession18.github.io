@@ -2,14 +2,14 @@
 title: 岛民咖喱饭
 date: 2026-08-30
 tags:
-  - 一锅料理
+  - 家常菜
 excerpt: 土豆和胡萝卜煮得绵软，非常适合忙碌的晚上。
 icon: 🍛
 color: sunshine
 previewImage: /images/examples/island-curry.svg
 detailImage: /images/examples/island-curry.svg
 id: 20260902202553-y6tp8w
-subtitle: ''
+subtitle: ""
 ---
 
 ## 食材

@@ -62,7 +62,7 @@ npm run build
 ## 本次整理约定
 
 - 首页 `sky.css`、`landscape.css` 合并为 `home/styles/scenery.css`，保留原来的天空到地景的规则顺序。
-- 普通栏目的标签筛选直接在各自 `page.tsx` 中维护；博物馆分类筛选仍在本栏目 `MuseumFilters.tsx`。
+- 普通栏目共用标签筛选结构；博物馆标签筛选位于 `pages/museum/components/MuseumTagFilters.tsx`。
 - `shared` 只有三个实际实现文件，不再保留旧目录转发文件。
 - 注释按功能块说明用途：数据定义、状态、计算、事件、副作用、界面区域及 CSS 规则。同类字段和重复元素按组说明。
 - 依赖、锁文件、构建产物、图片二进制不逐行添加注释；JSON 不支持注释，配置用途在维护手册说明。

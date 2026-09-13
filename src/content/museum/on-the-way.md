@@ -1,6 +1,6 @@
 ---
 id: P-002
-category: photos
+tags: 照片
 title: 散步途中
 subtitle: 走过很多次的小路
 rating: 4.6
@@ -8,8 +8,8 @@ icon: 🌳
 color: mint
 excerpt: 熟悉的路也会因为光线和季节变得不一样。
 date: 2026-09-02
-previewImage: ''
-detailImage: ''
+previewImage: ""
+detailImage: ""
 ---
 
 ## 照片背后

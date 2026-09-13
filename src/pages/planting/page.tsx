@@ -5,12 +5,8 @@ import { ContentListPage } from '../../components/content-list/ContentListPage'
 import { useStand } from '../../hooks/useStand'
 import { colorClass } from '../../shared/config'
 
-import {
-  formatDateRange,
-  getPostDisplayImage,
-  type Post,
-  standAttributes,
-} from '../../shared/utils'
+import { formatDateRange, getPostDisplayImage, type Post } from '../../shared/utils'
+import { standAttributes } from '../../shared/presentation'
 
 import { planting } from './planting.data'
 import { presentation } from './presentation.data'

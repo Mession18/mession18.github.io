@@ -6,7 +6,8 @@ import { ContentListPage } from '../../components/content-list/ContentListPage'
 import { useStand } from '../../hooks/useStand'
 import { colorClass } from '../../shared/config'
 
-import { getPostDisplayImage, type Post, standAttributes } from '../../shared/utils'
+import { getPostDisplayImage, type Post } from '../../shared/utils'
+import { standAttributes } from '../../shared/presentation'
 
 import { presentation } from './presentation.data'
 import { recipes } from './recipes.data'

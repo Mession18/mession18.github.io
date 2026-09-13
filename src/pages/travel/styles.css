@@ -11,6 +11,9 @@
   /* --display-stand-column-gap: 50px; */
   /* --display-stand-row-gap: 72px; */
 }
+.travel-page .content-subfilters {
+  margin-top: -30px;
+}
 
 /* 旅游：明信片、图片、邮票、标题、介绍与日期。
  * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
@@ -96,6 +99,44 @@
   gap: 7px;
   padding: 62px 10px 30px 16px;
   border-left: 1px solid #d8c8aa;
+}
+.travel-card-message .travel-stamp-compact {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  width: 76px;
+  height: 76px;
+  margin-top: -38px;
+  margin-left: -38px;
+  opacity: 0.32;
+  pointer-events: none;
+}
+.travel-card-message .travel-stamp-compact::before,
+.travel-card-message .travel-stamp-compact::after {
+  display: none;
+}
+.travel-card-message .travel-stamp-compact .stamp-flag {
+  width: 22px;
+  height: 16px;
+  margin-bottom: 1px;
+}
+.travel-card-message .travel-stamp-compact .stamp-mark {
+  font-size: 15px;
+}
+.travel-card-message .travel-stamp-compact .stamp-location {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1px;
+  gap: 0;
+  font-size: 8px;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.travel-card-message .travel-stamp-compact .stamp-location small {
+  font-size: 8px;
 }
 
 /* 旅行基础样式：文字排版。 */
