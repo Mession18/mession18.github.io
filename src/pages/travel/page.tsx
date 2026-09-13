@@ -29,6 +29,7 @@ export function TravelPage() {
 /** 旅行单条卡片：组合随机底图、内容预览和详情链接；本页专属结构集中在这里修改。 */
 export function TravelCard({ post, basePath = '/travel' }: { post: Post; basePath?: string }) {
   const { image: previewImage, onError } = useImageSource(getPostDisplayImage(post))
+  const { image: stampImage, onError: onStampError } = useImageSource(post.stampImage)
   /** 根据内容标签抽取底图；useStand 保存随机种子，使普通重绘不会换图。 */
   const stand = useStand(presentation, post.tags)
 
@@ -52,8 +53,15 @@ export function TravelCard({ post, basePath = '/travel' }: { post: Post; basePat
           )}
         </div>
         <div className="travel-card-message">
-          <span className="travel-card-stamp" aria-hidden="true">
-            {post.customIcon ?? ''}
+          <span
+            className={`travel-card-stamp ${stampImage ? 'travel-card-stamp-image' : ''}`}
+            aria-hidden="true"
+          >
+            {stampImage ? (
+              <img src={stampImage} onError={onStampError} alt="" />
+            ) : (
+              (post.customIcon ?? '')
+            )}
           </span>
           <strong>{post.title}</strong>
           <p>{post.excerpt}</p>

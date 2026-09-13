@@ -9,8 +9,9 @@ color: sky
 previewImage: /images/examples/dali.svg
 detailImage: /images/examples/dali.svg
 id: 20260902202553-pwm9qu
-subtitle: ''
+subtitle: ""
 finaldate: 2026-09-04
+stampImage: /src/content/travel/stamp/dali-morning-邮票.png
 ---
 
 ## 这一站

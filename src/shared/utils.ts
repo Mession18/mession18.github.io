@@ -118,6 +118,7 @@ export type Post = {
   color: PostColor
   icon: string
   customIcon?: string
+  stampImage?: string
   previewImage?: string
   detailImage?: string
   content: string
@@ -176,6 +177,9 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     color,
     icon: metadata.icon || '🌊',
     customIcon: metadata.icon || undefined,
+    stampImage: metadata.stampImage
+      ? resolveMarkdownImage(metadata.stampImage, sourceDir)
+      : undefined,
     previewImage: metadata.previewImage
       ? resolveMarkdownImage(metadata.previewImage, sourceDir)
       : undefined,

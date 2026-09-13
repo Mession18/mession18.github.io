@@ -131,10 +131,22 @@
   display: grid;
   width: 42px;
   height: 50px;
+  box-sizing: border-box;
+  overflow: hidden;
   place-items: center;
   border: 2px dashed #bd8f70;
   color: #ad6f56;
   font-size: 20px;
+}
+/* 邮票图片统一缩放到 42 × 50 px；不裁切，比例不同的图片会随框缩放。 */
+.travel-card-stamp img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.travel-card-stamp-image {
+  border: 0;
 }
 /* 旅行基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景。 */
 .travel-card-lines {
