@@ -1,0 +1,1 @@
+import{r as e}from"./x-EGRtqi0x.js";import{s as t,tt as n}from"./index-CSJV5zVM.js";import{t as r}from"./PostDetail-D5hUmq6D.js";var i=e();function a(){let{slug:e}=n();return(0,i.jsx)(r,{item:t.find(t=>t.slug===e),basePath:`/crafts`,returnLabel:`全部手工`,notFoundReturnLabel:`返回手工`,layout:`tutorial`,featureLabel:`ISLAND DIY`})}export{a as CraftsDetailPage};

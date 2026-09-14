@@ -11,10 +11,12 @@ import {
   TicketsPlane,
   Utensils,
 } from 'lucide-react'
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
 import { STAMPS_PER_PAGE, mrzLines } from './passport.data'
 import { passportTravelStamps, type TravelStamp as TravelStampData } from './travel-stamps.data'
+
+const JourneyMap = lazy(() => import('./journey-map/JourneyMap'))
 
 /** 把装饰性机器可读编码逐字符排列，使护照底部字距均匀。 */
 function MachineReadableLine({ value }: { value: string }) {
@@ -286,6 +288,9 @@ export function Passport({ standalone = false }: { standalone?: boolean }) {
           </button>
         </div>
       </div>
+      <Suspense fallback={null}>
+        <JourneyMap stamps={passportTravelStamps} />
+      </Suspense>
     </section>
   )
 }

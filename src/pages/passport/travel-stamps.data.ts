@@ -11,6 +11,8 @@ export type TravelStamp = {
   startDate: string
   endDate?: string
   countryCode?: string
+  latitude?: number
+  longitude?: number
   color: 'green' | 'blue' | 'red' | 'violet'
   rotation?: number
   note?: string
@@ -143,6 +145,8 @@ export function travelPostToStamp(post: Post): TravelStamp {
     startDate: post.startDate?.replaceAll('-', '.') ?? post.publishedAt.replaceAll('-', '.'),
     endDate: post.finalDate?.replaceAll('-', '.'),
     countryCode: countryCodeForChineseName(countryOrRegion),
+    latitude: post.latitude,
+    longitude: post.longitude,
     color: post.stampColor ?? postColorToStampColor[post.color] ?? 'green',
     rotation: post.stampRotation,
     note: post.stampNote,

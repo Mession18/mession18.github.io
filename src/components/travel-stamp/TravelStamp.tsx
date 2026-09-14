@@ -11,7 +11,7 @@ export function TravelStamp({
 }) {
   const flag = stamp.countryCode ? countryFlags[stamp.countryCode] : undefined
   const showProvince = stamp.province && stamp.province.trim() !== stamp.countryOrRegion.trim()
-  const showCompactProvince = showProvince && stamp.province.trim() !== stamp.city.trim()
+  const showCompactProvince = showProvince && stamp.province?.trim() !== stamp.city.trim()
   return (
     <div
       className={`travel-stamp stamp-${stamp.color} ${isMainlandChina(stamp.countryOrRegion) ? 'stamp-square' : ''} ${compact ? 'travel-stamp-compact' : ''}`}
