@@ -1,17 +1,24 @@
 import { ChevronLeft, ChevronRight, MapPin, X } from 'lucide-react'
-import { useId, useMemo, useState, type CSSProperties } from 'react'
+import { useId, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
+import { AtlasGeography } from './AtlasGeography'
+import { AtlasLoupe } from './AtlasLoupe'
+import { AtlasPinButton } from './AtlasPinButton'
+import { AtlasPaper } from './AtlasPaper'
 import { countryFlags } from '../../../shared/country-flags'
-import type { TravelStamp } from '../travel-stamps.data'
+import { stampArticles, type TravelStamp } from '../travel-stamps.data'
+import { useImageSource } from '../../../hooks/useImageSource'
+import type { Post } from '../../../shared/utils'
 import {
-  atlasCountries,
-  atlasLabels,
   atlasSize,
   buildAtlasPlaces,
-  clusterAtlasPlaces,
+  groupAtlasPlaces,
+  atlasIndexGroups,
+  cityAtlasPins,
+  isChinaPlace,
   formatVisit,
-  projectLocation,
-  visitTime,
   type AtlasPlace,
+  type AtlasVariant,
 } from './journey-map.data'
 import './journey-map.css'
 
@@ -20,135 +27,118 @@ const positionStyle = (x: number, y: number): CSSProperties => ({
   top: `${(y / atlasSize.height) * 100}%`,
 })
 
-export default function JourneyMap({ stamps }: { stamps: TravelStamp[] }) {
+/** 使用旅游明信片相同的邮票素材；图片失效时仅回退到文章提供的图标。 */
+function TicketPostage({ post }: { post?: Post }) {
+  const { image, onError } = useImageSource(post?.stampImage)
+  if (!image && !post?.customIcon) return null
+  return (
+    <span className={'journey-atlas-postage' + (image ? ' has-image' : '')} aria-hidden="true">
+      {image ? <img src={image} onError={onError} alt="" /> : post?.customIcon}
+    </span>
+  )
+}
+
+export default function JourneyMap({
+  stamps,
+  embedded = false,
+  variant = 'world',
+}: {
+  stamps: TravelStamp[]
+  embedded?: boolean
+  variant?: AtlasVariant
+}) {
   const id = useId().replaceAll(':', '')
-  const places = useMemo(() => buildAtlasPlaces(stamps), [stamps])
-  const pins = useMemo(() => clusterAtlasPlaces(places), [places])
-  const visitedCodes = new Set(places.map((place) => place.code))
-  const newest = [...places]
-    .filter((place) => place.position)
-    .sort((a, b) => visitTime(b.visits[0]) - visitTime(a.visits[0]))[0]
-  const [selection, setSelection] = useState<string | null | undefined>(undefined)
-  const selected =
-    selection === null ? undefined : (places.find((place) => place.key === selection) ?? newest)
+  const mapRef = useRef<SVGSVGElement>(null)
+  const places = useMemo(
+    () =>
+      buildAtlasPlaces(stamps).filter((place) => variant === 'world' || isChinaPlace(place.code)),
+    [stamps, variant],
+  )
+  const pins = useMemo(() => groupAtlasPlaces(places, variant), [places, variant])
+  const lensPins = useMemo(
+    () => (variant === 'china' ? cityAtlasPins(places) : pins),
+    [places, pins, variant],
+  )
+  const indexGroups = useMemo(() => atlasIndexGroups(places, variant), [places, variant])
+  const visited = new Set(
+    places.map((place) => (variant === 'china' ? (place.province ?? '') : place.code)),
+  )
+  const [selection, setSelection] = useState<string | null>(null)
+  const [indexGroup, setIndexGroup] = useState<string | null>(null)
+  const selectedGroup = indexGroups.find((group) => group.key === indexGroup)
+  const selected = places.find((place) => place.key === selection)
   const selectedPin =
     selected && pins.find((pin) => pin.places.some((place) => place.key === selected.key))
   const [visitIndex, setVisitIndex] = useState(0)
   const [showIndex, setShowIndex] = useState(false)
 
-  function selectPlace(place: AtlasPlace) {
+  function selectPlace(place: AtlasPlace, group?: string | null) {
     setSelection(place.key)
     setVisitIndex(0)
+    setShowIndex(false)
+    if (group !== undefined) setIndexGroup(group)
   }
   const ticketX = selectedPin ? Math.max(35, Math.min(1120, selectedPin.x - 370)) : 570
   const ticketY = selectedPin ? Math.max(235, Math.min(700, selectedPin.y - 50)) : 400
   const visit = selected?.visits[Math.min(visitIndex, selected.visits.length - 1)]
-  const related = selectedPin?.places ?? []
+  const related = selectedGroup?.places ?? selectedPin?.places ?? []
+  const articles = [
+    ...new Map(
+      selected?.visits.flatMap(stampArticles).map((article) => [article.slug, article]) ?? [],
+    ).values(),
+  ]
+  const postageArticle =
+    (visit ? stampArticles(visit) : []).find((post) => post.stampImage || post.customIcon) ??
+    articles.find((post) => post.stampImage || post.customIcon)
 
   return (
-    <section className="journey-atlas" aria-labelledby={`${id}-title`}>
+    <section
+      className={`journey-atlas journey-atlas-${variant}${embedded ? ' journey-atlas-embedded' : ''}`}
+      aria-labelledby={`${id}-title`}
+    >
       <div className="journey-atlas-book">
-        <img
-          className="journey-atlas-paper"
-          src="/images/passport/旅行地图书页.webp"
-          alt=""
-          width="1536"
-          height="1024"
-          loading="lazy"
-        />
+        <AtlasPaper className="journey-atlas-paper" />
         <header className="journey-atlas-heading">
           <h3 id={`${id}-title`}>旅行足迹</h3>
           <p>
-            {visitedCodes.size} 个国家与地区 · {places.length} 座城市
+            {variant === 'china'
+              ? '中国 · ' + pins.length + ' 个省级地区'
+              : '世界 · ' + visited.size + ' 个国家与地区'}{' '}
+            · {places.length} 座城市
           </p>
         </header>
         <svg
+          ref={mapRef}
           className="journey-atlas-geography"
           viewBox="0 0 1536 1024"
-          aria-label="旅行世界地图，使用真实海岸线与国家地区轮廓"
+          preserveAspectRatio="none"
+          aria-label={
+            variant === 'china' ? '中国旅行地图，含省级地区边界' : '旅行世界地图，含国家地区轮廓'
+          }
           role="img"
         >
-          <defs>
-            <filter id={`${id}-pigment`} x="0" y="0" width="100%" height="100%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency=".18"
-                numOctaves="4"
-                seed="12"
-                result="noise"
-              />
-              <feColorMatrix in="noise" type="saturate" values="0" />
-              <feComponentTransfer>
-                <feFuncR type="linear" slope=".4" intercept=".3" />
-                <feFuncG type="linear" slope=".4" intercept=".3" />
-                <feFuncB type="linear" slope=".4" intercept=".3" />
-              </feComponentTransfer>
-              <feBlend in="SourceGraphic" mode="soft-light" result="pigment" />
-              <feComposite in="pigment" in2="SourceGraphic" operator="in" />
-            </filter>
-          </defs>
-          <g filter={`url(#${id}-pigment)`} className="journey-atlas-land">
-            {atlasCountries.map((country) => (
-              <path
-                key={country.id}
-                d={country.path ?? undefined}
-                className={visitedCodes.has(country.code) ? 'is-visited' : undefined}
-                data-country={country.code}
-              >
-                <title>{country.name}</title>
-              </path>
-            ))}
-          </g>
-          <g className="journey-atlas-labels" aria-hidden="true">
-            {atlasLabels.map((label) => (
-              <text
-                key={`${label.x}-${label.y}`}
-                x={label.x}
-                y={label.y}
-                className={label.ocean ? 'is-ocean' : undefined}
-              >
-                {label.lines.map((line, index) => (
-                  <tspan key={line} x={label.x} dy={index ? 23 : 0}>
-                    {line}
-                  </tspan>
-                ))}
-              </text>
-            ))}
-            {Array.from(visitedCodes).map((code) => {
-              const country = atlasCountries.find((item) => item.code === code)
-              const place = places.find((item) => item.code === code)
-              const point = country && projectLocation(country)
-              return point && place ? <text key={`visited-${code}`} x={point.x + (code === 'kr' ? 34 : 0)} y={point.y + 38} className="journey-atlas-country-name">{place.countryOrRegion}</text> : null
-            })}
-          </g>
+          <AtlasGeography variant={variant} visited={visited} />
         </svg>
         <div className="journey-atlas-gutter" aria-hidden="true" />
         <div className="journey-atlas-pins" aria-label="地图上的旅行地点">
-          {pins.map((pin) => {
-            const active = pin === selectedPin
-            return (
-              <button
-                key={pin.key}
-                type="button"
-                className={`journey-atlas-pin${active ? ' is-selected' : ''}${pin.places[0].code === 'cn' ? '' : ' is-blue'}`}
-                style={positionStyle(pin.x, pin.y)}
-                aria-label={
-                  pin.places.length > 1
-                    ? `查看${pin.places.map((place) => place.city).join('、')}，共${pin.places.length}座城市`
-                    : `查看${pin.places[0].city}的旅行记录`
-                }
-                aria-pressed={active}
-                onClick={() => selectPlace(pin.places[0])}
-              >
-                <svg viewBox="0 0 32 44" aria-hidden="true">
-                  <path d="M16 42C13 36 2 25 2 16a14 14 0 0 1 28 0c0 9-11 20-14 26Z" />
-                  <circle cx="16" cy="16" r={pin.places.length > 1 ? 10 : 6} />
-                </svg>
-                {pin.places.length > 1 && <span>{pin.places.length}</span>}
-              </button>
-            )
-          })}
+          {pins.map((pin) => (
+            <AtlasPinButton
+              key={pin.key}
+              pin={pin}
+              active={pin === selectedPin}
+              style={positionStyle(pin.x, pin.y)}
+              onSelect={() => selectPlace(pin.places[0], null)}
+            />
+          ))}
         </div>
+        <AtlasLoupe
+          mapRef={mapRef}
+          variant={variant}
+          pins={lensPins}
+          visited={visited}
+          selectedKey={variant === 'china' ? selected?.key : selectedPin?.key}
+          onSelect={(pin) => selectPlace(pin.places[0], null)}
+        />
         {selected && visit && (
           <aside
             className="journey-atlas-ticket"
@@ -177,13 +167,14 @@ export default function JourneyMap({ stamps }: { stamps: TravelStamp[] }) {
                   )}
                 <strong>{selected.city}</strong>
               </div>
-              <svg className="journey-atlas-sketch" viewBox="0 0 90 60" aria-hidden="true">
-                <path d="m3 48 14-16 14 16m-19-9 5 4 5-3m4 8 16-23 18 23M38 33l4 5 5-2M57 49V25m17 24V25M51 26h29l-8-5H59Zm3-11h23l-8-5h-7Zm4-11h15l-8-4ZM65 1v5M54 37h23M62 26v23m7-23v23M4 51h81" />
-              </svg>
+              <TicketPostage post={postageArticle} />
             </div>
             <time className="journey-atlas-ticket-date">{formatVisit(visit)}</time>
             {related.length > 1 && (
-              <div className="journey-atlas-nearby" aria-label="此处的城市">
+              <div
+                className="journey-atlas-nearby"
+                aria-label={`${selectedGroup?.label ?? selectedPin?.label ?? ''}的城市`}
+              >
                 {related.map((place) => (
                   <button
                     type="button"
@@ -219,19 +210,43 @@ export default function JourneyMap({ stamps }: { stamps: TravelStamp[] }) {
                 </button>
               </div>
             )}
+            <div className="journey-atlas-articles" aria-label="城市游记">
+              {articles.length ? (
+                articles.map((article) => (
+                  <Link key={article.slug} to={'/travel/' + article.slug}>
+                    阅读游记 · {article.title} <span aria-hidden="true">↗</span>
+                  </Link>
+                ))
+              ) : (
+                <button className="journey-atlas-no-article" type="button" disabled>
+                  游记待记录
+                </button>
+              )}
+            </div>
             {!selected.position && (
               <small className="journey-atlas-pending">这个地点还未标注坐标</small>
             )}
           </aside>
         )}
+        {!selected && (
+          <div className="journey-atlas-empty-selection">
+            <MapPin size={24} strokeWidth={1.2} />
+            <p>轻点标签，打开城市旅行记录</p>
+            <span>
+              {variant === 'china'
+                ? '放大镜内可查看城市边界、选择城市'
+                : '相邻地点可用放大镜或地区索引选择'}
+            </span>
+          </div>
+        )}
         <div className="journey-atlas-legend">
           <span>
             <i />
-            已到访的国家／地区
+            {variant === 'china' ? '已到访的省级地区' : '已到访的国家／地区'}
           </span>
           <span>
             <MapPin aria-hidden="true" />
-            已到访的城市
+            {variant === 'china' ? '省份标签 · 点击选城市' : '国家／地区标签'}
           </span>
         </div>
       </div>
@@ -243,20 +258,22 @@ export default function JourneyMap({ stamps }: { stamps: TravelStamp[] }) {
           aria-controls={`${id}-places`}
           onClick={() => setShowIndex((value) => !value)}
         >
-          {showIndex ? '收起' : '展开'}地点索引 <span>{places.length}</span>
+          {showIndex ? '收起' : '展开'}
+          {variant === 'china' ? '省份索引' : '国家／地区索引'} <span>{indexGroups.length}</span>
         </button>
         {showIndex && (
           <div id={`${id}-places`} className="journey-atlas-place-list">
-            {places.map((place) => (
+            {indexGroups.map((group) => (
               <button
                 type="button"
-                key={place.key}
-                aria-pressed={selected?.key === place.key}
-                onClick={() => selectPlace(place)}
+                key={group.key}
+                aria-pressed={group.places.some((place) => selected?.key === place.key)}
+                onClick={() => selectPlace(group.places[0], group.key)}
               >
-                {countryFlags[place.code] && <img src={countryFlags[place.code]} alt="" />}
-                {place.city}
-                {!place.position && <small>待定位</small>}
+                {variant === 'world' && countryFlags[group.code] && (
+                  <img src={countryFlags[group.code]} alt="" />
+                )}
+                {group.label}
               </button>
             ))}
           </div>

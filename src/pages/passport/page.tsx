@@ -1,20 +1,24 @@
 import { Icon } from 'animal-island-ui'
 import {
-  ChevronDown,
-  ChevronUp,
   Gamepad2,
   Headphones,
   Leaf,
   MapPin,
-  Sparkles,
   SquareTerminal,
   TicketsPlane,
+  TreePalm,
   Utensils,
 } from 'lucide-react'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
 import { STAMPS_PER_PAGE, mrzLines } from './passport.data'
 import { passportTravelStamps, type TravelStamp as TravelStampData } from './travel-stamps.data'
+import {
+  PassportBook,
+  PassportCoverPreview,
+  type PassportLeaf,
+  type PassportSpread,
+} from './PassportBook'
 
 const JourneyMap = lazy(() => import('./journey-map/JourneyMap'))
 
@@ -136,10 +140,7 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
       <span className="page-watermark" aria-hidden="true">
         {String(pageNumber).padStart(2, '0')}
       </span>
-      <div className="passport-topline">
-        <span>VISAS · 旅行签证</span>
-        <b>PAGE {String(pageNumber).padStart(2, '0')}</b>
-      </div>
+      <div className="passport-topline visa-heading">VISA</div>
       {/* 本页旅行章网格，数据来自 travel-stamps.data.ts；空页显示旅行提示。 */}
       <div className="visa-grid">
         {stamps.map((stamp) => (
@@ -149,6 +150,7 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
               `${stamp.countryOrRegion}-${stamp.province}-${stamp.city}-${stamp.startDate}`
             }
             stamp={stamp}
+            linkToArticle
           />
         ))}
         {stamps.length === 0 && (
@@ -161,9 +163,6 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
       </div>
       <div className="visa-code">
         <span>WCI · V{String(pageNumber).padStart(2, '0')} · 0818 · MESSION</span>
-        <code>
-          &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
-        </code>
       </div>
     </div>
   )
@@ -217,80 +216,115 @@ function JourneySummaryPage() {
   )
 }
 
-/** 首页与独立护照页共用的翻页组件；standalone 仅切换外层页面样式。 */
+/** 封面背面与资料页为首跨页；签证从第三页起，年鉴固定在末跨页右侧。 */
 export function Passport({ standalone = false }: { standalone?: boolean }) {
-  /** 签证页数量按印章总数计算，另加身份页与年鉴页。 */
+  if (!standalone) return <PassportCoverPreview />
   const visaPageCount = Math.max(1, Math.ceil(passportTravelStamps.length / STAMPS_PER_PAGE))
-  /** 总页数为签证页数加身份页与年鉴页。 */
-  const totalPages = visaPageCount + 2
-  /** 护照内部页码从 0 开始：第 0 页为身份页，最后一页为旅行年鉴。 */
-  const [page, setPage] = useState(0)
-  const [direction, setDirection] = useState<'next' | 'prev'>('next')
-  const pageStamps = passportTravelStamps.slice(
-    (page - 1) * STAMPS_PER_PAGE,
-    page * STAMPS_PER_PAGE,
-  )
-
-  /** 限制护照页码范围，并依据方向选择翻页动画。 */
-  function turnPage(nextPage: number) {
-    if (nextPage < 0 || nextPage >= totalPages) return
-    setDirection(nextPage > page ? 'next' : 'prev')
-    setPage(nextPage)
+  const visaLeaves: PassportLeaf[] = Array.from({ length: visaPageCount }, (_, index) => ({
+    id: 'visa-' + index,
+    label: '签证页',
+    content: (
+      <VisaPage
+        stamps={passportTravelStamps.slice(index * STAMPS_PER_PAGE, (index + 1) * STAMPS_PER_PAGE)}
+        pageNumber={index + 3}
+      />
+    ),
+  }))
+  if (visaLeaves.length % 2)
+    visaLeaves.push({
+      id: 'visa-blank',
+      label: '签证页',
+      content: <VisaPage stamps={[]} pageNumber={visaLeaves.length + 3} />,
+    })
+  const spreads: PassportSpread[] = [
+    {
+      id: 'identity',
+      label: '封面背面 · 资料页',
+      firstPage: 1,
+      leaves: [
+        {
+          id: 'inside-front',
+          label: '封面背面',
+          insideCover: true,
+          content: (
+            <div className="passport-inside-cover">
+              <TreePalm size={90} strokeWidth={1} />
+              <p>WINDCHIME ISLAND</p>
+              <span>风铃岛 · 岛民旅行证件</span>
+            </div>
+          ),
+        },
+        {
+          id: 'identity',
+          label: '资料页',
+          landscape: true,
+          acrylic: true,
+          content: <IdentityPage />,
+        },
+      ],
+    },
+  ]
+  for (let index = 0; index < visaLeaves.length; index += 2) {
+    spreads.push({
+      id: visaLeaves[index].id,
+      label: '旅行签证',
+      firstPage: index + 3,
+      leaves: visaLeaves.slice(index, index + 2),
+    })
   }
-
+  const mapPage = visaLeaves.length + 3
+  for (const [index, variant] of (['world', 'china'] as const).entries()) {
+    spreads.push({
+      id: variant + '-map',
+      label: variant === 'world' ? '世界地图' : '中国地图',
+      firstPage: mapPage + index * 2,
+      content: (
+        <Suspense
+          fallback={
+            <div className="passport-map-loading" role="status">
+              正在展开旅行地图…
+            </div>
+          }
+        >
+          <JourneyMap stamps={passportTravelStamps} embedded variant={variant} />
+        </Suspense>
+      ),
+    })
+  }
+  spreads.push({
+    id: 'summary',
+    label: '旅行年鉴',
+    firstPage: mapPage + 4,
+    leaves: [
+      { id: 'summary', label: '旅行年鉴', landscape: true, content: <JourneySummaryPage /> },
+      {
+        id: 'journey-endpaper',
+        label: '封底背面',
+        insideCover: true,
+        content: (
+          <div className="passport-endpaper">
+            <TreePalm size={54} strokeWidth={1} />
+            <p>
+              不必赶路，去喜欢的地方，
+              <br />
+              留下温柔的回声。
+            </p>
+            <small>JOURNEY NEVER ENDS</small>
+          </div>
+        ),
+      },
+    ],
+  })
   return (
-    <section className={`passport section${standalone ? ' passport-standalone' : ''}`} id="about">
+    <section className="passport section passport-standalone" id="about">
       <div className="passport-intro">
-        <p className="eyebrow">ISLANDER PASSPORT</p>
         <h2>
           <Icon name="icon-variant" size={42} className="passport-heading-icon" />
           岛民护照
         </h2>
-        <p>参考本式护照的横向比例、资料区和机器可读编码，制作属于风铃岛的旅行纪念册。</p>
-        <div className="passport-note">
-          <Sparkles size={18} />
-          <span>使用上下按钮翻阅身份页与签证页</span>
-        </div>
+        <p>把自己与世界的相遇，收进一本护照。</p>
       </div>
-      <div className="passport-book">
-        <div className="passport-card-stage">
-          <div className="passport-card-scaler">
-            <article
-              key={page}
-              className={`passport-card page-turn-${direction}`}
-              aria-label={`岛民护照第 ${page + 1} 页`}
-            >
-              {page === 0 ? (
-                <IdentityPage />
-              ) : page === totalPages - 1 ? (
-                <JourneySummaryPage />
-              ) : (
-                <VisaPage stamps={pageStamps} pageNumber={page} />
-              )}
-            </article>
-          </div>
-        </div>
-        {/* 护照翻页按钮和当前页码，达到边界时禁用对应方向。 */}
-        <div className="passport-controls vertical-controls">
-          <button onClick={() => turnPage(page - 1)} disabled={page === 0} aria-label="向上翻页">
-            <ChevronUp size={19} />
-          </button>
-          <span>
-            <b>{page + 1}</b> / {totalPages}
-            <small>{page === 0 ? '身份页' : page === totalPages - 1 ? '年鉴页' : '签证页'}</small>
-          </span>
-          <button
-            onClick={() => turnPage(page + 1)}
-            disabled={page === totalPages - 1}
-            aria-label="向下翻页"
-          >
-            <ChevronDown size={19} />
-          </button>
-        </div>
-      </div>
-      <Suspense fallback={null}>
-        <JourneyMap stamps={passportTravelStamps} />
-      </Suspense>
+      <PassportBook spreads={spreads} />
     </section>
   )
 }

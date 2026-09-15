@@ -1,24 +1,38 @@
 # 护照旅行地图
 
-`JourneyMap.tsx` 展示摊开的复古地图册；`journey-map.css` 控制版面、书页厚度、书缝光影和响应式样式。内容统一读取护照页传入的 `passportTravelStamps`，没有独立的旅行清单。
+`JourneyMap.tsx` 支持 `variant="world"` 和 `variant="china"`。两幅地图各占一个跨页，位于签证之后、旅行年鉴之前。共享护照传入的 `passportTravelStamps`，没有独立的旅行清单。
 
-## 地图与定位
+## 数据与分组
 
-- `world.generated.json` 是 Natural Earth 5.1.2 的 1:50m Admin 0 国家地区轮廓，移除南极洲后共 241 个形状。它不是完整导航底图。
-- 使用 D3 Natural Earth 投影。SVG 轮廓和城市经纬度使用相同投影参数，保证落点对齐。
-- 简体中文国家地区名称复用 `shared/country-flags.ts`，已到访区域自动着色。
-- `journey-map.data.ts` 内置城市坐标，以国家地区码分别索引。新城市可在 Markdown 或手动旅行章中填写 `latitude`、`longitude`，也可以在坐标表补充。未识别城市保留在地点索引中，不伪装成国家中心位置。
-- 密集地点聚合成带数字的图钉，点击后可选择具体城市。重复地点保留全部旅行章，真实日期优先展示，手动章继续参与联动。
-- 手机端将地点详情放在书页下方，完整保留世界地图；地点索引提供独立的城市选择入口。
+- `world.generated.json`：Natural Earth 5.1.2，1:50m Admin 0 国家地区轮廓，移除南极洲后共 241 个形状。使用 D3 Natural Earth 投影。
+- 两张地图的地区块使用纯色。`AtlasPaper.tsx` 只取背景原图中 `(22, 10)–(1514, 1010)` 的纸页范围，移除封皮外边后贴合护照内页轮廓，保留页内装饰。世界地图在原投影基础上等比放大 7.5% 并向下移动；这次地理图形、文字及图钉变换独立于背景取景。
+- `china.generated.json`：DataV.GeoAtlas 的中国省级边界（34 个省级地区），使用 D3 Conic Conformal 投影。主图放大展示省份，南海诸岛使用右下角独立附图与 Mercator 投影。地图与标签共用生成时的投影参数。
+- `china-cities.generated.json`：市级边界，仅在中国地图放大镜开启时加载。大陆、香港与澳门来自 DataV，台湾县市边界补充自 NLSC 2025 数据，合计 391 个城市级区域。
+- 世界地图及其放大镜每个国家／地区只有一个旅行标签，中国各省份的旅行统一收在“中国”标签内；中国地图普通视图每个省份一个标签。标签位于对应国家或省份中心，点击后在记录卡内选择城市。
+- 世界地图索引只列国家 / 地区，中国地图索引只列省级地区；点击分组后可在记录卡内切换该组城市。放大后的中国地图改为城市标签，按每个城市的经纬度定位。
+- 新城市优先在旅行文章或手动旅行章填写 `province`（如“山东”或“山东省”）。内置常用城市可推断省份；香港、澳门、台湾按对应省级地区分组。未能定位的城市仍可在地点索引选择。
+- 重复城市保留全部旅行章，真实日期优先展示。同城游记去重显示文章入口；文章章精确关联原文，手动章按国家与城市匹配现有文章。无文章时按钮显示“游记待记录”。
+- 城市记录右上角复用关联旅行明信片的 `stampImage` 或 `customIcon`。优先使用当前旅行章的文章素材，再查找同城文章；没有素材时不显示装饰。
 
-重新生成轮廓：`node scripts/build-journey-map.mjs`。可加本地 GeoJSON 路径以离线生成；日常构建不联网获取地图。
+## 放大镜与手机
 
-## 视觉资产
+右上角放大镜可点击开启，也可直接拖入地图。镜片下方提供移动手柄与 2–24 倍调节；手柄支持方向键移动，Escape 收起。镜内背景使用同一个纸页取景。只缩放地理图形与标签间距，标签在独立图层保持 22px 宽、11px 字号。中国地图的普通视图只显示省界与省份标签，镜内显示市级分界线和可直接选择的城市标签。
 
-- `public/images/passport/旅行地图书页.webp`：1536 × 1024，约 263 KiB。根据已确认参考图，用 Image Gen 编辑移除地图、标题、动态数字、图钉、弹窗和图例，保留纸纹、水彩海洋、书脊缝线、磨损边缘、邮戳和边角装饰。地图、标题、统计、图钉与弹窗均由代码独立绘制。
-- `public/fonts/旅行足迹.woff2`：Ma Shan Zheng 字体的四字子集，约 2.3 KiB。授权在 `public/fonts/MaShanZheng-OFL.txt`。
-- 书页原图来自本次 Image Gen 编辑结果 `exec-f9abcf80-2cc2-487a-85de-c13857cf639e.png`。概念参考：`C:/Users/Mession/.codex/generated_images/01a09943-f3d0-77e2-a9e9-044a0b68cbf8/exec-b8b7bc9a-7401-446b-9a67-e15759fd2165.png`。
+抓取镜片或手柄后按拖动距离移动，保留原来的抓取偏移，不把镜片中心跳到鼠标位置。通过 SVG 屏幕坐标矩阵换算拖动方向，兼容整本护照旋转及手机缩放。
 
-与参考图有意保留的差异：使用实际的 2 个国家地区、14 座城市；采用真实地理投影而非生成图的手绘地理；密集城市增加聚合选择；书外增加可收起的地点索引，便于键盘和手机访问。
+手机单页保留完整地图，城市记录位于下方。地点索引在当前书页内展开，提供不依赖地图密集标签的选择入口。放大镜、记录卡、文章链接与索引操作不会触发护照手势翻屏。
 
-数据及字体来源：[Natural Earth](https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/)（公共领域）、[D3 投影](https://d3js.org/d3-geo/projection)、[Ma Shan Zheng](https://github.com/google/fonts/tree/main/ofl/mashanzheng)（SIL OFL）。
+## 生成与资源
+
+日常构建不联网请求地图数据。重新生成：
+
+- 世界地图：`node scripts/build-journey-map.mjs`
+- 中国地图：`node scripts/build-china-map.mjs`
+
+世界地图脚本可追加本地 GeoJSON 路径；中国地图脚本可追加缓存目录，默认使用系统临时目录下的 `windchime-geoatlas`。首次生成下载省级、市级及台湾县市数据，之后复用缓存，缓存完整时可离线生成。中国数据来源：[DataV.GeoAtlas GeoJSON](https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json)，[官方文档](https://help.aliyun.com/zh/datav/datav-6-0/user-guide/choropleth-layer-of-v3-x)；台湾县市边界来自 [NLSC 开放数据](https://data.gov.tw/dataset/7442)，使用 [GeoJSON 镜像](https://geo.maderaojen.me/datasets/tw-counties/releases/v1/2026-08-07.1/data.geojson)，授权为[政府资料开放授权条款第 1 版](https://data.gov.tw/license)。
+
+`public/images/passport/旅行地图书页.webp` 为 1536 × 1024 的纸纹背景，来自本项目 Image Gen 编辑结果，保留水彩海洋、书缝、边缘和装饰。两幅地图的轮廓、文字、统计、图钉和记录均由代码绘制。
+
+`public/fonts/旅行足迹.woff2` 为 Ma Shan Zheng 四字子集，授权见 `public/fonts/MaShanZheng-OFL.txt`。
+
+其他来源：[Natural Earth](https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/)（公共领域）、[D3](https://d3js.org/d3-geo/projection)、[Ma Shan Zheng](https://github.com/google/fonts/tree/main/ofl/mashanzheng)（SIL OFL）。

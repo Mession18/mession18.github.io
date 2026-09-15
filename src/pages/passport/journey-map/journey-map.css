@@ -38,6 +38,7 @@
   width: 100%;
   height: auto;
   border-radius: inherit;
+  overflow: hidden;
 }
 .journey-atlas-geography,
 .journey-atlas-pins {
@@ -121,8 +122,8 @@
 }
 .journey-atlas-pin {
   position: absolute;
-  width: 2.1cqw;
-  height: 2.85cqw;
+  width: 22px;
+  height: 30px;
   min-width: 16px;
   min-height: 22px;
   padding: 0;
@@ -153,18 +154,23 @@
 .journey-atlas-pin.is-blue {
   color: #3f7799;
 }
-.journey-atlas-pin > span {
+.journey-atlas-pin > .journey-atlas-pin-name {
+  pointer-events: none;
   position: absolute;
-  left: 0;
-  top: 10%;
-  width: 100%;
-  line-height: 1.5;
-  font-size: max(9px, 1.05cqw);
+  left: 50%;
+  top: calc(100% + 2px);
+  transform: translateX(-50%);
+  width: max-content;
+  line-height: 1.3;
+  font-size: 11px;
   font-weight: 700;
-  font-family: Georgia, serif !important;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: #f9eed7ed;
+  color: #654332;
 }
 .journey-atlas-pin:is(:hover, :focus-visible, .is-selected) {
-  transform: translate(-50%, -100%) scale(1.2);
+  transform: translate(-50%, -100%);
   z-index: 1;
 }
 .journey-atlas-pin:focus-visible {
@@ -232,14 +238,27 @@
   font-weight: 500;
   line-height: 1.35;
 }
-.journey-atlas-sketch {
-  align-self: flex-end;
-  width: 5.4cqw;
+.journey-atlas-ticket-place > .journey-atlas-postage {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 50px;
   margin-left: auto;
-  fill: none;
-  stroke: #8b816a;
-  stroke-width: 1.25;
-  stroke-linejoin: round;
+  margin-right: 15px;
+  overflow: hidden;
+  border: 2px dashed #bd8f70;
+  color: #ad6f56;
+  font-size: 20px;
+}
+.journey-atlas-postage.has-image {
+  border: 0;
+}
+.journey-atlas-postage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 .journey-atlas-ticket-date {
   display: block;
@@ -381,11 +400,6 @@
 .journey-atlas-place-list small {
   opacity: 0.7;
 }
-@media (min-width: 1000px) {
-  .passport-standalone {
-    max-width: 1596px;
-  }
-}
 @media (max-width: 600px) {
   .journey-atlas {
     margin-top: 26px;
@@ -435,10 +449,6 @@
   .journey-atlas-ticket-place :is(span, strong) {
     font-size: 21px;
   }
-  .journey-atlas-sketch {
-    width: 64px;
-    margin-right: 18px;
-  }
   .journey-atlas-ticket-date {
     font-size: 13px !important;
     margin-top: 10px;
@@ -470,4 +480,416 @@
   .journey-atlas-pin {
     transition: none;
   }
+}
+
+/* 收入护照时复用外层装帧；地点索引与记录也留在这张书页内。 */
+.journey-atlas-embedded {
+  position: relative;
+  height: 100%;
+  margin: 0;
+}
+.journey-atlas-embedded .journey-atlas-book {
+  height: 100%;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.journey-atlas-embedded .journey-atlas-book::after {
+  display: none;
+}
+.journey-atlas-embedded .journey-atlas-paper {
+  height: 100%;
+}
+.journey-atlas-embedded .journey-atlas-index {
+  position: absolute;
+  z-index: 6;
+  left: 6%;
+  right: 6%;
+  bottom: 26px;
+  padding: 0;
+}
+.journey-atlas-embedded .journey-atlas-index-toggle {
+  color: #62573f;
+  min-height: 36px;
+}
+.journey-atlas-embedded .journey-atlas-place-list {
+  position: absolute;
+  bottom: 44px;
+  left: 0;
+  right: 0;
+  max-height: 230px;
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px solid #b8a785;
+  border-radius: 6px;
+  background: #f5ecd7;
+  box-shadow: 0 8px 24px #49331e33;
+}
+.journey-atlas-embedded .journey-atlas-place-list button {
+  color: #514c3b;
+}
+.journey-atlas-embedded .journey-atlas-close {
+  min-width: 28px;
+  min-height: 28px;
+}
+.journey-atlas-embedded .journey-atlas-close svg {
+  min-width: 15px;
+  min-height: 15px;
+}
+.journey-atlas-embedded .journey-atlas-legend {
+  left: auto;
+  right: 3%;
+  top: auto;
+  bottom: 7%;
+  font-size: max(9px, 1.05cqw);
+}
+
+@media (max-width: 700px) {
+  .journey-atlas-embedded .journey-atlas-paper {
+    height: 66.6667cqw;
+    border-radius: 5px 5px 0 0;
+  }
+  .journey-atlas-embedded .journey-atlas-book {
+    background: linear-gradient(115deg, #f1e5cc, #f9efd9 47%, #eee1c4);
+  }
+  .journey-atlas-embedded .journey-atlas-geography,
+  .journey-atlas-embedded .journey-atlas-pins {
+    height: 66.6667cqw;
+  }
+  .journey-atlas-embedded .journey-atlas-gutter {
+    height: 65.3cqw;
+    top: 0.6667cqw;
+  }
+  .journey-atlas-embedded .journey-atlas-heading {
+    left: 7%;
+    top: 5cqw;
+  }
+  .journey-atlas-embedded .journey-atlas-heading h3 {
+    font-size: 26px;
+  }
+  .journey-atlas-embedded .journey-atlas-heading p {
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  .journey-atlas-embedded .journey-atlas-legend {
+    left: 20px;
+    right: auto;
+    top: calc(66.6667cqw + 8px);
+    bottom: auto;
+    display: flex;
+    gap: 14px;
+    font-size: 9px;
+  }
+  .journey-atlas-embedded .journey-atlas-legend i {
+    width: 9px;
+    height: 9px;
+  }
+  .journey-atlas-embedded .journey-atlas-legend svg {
+    width: 10px;
+    height: 12px;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: auto;
+    margin: 42px 14px 0;
+    padding: 20px 16px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px #49331e18;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket::after {
+    display: none;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket-place {
+    gap: 10px;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket-place > img {
+    width: 30px;
+    height: 20px;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket-place :is(span, strong) {
+    font-size: 20px;
+  }
+  .journey-atlas-embedded .journey-atlas-ticket-date {
+    font-size: 12px !important;
+    margin-top: 12px;
+  }
+  .journey-atlas-embedded .journey-atlas-close {
+    width: 32px;
+    height: 32px;
+    right: 3px;
+    top: 3px;
+  }
+  .journey-atlas-embedded .journey-atlas-close svg {
+    width: 18px;
+    height: 18px;
+  }
+  .journey-atlas-embedded .journey-atlas-nearby {
+    margin-top: 12px;
+    padding-top: 8px;
+  }
+  .journey-atlas-embedded .journey-atlas-nearby button {
+    font-size: 13px;
+    padding: 7px 4px;
+  }
+  .journey-atlas-embedded .journey-atlas-visits button {
+    min-width: 32px;
+    min-height: 32px;
+  }
+  .journey-atlas-embedded .journey-atlas-index {
+    left: 16px;
+    right: 16px;
+    bottom: 32px;
+  }
+  .journey-atlas-embedded .journey-atlas-place-list {
+    gap: 4px 8px;
+    padding: 12px;
+    max-height: 220px;
+  }
+  .journey-atlas-embedded .journey-atlas-place-list button {
+    padding: 9px 6px;
+    font-size: 13px;
+  }
+}
+
+/* 镜片只缩放底图；交互标签始终在未缩放的独立图层里。 */
+.journey-atlas-loupe-zoom {
+  position: absolute;
+  bottom: -31px;
+  left: calc(50% - 72px);
+  width: 144px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.journey-atlas-loupe-zoom button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  color: #65543c;
+  background: #f5e9cc;
+  border: 1px solid #a69371;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.journey-atlas-loupe-zoom button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.journey-atlas-china .journey-atlas-land {
+  stroke-width: 2;
+}
+.journey-atlas-land .is-maritime-boundary {
+  fill: none;
+  stroke: #737c62;
+  stroke-width: 2.5;
+}
+.journey-atlas-labels .journey-atlas-province-name {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-family: 'KaiTi', 'STKaiti', serif !important;
+}
+.journey-atlas-loupe-toggle {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #b69c75;
+  border-radius: 50%;
+  background: #f4e8cfea;
+  color: #66553c;
+  box-shadow: 0 2px 6px #4a301e26;
+  cursor: grab;
+  touch-action: none;
+}
+.journey-atlas-loupe-toggle[aria-pressed='true'] {
+  background: #6b7754;
+  color: #fff3d5;
+}
+.journey-atlas-loupe {
+  position: absolute;
+  z-index: 8;
+  touch-action: none;
+  cursor: grab;
+}
+.journey-atlas-loupe:active,
+.journey-atlas-loupe-toggle:active {
+  cursor: grabbing;
+}
+.journey-atlas-loupe-window {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 5px solid #8b795b;
+  border-radius: 50%;
+  background: #e9dbc4;
+  box-shadow:
+    0 7px 20px #30211055,
+    0 0 0 2px #e4d3b0,
+    inset 0 0 0 2px #fff4dc;
+}
+.journey-atlas-loupe-map {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.journey-atlas-loupe-map > svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+@media (min-width: 701px) {
+  .journey-atlas-china.journey-atlas-embedded .journey-atlas-legend {
+    left: 25%;
+    right: auto;
+    bottom: 6%;
+  }
+}
+.journey-atlas-loupe-pins {
+  position: absolute;
+  inset: -5px;
+  pointer-events: none;
+}
+.journey-atlas-loupe-handle {
+  position: absolute;
+  bottom: -31px;
+  left: calc(50% - 33px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 66px;
+  height: 32px;
+  padding: 0;
+  color: #f8e9c9;
+  background: #766346;
+  border: 1px solid #4f432f;
+  border-radius: 0 0 12px 12px;
+  font-size: 12px;
+  cursor: grab;
+  touch-action: none;
+}
+.journey-atlas-loupe-close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #a69371;
+  border-radius: 50%;
+  color: #65543c;
+  background: #faf0d9;
+  cursor: pointer;
+}
+.journey-atlas-ticket {
+  z-index: 10;
+}
+.journey-atlas-embedded .journey-atlas-index {
+  z-index: 11;
+}
+.journey-atlas-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+.journey-atlas-articles a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 9px;
+  color: #744830;
+  border: 1px solid #b298716e;
+  border-radius: 4px;
+  background: #fffaea70;
+  font-size: max(11px, 1.05cqw);
+  line-height: 1.4;
+  text-decoration: none;
+}
+.journey-atlas-articles a:hover {
+  background: #fff8e5;
+  border-color: #997348;
+}
+.journey-atlas-no-article {
+  color: #8a7b60;
+  font-size: 12px;
+  border: 1px dashed #b298716e;
+  background: #fff9e930;
+  border-radius: 4px;
+  min-height: 34px;
+}
+.journey-atlas-empty-selection {
+  display: none;
+}
+@media (max-width: 700px) {
+  .journey-atlas-empty-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 76px 16px 0;
+    text-align: center;
+    color: #948268;
+  }
+  .journey-atlas-empty-selection p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .journey-atlas-empty-selection span {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .journey-atlas-loupe-toggle {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+  }
+  .journey-atlas-articles a {
+    font-size: 13px;
+  }
+}
+
+.journey-atlas-south-sea > rect {
+  fill: #ede5d0;
+  stroke: #9b9276;
+  stroke-width: 1.5;
+}
+.journey-atlas-south-sea > text {
+  font-size: 18px;
+  text-anchor: middle;
+  fill: #6b7058;
+  letter-spacing: 3px;
+}
+.journey-atlas-south-sea .journey-atlas-land {
+  stroke-width: 1;
+}
+.journey-atlas-city-boundaries {
+  fill: none;
+  stroke: #e9e5ca;
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.journey-atlas-china .journey-atlas-land.is-detailed {
+  stroke-width: 1.2;
 }

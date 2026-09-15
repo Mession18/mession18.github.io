@@ -1,71 +1,55 @@
-/* 护照：首页 #about 与独立 /passport 页面共用。
- * 同一功能的默认、主题和窄屏规则均保留在本文件；迁移不改变现有参数。
- */
-
-/* 首页锚点 #about 的外部布局。 */
+/* 护照内页内容；装帧、翻页及单页适配位于 book.css。 */
 .passport {
   scroll-margin-top: 92px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
 }
-/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、内外留白。 */
 .passport-intro {
-  width: min(410px, 100%);
-  align-self: flex-start;
-  margin-left: max(0px, calc((100% - 760px) / 2));
+  text-align: center;
 }
-/* 护照基础样式：布局排列与对齐、内外留白、文字排版。 */
 .passport-intro h2 {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 13px;
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 400;
-  margin: 0 0 18px;
+  margin: 0 0 15px;
 }
-/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、透明度与视觉效果。 */
 .passport-heading-icon {
-  width: 29px !important;
-  height: 43px !important;
+  width: 25px !important;
+  height: 37px !important;
   flex: 0 0 auto;
-  filter: drop-shadow(0 5px 5px #4c3c3324);
 }
-/* 护照基础样式：文字排版、配色与背景。 */
-.passport-intro > p:not(.eyebrow) {
+.passport-intro > p {
   color: var(--muted);
   line-height: 1.9;
   font-size: 14px;
+  margin: 0 0 8px;
 }
-/* 护照基础样式：布局排列与对齐、内外留白、文字排版、配色与背景。 */
-.passport-note {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 25px;
-  color: var(--dark);
-  font-size: 12px;
-  font-weight: 800;
+.passport-standalone {
+  padding-top: 48px;
+  min-height: 85vh;
 }
-/* 护照纸张尺寸与内边距。 */
-.passport-card {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 125 / 82;
-  min-height: 465px;
-  padding: 26px 30px 20px;
-  border: 1px solid #cec19f;
-  border-radius: 26px;
-  background: #f5efd9;
-  box-shadow: 0 18px 45px #6a705028;
-  --ink: #4f4a40;
-  --dark: #355f50;
-  --muted: #807666;
-  color: #4f4a40;
+@media (max-width: 700px) {
+  .passport.section {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .passport-standalone {
+    padding-top: 35px;
+  }
+  .passport-intro h2 {
+    font-size: 29px;
+  }
+  .passport-intro > p {
+    font-size: 13px;
+  }
 }
-/* 公共界面基础样式：定位与层级、文字排版、配色与背景、鼠标或触摸交互。 */
 .page-watermark {
   position: absolute;
   right: -14px;
@@ -498,107 +482,6 @@
   letter-spacing: 1.2px;
 }
 /* 护照基础样式：尺寸与宽高比例、动画与变形。 */
-.passport-book {
-  width: min(760px, 100%);
-  min-width: 0;
-  perspective: 1400px;
-}
-/* 护照基础样式：尺寸与宽高比例。 */
-.passport-card-stage {
-  min-width: 0;
-}
-.passport-card-scaler {
-  width: 100%;
-}
-.passport-page {
-  height: 100%;
-  min-height: 415px;
-}
-/* 公共界面基础样式：动画与变形。 */
-.page-turn-next {
-  animation: page-turn-next 0.42s ease both;
-  transform-origin: top center;
-}
-.page-turn-prev {
-  animation: page-turn-prev 0.42s ease both;
-  transform-origin: bottom center;
-}
-/* 动画 page-turn-next：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
-@keyframes page-turn-next {
-  from {
-    opacity: 0;
-    transform: rotateX(-16deg) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: rotateX(0) translateY(0);
-  }
-}
-/* 动画 page-turn-prev：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
-@keyframes page-turn-prev {
-  from {
-    opacity: 0;
-    transform: rotateX(16deg) translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: rotateX(0) translateY(0);
-  }
-}
-/* 护照基础样式：布局排列与对齐、内外留白。 */
-.passport-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 18px;
-}
-/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
-.passport-controls button {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--paper);
-  color: var(--dark);
-  cursor: pointer;
-  box-shadow: 0 6px 16px #6a705015;
-}
-/* 护照禁用状态：透明度与视觉效果、鼠标或触摸交互。 */
-.passport-controls button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-/* 护照基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景。 */
-.passport-controls span {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  min-width: 72px;
-  color: var(--muted);
-  font-size: 11px;
-}
-/* 护照基础样式：文字排版、配色与背景。 */
-.passport-controls span b {
-  color: var(--dark);
-  font-size: 18px;
-}
-/* 护照基础样式：内外留白、文字排版。 */
-.passport-controls span small {
-  margin-left: 5px;
-  white-space: nowrap;
-}
-/* 公共界面基础样式：布局排列与对齐。 */
-.vertical-controls {
-  flex-direction: column;
-  gap: 8px;
-}
-.vertical-controls span {
-  justify-content: center;
-}
-/* 签证页与旅行印章。 */
 .visa-page {
   position: relative;
   display: flex;
@@ -758,103 +641,3 @@
   margin-top: auto;
 }
 /* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
-@media (max-width: 850px) {
-  .passport {
-    gap: 38px;
-    width: 100%;
-    min-width: 0;
-    overflow: clip;
-  }
-  /* 护照响应式适配：尺寸与宽高比例。 */
-  .passport-book,
-  .passport-card-stage {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-  .passport-intro {
-    width: min(560px, 100%);
-    align-self: center;
-    margin-left: 0;
-  }
-}
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
-@media (max-width: 480px) {
-  .passport-card-scaler {
-    position: absolute;
-    inset: 0 auto auto 2%;
-    width: 208%;
-    height: 208%;
-    transform: scale(0.46);
-    transform-origin: top left;
-  }
-  .passport-card {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    aspect-ratio: 125 / 82;
-    padding: 26px 30px 20px;
-  }
-  .passport-card-stage {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 125 / 82;
-    overflow: clip;
-    border-radius: 14px;
-  }
-  .passport-page {
-    min-height: 415px;
-  }
-  .passport-profile {
-    grid-template-columns: 105px 1fr;
-    gap: 18px;
-  }
-  .passport-avatar {
-    min-height: 145px;
-  }
-  .document-codes {
-    grid-template-columns: 0.55fr 0.8fr 1.45fr;
-    gap: 8px;
-  }
-  .seam-seal {
-    left: 75px;
-    top: 45px;
-    width: 70px;
-    height: 70px;
-  }
-  .passport-details {
-    grid-template-columns: 1fr;
-  }
-  .passport-details p:first-child {
-    grid-column: auto;
-  }
-  .passport-likes {
-    flex-wrap: wrap;
-  }
-  .passport-bottom {
-    align-items: center;
-  }
-  .mrz code {
-    font-size: 8px;
-    letter-spacing: 0.75px;
-  }
-  /* 签证响应式适配：布局排列与对齐。 */
-  .visa-code code {
-    display: none;
-  }
-  .visa-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px 8px;
-    min-height: 455px;
-  }
-  .travel-stamp {
-    width: 112px;
-    height: 112px;
-  }
-}
-
-/* 护照基础样式：尺寸与宽高比例、内外留白。 */
-.passport-standalone {
-  padding-top: 140px;
-  min-height: 85vh;
-}

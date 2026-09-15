@@ -16,6 +16,8 @@ export type TravelStamp = {
   color: 'green' | 'blue' | 'red' | 'violet'
   rotation?: number
   note?: string
+  articleSlug?: string
+  articleTitle?: string
 }
 
 // 手动章继续在这里添加；startDate/endDate 使用 YYYY.MM.DD，全部章会按 startDate 排序。
@@ -139,6 +141,8 @@ export function travelPostToStamp(post: Post): TravelStamp {
   const countryOrRegion = post.tags[0] ?? '未分类'
   return {
     id: `travel-${post.slug}`,
+    articleSlug: post.slug,
+    articleTitle: post.title,
     province: post.province,
     city: post.city ?? post.title,
     countryOrRegion,
@@ -167,3 +171,14 @@ export const passportTravelStamps = [...travelStamps, ...travel.map(travelPostTo
     countryCode: stamp.countryCode ?? countryCodeForChineseName(stamp.countryOrRegion),
   }))
   .sort((left, right) => stampStartTime(left) - stampStartTime(right))
+
+/** 文章章精确关联原文；手动章仅匹配同国家/地区、同城市的现有文章。 */
+export function stampArticles(stamp: TravelStamp) {
+  const city = (value: string) => value.trim().replace(/(?:特别市|市)$/u, '')
+  return travel.filter((post) =>
+    stamp.articleSlug
+      ? post.slug === stamp.articleSlug
+      : city(post.city ?? '') === city(stamp.city) &&
+        (post.tags[0] ?? '') === stamp.countryOrRegion,
+  )
+}
