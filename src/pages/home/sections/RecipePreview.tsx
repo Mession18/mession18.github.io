@@ -2,17 +2,13 @@ import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../../../shared/data'
-import { animateItemRefresh } from '../home.data'
 import { shuffled } from '../../../shared/presentation'
 import { ContentImage } from './ContentImage'
+import { RefreshButton } from './RefreshButton'
 
-/** 首页菜谱预览：从菜谱数据选三项，并提供换一批与列表入口。 */
 export function RecipeHomeSection() {
   const recipes = sectionContent.recipes
-  /** 首页菜谱预览最多取三项；随机列表存入状态避免重绘时闪动。 */
   const [choices, setChoices] = useState(() => shuffled(recipes).slice(0, 3))
-  const refresh = (button: HTMLButtonElement) =>
-    animateItemRefresh(button, () => setChoices(shuffled(recipes).slice(0, 3)))
   return (
     <section className="home-recipes home-content-section" id="recipes">
       <div className="home-content-inner">
@@ -25,14 +21,14 @@ export function RecipeHomeSection() {
             <h2>今天吃什么？</h2>
             <p>从岛上的菜谱中随机挑三样，不喜欢就再换一组。</p>
           </div>
-          <button
-            className="item-refresh recipe-refresh"
-            type="button"
-            onClick={(event) => refresh(event.currentTarget)}
+          <RefreshButton
+            className="recipe-refresh"
+            icon="/images/common/icons/refresh-recipe-371.png"
+            onRefresh={() => setChoices(shuffled(recipes).slice(0, 3))}
             disabled={!recipes.length}
           >
-            <img src="/images/common/icons/refresh-recipe-371.png" alt="" /> <span>换一组</span>
-          </button>
+            换一组
+          </RefreshButton>
         </div>
         <div className="recipe-choices">
           {choices.map((item) => (

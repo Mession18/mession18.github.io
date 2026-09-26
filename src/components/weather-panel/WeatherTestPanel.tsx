@@ -1,6 +1,7 @@
 import { CloudSun, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { clockLabel } from '../../shared/utils'
+import { clockLabel } from '../../shared/dates'
+import { sceneWind } from '../../shared/wind'
 import { useTheme } from '../../context/useTheme'
 import type { WeatherIntensity, WeatherKind } from '../../hooks/useLocalWeather'
 
@@ -11,18 +12,36 @@ const weatherOptions: Array<{ kind: WeatherKind; intensity: WeatherIntensity; la
   { kind: 'fog', intensity: 'light', label: '雾' },
   { kind: 'rain', intensity: 'light', label: '小雨' },
   { kind: 'rain', intensity: 'moderate', label: '中雨' },
-  { kind: 'thunder', intensity: 'heavy', label: '暴雨' },
+  { kind: 'rain', intensity: 'heavy', label: '暴雨' },
+  { kind: 'thunder', intensity: 'heavy', label: '雷雨' },
   { kind: 'snow', intensity: 'light', label: '小雪' },
   { kind: 'snow', intensity: 'moderate', label: '中雪' },
   { kind: 'snow', intensity: 'heavy', label: '暴雪' },
 ]
+const windOptions = [
+  { speed: 8, gusts: 12, label: '微风' },
+  { speed: 40, gusts: 60, label: '强风' },
+  { speed: 72, gusts: 98, label: '暴风' },
+  { speed: 110, gusts: 150, label: '极强风' },
+]
+const directions = ['北', '东北', '东', '东南', '南', '西南', '西', '西北']
 
 /** 日期时间和天气各自可预览，关闭面板不会退出预览，恢复按钮重新跟随实时。 */
 export function WeatherTestPanel() {
   const [open, setOpen] = useState(false)
   const panel = useRef<HTMLElement>(null)
-  const { weather, sky, weatherOverride, setWeatherOverride, clockOverride, setClockOverride } =
-    useTheme()
+  const {
+    weather,
+    sky,
+    weatherOverride,
+    setWeatherOverride,
+    windOverride,
+    setWindOverride,
+    clockOverride,
+    setClockOverride,
+  } = useTheme()
+  const wind = sceneWind(weather)
+  const directionLabel = directions[Math.round(wind.direction / 45) % 8]
   const selectedDate = clockOverride?.date ?? sky.date
   const selectedMinutes = clockOverride?.minutes ?? sky.minutes
 
@@ -148,6 +167,94 @@ export function WeatherTestPanel() {
               </button>
             ))}
           </div>
+          <div className="weather-control-heading weather-wind-heading">
+            <b>风力</b>
+            <small>{windOverride ? '风力预览' : weather.loading ? '获取中' : '当前实况'}</small>
+          </div>
+          <dl className="weather-wind-readings">
+            <div>
+              <dt>风速</dt>
+              <dd>{Math.round(wind.speed)} km/h</dd>
+            </div>
+            <div>
+              <dt>阵风</dt>
+              <dd>{Math.round(wind.gusts)} km/h</dd>
+            </div>
+            <div>
+              <dt>来向</dt>
+              <dd>
+                {directionLabel}风 · {Math.round(wind.direction)}°
+              </dd>
+            </div>
+            <div>
+              <dt>实况气温</dt>
+              <dd>{weather.loading ? '—' : `${weather.temperature}°C`}</dd>
+            </div>
+          </dl>
+          <div className="weather-test-options weather-wind-options">
+            {windOptions.map((option) => (
+              <button
+                key={option.label}
+                type="button"
+                aria-pressed={
+                  windOverride?.speed === option.speed && windOverride?.gusts === option.gusts
+                }
+                className={
+                  windOverride?.speed === option.speed && windOverride?.gusts === option.gusts
+                    ? 'active'
+                    : ''
+                }
+                onClick={() =>
+                  setWindOverride({
+                    speed: option.speed,
+                    gusts: option.gusts,
+                    direction: windOverride?.direction ?? 270,
+                  })
+                }
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <label>
+            风的来向
+            <select
+              aria-label="风的来向"
+              value={(Math.round(wind.direction / 45) % 8) * 45}
+              onChange={(event) =>
+                setWindOverride({
+                  speed: wind.speed,
+                  gusts: wind.gusts,
+                  direction: Number(event.target.value),
+                })
+              }
+            >
+              {directions.map((direction, i) => (
+                <option key={direction} value={i * 45}>
+                  {direction}风
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="weather-test-options weather-wind-options weather-storm-options">
+            {(['rain', 'snow'] as const).map((kind) => (
+              <button
+                key={kind}
+                type="button"
+                onClick={() => {
+                  setWeatherOverride({ kind, intensity: 'heavy' })
+                  setWindOverride({
+                    speed: 72,
+                    gusts: 98,
+                    direction: windOverride?.direction ?? 270,
+                  })
+                }}
+              >
+                {kind === 'rain' ? '暴风雨' : '暴风雪'}
+              </button>
+            ))}
+          </div>
+          <p className="weather-location">风力与雨雪可分别预览。强风效果不代表已识别当地台风。</p>
           {clockOverride && (
             <p className="weather-location">日期用于天空预览；天气沿用当前实况或手动选择。</p>
           )}
@@ -167,6 +274,14 @@ export function WeatherTestPanel() {
               onClick={() => setWeatherOverride(null)}
             >
               实时天气
+            </button>
+            <button
+              className="weather-test-reset"
+              type="button"
+              disabled={!windOverride}
+              onClick={() => setWindOverride(null)}
+            >
+              实时风力
             </button>
           </div>
         </div>

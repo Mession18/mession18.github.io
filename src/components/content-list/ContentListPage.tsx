@@ -7,7 +7,7 @@ import {
   displayPageSize,
   type ContentSectionKey,
 } from '../../shared/config'
-import type { Post } from '../../shared/utils'
+import type { Post } from '../../shared/markdown'
 
 type Props = {
   section: ContentSectionKey

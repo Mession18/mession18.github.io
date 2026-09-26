@@ -13,15 +13,11 @@ import { ContentMessageText } from '../../../components/content-placeholder/Cont
 import { colorClass, colorStyle } from '../../../shared/config'
 import { sectionContent } from '../../../shared/data'
 import { shuffled } from '../../../shared/presentation'
-
 import { posts } from '../../posts/posts.data'
 
-/** 首页博物馆预览：选择藏品并通过闪光效果刷新照片组合。 */
 export function Museum() {
-  /** 保存本次首页抽取的藏品，点击刷新后才重新选取。 */
   const [featured, setFeatured] = useState(() => shuffled(collections).slice(0, 2))
   const [flashing, setFlashing] = useState(false)
-  /** 播放闪光反馈后重新选择首页藏品。 */
   const refreshFeatured = () => {
     setFlashing(true)
     window.setTimeout(() => {
@@ -106,7 +102,6 @@ export function Museum() {
   )
 }
 
-/** 渲染首页单张藏品照片，处理图片失败和对应详情跳转。 */
 function MuseumPreview({ item, index }: { item: CollectionItem; index: number }) {
   const { image: previewImage, onError } = useImageSource(getCollectionDisplayImage(item))
   return (

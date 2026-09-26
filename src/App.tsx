@@ -40,9 +40,7 @@ const IslandCat3D = lazy(() =>
 
 /** 把详情地址归到所属栏目，只有跨栏目导航才播放切场动画。 */
 function getRouteSection(pathname: string) {
-  if (pathname.startsWith('/posts')) return 'posts'
-  if (pathname.startsWith('/museum')) return 'museum'
-  for (const section of ['recipes', 'crafts', 'travel', 'planting', 'passport'])
+  for (const section of ['posts', 'museum', 'recipes', 'crafts', 'travel', 'planting', 'passport'])
     if (pathname.startsWith(`/${section}`)) return section
   return 'home'
 }

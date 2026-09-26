@@ -1,15 +1,9 @@
 import assert from 'node:assert/strict'
-import { loadUtils } from './load-utils.mjs'
-const {
-  selectStand,
-  standAttributes,
-  drawContentMessage,
-  parseMarkdownTags,
-  standPoolByFiles,
-  resolveMarkdownImage,
-  parseMarkdown,
-  shuffled,
-} = await loadUtils()
+import { loadModule } from './load-module.mjs'
+const { selectStand, standAttributes, drawContentMessage, standPoolByFiles, shuffled } =
+  await loadModule('/src/shared/presentation.ts')
+const { parseMarkdownTags, resolveMarkdownImage, parseMarkdown, parseMarkdownDocument, loadPosts } =
+  await loadModule('/src/shared/markdown.ts')
 
 // 文件名筛选使用实际图片池，支持中文和空格；拼错或缺失文件不会制造无效图片地址。
 const filePool = [
@@ -25,6 +19,32 @@ assert.notEqual(
   'preview/波罗蜜-封面.png',
 )
 assert.equal(parseMarkdown('src/content/crafts/_模板.md', ''), null)
+assert.equal(parseMarkdown('src/content/crafts/模板.md', ''), null)
+assert.equal(parseMarkdownDocument('src/content/museum/藏品模板.md', ''), null)
+assert.throws(() => parseMarkdown('src/content/posts/broken.md', '正文'), /缺少 Markdown 头部信息/)
+const frontmatter =
+  'title: "标题: 测试"\ndate: 2026-09-26\nexcerpt: 简介\ntags:\n  - 木工\n  - 手作\n  - 木工'
+const source = `---\n${frontmatter}\n---\n\n正文`
+const document = parseMarkdownDocument('src/content/posts/example.md', source)
+assert.equal(document.metadata.title, '标题: 测试')
+assert.deepEqual(document.tags, ['木工', '手作'])
+assert.equal(document.content, '正文')
+assert.deepEqual(Object.keys(document.metadata), ['title', 'date', 'excerpt', 'tags'])
+assert.deepEqual(parseMarkdownDocument('example.md', source.replaceAll('\n', '\r\n')), document)
+assert.throws(
+  () => parseMarkdown('src/content/crafts/broken.md', source.replace('date:', 'finaldate:')),
+  /必须填写开工时间/,
+)
+const loaded = loadPosts({
+  'src/content/posts/old.md': source.replace('2026-09-26', '2026-09-01'),
+  'src/content/posts/_模板.md': '',
+  'src/content/posts/new.md': source,
+})
+assert.deepEqual(
+  loaded.map((post) => post.slug),
+  ['new', 'old'],
+)
+assert.equal(loaded[0].readingTime, 1)
 // 最小图片及文案配置：所有命中的标签池会合并并去重，未命中时使用默认池。
 const a = { id: 'a', image: '/a.png', layout: 'wood' },
   b = { id: 'b' },

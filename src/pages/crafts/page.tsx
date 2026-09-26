@@ -5,7 +5,8 @@ import { ContentListPage } from '../../components/content-list/ContentListPage'
 import { useStand } from '../../hooks/useStand'
 import { colorClass } from '../../shared/config'
 
-import { splitDisplayDate, getPostDisplayImage, type Post } from '../../shared/utils'
+import { splitDisplayDate } from '../../shared/dates'
+import { getPostDisplayImage, type Post } from '../../shared/markdown'
 import { standAttributes } from '../../shared/presentation'
 
 import { crafts } from './crafts.data'

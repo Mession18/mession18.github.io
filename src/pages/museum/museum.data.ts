@@ -1,13 +1,9 @@
 import { resolveColor, type IslandColor } from '../../shared/config'
 import {
   resolveMarkdownImage,
-  parseMarkdownTags,
+  parseMarkdownDocument,
   displayImageOrUndefined,
-} from '../../shared/utils'
-import { isMarkdownTemplate } from '../../shared/markdown'
-
-/** 藏品主题色，与共享色板解析规则一致。 */
-export type CollectionColor = IslandColor
+} from '../../shared/markdown'
 /** 藏品的统一数据结构；与普通文章相比多了分类、评分和年份等字段。 */
 export type CollectionItem = {
   id: string
@@ -21,7 +17,7 @@ export type CollectionItem = {
   icon: string
   previewImage?: string
   detailImage?: string
-  color: CollectionColor
+  color: IslandColor
   excerpt: string
   content: string
   sourceDir: string
@@ -36,32 +32,11 @@ const markdownFiles = import.meta.glob('../../content/museum/*.md', {
 
 /** 解析藏品头部和正文，校验必填字段，生成卡片、详情和搜索所需字段。 */
 function parseCollection(path: string, source: string): CollectionItem | null {
-  /** 下划线开头或以“模板”结尾的文件只供复制编辑，不生成藏品。 */
-  const filename = path.split('/').pop() ?? ''
-  if (isMarkdownTemplate(path)) return null
-  const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/)
-  if (!match) throw new Error(`藏品 ${filename} 缺少 Markdown 头部信息`)
-  /** 解析头部键值字段；正文不参与元数据解析，标签列表由专门函数处理。 */
-  const metadata = Object.fromEntries(
-    match[1]
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map((line) => {
-        const separator = line.indexOf(':')
-        return [
-          line.slice(0, separator).trim(),
-          line
-            .slice(separator + 1)
-            .trim()
-            .replace(/^['"]|['"]$/g, ''),
-        ]
-      }),
-  )
-  const tags = parseMarkdownTags(match[1])
+  const document = parseMarkdownDocument(path, source, '藏品')
+  if (!document) return null
+  const { filename, slug, metadata, tags, content } = document
   if (!metadata.id || !tags.length || !metadata.excerpt)
     throw new Error(`藏品 ${filename} 必须填写 id、tags 和 excerpt`)
-  const slug = filename.replace(/\.md$/, '')
-  const color = resolveColor(metadata.color) as CollectionColor
   return {
     id: metadata.id,
     tags,
@@ -78,9 +53,9 @@ function parseCollection(path: string, source: string): CollectionItem | null {
     detailImage: metadata.detailImage
       ? resolveMarkdownImage(metadata.detailImage, 'museum')
       : undefined,
-    color,
+    color: resolveColor(metadata.color),
     excerpt: metadata.excerpt,
-    content: match[2].trim(),
+    content,
     sourceDir: 'museum',
   }
 }

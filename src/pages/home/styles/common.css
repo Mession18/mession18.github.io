@@ -1,29 +1,24 @@
-/* 首页 common：默认、主题和响应式规则集中维护。 */
 .home-content-inner {
   max-width: 1120px;
   margin: auto;
 }
-/* 公共界面基础样式：布局排列与对齐、内外留白。 */
 .home-content-heading {
   display: flex;
   align-items: center;
   gap: 20px;
   margin-bottom: 35px;
 }
-/* 公共界面基础样式：内外留白、文字排版。 */
 .home-content-heading h2 {
   margin: 0;
   font-family: 'ZCOOL KuaiLe';
   font-size: 38px;
   font-weight: 400;
 }
-/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .home-content-heading p:not(.eyebrow) {
   margin: 5px 0 0;
   color: var(--muted);
   font-size: 13px;
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、边框、圆角或阴影、动画与变形。 */
 .home-content-icon {
   display: grid;
   width: 78px;
@@ -34,13 +29,11 @@
   background: transparent;
   transform: rotate(-5deg);
 }
-/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .home-content-icon img {
   width: 62px;
   height: 62px;
   object-fit: contain;
 }
-/* 公共界面基础样式：布局排列与对齐、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .home-content-heading button {
   display: flex;
   align-items: center;
@@ -53,7 +46,6 @@
   color: white;
   font-weight: 800;
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景、边框、圆角或阴影、鼠标或触摸交互。 */
 .item-refresh {
   display: inline-flex;
   width: fit-content;
@@ -72,7 +64,6 @@
   box-shadow: 0 7px 18px #4d5e4a24;
   cursor: pointer;
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、动画与变形、图片适配与裁切。 */
 .item-refresh img {
   width: 32px;
   height: 32px;
@@ -80,12 +71,10 @@
   object-fit: contain;
   transform-origin: center;
 }
-/* 公共界面禁用状态：透明度与视觉效果、鼠标或触摸交互。 */
 .item-refresh:disabled {
   cursor: default;
   opacity: 0.5;
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景。 */
 .home-content-more {
   display: flex;
   width: fit-content;
@@ -96,7 +85,6 @@
   font-size: 13px;
   font-weight: 900;
 }
-/* 公共界面基础样式：尺寸与宽高比例、内外留白、动画与变形。 */
 .home-content-section {
   max-width: none;
   padding: 92px max(5vw, 28px);

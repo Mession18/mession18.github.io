@@ -3,11 +3,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { searchEntries } from './search.data'
 
-/** 搜索弹窗：维护关键词和结果，监听快捷键并在选择结果后关闭。 */
 export function Search() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
-  // 搜索打开时监听 Escape 关闭；关闭弹窗后移除键盘监听。
   useEffect(() => {
     if (!searchOpen) return
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -17,10 +15,8 @@ export function Search() {
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [searchOpen])
 
-  /** 仅在关键词改变时过滤搜索索引，空关键词显示默认结果。 */
   const results = useMemo(() => {
     const keyword = query.trim().toLocaleLowerCase('zh-CN')
-    if (!keyword) return searchEntries.slice(0, 8)
     return searchEntries.filter((entry) => entry.searchText.includes(keyword)).slice(0, 8)
   }, [query])
 

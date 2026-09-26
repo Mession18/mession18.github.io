@@ -95,13 +95,15 @@ export type AtlasPlace = {
   chinaPosition: { x: number; y: number } | null
   visits: TravelStamp[]
 }
-export type AtlasPin = {
+export type AtlasGroup = {
   key: string
   label: string
   code: string
+  places: AtlasPlace[]
+}
+export type AtlasPin = AtlasGroup & {
   x: number
   y: number
-  places: AtlasPlace[]
   city?: boolean
 }
 
@@ -194,19 +196,10 @@ export function buildAtlasPlaces(stamps: TravelStamp[]): AtlasPlace[] {
   }))
 }
 
-/** 世界地图按国家／地区分组，中国地图按省份分组；放大镜沿用对应层级。 */
-export function groupAtlasPlaces(
-  places: AtlasPlace[],
-  variant: AtlasVariant = 'world',
-): AtlasPin[] {
-  const groups = new Map<string, AtlasPlace[]>()
-  for (const place of places) {
-    if (variant === 'china' && !isChinaPlace(place.code)) continue
-    const key = variant === 'china' ? 'cn:' + place.province : place.code
-    groups.set(key, [...(groups.get(key) ?? []), place])
-  }
-  return [...groups.entries()].flatMap(([key, members]) => {
-    const first = members[0]
+/** 地图标签复用索引分组；没有可用坐标的分组仍保留在索引中。 */
+export function atlasGroupPins(groups: AtlasGroup[], variant: AtlasVariant): AtlasPin[] {
+  return groups.flatMap((group) => {
+    const first = group.places[0]
     const byProvince = variant === 'china'
     const province = byProvince
       ? chinaProvinces.find((entry) => entry.shortName === first.province)
@@ -221,7 +214,7 @@ export function groupAtlasPlaces(
           )
         : null
     if (!point && variant === 'world') {
-      const positions = members.flatMap((member) => (member.position ? [member.position] : []))
+      const positions = group.places.flatMap((place) => (place.position ? [place.position] : []))
       if (positions.length)
         point = {
           x: positions.reduce((sum, p) => sum + p.x, 0) / positions.length,
@@ -231,11 +224,9 @@ export function groupAtlasPlaces(
     return point
       ? [
           {
-            key,
-            label: byProvince ? (first.province ?? '中国') : first.countryOrRegion,
-            code: first.code,
+            ...group,
+            key: byProvince ? 'cn:' + group.key : group.key,
             ...point,
-            places: members,
           },
         ]
       : []
@@ -273,11 +264,8 @@ export function cityAtlasPins(places: AtlasPlace[]): AtlasPin[] {
 }
 
 /** 索引按当前地图层级列出条目，城市只在选择地区后显示。 */
-export function atlasIndexGroups(places: AtlasPlace[], variant: AtlasVariant) {
-  const groups = new Map<
-    string,
-    { key: string; label: string; code: string; places: AtlasPlace[] }
-  >()
+export function atlasIndexGroups(places: AtlasPlace[], variant: AtlasVariant): AtlasGroup[] {
+  const groups = new Map<string, AtlasGroup>()
   for (const place of places) {
     const key = variant === 'china' ? (place.province ?? '待补充省份') : place.code
     const group = groups.get(key) ?? {

@@ -6,7 +6,8 @@ import { useStand } from '../../hooks/useStand'
 import { colorClass } from '../../shared/config'
 import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
 
-import { formatDateRange, getPostDisplayImage, type Post } from '../../shared/utils'
+import { formatDateRange } from '../../shared/dates'
+import { getPostDisplayImage, type Post } from '../../shared/markdown'
 import { standAttributes } from '../../shared/presentation'
 
 import { presentation } from './presentation.data'

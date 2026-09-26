@@ -1,28 +1,22 @@
-/* 首页 crafts：默认、主题和响应式规则集中维护。 */
-
 .craft-copy h2 {
   margin: 0;
   font-family: 'ZCOOL KuaiLe';
   font-size: 38px;
   font-weight: 400;
 }
-/* 手作基础样式：内外留白、文字排版、配色与背景。 */
 .craft-copy > p:last-of-type {
   margin: 5px 0 0;
   color: #6f746a;
   font-size: 13px;
 }
-/* 手作基础样式：内外留白、配色与背景。 */
 .craft-refresh {
   margin-top: 20px;
   background: #f8eac7;
 }
-/* 手作基础样式：配色与背景、图片适配与裁切。 */
 .home-crafts {
   overflow: hidden;
   background: var(--page-gradient);
 }
-/* 手作基础样式：布局排列与对齐、可调自定义参数。 */
 .craft-workbench {
   /* 首页展示板调参：高度、板/文字宽度比例、板与文字间距。 */
   --home-craft-board-height: 500px;
@@ -33,7 +27,6 @@
   align-items: center;
   gap: var(--home-craft-board-gap);
 }
-/* 手作基础样式：布局排列与对齐、文字排版、配色与背景。 */
 .craft-copy {
   display: flex;
   grid-column: 2;
@@ -43,11 +36,9 @@
   color: #4d594f;
   text-align: right;
 }
-/* 手作基础样式：内外留白。 */
 .craft-copy > span {
   margin-bottom: 18px;
 }
-/* 手作基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景。 */
 .craft-copy > a {
   display: flex;
   width: fit-content;
@@ -57,10 +48,7 @@
   color: #496e60;
   font-size: 13px;
   font-weight: 900;
-  margin-right: 0;
-  margin-left: auto;
 }
-/* 手作基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
 .craft-board {
   position: relative;
   min-height: var(--home-craft-board-height);
@@ -73,7 +61,6 @@
   grid-column: 1;
   grid-row: 1;
 }
-/* 手作基础样式：布局排列与对齐、尺寸与宽高比例、定位与层级、内外留白、配色与背景、边框、圆角或阴影。 */
 .craft-note {
   position: absolute;
   display: flex;
@@ -84,7 +71,6 @@
   background: #fff8dc;
   box-shadow: 0 8px 15px #60492830;
 }
-/* 手作装饰伪元素：尺寸与宽高比例、定位与层级、配色与背景、动画与变形。 */
 .craft-note::before {
   content: '';
   position: absolute;
@@ -95,7 +81,6 @@
   background: #e7c675b8;
   transform: translateX(-50%) rotate(-2deg);
 }
-/* 手作基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景、图片适配与裁切。 */
 .craft-note-photo {
   display: grid;
   width: 100%;
@@ -104,21 +89,18 @@
   place-items: center;
   background: #efe8d8;
 }
-/* 手作基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .craft-note-photo img,
 .craft-note-photo > span {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-/* 手作基础样式：文字排版、配色与背景。 */
 .craft-note strong {
   color: #55483d;
   font-size: 16px;
   line-height: 1.2;
   text-align: center;
 }
-/* 公共界面基础样式：定位与层级、动画与变形。 */
 .note-1 {
   top: 32px;
   left: 5%;
@@ -134,14 +116,11 @@
   bottom: 30px;
   transform: rotate(-1deg);
 }
-/* 手作基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .home-crafts .craft-note {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
 }
-
-/* 手作基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
 .home-crafts .craft-note img {
   display: block;
   width: 100%;
@@ -151,7 +130,6 @@
   object-fit: contain;
   object-position: center;
 }
-/* 手作基础样式：动画与变形。 */
 .craft-board,
 .craft-note {
   transition:
@@ -160,7 +138,6 @@
     color 0.45s ease,
     box-shadow 0.8s ease;
 }
-/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {
   .craft-workbench {
     grid-template-columns: 1fr;

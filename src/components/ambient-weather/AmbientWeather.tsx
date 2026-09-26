@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useTheme } from '../../context/useTheme'
+import { sceneWind } from '../../shared/wind'
 
 /** 粒子样式同时支持 React CSS 属性和 --x 等动画自定义变量。 */
 type ParticleStyle = CSSProperties & Record<`--${string}`, string>
@@ -31,7 +32,7 @@ export function AmbientWeather() {
   /** 一次生成雨滴的随机位置、速度和尺寸；天气强度只改变实际显示数量。 */
   const rainDrops = useMemo(
     () =>
-      Array.from({ length: 84 }, (_, index) => {
+      Array.from({ length: 252 }, (_, index) => {
         const size = randomBetween(3.5, 6)
         return {
           id: index,
@@ -52,7 +53,7 @@ export function AmbientWeather() {
   /** 一次生成雪花的漂移和速度参数，重绘时复用以避免动画跳动。 */
   const snowflakes = useMemo(
     () =>
-      Array.from({ length: 68 }, (_, index) => {
+      Array.from({ length: 204 }, (_, index) => {
         const drift = randomBetween(-45, 45)
         return {
           id: index,
@@ -106,12 +107,34 @@ export function AmbientWeather() {
 
   const showRain = weather.kind === 'rain' || weather.kind === 'thunder'
   const showSnow = weather.kind === 'snow'
-  const rainCount = weather.intensity === 'heavy' ? 84 : weather.intensity === 'moderate' ? 52 : 28
-  const snowCount = weather.intensity === 'heavy' ? 68 : weather.intensity === 'moderate' ? 44 : 24
+  const wind = sceneWind(weather)
+  const travel = wind.x * wind.strength * (showSnow ? 160 : 95)
+  const spread = 1 + Math.abs(travel) / 100
+  const rainCount = Math.ceil(
+    (weather.intensity === 'heavy' ? 84 : weather.intensity === 'moderate' ? 52 : 28) * spread,
+  )
+  const snowCount = Math.ceil(
+    (weather.intensity === 'heavy' ? 68 : weather.intensity === 'moderate' ? 44 : 24) * spread,
+  )
   if (!showRain && !showSnow && !isClearNight) return null
 
   return (
-    <div className="ambient-weather" aria-hidden="true">
+    <div
+      className="ambient-weather"
+      aria-hidden="true"
+      style={
+        {
+          '--wind-start': `${-Math.max(0, travel)}vw`,
+          '--wind-span': spread.toFixed(3),
+          '--wind-travel': `${travel}vw`,
+          '--wind-half': `${travel / 2}vw`,
+          '--rain-tilt': `${(-Math.atan2(wind.x * wind.strength * 1.5, 1) * 180) / Math.PI}deg`,
+          '--rain-rate': `${1 / (1 + wind.strength * 0.65 + wind.z * wind.strength * 0.15)}`,
+          '--snow-rate': `${1 / (1 + wind.strength * 2.7 + wind.z * wind.strength * 0.3)}`,
+          '--rain-stretch': `${1 + wind.strength * 3}`,
+        } as ParticleStyle
+      }
+    >
       {showRain && (
         <div className="ambient-rain">
           {rainDrops.slice(0, rainCount).map((drop) => (

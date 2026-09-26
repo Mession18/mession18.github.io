@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict'
-import { loadUtils } from './load-utils.mjs'
+import { loadModule } from './load-module.mjs'
 
-const { calculateSky, dateAtZone, zonedClock, celestialStyle, dailyPhases, scenePalette } =
-  await loadUtils()
+const { calculateSky, celestialStyle, dailyPhases, scenePalette } =
+  await loadModule('/src/shared/sky.ts')
+const { dateAtZone, zonedClock, calendarDay } = await loadModule('/src/shared/dates.ts')
 const zone = 'Asia/Shanghai'
+assert.match(calendarDay('2026-02-17').festival, /春节/)
+assert.match(calendarDay('2026-02-16').festival, /除夕/)
+assert.match(calendarDay('2026-09-25').festival, /中秋节/)
 const sky = (date, minutes) => calculateSky(dateAtZone(date, minutes, zone), 31.23, 121.47, zone)
 
 // 夏冬日出日落应显著不同，且同一天的太阳随分钟移动；不能退回固定小时表。

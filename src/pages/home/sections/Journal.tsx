@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { PostCard } from '../../posts/page'
 import { posts } from '../../posts/posts.data'
 
-/** 首页文章预览区：展示文章入口和选定的文章卡片。 */
 export function Journal() {
   return (
     <section className="journal section" id="journal">

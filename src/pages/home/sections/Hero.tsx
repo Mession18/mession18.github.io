@@ -1,6 +1,7 @@
-import { useRef, useState, type CSSProperties } from 'react'
+import { lazy, Suspense, useRef, useState, type CSSProperties } from 'react'
 import { Calendar } from './Calendar'
-import { celestialStyle } from '../../../shared/utils'
+import { celestialStyle } from '../../../shared/sky'
+import { sceneWind } from '../../../shared/wind'
 import {
   ArrowRight,
   Cloud,
@@ -14,18 +15,19 @@ import {
   Sun,
 } from 'lucide-react'
 import { useTheme } from '../../../context/useTheme'
-import { type TimePeriod, type WeatherKind } from '../../../hooks/useLocalWeather'
+import type { SkyState } from '../../../context/ThemeState'
+import type { WeatherKind } from '../../../hooks/useLocalWeather'
 
-/** 天气分类对应的中文文案，首屏天气面板使用。 */
+const IslandScene = lazy(() => import('./IslandScene'))
+
 const weatherLabels: Record<WeatherKind, string> = {
   clear: '晴朗',
   cloudy: '多云',
   fog: '有雾',
-  rain: '下雨',
-  snow: '下雪',
+  rain: '雨',
+  snow: '雪',
   thunder: '雷雨',
 }
-/** 把雨雪强度转成天气名称前的小、中、大字样。 */
 const intensityLabels = { light: '小', moderate: '中', heavy: '大' } as const
 /** 根据月相计算月面受光区域 SVG 路径，表现盈亏变化。 */
 function moonLightPath(phase: number) {
@@ -47,7 +49,6 @@ function moonLightPath(phase: number) {
   return `M ${points.join(' L ')} Z`
 }
 
-/** 组合月面底色、纹理与受光轮廓，显示当天估算月相。 */
 function Moon({ phase, name, style }: { phase: number; name: string; style: CSSProperties }) {
   const lightPath = moonLightPath(phase)
   return (
@@ -66,15 +67,14 @@ function Moon({ phase, name, style }: { phase: number; name: string; style: CSSP
       <circle className="moon-disc" cx="50" cy="50" r="44" />
       <path className="moon-light" d={lightPath} />
       <g clipPath="url(#moonlit-face)">
-        <circle className="moon-crater crater-one" cx="39" cy="34" r="5" />
-        <circle className="moon-crater crater-two" cx="61" cy="61" r="7" />
-        <circle className="moon-crater crater-three" cx="34" cy="68" r="3" />
+        <circle className="moon-crater" cx="39" cy="34" r="5" />
+        <circle className="moon-crater" cx="61" cy="61" r="7" />
+        <circle className="moon-crater" cx="34" cy="68" r="3" />
       </g>
     </svg>
   )
 }
 
-/** 按加载状态、天气及时间段选择天气图标。 */
 function WeatherIcon({
   kind,
   period,
@@ -82,7 +82,7 @@ function WeatherIcon({
   isNight,
 }: {
   kind: WeatherKind
-  period: TimePeriod
+  period: SkyState['period']
   loading: boolean
   isNight: boolean
 }) {
@@ -97,7 +97,6 @@ function WeatherIcon({
   return <CloudSun size={26} />
 }
 
-/** 首页首屏：组合天空、地景、标题、时钟和天气信息，场景由主题状态驱动。 */
 export function Hero() {
   const { weather, sky, scenePeriod } = useTheme()
   const [calendarOpen, setCalendarOpen] = useState(false)
@@ -111,7 +110,11 @@ export function Hero() {
   const visibility = { clear: 1, cloudy: 0.38, fog: 0.12, rain: 0, snow: 0, thunder: 0 }[
     weather.kind
   ]
-  const windLabel = weather.windSpeed <= 8 ? '微风' : weather.windSpeed <= 18 ? '轻风' : '有风'
+  const wind = sceneWind(weather)
+  const windDirection = ['北', '东北', '东', '东南', '南', '西南', '西', '西北'][
+    Math.round(wind.direction / 45) % 8
+  ]
+  const windLabel = wind.label
   const weatherLabel =
     weather.kind === 'thunder'
       ? '暴雨雷电'
@@ -124,11 +127,7 @@ export function Hero() {
       data-sky-stage={sky.stage}
       id="top"
     >
-      {/* 天空装饰层：星星、云和天气特效，样式集中在 home/styles/scenery.css。 */}
       <div className="sky-stars" aria-hidden="true" />
-      <div className="cloud cloud-a" />
-      <div className="cloud cloud-b" />
-      <div className="cloud cloud-c" aria-hidden="true" />
       <div className="weather-effects" aria-hidden="true">
         <div className="fog-bank fog-one" />
         <div className="fog-bank fog-two" />
@@ -143,7 +142,6 @@ export function Hero() {
           style={celestialStyle(sky.moon, visibility * (sky.isNight ? 1 : 0.55))}
         />
       </div>
-      {/* 首页首屏文字和入口；改标题、简介及按钮文案从这里入手。 */}
       <div className="hero-copy">
         <p className="eyebrow">
           <span>●</span> ISLAND LETTER · NO. 01
@@ -162,75 +160,9 @@ export function Hero() {
           去岛上逛逛 <ArrowRight size={18} />
         </a>
       </div>
-      {/* 岛屿场景层：日月、树林、地面和房屋；同类树木仅排列和尺寸不同。 */}
-      <div className="island-scene" aria-label="树木环绕的宁静海岛平原">
-        {/* 用重复元素绘制远处树林，数量影响树木密度。 */}
-        <div className="horizon-forest" aria-hidden="true">
-          {Array.from({ length: 14 }, (_, index) => (
-            <i key={index} />
-          ))}
-        </div>
-        <div className="ground">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="tree t1">
-          <i className="trunk" />
-          <span className="crown">
-            <b />
-            <b />
-            <b />
-          </span>
-        </div>
-        <div className="tree pine t2">
-          <i className="trunk" />
-          <span className="crown">
-            <b />
-            <b />
-            <b />
-          </span>
-        </div>
-        <svg
-          className="reference-house"
-          viewBox="0 0 190 160"
-          role="img"
-          aria-label="红色屋顶的奶油色小屋"
-        >
-          <rect className="house-wall" x="30" y="78" width="130" height="72" rx="1" />
-          <rect className="house-chimney" x="125" y="43" width="20" height="31" rx="1" />
-          <g className="house-smoke-svg" aria-hidden="true">
-            <circle cx="135" cy="38" r="5" />
-            <circle cx="135" cy="38" r="6" />
-            <circle cx="135" cy="38" r="4" />
-            <circle cx="135" cy="38" r="5" />
-          </g>
-          <path className="house-roof" d="M26 50H81L96 34L111 50H164L166 91H126L96 47L65 91H27Z" />
-          <path className="house-gable-border" d="M96 39L132 92H60Z" />
-          <path className="house-gable" d="M96 46L129 97H63Z" />
-          <path className="house-roof-snow" d="M27 51H81L96 35L111 51H164M61 91L96 40L131 91" />
-          <g className="house-attic-window">
-            <rect x="86" y="66" width="20" height="21" rx="1" />
-            <path d="M96 67V86M87 76.5H105" />
-          </g>
-          <g className="house-window house-window-left">
-            <rect x="40" y="104" width="14" height="23" rx="1" />
-            <path d="M47 105V126M41 115.5H53" />
-          </g>
-          <g className="house-window house-window-right">
-            <rect x="137" y="104" width="14" height="23" rx="1" />
-            <path d="M144 105V126M138 115.5H150" />
-          </g>
-          <path
-            className="house-door"
-            d="M79 150V114C79 103 86 97 96 97C106 97 113 103 113 114V150Z"
-          />
-          <circle className="house-doorknob" cx="107" cy="124" r="1.8" />
-          <path className="house-foundation" d="M30 147H76V152H30ZM116 147H160V152H116Z" />
-        </svg>
-      </div>
+      <Suspense fallback={<div className="island-scene-fallback" aria-hidden="true" />}>
+        <IslandScene />
+      </Suspense>
       <button
         className="weather"
         ref={calendarAnchor}
@@ -254,6 +186,11 @@ export function Hero() {
                 ? '正在获取当地天气'
                 : `${weather.temperature}°C · ${weatherLabel} · ${windLabel}`}
             </small>
+            {!weather.loading && (
+              <small>
+                {windDirection}风 · 阵风 {Math.round(wind.gusts)} km/h
+              </small>
+            )}
           </span>
         </div>
         <div className="weather-clock">

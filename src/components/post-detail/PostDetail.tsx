@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useImageSource } from '../../hooks/useImageSource'
 import { colorClass, colorStyle } from '../../shared/config'
-import { getPostDetailImage, type Post } from '../../shared/utils'
+import { getPostDetailImage, type Post } from '../../shared/markdown'
 import { MarkdownContent } from '../markdown/MarkdownContent'
 
 type Props = {

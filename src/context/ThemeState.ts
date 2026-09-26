@@ -1,9 +1,10 @@
 import { createContext } from 'react'
 import type { useLocalWeather, WeatherIntensity, WeatherKind } from '../hooks/useLocalWeather'
-import type { calculateSky } from '../shared/utils'
+import type { calculateSky } from '../shared/sky'
 
 /** 天气和日期时间分别覆盖；改变日期不冒充该日真实天气，null 恢复实时。 */
 export type WeatherOverride = { kind: WeatherKind; intensity: WeatherIntensity } | null
+export type WindOverride = { speed: number; gusts: number; direction: number } | null
 export type ClockOverride = { date: string; minutes: number } | null
 export type SkyState = ReturnType<typeof calculateSky>
 
@@ -14,6 +15,8 @@ export type ThemeContextValue = {
   weather: ReturnType<typeof useLocalWeather> & { period: SkyState['period']; time: string }
   weatherOverride: WeatherOverride
   setWeatherOverride: (override: WeatherOverride) => void
+  windOverride: WindOverride
+  setWindOverride: (override: WindOverride) => void
   clockOverride: ClockOverride
   setClockOverride: (override: ClockOverride) => void
 }

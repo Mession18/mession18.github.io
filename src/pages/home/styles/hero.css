@@ -1,5 +1,3 @@
-/* 首页 hero：默认、主题和响应式规则集中维护。 */
-
 .hero {
   height: 720px;
   position: relative;
@@ -9,7 +7,6 @@
   padding: 150px max(8vw, 45px);
   transition: background 0.8s ease;
 }
-/* 首屏基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影。 */
 .hero:after {
   content: '';
   position: absolute;
@@ -21,46 +18,37 @@
   border-radius: 50% 50% 0 0;
   z-index: 7;
 }
-/* 首屏基础样式：尺寸与宽高比例、定位与层级。 */
 .hero-copy {
   position: relative;
   z-index: 5;
   max-width: 590px;
 }
-/* 公共界面基础样式：内外留白、文字排版、配色与背景。 */
 .intro {
   font-size: 17px;
   line-height: 1.9;
   color: #f8fffb;
   margin-bottom: 30px;
 }
-/* 天气基础样式：可调自定义参数。 */
-.hero.weather-snow {
-  --tree-snow-depth: 6px;
-}
-.hero.weather-snow.intensity-moderate {
-  --tree-snow-depth: 12px;
-}
-.hero.weather-snow.intensity-heavy {
-  --tree-snow-depth: 20px;
-}
-/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {
   .hero {
-    height: 850px;
-    padding: 125px 30px;
+    height: 890px;
+    padding: 185px 30px;
   }
-  /* 首屏响应式适配：文字排版。 */
   .hero h1 {
     font-size: 54px;
   }
 }
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .hero {
-    height: 790px;
+    height: 860px;
+    padding-inline: 24px;
   }
-  /* 公共界面响应式适配：布局排列与对齐。 */
+  .hero h1 {
+    font-size: 46px;
+  }
+  .intro {
+    font-size: 15px;
+  }
   .intro br {
     display: none;
   }

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
-import { loadUtils } from './load-utils.mjs'
-const { scenePalette, colorContrast, calculateSky, dateAtZone } = await loadUtils()
+import { loadModule } from './load-module.mjs'
+const { scenePalette, colorContrast, calculateSky } = await loadModule('/src/shared/sky.ts')
+const { dateAtZone } = await loadModule('/src/shared/dates.ts')
 const rgb = (value) => value.match(/\d+/g).map(Number)
 let minimum = Infinity
 // 扫描所有色调及天气，覆盖阶段之间任意动画帧；不是只测试几个固定时间。

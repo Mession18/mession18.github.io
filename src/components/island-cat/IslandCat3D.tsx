@@ -5,7 +5,6 @@ import {
   type MutableRefObject,
   type PointerEvent as ReactPointerEvent,
   Suspense,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -17,7 +16,6 @@ import * as THREE from 'three'
 /** 互动猫模型地址；替换模型时需确认骨骼命名和动画名称仍兼容。 */
 const MODEL_URL = '/models/jinzi-rigged.glb?v=1.0.0'
 
-/** 点击猫时随机抽取的对话内容；在数组中增删句子即可。 */
 const CAT_LINES = [
   '你来啦！今天也要慢慢生活呀。',
   '刚才我一直在偷偷看你，喵。',
@@ -39,11 +37,9 @@ type TrackedBone = {
   weight: number
 }
 
-/** 加载场景和动画，识别头部骨骼，并逐帧平滑转向鼠标。 */
 function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
   const { scene, animations } = useGLTF(MODEL_URL)
   const { actions } = useAnimations(animations, scene)
-  /** 遍历模型寻找头部相关骨骼并记录初始姿态，供逐帧旋转时恢复基准。 */
   const trackedBones = useMemo<TrackedBone[]>(() => {
     const weights: Record<string, number> = {
       CC_Base_NeckTwist01: 0.18,
@@ -61,7 +57,6 @@ function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
     return bones
   }, [scene])
 
-  // 播放模型待机动画，组件退出时淡出并停止。
   useEffect(() => {
     const idle = actions['Idle_贴身手臂_耳尾轻动'] ?? Object.values(actions)[0]
     if (!idle) return
@@ -95,7 +90,6 @@ function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
   return <primitive object={scene} scale={1.38} position={[0, -0.78, 0]} />
 }
 
-/** 模型尚未加载完成时显示的轻量占位内容。 */
 function CatLoading() {
   return (
     <div className="island-cat-3d-loading" aria-hidden="true">
@@ -104,9 +98,36 @@ function CatLoading() {
   )
 }
 
-/** 全站互动猫入口：按需加载 3D 模型，处理拖动、对话、隐藏和位置记忆。 */
+/** 用短音色序列模拟猫说话，按文本长度安排音符并释放音频资源。 */
+function playAnimalese(line: string) {
+  const AudioContextClass = window.AudioContext
+  if (!AudioContextClass) return
+
+  const context = new AudioContextClass()
+  const gain = context.createGain()
+  gain.gain.value = 0.045
+  gain.connect(context.destination)
+
+  Array.from(line.replace(/[，。！？、s]/g, ''))
+    .slice(0, 13)
+    .forEach((character, index) => {
+      const start = context.currentTime + index * 0.055
+      const oscillator = context.createOscillator()
+      oscillator.type = 'triangle'
+      oscillator.frequency.setValueAtTime(410 + (character.charCodeAt(0) % 9) * 32, start)
+      oscillator.frequency.exponentialRampToValueAtTime(
+        520 + (character.charCodeAt(0) % 7) * 26,
+        start + 0.04,
+      )
+      oscillator.connect(gain)
+      oscillator.start(start)
+      oscillator.stop(start + 0.045)
+    })
+
+  window.setTimeout(() => void context.close(), 1100)
+}
+
 export function IslandCat3D() {
-  /** 保存猫容器、注视方向和计时器引用；高频指针更新不触发整页重绘。 */
   const container = useRef<HTMLElement>(null)
   const look = useRef<LookTarget>({ x: 0, y: 0 })
   const speechTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null)
@@ -121,7 +142,6 @@ export function IslandCat3D() {
   } | null>(null)
   const [speech, setSpeech] = useState<string | null>(null)
   const [hidden, setHidden] = useState(false)
-  /** 从本地保存坐标恢复猫的位置，记录无法解析时回到初始位置。 */
   const [position, setPosition] = useState<CatPosition>(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('jinzi-screen-position') ?? '{}')
@@ -131,38 +151,8 @@ export function IslandCat3D() {
     }
   })
 
-  /** 用短音色序列模拟猫说话，按文本长度安排音符并释放音频资源。 */
-  const playAnimalese = useCallback((line: string) => {
-    const AudioContextClass = window.AudioContext
-    if (!AudioContextClass) return
-
-    const context = new AudioContextClass()
-    const gain = context.createGain()
-    gain.gain.value = 0.045
-    gain.connect(context.destination)
-
-    Array.from(line.replace(/[，。！？、s]/g, ''))
-      .slice(0, 13)
-      .forEach((character, index) => {
-        /** 把开始和结束日期拆成台历需要的年份与月日；没有完工日期则不显示完工台历。 */
-        const start = context.currentTime + index * 0.055
-        const oscillator = context.createOscillator()
-        oscillator.type = 'triangle'
-        oscillator.frequency.setValueAtTime(410 + (character.charCodeAt(0) % 9) * 32, start)
-        oscillator.frequency.exponentialRampToValueAtTime(
-          520 + (character.charCodeAt(0) % 7) * 26,
-          start + 0.04,
-        )
-        oscillator.connect(gain)
-        oscillator.start(start)
-        oscillator.stop(start + 0.045)
-      })
-
-    window.setTimeout(() => void context.close(), 1100)
-  }, [])
-
   /** 抽取一条不连续重复的猫台词，播放声音并设置自动消失时间。 */
-  const talk = useCallback(() => {
+  const talk = () => {
     let next = Math.floor(Math.random() * CAT_LINES.length)
     if (next === lastLine.current) next = (next + 1) % CAT_LINES.length
     lastLine.current = next
@@ -172,7 +162,7 @@ export function IslandCat3D() {
 
     if (speechTimer.current) window.clearTimeout(speechTimer.current)
     speechTimer.current = window.setTimeout(() => setSpeech(null), 4200)
-  }, [playAnimalese])
+  }
 
   /** 记录指针起点与猫的位置，捕获指针以便拖出按钮范围仍可继续移动。 */
   const beginDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
@@ -280,7 +270,7 @@ export function IslandCat3D() {
   return (
     <aside
       ref={container}
-      className="island-cat island-cat-3d"
+      className="island-cat"
       aria-label="跟随鼠标看向你的金子"
       style={{ transform: `translate3d(${position.x}px, ${position.y}px, 0)` }}
     >
@@ -311,7 +301,6 @@ export function IslandCat3D() {
           drag.current = null
         }}
       />
-      {/* 临时隐藏猫的按钮，阻止拖动事件冒泡。 */}
       <button
         className="cat-close"
         type="button"
@@ -326,7 +315,7 @@ export function IslandCat3D() {
         <X size={14} />
       </button>
       {speech && (
-        <div className="cat-dialog cat-model-dialog" role="status" aria-live="polite">
+        <div className="cat-dialog" role="status" aria-live="polite">
           {speech}
         </div>
       )}
@@ -334,5 +323,4 @@ export function IslandCat3D() {
   )
 }
 
-/** 提前请求猫模型，让互动区域挂载时尽量复用已缓存的资源。 */
 useGLTF.preload(MODEL_URL)

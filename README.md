@@ -24,8 +24,12 @@ src/
 │  └─ passport/              首页和独立页面共用的护照
 ├─ shared/
 │  ├─ config.ts              栏目元信息、色板、分页配置
-│  ├─ data.ts                栏目数据汇总、国旗、文案入口
-│  └─ utils.ts               日期、Markdown、图片、随机底图、天文与时区工具
+│  ├─ data.ts                栏目数据汇总、文案入口
+│  ├─ markdown.ts            内容解析、模板过滤、图片地址与排序
+│  ├─ dates.ts               日期格式、时区转换、农历
+│  ├─ sky.ts                 天文计算、天空阶段、主题配色与对比度
+│  ├─ presentation.ts        随机底图、标签映射、占位文案
+│  └─ country-flags.ts       国旗与地区名称映射
 ├─ components/               导航、搜索、音乐、天气、猫等全站组件
 ├─ hooks/                    图片状态、天气请求、稳定随机选择
 ├─ context/                  全站日夜和天气状态
@@ -46,23 +50,19 @@ docs/                       维护与扩展教程
 仓库使用 `pnpm-lock.yaml`；安装依赖用 `pnpm install`，避免混用锁文件。已有依赖时可以用 npm 执行现有脚本：
 
 ```sh
-npm run dev
-npx tsc --noEmit
-npm run lint
-node scripts/test-presentation.mjs
-node scripts/test-stand-pools.mjs
-node scripts/test-sky.mjs
-node scripts/test-theme-contrast.mjs
-node scripts/test-music.mjs
-npm run build
+pnpm dev
+pnpm check
 ```
 
-`npm run dev` 输出的本地地址就是预览地址，端口被占用时会递增。列表地址例如 `/#/crafts`，详情地址例如 `/#/crafts/bottle-lamp`。
+`pnpm check` 依次执行类型检查、ESLint、全部回归脚本和生产构建；单独检查可用 `pnpm typecheck`、`pnpm lint`、`pnpm test`、`pnpm build`。
 
-## 本次整理约定
+`pnpm dev` 输出的本地地址就是预览地址，端口被占用时会递增。列表地址例如 `/#/crafts`，详情地址例如 `/#/crafts/bottle-lamp`。Windows 也可双击根目录的 `启动博客.bat`，保持窗口开启，并使用窗口中的 Network 地址从局域网访问。
+
+## 维护约定
 
 - 首页 `sky.css`、`landscape.css` 合并为 `home/styles/scenery.css`，保留原来的天空到地景的规则顺序。
 - 普通栏目共用标签筛选结构；博物馆标签筛选位于 `pages/museum/components/MuseumTagFilters.tsx`。
-- `shared` 只有三个实际实现文件，不再保留旧目录转发文件。
-- 注释按功能块说明用途：数据定义、状态、计算、事件、副作用、界面区域及 CSS 规则。同类字段和重复元素按组说明。
+- `shared` 按内容、日期、天空、展台分工；直接导入所属模块，不增加仅转发导出的文件。
+- 首页刷新按钮共用 `sections/RefreshButton.tsx`；普通详情布局共用 `components/post-detail/PostDetail.tsx`。
+- 注释解释业务规则、兼容性和取舍，避免逐行复述 JSX 或 CSS 属性。
 - 依赖、锁文件、构建产物、图片二进制不逐行添加注释；JSON 不支持注释，配置用途在维护手册说明。

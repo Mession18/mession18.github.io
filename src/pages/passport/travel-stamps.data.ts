@@ -1,8 +1,7 @@
-import type { Post } from '../../shared/utils'
+import type { Post } from '../../shared/markdown'
 import { countryCodeForChineseName } from '../../shared/country-flags'
 import { travel } from '../travel/travel.data'
 
-/** 旅行章字段说明：地点、国家地区、起止日期、色彩及可选国旗等。 */
 export type TravelStamp = {
   id?: string
   province?: string

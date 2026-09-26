@@ -1,6 +1,5 @@
 import { MessageCircle } from 'lucide-react'
 
-/** 首页漂流瓶区的文案和装饰结构，外观在首页 bottle.css。 */
 export function Bottle() {
   return (
     <section className="bottle section">

@@ -8,11 +8,11 @@ import { AtlasPaper } from './AtlasPaper'
 import { countryFlags } from '../../../shared/country-flags'
 import { stampArticles, type TravelStamp } from '../travel-stamps.data'
 import { useImageSource } from '../../../hooks/useImageSource'
-import type { Post } from '../../../shared/utils'
+import type { Post } from '../../../shared/markdown'
 import {
   atlasSize,
   buildAtlasPlaces,
-  groupAtlasPlaces,
+  atlasGroupPins,
   atlasIndexGroups,
   cityAtlasPins,
   isChinaPlace,
@@ -54,12 +54,12 @@ export default function JourneyMap({
       buildAtlasPlaces(stamps).filter((place) => variant === 'world' || isChinaPlace(place.code)),
     [stamps, variant],
   )
-  const pins = useMemo(() => groupAtlasPlaces(places, variant), [places, variant])
+  const indexGroups = useMemo(() => atlasIndexGroups(places, variant), [places, variant])
+  const pins = useMemo(() => atlasGroupPins(indexGroups, variant), [indexGroups, variant])
   const lensPins = useMemo(
     () => (variant === 'china' ? cityAtlasPins(places) : pins),
     [places, pins, variant],
   )
-  const indexGroups = useMemo(() => atlasIndexGroups(places, variant), [places, variant])
   const visited = new Set(
     places.map((place) => (variant === 'china' ? (place.province ?? '') : place.code)),
   )

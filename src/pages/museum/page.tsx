@@ -8,7 +8,7 @@ import { IslandPagination } from '../../components/pagination/IslandPagination'
 import { SectionIcon } from '../../components/section-icon/SectionIcon'
 import { useStand } from '../../hooks/useStand'
 import { colorClass, colorStyle } from '../../shared/config'
-import { formatChineseDate } from '../../shared/utils'
+import { formatChineseDate } from '../../shared/dates'
 import { standAttributes } from '../../shared/presentation'
 
 import {

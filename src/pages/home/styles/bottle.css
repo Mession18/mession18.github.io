@@ -1,4 +1,3 @@
-/* 漂流瓶基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、边框、圆角或阴影。 */
 .bottle {
   margin: 80px auto;
   max-width: 900px;
@@ -10,22 +9,18 @@
   gap: 20px;
   background: #fffdf7;
 }
-/* 漂流瓶基础样式：配色与背景。 */
 .bottle > svg {
   color: var(--green);
 }
-/* 漂流瓶基础样式：内外留白、文字排版。 */
 .bottle h2 {
   font-size: 18px;
   margin: 0 0 5px;
 }
-/* 漂流瓶基础样式：内外留白、文字排版、配色与背景。 */
 .bottle p {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
 }
-/* 漂流瓶基础样式：内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .bottle button {
   margin-left: auto;
   border: 0;
@@ -35,7 +30,6 @@
   border-radius: 20px;
   font-weight: 800;
 }
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .bottle {
     margin: 45px 18px;

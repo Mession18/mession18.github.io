@@ -1,16 +1,12 @@
-/* 首页 museum：默认、主题和响应式规则集中维护。 */
-
 .museum h2 {
   font-family: 'ZCOOL KuaiLe';
   font-size: 36px;
   font-weight: 400;
   margin: 0;
 }
-/* 博物馆基础样式：尺寸与宽高比例。 */
 .museum-copy {
   max-width: 460px;
 }
-/* 博物馆基础样式：布局排列与对齐。 */
 .museum-home-title {
   display: flex;
   align-items: center;
@@ -19,51 +15,43 @@
 .museum-home-title > span {
   flex: 0 0 auto;
 }
-/* 博物馆基础样式：文字排版、配色与背景。 */
 .museum-copy > p:not(.eyebrow) {
   color: var(--muted);
   line-height: 1.9;
 }
-/* 公共界面基础样式：布局排列与对齐、内外留白。 */
 .stats {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   margin: 26px 0;
 }
-/* 公共界面基础样式：布局排列与对齐、文字排版、配色与背景。 */
 .stats span {
   font-size: 11px;
   color: var(--muted);
   display: flex;
   flex-direction: column;
 }
-/* 公共界面基础样式：布局排列与对齐、文字排版。 */
 .stats em {
   display: flex;
   align-items: center;
   gap: 4px;
   font-style: normal;
 }
-/* 公共界面基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .stats em img,
 .stats em > span {
   width: 16px;
   height: 16px;
   object-fit: contain;
 }
-/* 公共界面基础样式：文字排版、配色与背景。 */
 .stats b {
   font-size: 24px;
   color: var(--dark);
 }
-/* 公共界面基础样式：尺寸与宽高比例、定位与层级。 */
 .photo-stack {
   width: 500px;
   height: 300px;
   position: relative;
 }
-/* 公共界面基础样式：定位与层级、内外留白、文字排版、配色与背景、边框、圆角或阴影。 */
 .photo {
   position: absolute;
   background: #fff;
@@ -72,7 +60,6 @@
   text-align: center;
   font-family: 'ZCOOL KuaiLe';
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、文字排版、配色与背景。 */
 .photo div {
   width: 190px;
   aspect-ratio: 16 / 10;
@@ -81,14 +68,12 @@
   font-size: 70px;
   background: #b5dfc0;
 }
-/* 公共界面基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
 .photo div img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: contain;
 }
-/* 博物馆基础样式：尺寸与宽高比例、图片适配与裁切。 */
 .museum .photo div {
   min-width: 0;
   min-height: 0;
@@ -96,8 +81,6 @@
   height: 119px;
   aspect-ratio: auto;
 }
-
-/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、图片适配与裁切。 */
 .museum .photo div img {
   display: block;
   width: 100%;
@@ -107,7 +90,6 @@
   object-fit: contain;
   object-position: center;
 }
-/* 博物馆基础样式：尺寸与宽高比例、内外留白、文字排版、配色与背景、图片适配与裁切。 */
 .museum .photo div.photo-missing {
   box-sizing: border-box;
   width: 205px;
@@ -119,7 +101,6 @@
   text-wrap: balance;
   color: #675d50 !important;
 }
-/* 博物馆基础样式：配色与背景。 */
 .museum .photo div.photo-missing * {
   color: #675d50 !important;
 }
@@ -141,7 +122,6 @@
 .museum .photo div.photo-missing.lavender {
   background: #d8cbe6;
 }
-/* 公共界面基础样式：定位与层级、动画与变形。 */
 .p1 {
   left: 8px;
   top: 25px;
@@ -152,11 +132,9 @@
   top: 5px;
   transform: rotate(8deg);
 }
-/* 公共界面基础样式：配色与背景。 */
 .p2 div {
   background: #f5dc9f;
 }
-/* 公共界面基础样式：定位与层级、配色与背景、动画与变形。 */
 .camera {
   position: absolute;
   right: -20px;
@@ -164,7 +142,6 @@
   color: var(--dark);
   transform: rotate(12deg);
 }
-/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、文字排版、配色与背景、边框、圆角或阴影、动画与变形、图片适配与裁切、鼠标或触摸交互。 */
 .museum-refresh {
   display: flex;
   width: auto;
@@ -186,11 +163,9 @@
   cursor: pointer;
   transition: transform 0.18s ease;
 }
-/* 博物馆悬停状态：动画与变形。 */
 .museum-refresh:hover {
   transform: rotate(7deg) scale(1.08);
 }
-/* 博物馆基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形、透明度与视觉效果、鼠标或触摸交互。 */
 .museum-refresh i {
   position: absolute;
   top: -42px;
@@ -203,19 +178,16 @@
   pointer-events: none;
   transform: scale(0.25);
 }
-/* 博物馆基础样式：尺寸与宽高比例。 */
 .museum-refresh > span:not(:first-child) {
   width: auto;
   height: auto;
 }
-/* 博物馆基础样式：动画与变形。 */
 .museum-refresh.is-flashing i {
   animation: museum-camera-flash 0.48s ease-out;
 }
 .museum-refresh.is-flashing > span {
   animation: camera-shutter 0.42s ease;
 }
-/* 动画 museum-camera-flash：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
 @keyframes museum-camera-flash {
   0% {
     opacity: 0;
@@ -229,7 +201,6 @@
     transform: scale(1.2);
   }
 }
-/* 动画 camera-shutter：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
 @keyframes camera-shutter {
   0%,
   100% {
@@ -239,7 +210,6 @@
     transform: scale(0.82) rotate(-7deg);
   }
 }
-/* 博物馆基础样式：布局排列与对齐、尺寸与宽高比例、内外留白、配色与背景、动画与变形。 */
 .museum {
   max-width: none;
   background: var(--page-gradient);
@@ -249,11 +219,7 @@
   align-items: center;
   padding-top: 85px;
   padding-bottom: 85px;
-  transition:
-    background-color 0.8s ease,
-    color 0.45s ease;
 }
-/* 博物馆基础样式：动画与变形。 */
 .museum,
 .photo {
   transition:
@@ -261,8 +227,6 @@
     color 0.45s ease,
     border-color 0.45s ease;
 }
-
-/* 博物馆基础样式：尺寸与宽高比例。 */
 .museum .photo div:has(.adaptive-preview-image) {
   width: fit-content;
   height: fit-content;
@@ -281,7 +245,6 @@
 .museum .photo div .adaptive-preview-image.is-portrait {
   height: 190px;
 }
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .museum .photo div .adaptive-preview-image.is-portrait {
     height: 140px;
@@ -294,7 +257,6 @@
     max-height: 140px;
   }
 }
-/* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {
   .museum {
     flex-direction: column;
@@ -304,7 +266,6 @@
     transform: scale(0.9);
   }
 }
-/* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .stats {
     justify-content: space-between;

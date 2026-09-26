@@ -1,20 +1,11 @@
 import assert from 'node:assert/strict'
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, realpathSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, realpathSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, dirname, resolve } from 'node:path'
-import ts from 'typescript'
-import { loadUtils } from './load-utils.mjs'
+import { loadModule } from './load-module.mjs'
 
-// 用 TypeScript 转译构建侧纯扫描模块，测试不启动完整网站。
-async function load(file) {
-  const source = readFileSync(new URL(file, import.meta.url), 'utf8')
-  const { outputText } = ts.transpileModule(source, {
-    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
-  })
-  return import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`)
-}
-const { scanStandPools } = await load('../build/stand-assets.ts')
-const { selectStand } = await loadUtils()
+const { scanStandPools } = await loadModule('/build/stand-assets.ts')
+const { selectStand } = await loadModule('/src/shared/presentation.ts')
 // 测试素材只写入系统临时目录，保存真实路径用于清理前核对。
 const root = mkdtempSync(join(tmpdir(), 'island-stand-test-'))
 const originalRoot = realpathSync(root)

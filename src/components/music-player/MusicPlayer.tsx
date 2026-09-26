@@ -15,20 +15,16 @@ import {
   Volume2,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { islandPlaylist } from './music.data'
+import islandPlaylist from 'virtual:island-music-playlist'
 
-/** 播放模式的内部键，分别对应列表、单曲和随机。 */
 type PlayMode = 'all' | 'one' | 'shuffle'
-/** 点击模式按钮时按照这个数组顺序循环切换。 */
 const playModes: PlayMode[] = ['all', 'one', 'shuffle']
-/** 播放模式显示文案，与 playModes 中的内部键对应。 */
 const modeLabels: Record<PlayMode, string> = {
   all: '列表循环',
   one: '单曲循环',
   shuffle: '随机播放',
 }
 
-/** 把音频秒数转为分:秒；元数据未加载时显示 0:00。 */
 function formatTime(value: number) {
   if (!Number.isFinite(value)) return '0:00'
   return `${Math.floor(value / 60)}:${Math.floor(value % 60)
@@ -66,22 +62,17 @@ function readTrackOrder() {
   }
 }
 
-/** 播放器总成：管理音频状态、切歌、歌单排序和本机偏好，界面事件驱动 audio 元素。 */
 export function MusicPlayer() {
   // 歌曲清空时不挂载控制器，避免读取不存在的 track.src 或注册无用监听。
   return islandPlaylist.length ? <MusicPlayerControls /> : null
 }
 
-/** 有歌曲时才维护播放器状态和音频事件；外层只负责是否显示。 */
 function MusicPlayerControls() {
-  /** 保存音频与弹窗 DOM 引用，后续直接调用播放、暂停和外部点击检测。 */
   const audioRef = useRef<HTMLAudioElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
-  /** 管理面板是否展开；只影响当前组件的界面状态。 */
   const [open, setOpen] = useState(false)
   const [playlistOpen, setPlaylistOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
-  /** 从本机保存的排序初始化歌单，后续上移下移会更新此数组。 */
   const [playlist, setPlaylist] = useState(readTrackOrder)
   // 拖动以歌曲 URL 标识条目；移动后索引变化也不会误认正在播放的歌曲。
   const [draggedSrc, setDraggedSrc] = useState<string | null>(null)
@@ -89,7 +80,6 @@ function MusicPlayerControls() {
   const [disabledTracks, setDisabledTracks] = useState<string[]>(readDisabledTracks)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  /** 读取保存的音量与播放模式，缺少记录时使用默认值。 */
   const [volume, setVolume] = useState(() => Number(localStorage.getItem('island-volume') ?? 0.55))
   const [playMode, setPlayMode] = useState<PlayMode>(() => {
     const saved = localStorage.getItem('island-play-mode')
@@ -98,7 +88,6 @@ function MusicPlayerControls() {
   const track = playlist[trackIndex]
   const isDisabled = (index: number) => disabledTracks.includes(playlist[index].src)
 
-  // 点击播放器外部时关闭弹窗；卸载时解除全局监听。
   useEffect(() => {
     const close = (event: MouseEvent) => {
       if (panelRef.current && !panelRef.current.contains(event.target as Node)) setOpen(false)
@@ -107,7 +96,6 @@ function MusicPlayerControls() {
     return () => document.removeEventListener('mousedown', close)
   }, [])
 
-  // 将音量写入 audio 并保存到本机，下次打开恢复。
   useEffect(() => {
     if (!audioRef.current) return
     audioRef.current.volume = volume
@@ -119,23 +107,18 @@ function MusicPlayerControls() {
     if (playing && audioRef.current) audioRef.current.play().catch(() => setPlaying(false))
   }, [track.src, playing])
 
-  // 保存播放模式，刷新页面后继续使用。
   useEffect(() => localStorage.setItem('island-play-mode', playMode), [playMode])
-  // 保存禁用歌曲清单，以歌曲地址识别条目。
   useEffect(
     () => localStorage.setItem('island-disabled-tracks', JSON.stringify(disabledTracks)),
     [disabledTracks],
   )
-  // 保存歌单顺序，供下次初始化恢复。
   useEffect(
     () =>
       localStorage.setItem('island-track-order', JSON.stringify(playlist.map((item) => item.src))),
     [playlist],
   )
 
-  /** 切换到指定可用曲目，重置进度并保留调用者要求的播放状态。 */
   const selectTrack = (index: number, shouldPlay = playing) => {
-    /** 将歌曲索引折回歌单范围，允许前后切歌首尾循环。 */
     const normalized = (index + playlist.length) % playlist.length
     if (isDisabled(normalized)) return
     setTrackIndex(normalized)
@@ -157,25 +140,21 @@ function MusicPlayerControls() {
   const randomTrackIndex = () => {
     const enabled = playlist.map((_, index) => index).filter((index) => !isDisabled(index))
     const alternatives = enabled.filter((index) => index !== trackIndex)
-    /** 优先从其他可用歌曲抽取；只剩当前歌曲时允许再次选择它。 */
     const pool = alternatives.length ? alternatives : enabled
     return pool.length ? pool[Math.floor(Math.random() * pool.length)] : -1
   }
 
-  /** 按随机或顺序模式选择下一首，无可用歌曲时停止播放。 */
   const goNext = (shouldPlay = playing) => {
     const next = playMode === 'shuffle' ? randomTrackIndex() : findSequentialTrack(1)
     if (next >= 0) selectTrack(next, shouldPlay)
     else setPlaying(false)
   }
 
-  /** 查找上一首可用歌曲，跳过禁用项。 */
   const goPrevious = () => {
     const previous = findSequentialTrack(-1)
     if (previous >= 0) selectTrack(previous)
   }
 
-  /** 播放结束后按单曲循环或下一首规则继续。 */
   const handleEnded = () => {
     if (playMode === 'one' && !isDisabled(trackIndex) && audioRef.current) {
       audioRef.current.currentTime = 0
@@ -183,7 +162,6 @@ function MusicPlayerControls() {
     } else goNext(true)
   }
 
-  /** 响应播放暂停按钮；禁用曲目自动跳到可用项，并处理浏览器拒绝播放。 */
   const togglePlayback = async () => {
     const audio = audioRef.current
     if (!audio) return
@@ -199,7 +177,6 @@ function MusicPlayerControls() {
     await audio.play().catch(() => setPlaying(false))
   }
 
-  /** 在列表、单曲、随机三种模式中循环。 */
   const cyclePlayMode = () => {
     setPlayMode(playModes[(playModes.indexOf(playMode) + 1) % playModes.length])
   }
@@ -267,7 +244,6 @@ function MusicPlayerControls() {
               <b>风铃岛电台</b>
             </span>
           </header>
-          {/* 当前曲目的封面、标题和歌手；封面缺失时回退音乐图标。 */}
           <div className="music-now">
             <span className={`music-cover${playing ? ' spinning' : ''}`}>
               {track.cover ? (
@@ -281,7 +257,6 @@ function MusicPlayerControls() {
               <small>{track.artist}</small>
             </span>
           </div>
-          {/* 进度滑块同步 audio.currentTime，元数据未加载时最大值为 0。 */}
           <input
             className="music-progress"
             type="range"
@@ -299,7 +274,6 @@ function MusicPlayerControls() {
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
-          {/* 播放模式、上一首、播放暂停、下一首及歌单开关。 */}
           <div className="music-control-row">
             <button
               className="music-mode-toggle"
@@ -341,7 +315,6 @@ function MusicPlayerControls() {
               <ListMusic size={19} />
             </button>
           </div>
-          {/* 音量滑块，将 0 到 1 的数值传给音频元素。 */}
           <label className="music-volume">
             <Volume2 size={15} />
             <input

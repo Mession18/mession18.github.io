@@ -42,12 +42,10 @@ function IdentityPage() {
         <span>🌴</span>
         <small>WINDCHIME ISLAND</small>
       </div>
-      {/* 护照页眉：中英文名称及证件信息；其他内页沿用相同排版。 */}
       <div className="passport-topline">
         <span>风铃岛护照 · ISLANDER PASSPORT</span>
         <b>旅行证件 / TRAVEL DOCUMENT</b>
       </div>
-      {/* 护照证件类型、签发代码和号码，仅为个人主页展示文案。 */}
       <div className="document-codes">
         <p>
           <small>类型 / TYPE</small>
@@ -62,7 +60,6 @@ function IdentityPage() {
           <b>WCI0818M</b>
         </p>
       </div>
-      {/* 身份资料区：头像、认证章、姓名、状态、常驻地和加入日期。 */}
       <div className="passport-profile">
         <div className="passport-avatar">
           <img src="/images/passport/avatar.png" alt="岛民头像" />
@@ -97,7 +94,6 @@ function IdentityPage() {
           </p>
         </div>
       </div>
-      {/* 兴趣列表；每个 span 为一项图标和说明，可按相同结构增删。 */}
       <div className="passport-likes">
         <span>
           <Utensils size={16} /> 品尝美食
@@ -122,7 +118,6 @@ function IdentityPage() {
           <b>MESSION</b>
         </p>
       </div>
-      {/* 底部装饰编码逐行绘制，文本在 passport.data.ts 的 mrzLines 中。 */}
       <div className="mrz" aria-label="装饰性机器可读编码">
         {mrzLines.map((line) => (
           <MachineReadableLine key={line} value={line} />
@@ -132,7 +127,6 @@ function IdentityPage() {
   )
 }
 
-/** 护照签证页；接收已经分页的旅行章，并显示页码和空页占位。 */
 function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumber: number }) {
   return (
     <div className="passport-page visa-page">
@@ -141,7 +135,6 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
         {String(pageNumber).padStart(2, '0')}
       </span>
       <div className="passport-topline visa-heading">VISA</div>
-      {/* 本页旅行章网格，数据来自 travel-stamps.data.ts；空页显示旅行提示。 */}
       <div className="visa-grid">
         {stamps.map((stamp) => (
           <TravelStamp
@@ -168,7 +161,6 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
   )
 }
 
-/** 按旅行章统计国家地区与总次数，显示旅行年鉴和宣言。 */
 function JourneySummaryPage() {
   const regions = new Set(passportTravelStamps.map((stamp) => stamp.countryOrRegion)).size
   return (
@@ -185,7 +177,6 @@ function JourneySummaryPage() {
           <b>岛民旅行年鉴</b>
         </p>
       </div>
-      {/* 旅行统计：章数与国家地区数自动计算，无需手工更新数字。 */}
       <div className="journey-stats">
         <p>
           <b>{String(passportTravelStamps.length).padStart(2, '0')}</b>
@@ -216,7 +207,7 @@ function JourneySummaryPage() {
   )
 }
 
-/** 封面背面与资料页为首跨页；签证从第三页起，年鉴固定在末跨页右侧。 */
+/** 签证从第三页起，补齐双页后接地图；年鉴位于末跨页左侧。 */
 export function Passport({ standalone = false }: { standalone?: boolean }) {
   if (!standalone) return <PassportCoverPreview />
   const visaPageCount = Math.max(1, Math.ceil(passportTravelStamps.length / STAMPS_PER_PAGE))

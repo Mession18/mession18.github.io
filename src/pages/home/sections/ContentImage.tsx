@@ -1,6 +1,6 @@
 import { useImageSource } from '../../../hooks/useImageSource'
 import { ContentPlaceholder } from '../../../components/content-placeholder/ContentPlaceholder'
-import { getPostDisplayImage, type Post } from '../../../shared/utils'
+import { getPostDisplayImage, type Post } from '../../../shared/markdown'
 
 /** 首页预览图片入口；图片加载失败时按内容栏目显示对应缺图文案。 */
 export function ContentImage({ item }: { item: Post }) {

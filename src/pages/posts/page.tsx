@@ -7,7 +7,7 @@ import { IslandPagination } from '../../components/pagination/IslandPagination'
 import { SectionIcon } from '../../components/section-icon/SectionIcon'
 import { useStand } from '../../hooks/useStand'
 import { colorClass, colorStyle } from '../../shared/config'
-import { getPostDisplayImage, type Post } from '../../shared/utils'
+import { getPostDisplayImage, type Post } from '../../shared/markdown'
 import { standAttributes } from '../../shared/presentation'
 
 import { posts } from './posts.data'

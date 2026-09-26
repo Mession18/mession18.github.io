@@ -1,9 +1,9 @@
 import { collections } from '../../pages/museum/museum.data'
 import { posts } from '../../pages/posts/posts.data'
-import { contentSectionInfo, sectionContent, type ContentSectionKey } from '../../shared/data'
+import { contentSectionInfo, type ContentSectionKey } from '../../shared/config'
+import { sectionContent } from '../../shared/data'
 
-/** 搜索索引条目：显示字段、跳转地址和标准化后的搜索全文。 */
-export type SearchEntry = {
+type SearchEntry = {
   id: string
   href: string
   title: string
@@ -14,7 +14,6 @@ export type SearchEntry = {
   searchText: string
 }
 
-/** 拼接标题、摘要及正文并统一小写，让搜索使用同一套匹配规则。 */
 function searchable(entry: Omit<SearchEntry, 'searchText'>, extra = ''): SearchEntry {
   return {
     ...entry,
@@ -87,7 +86,6 @@ const sectionEntries: SearchEntry[] = [
   ),
 ]
 
-/** 把文章正文及元信息转换为可跳转的搜索条目。 */
 const postEntries = posts.map((post) =>
   searchable(
     {
@@ -103,7 +101,6 @@ const postEntries = posts.map((post) =>
   ),
 )
 
-/** 为藏品生成稳定的 slug 详情地址，并将全部标签纳入搜索文本。 */
 const collectionEntries = collections.map((item) =>
   searchable(
     {
@@ -137,7 +134,6 @@ const extraEntries = (Object.keys(sectionContent) as ContentSectionKey[]).flatMa
   ),
 )
 
-/** 合并栏目、文章、藏品和其他内容的搜索索引，供搜索弹窗过滤。 */
 export const searchEntries = [
   ...sectionEntries,
   ...postEntries,

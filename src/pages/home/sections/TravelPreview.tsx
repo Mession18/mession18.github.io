@@ -3,13 +3,11 @@ import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sectionContent } from '../../../shared/data'
-import { animateItemRefresh } from '../home.data'
 import { ContentImage } from './ContentImage'
+import { RefreshButton } from './RefreshButton'
 
-/** 首页旅行预览：按索引切换明信片，缺少内容时保留占位。 */
 export function TravelHomeSection() {
   const travel = sectionContent.travel
-  /** 保存当前旅行条目的索引，取模实现首尾循环切换。 */
   const [index, setIndex] = useState(0)
   const item = travel[index % Math.max(travel.length, 1)]
   return (
@@ -35,16 +33,14 @@ export function TravelHomeSection() {
         </div>
         <div className="travel-controls">
           <span>下一站去哪里？</span>
-          <button
-            className="item-refresh travel-refresh"
-            type="button"
-            onClick={(event) =>
-              animateItemRefresh(event.currentTarget, () => setIndex((value) => value + 1))
-            }
+          <RefreshButton
+            className="travel-refresh"
+            icon="/images/common/icons/refresh-travel-446.png"
+            onRefresh={() => setIndex((value) => value + 1)}
             disabled={travel.length < 2}
           >
-            <img src="/images/common/icons/refresh-travel-446.png" alt="" /> <span>换个目的地</span>
-          </button>
+            换个目的地
+          </RefreshButton>
           <Link to="/travel">全部旅行</Link>
         </div>
       </div>

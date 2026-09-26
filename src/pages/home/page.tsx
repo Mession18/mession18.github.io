@@ -8,7 +8,6 @@ import { PlantingHomeSection } from './sections/PlantingPreview'
 import { RecipeHomeSection } from './sections/RecipePreview'
 import { TravelHomeSection } from './sections/TravelPreview'
 
-/** 首页区域装配表；组件排列顺序就是访客从上到下看到的顺序。 */
 export function HomePage() {
   return (
     <>

@@ -2,8 +2,8 @@ import { Icon, Image, Typewriter, type IconName } from 'animal-island-ui'
 import { icons } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { countryFlags } from '../../shared/data'
-import { resolveMarkdownImage } from '../../shared/utils'
+import { countryFlags } from '../../shared/country-flags'
+import { resolveMarkdownImage } from '../../shared/markdown'
 
 /** 正文渲染器：支持 GFM 表格、图片预览、国旗及图标链接，并解析栏目相对图片路径。 */
 export function MarkdownContent({ children, sourceDir }: { children: string; sourceDir?: string }) {

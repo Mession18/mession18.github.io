@@ -65,7 +65,8 @@
   margin-top: 14px;
   font-weight: 800;
 }
-.weather-test-content input[type='date'] {
+.weather-test-content input[type='date'],
+.weather-test-content select {
   min-width: 0;
   padding: 7px 10px;
   border: 1px solid var(--line);
@@ -146,13 +147,45 @@
 }
 .weather-reset-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-top: 14px;
 }
 .weather-test-reset:disabled {
   opacity: 0.4;
   cursor: default;
+}
+.weather-wind-heading {
+  margin-top: 20px;
+}
+.weather-wind-readings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--cream);
+}
+.weather-wind-readings dt {
+  font-size: 10px;
+  color: var(--muted);
+}
+.weather-wind-readings dd {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.weather-wind-options {
+  grid-template-columns: repeat(2, 1fr);
+}
+.weather-storm-options {
+  margin-top: 12px;
+}
+.weather-test-content button:focus-visible,
+.weather-test-content select:focus-visible {
+  outline: 2px solid var(--dark);
+  outline-offset: 2px;
 }
 @media (max-width: 480px) {
   .weather-test-content {
@@ -181,9 +214,9 @@
 .ambient-rain > i {
   position: absolute;
   top: -14px;
-  left: var(--x);
+  left: calc(var(--x) * var(--wind-span, 1) + var(--wind-start, 0vw));
   width: var(--size);
-  height: var(--height);
+  height: calc(var(--height) * var(--rain-stretch, 1));
   border-radius: 55% 55% 62% 62%;
   background: radial-gradient(
     circle at 35% 28%,
@@ -192,7 +225,8 @@
     rgb(71 145 190 / var(--opacity))
   );
   box-shadow: inset 1px 0 1px rgb(255 255 255 / 22%);
-  animation: ambient-rainfall var(--duration) linear var(--delay) infinite;
+  animation: ambient-rainfall calc(var(--duration) * var(--rain-rate, 1)) linear var(--delay)
+    infinite;
 }
 /* 雨滴装饰伪元素：尺寸与宽高比例、定位与层级、边框、圆角或阴影、动画与变形、透明度与视觉效果。 */
 .ambient-rain > i::after {
@@ -206,19 +240,21 @@
   border-radius: 50%;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.1);
-  animation: ambient-ripple var(--duration) ease-out var(--delay) infinite;
+  animation: ambient-ripple calc(var(--duration) * var(--rain-rate, 1)) ease-out var(--delay)
+    infinite;
 }
 /* 积雪基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形。 */
 .ambient-snow > i {
   position: absolute;
   top: -12px;
-  left: var(--x);
+  left: calc(var(--x) * var(--wind-span, 1) + var(--wind-start, 0vw));
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
   background: rgb(255 255 255 / var(--opacity));
   box-shadow: 0 0 5px rgb(255 255 255 / 24%);
-  animation: ambient-snowfall var(--duration) ease-in-out var(--delay) infinite;
+  animation: ambient-snowfall calc(var(--duration) * var(--snow-rate, 1)) linear var(--delay)
+    infinite;
 }
 /* 公共界面基础样式：尺寸与宽高比例、定位与层级、配色与背景、边框、圆角或阴影、动画与变形、透明度与视觉效果。 */
 .ambient-meteors > i {
@@ -252,7 +288,7 @@
 @keyframes ambient-rainfall {
   0% {
     opacity: 0;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotate(var(--rain-tilt, 0deg));
   }
   8% {
     opacity: 1;
@@ -262,7 +298,8 @@
   }
   to {
     opacity: 0;
-    transform: translate3d(0, var(--landing), 0);
+    transform: translate3d(var(--wind-travel, 0vw), var(--landing), 0)
+      rotate(var(--rain-tilt, 0deg));
   }
 }
 /* 动画 ambient-ripple：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
@@ -282,11 +319,19 @@
 }
 /* 动画 ambient-snowfall：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */
 @keyframes ambient-snowfall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   50% {
-    transform: translate3d(var(--drift), 52vh, 0) rotate(160deg);
+    transform: translate3d(calc(var(--wind-half, 0vw) + var(--drift)), 52vh, 0) rotate(160deg);
   }
   to {
-    transform: translate3d(var(--return-drift), calc(100vh + 24px), 0) rotate(330deg);
+    transform: translate3d(
+        calc(var(--wind-travel, 0vw) + var(--return-drift)),
+        calc(100vh + 24px),
+        0
+      )
+      rotate(330deg);
   }
 }
 /* 动画 ambient-meteor：按关键帧描述变化过程；速度和循环次数由引用处 animation 决定。 */

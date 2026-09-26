@@ -11,7 +11,7 @@
 
 首页天空与地景已合并到 `pages/home/styles/scenery.css`。首页手作展示板在 `pages/home/styles/crafts.css`，列表工作台在 `pages/crafts/styles.css`，两者是独立结构。
 
-`.父元素 .子元素` 表示限定范围；夜间、悬停和 media 是条件覆盖，不应当作重复删除。先修改已有变量或规则，避免不断追加同名覆盖。注释按选择器组说明尺寸、定位、文字、颜色及交互的用途，同类重复选择器在首次出现处解释。
+`.父元素 .子元素` 表示限定范围；夜间、悬停和 media 是条件覆盖，不应当作重复删除。先修改已有变量或规则，避免不断追加同名覆盖。注释解释布局约束、兼容原因和素材坐标等代码本身看不出的信息，不逐行复述尺寸、定位、文字或颜色属性。
 
 底图清单由目录扫描，标签规则在各栏目 `presentation.data.ts`。`standAttributes` 写入 `--stand-image`，CSS 通过 `[data-stand-image]` 使用它；特殊坐标用 `[data-stand-layout='布局名']` 调整。
 

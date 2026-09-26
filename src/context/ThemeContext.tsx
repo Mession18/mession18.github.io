@@ -1,12 +1,19 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useLocalWeather } from '../hooks/useLocalWeather'
-import { calculateSky, clockLabel, dateAtZone, scenePalette } from '../shared/utils'
-import { ThemeContext, type ClockOverride, type WeatherOverride } from './ThemeState'
+import { clockLabel, dateAtZone } from '../shared/dates'
+import { calculateSky, scenePalette } from '../shared/sky'
+import {
+  ThemeContext,
+  type ClockOverride,
+  type WeatherOverride,
+  type WindOverride,
+} from './ThemeState'
 
 /** 统一真实时钟、天气覆盖和天文状态；所有页面共享相同的主题与控制器。 */
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const liveWeather = useLocalWeather()
   const [weatherOverride, setWeatherOverride] = useState<WeatherOverride>(null)
+  const [windOverride, setWindOverride] = useState<WindOverride>(null)
   const [clockOverride, setClockOverride] = useState<ClockOverride>(null)
   const { now, latitude, longitude, timezone } = liveWeather
   const sky = useMemo(
@@ -23,11 +30,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     () => ({
       ...liveWeather,
       ...weatherOverride,
+      ...(windOverride && {
+        windSpeed: windOverride.speed,
+        windGusts: windOverride.gusts,
+        windDirection: windOverride.direction,
+      }),
       loading: weatherOverride ? false : liveWeather.loading,
       period: sky.period,
       time: clockLabel(sky.minutes),
     }),
-    [liveWeather, weatherOverride, sky],
+    [liveWeather, weatherOverride, windOverride, sky],
   )
 
   const displayedTone = useRef<number | null>(null)
@@ -75,10 +87,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       weather,
       weatherOverride,
       setWeatherOverride,
+      windOverride,
+      setWindOverride,
       clockOverride,
       setClockOverride,
     }),
-    [sky, weather, weatherOverride, clockOverride],
+    [sky, weather, weatherOverride, windOverride, clockOverride],
   )
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
