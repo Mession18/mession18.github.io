@@ -1,5 +1,5 @@
 import { useAnimations, useGLTF } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { X } from 'lucide-react'
 import {
   type MutableRefObject,
@@ -35,6 +35,21 @@ type TrackedBone = {
   bone: THREE.Bone
   rest: THREE.Quaternion
   weight: number
+}
+
+/** 动态自适应正交相机：随容器尺寸和用户自定义缩放比例无级调整 zoom，保证小猫在任何屏幕上都完整不被裁切。 */
+function CatCamera({ userScale = 1 }: { userScale?: number }) {
+  const { camera, size } = useThree()
+  useEffect(() => {
+    if (camera instanceof THREE.OrthographicCamera) {
+      // 桌面基准：180px 宽度对应 120 zoom，留出耳朵呼吸空间
+      const baseZoom = 120
+      const scaleFactor = Math.min(size.width / 180, size.height / 215)
+      camera.zoom = baseZoom * scaleFactor * userScale
+      camera.updateProjectionMatrix()
+    }
+  }, [camera, size.width, size.height, userScale])
+  return null
 }
 
 function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
@@ -87,7 +102,7 @@ function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
     })
   })
 
-  return <primitive object={scene} scale={1.38} position={[0, -0.78, 0]} />
+  return <primitive object={scene} scale={1.34} position={[0, -0.75, 0]} />
 }
 
 function CatLoading() {
@@ -219,6 +234,63 @@ export function IslandCat3D() {
     }
   }
 
+  const [scale, setScale] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('jinzi-scale')
+      return saved ? Math.min(1.8, Math.max(0.6, parseFloat(saved))) : 1
+    } catch {
+      return 1
+    }
+  })
+  const touchDistance = useRef<number | null>(null)
+
+  /** 鼠标滚轮缩放猫咪大小（0.65x ~ 1.7x），并保存到本地 */
+  const handleWheel = (event: React.WheelEvent) => {
+    event.stopPropagation()
+    const delta = event.deltaY < 0 ? 0.06 : -0.06
+    setScale((prev) => {
+      const next = Math.min(1.7, Math.max(0.65, Math.round((prev + delta) * 100) / 100))
+      localStorage.setItem('jinzi-scale', String(next))
+      return next
+    })
+  }
+
+  /** 手机双指缩放手势 */
+  const handleTouchStart = (event: React.TouchEvent) => {
+    if (event.touches.length === 2) {
+      const dx = event.touches[0].clientX - event.touches[1].clientX
+      const dy = event.touches[0].clientY - event.touches[1].clientY
+      touchDistance.current = Math.hypot(dx, dy)
+    }
+  }
+
+  const handleTouchMove = (event: React.TouchEvent) => {
+    if (event.touches.length === 2 && touchDistance.current != null) {
+      const dx = event.touches[0].clientX - event.touches[1].clientX
+      const dy = event.touches[0].clientY - event.touches[1].clientY
+      const dist = Math.hypot(dx, dy)
+      const diff = dist - touchDistance.current
+      if (Math.abs(diff) > 2) {
+        setScale((prev) => {
+          const next = Math.min(1.7, Math.max(0.65, Math.round((prev + diff * 0.005) * 100) / 100))
+          localStorage.setItem('jinzi-scale', String(next))
+          return next
+        })
+        touchDistance.current = dist
+      }
+    }
+  }
+
+  const handleTouchEnd = () => {
+    touchDistance.current = null
+  }
+
+  /** 双击恢复默认大小 */
+  const handleDoubleClick = () => {
+    setScale(1)
+    localStorage.setItem('jinzi-scale', '1')
+  }
+
   // 监听鼠标位置更新注视方向，离开窗口恢复正视；卸载时移除监听和对话计时器。
   useEffect(() => {
     const handlePointerMove = (event: PointerEvent) => {
@@ -278,9 +350,10 @@ export function IslandCat3D() {
         <Canvas
           orthographic
           dpr={[1, 1.6]}
-          camera={{ position: [0, 0, 5], zoom: 128, near: 0.1, far: 100 }}
+          camera={{ position: [0, 0, 5], zoom: 120, near: 0.1, far: 100 }}
           gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         >
+          <CatCamera userScale={scale} />
           <ambientLight intensity={1.7} />
           <directionalLight position={[-3, 4, 5]} intensity={2.8} />
           <directionalLight position={[3, 1, 4]} intensity={1.2} />
@@ -289,17 +362,23 @@ export function IslandCat3D() {
           </Suspense>
         </Canvas>
       </Suspense>
-      {/* 透明交互按钮覆盖猫模型，统一处理点击说话和指针拖动。 */}
+      {/* 透明交互按钮覆盖猫模型，统一处理点击说话和指针拖动，支持滚轮/双指缩放和双击重置。 */}
       <button
         className="cat-model-hit-area"
         type="button"
-        aria-label="点击和金子说话，拖动可以移动金子"
+        aria-label="点击和金子说话，拖动可以移动金子，滚轮或双指捏合可缩放大小，双击恢复默认大小"
+        title="点击说话 / 拖动移动 / 滚轮或双指缩放 / 双击重置"
         onPointerDown={beginDrag}
         onPointerMove={moveCat}
         onPointerUp={endDrag}
         onPointerCancel={() => {
           drag.current = null
         }}
+        onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onDoubleClick={handleDoubleClick}
       />
       <button
         className="cat-close"

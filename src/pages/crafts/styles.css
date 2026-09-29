@@ -37,10 +37,13 @@
 }
 /* 手作基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景。 */
 .craft-workbench-base {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   background: var(--craft-base-image) center / contain no-repeat;
+  pointer-events: none;
 }
 /* 作品图与相框：top/left 控制位置，width/height 控制大小。 */
 .craft-art-frame {
@@ -134,37 +137,41 @@
 /* 左右台历：共同字号/高度在这里，横向位置在 start/finish 两条规则中。 */
 .craft-date {
   position: absolute;
-  top: 60.5%;
+  top: 58.5%;
   display: flex;
-  width: 10%;
+  width: 9%;
   flex-direction: column;
   align-items: center;
   color: #775126;
   font-style: normal;
-  line-height: 1.05;
+  line-height: 1;
   text-align: center;
+  pointer-events: none;
 }
 /* 手作基础样式：定位与层级。 */
 .craft-start-date {
-  left: 9.5%;
+  left: 9.8%;
 }
 .craft-finish-date {
-  right: 9.6%;
+  right: 9.8%;
 }
 /* 手作基础样式：文字排版。 */
 .craft-date b {
-  font-size: 9px;
+  font-size: 8.5px;
+  line-height: 1.1;
 }
 /* 手作基础样式：内外留白、文字排版。 */
 .craft-date span {
   margin-top: 1px;
-  font-size: 8px;
+  font-size: 7.5px;
+  line-height: 1.1;
 }
 .craft-date em {
-  margin-top: 2px;
-  font-size: 8px;
+  margin-top: 1px;
+  font-size: 7.5px;
   font-style: normal;
   font-weight: 700;
+  line-height: 1.1;
 }
 /* 手作基础样式：文字排版、配色与背景、边框、圆角或阴影。 */
 .craft-empty-sign {
@@ -189,6 +196,9 @@
 }
 
 @media (max-width: 850px) {
+  .craft-workbench-card {
+    width: 100%;
+  }
   .craft-workbench-display {
     width: 110%;
     margin-left: -5%;
@@ -198,10 +208,37 @@
 }
 
 @media (max-width: 580px) {
+  .craft-workbench-card {
+    width: 100%;
+  }
   .craft-workbench-display {
     width: 100%;
     margin-left: 0;
     max-width: 380px;
     margin-inline: auto;
+  }
+  .craft-date {
+    top: 58%;
+    width: 9.2%;
+  }
+  .craft-date b {
+    font-size: 8px;
+  }
+  .craft-date span,
+  .craft-date em {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .craft-date {
+    top: 57.5%;
+  }
+  .craft-date b {
+    font-size: 7.5px;
+  }
+  .craft-date span,
+  .craft-date em {
+    font-size: 6.5px;
   }
 }

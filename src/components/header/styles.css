@@ -139,6 +139,7 @@ nav a.active:after {
     padding: 7px 8px;
     border-radius: 22px;
     background: var(--paper);
+    color: var(--ink);
     box-shadow: 0 8px 25px #1d332b40;
     backdrop-filter: blur(12px);
     scrollbar-width: none;
@@ -154,6 +155,10 @@ nav a.active:after {
     justify-content: center;
     gap: 0;
     height: 52px;
+    color: var(--ink);
+  }
+  .topbar nav a.active {
+    color: var(--green);
   }
   /* 导航响应式适配：尺寸与宽高比例。 */
   .topbar nav a img,
@@ -164,10 +169,16 @@ nav a.active:after {
   /* 导航响应式适配：文字排版。 */
   .topbar nav .nav-label {
     font-size: 10px;
+    color: var(--ink);
+  }
+  .topbar nav a.active .nav-label {
+    color: var(--green);
+    font-weight: 800;
   }
   /* 导航装饰伪元素：定位与层级。 */
   .topbar nav a.active::after {
     bottom: 1px;
+    background: var(--green);
   }
 }
 /* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */

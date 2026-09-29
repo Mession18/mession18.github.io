@@ -7,6 +7,7 @@
   bottom: 12px;
   width: 180px;
   height: 215px;
+  overflow: visible;
   text-align: center;
   pointer-events: auto;
   perspective: 600px;

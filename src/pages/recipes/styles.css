@@ -39,10 +39,13 @@
 
 /* 菜谱基础样式：布局排列与对齐、尺寸与宽高比例、配色与背景。 */
 .recipe-plate-base {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   background: var(--recipe-base-image) center / 100% 100% no-repeat;
+  pointer-events: none;
 }
 
 .recipe-date-arc {
@@ -159,7 +162,27 @@
 
 @media (max-width: 580px) {
   .recipe-plate-card {
+    width: 100%;
     max-width: 360px;
     margin-inline: auto;
+  }
+  .recipe-plate > strong {
+    font-size: 18px;
+    top: 68%;
+  }
+  .recipe-eaten {
+    min-height: 54px;
+    font-size: 14px;
+    top: 18%;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipe-plate > strong {
+    font-size: 16px;
+  }
+  .recipe-eaten {
+    min-height: 48px;
+    font-size: 13px;
   }
 }
