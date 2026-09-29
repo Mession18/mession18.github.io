@@ -133,18 +133,35 @@
 @media (max-width: 850px) {
   .island-cat {
     left: 8px;
-    bottom: 66px;
-    width: 140px;
-    height: 165px;
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+    width: 120px;
+    height: 145px;
     transform-origin: left bottom;
   }
   .cat-dialog {
-    left: 35px;
-    bottom: 210px;
+    left: 28px;
+    bottom: calc(190px + env(safe-area-inset-bottom, 0px));
     width: min(200px, calc(100vw - 90px));
   }
   .cat-return {
     left: 12px;
-    bottom: 80px;
+    bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+  }
+  /* 触摸屏无 hover，常态显示半透明关闭按钮，方便手机端随时收起 */
+  .cat-close {
+    opacity: 0.85;
+  }
+}
+@media (max-width: 480px) {
+  .island-cat {
+    left: 4px;
+    width: 100px;
+    height: 120px;
+  }
+  .cat-dialog {
+    left: 18px;
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 12px;
+    font-size: 12px;
   }
 }

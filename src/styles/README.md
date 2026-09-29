@@ -4,10 +4,15 @@
 
 - `base.css`：字体、全局主题变量、重置、加载动画。
 - `content.css`：通用标题、正文、筛选按钮、分页和详情基础外观。
-- `display-stand.css`：展台网格公共布局。
+- `display-stand.css`：展台网格公共布局（桌面 3 列、平板 850px 2 列、手机 580px 单列）。
 - `src/pages/<栏目>/styles.css`：该栏目卡片、底图、日期和响应式外观。
 - `src/components/<组件>/styles.css`：导航、搜索、音乐等全局组件的外观。
 - `src/pages/home/styles.css`：首页样式索引，区域规则位于它的 styles 子目录。
+
+全站响应式断点遵循统一标准：
+- **平板端（`max-width: 850px`）**：主导航切换为底部悬浮胶囊栏，展台网格转为 2 列，3D 岛屿切换为 compact 紧凑视角，小猫缩小并靠下。
+- **手机端（`max-width: 580px / 480px`）**：展台网格转为单列居中，各卡片保持最大安全宽度（360px~380px）防止横向溢出，调整内边距与标题字号。
+- **安全区支持**：底部悬浮条、小猫及页面底部内边距均接入 `env(safe-area-inset-bottom)`，适配全面屏手机与 iOS Home 手势条。
 
 首页天空与地景已合并到 `pages/home/styles/scenery.css`。首页手作展示板在 `pages/home/styles/crafts.css`，列表工作台在 `pages/crafts/styles.css`，两者是独立结构。
 

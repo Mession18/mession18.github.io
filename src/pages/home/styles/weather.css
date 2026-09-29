@@ -74,12 +74,27 @@
 @media (max-width: 850px) {
   .weather {
     top: 92px;
+    right: 20px;
     bottom: auto;
+    max-width: calc(100vw - 40px);
   }
 }
 @media (max-width: 480px) {
   .weather {
-    right: 18px;
+    right: 14px;
+    max-width: calc(100vw - 28px);
+    padding: 8px 10px 8px 12px;
+    gap: 8px;
+  }
+  .weather-summary {
+    min-width: 0;
+  }
+  .weather-clock {
+    min-width: 0;
+    padding-left: 8px;
+  }
+  .weather-game-time b {
+    font-size: 24px;
   }
 }
 

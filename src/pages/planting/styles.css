@@ -133,3 +133,10 @@
 .planting-pot-card[data-stand-image] {
   --planting-base-image: var(--stand-image);
 }
+
+@media (max-width: 580px) {
+  .planting-pot-card {
+    max-width: 290px;
+    margin-inline: auto;
+  }
+}

@@ -8,3 +8,5 @@ dist/
 .obsidian/
 .claudian/
 .codex-remote-attachments/
+.tmp.driveupload/
+.tmp.*/

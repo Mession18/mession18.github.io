@@ -206,3 +206,33 @@
   background-size: cover;
   background-position: center;
 }
+
+@media (max-width: 850px) {
+  .travel-card-postcard {
+    width: 100%;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .travel-card-postcard {
+    padding: 8px;
+    max-width: 360px;
+  }
+  .travel-card-message {
+    padding: 44px 6px 18px 10px;
+    gap: 4px;
+  }
+  .travel-card-message strong {
+    font-size: 16px;
+  }
+  .travel-card-message p {
+    font-size: 10px;
+    -webkit-line-clamp: 2;
+  }
+  .travel-card-stamp {
+    width: 36px;
+    height: 44px;
+  }
+}

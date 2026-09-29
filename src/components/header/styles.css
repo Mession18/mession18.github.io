@@ -130,7 +130,7 @@ nav a.active:after {
     position: fixed;
     z-index: 55;
     right: 10px;
-    bottom: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     left: 10px;
     display: flex;
     justify-content: flex-start;
@@ -173,8 +173,8 @@ nav a.active:after {
 /* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .topbar {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: calc(14px + env(safe-area-inset-left, 0px));
+    padding-right: calc(14px + env(safe-area-inset-right, 0px));
   }
   .brand {
     font-size: 15px;

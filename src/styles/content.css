@@ -357,11 +357,14 @@ h1 em {
   .section {
     padding: 70px 22px;
   }
+  .page-surface {
+    padding-bottom: calc(95px + env(safe-area-inset-bottom, 0px));
+  }
 }
 /* 条件覆盖 (max-width: 480px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 480px) {
   .page-surface {
-    padding: 58px 20px 20px;
+    padding: 58px 16px calc(95px + env(safe-area-inset-bottom, 0px));
   }
   .page-heading h1,
   .not-found h1 {

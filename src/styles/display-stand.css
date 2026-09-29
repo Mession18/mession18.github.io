@@ -17,3 +17,21 @@
   max-width: var(--display-stand-max-width);
   margin: auto;
 }
+
+/* 平板响应式：双列排布，紧凑行列间距 */
+@media (max-width: 850px) {
+  :root {
+    --display-stand-columns: 2;
+    --display-stand-column-gap: 32px;
+    --display-stand-row-gap: 48px;
+  }
+}
+
+/* 手机响应式：单列排布 */
+@media (max-width: 580px) {
+  :root {
+    --display-stand-columns: 1;
+    --display-stand-column-gap: 20px;
+    --display-stand-row-gap: 36px;
+  }
+}

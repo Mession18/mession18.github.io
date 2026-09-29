@@ -187,3 +187,21 @@
   color: #ffe4b3;
   text-shadow: 0 1px 2px #25160f;
 }
+
+@media (max-width: 850px) {
+  .craft-workbench-display {
+    width: 110%;
+    margin-left: -5%;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 580px) {
+  .craft-workbench-display {
+    width: 100%;
+    margin-left: 0;
+    max-width: 380px;
+    margin-inline: auto;
+  }
+}

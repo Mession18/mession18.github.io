@@ -53,8 +53,8 @@ footer {
 }
 /* 条件覆盖 (max-width: 850px)：只在匹配屏幕或用户偏好时调整下列规则。 */
 @media (max-width: 850px) {
-  /* 页脚响应式适配：内外留白。 */
-  body > #root > footer {
-    padding-bottom: 95px;
+  /* 页脚响应式适配：留出底部浮动导航条与系统手势区的安全距离。 */
+  footer {
+    padding-bottom: calc(95px + env(safe-area-inset-bottom, 0px));
   }
 }

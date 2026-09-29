@@ -156,3 +156,10 @@
 .recipe-plate-card[data-stand-image] {
   --recipe-base-image: var(--stand-image);
 }
+
+@media (max-width: 580px) {
+  .recipe-plate-card {
+    max-width: 360px;
+    margin-inline: auto;
+  }
+}
