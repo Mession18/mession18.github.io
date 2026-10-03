@@ -1,4 +1,4 @@
-import { useAnimations, useGLTF } from '@react-three/drei'
+import { OrthographicCamera, useAnimations, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { X } from 'lucide-react'
 import {
@@ -39,17 +39,19 @@ type TrackedBone = {
 
 /** 动态自适应正交相机：随容器尺寸和用户自定义缩放比例无级调整 zoom，保证小猫在任何屏幕上都完整不被裁切。 */
 function CatCamera({ userScale = 1 }: { userScale?: number }) {
-  const { camera, size } = useThree()
-  useEffect(() => {
-    if (camera instanceof THREE.OrthographicCamera) {
-      // 桌面基准：180px 宽度对应 120 zoom，留出耳朵呼吸空间
-      const baseZoom = 120
-      const scaleFactor = Math.min(size.width / 180, size.height / 215)
-      camera.zoom = baseZoom * scaleFactor * userScale
-      camera.updateProjectionMatrix()
-    }
-  }, [camera, size.width, size.height, userScale])
-  return null
+  const size = useThree((state) => state.size)
+  // 桌面基准：180px 宽度对应 120 zoom，留出耳朵呼吸空间。
+  const scaleFactor = Math.min(size.width / 180, size.height / 215)
+
+  return (
+    <OrthographicCamera
+      makeDefault
+      position={[0, 0, 5]}
+      zoom={120 * scaleFactor * userScale}
+      near={0.1}
+      far={100}
+    />
+  )
 }
 
 function CatModel({ look }: { look: MutableRefObject<LookTarget> }) {
@@ -348,9 +350,7 @@ export function IslandCat3D() {
     >
       <Suspense fallback={<CatLoading />}>
         <Canvas
-          orthographic
           dpr={[1, 1.6]}
-          camera={{ position: [0, 0, 5], zoom: 120, near: 0.1, far: 100 }}
           gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         >
           <CatCamera userScale={scale} />

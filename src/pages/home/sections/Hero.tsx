@@ -64,7 +64,6 @@ function Moon({ phase, name, style }: { phase: number; name: string; style: CSSP
           <path d={lightPath} />
         </clipPath>
       </defs>
-      <circle className="moon-disc" cx="50" cy="50" r="44" />
       <path className="moon-light" d={lightPath} />
       <g clipPath="url(#moonlit-face)">
         <circle className="moon-crater" cx="39" cy="34" r="5" />
