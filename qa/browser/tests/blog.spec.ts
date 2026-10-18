@@ -7,11 +7,21 @@ const sections = [
 ] as const
 
 async function open(page: Page, route = '/') {
+  const readyStarted = Date.now()
   await page.goto(`/#${route}`, { waitUntil: 'domcontentloaded' })
   await expect(page.locator('#root main')).toBeVisible()
   await expect(page.locator('header.topbar .brand')).toBeVisible()
   await expect(page.locator('.route-transition')).not.toBeEmpty()
   await expect(page.locator('vite-error-overlay')).toHaveCount(0)
+  if (route === '/') {
+    await page.waitForLoadState('load', { timeout: 45_000 })
+    await expect(page.locator('.island-scene-3d canvas')).toBeVisible({ timeout: 45_000 })
+    await page.evaluate(async () => {
+      await document.fonts.ready
+      await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
+    })
+    test.info().annotations.push({ type: 'home-readiness-ms', description: String(Date.now() - readyStarted) })
+  }
 }
 
 async function photo(page: Page, info: TestInfo, name: string) {
@@ -62,12 +72,12 @@ test('sandbox launch, first meaningful screen and original font', async ({ page,
 test('Hero initial and repeated hash scroll', async ({ page }, info) => {
   await open(page)
   const cta = page.getByRole('link', { name: '去岛上逛逛' })
-  await cta.click()
+  await cta.click({ noWaitAfter: true })
   await expect(page).toHaveURL(/#\/#journal$/)
   const journal = page.locator('#journal')
   await expect.poll(async () => Math.abs(await journal.evaluate(element => element.getBoundingClientRect().top) - 94)).toBeLessThan(8)
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
-  await cta.click()
+  await cta.click({ noWaitAfter: true })
   await expect.poll(async () => Math.abs(await journal.evaluate(element => element.getBoundingClientRect().top) - 94)).toBeLessThan(8)
   await photo(page, info, 'journal-after-repeat')
 })
@@ -77,9 +87,9 @@ test('seven routes, navigation history, detail title and metadata reset', async 
   for (const [slug, label] of sections) {
     if (info.project.name === 'mobile' && ['crafts', 'travel', 'planting', 'passport'].includes(slug)) {
       await page.getByRole('button', { name: '更多' }).click()
-      await page.getByRole('navigation', { name: '更多栏目' }).getByRole('link', { name: label, exact: true }).click()
+      await page.getByRole('navigation', { name: '更多栏目' }).getByRole('link', { name: label, exact: true }).click({ noWaitAfter: true })
     } else {
-      await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name: label, exact: true }).click()
+      await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name: label, exact: true }).click({ noWaitAfter: true })
     }
     await expect(page).toHaveURL(new RegExp(`#/${slug}$`))
     await expect(page).toHaveTitle(`${label} · ${siteTitle}`)
