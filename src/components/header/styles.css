@@ -203,3 +203,46 @@ nav a.active:after {
 .route-inner {
   padding-top: 78px;
 }
+
+.more-nav, .more-navigation { display: none; }
+@media (max-width: 850px) {
+  .topbar nav { justify-content: space-around; overflow: visible; }
+  .topbar nav .secondary-nav { display: none; }
+  .topbar nav a, .topbar nav .more-nav { min-width: 0; flex: 1; }
+  .more-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 52px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .more-nav > span:first-child { height: 25px; line-height: 25px; }
+  .more-navigation {
+    position: fixed;
+    z-index: 56;
+    right: 10px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(280px, calc(100vw - 20px));
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+  .more-navigation a { padding: 16px; text-align: center; border-radius: 12px; }
+  .more-navigation a:hover, .more-navigation a[aria-current] { background: var(--mint); }
+}
+
+.more-nav:focus-visible,
+.more-navigation a:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}

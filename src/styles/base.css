@@ -183,3 +183,7 @@ html[data-palette-changing] body *::before,
 html[data-palette-changing] body *::after {
   transition-property: transform, opacity, box-shadow, filter !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

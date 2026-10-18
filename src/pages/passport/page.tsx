@@ -62,7 +62,13 @@ function IdentityPage() {
       </div>
       <div className="passport-profile">
         <div className="passport-avatar">
-          <img src="/images/passport/avatar.png" alt="岛民头像" />
+          <img
+            src="/images/passport/avatar-480.webp"
+            alt="岛民头像"
+            width={240}
+            height={240}
+            decoding="async"
+          />
           <span>ISLANDER</span>
         </div>
         <div className="seam-seal" aria-label="风铃岛骑缝认证章">
