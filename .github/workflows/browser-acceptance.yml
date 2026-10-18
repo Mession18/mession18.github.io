@@ -1,0 +1,54 @@
+name: Browser acceptance (QA branch only)
+
+on:
+  push:
+    branches: [qa/browser-acceptance-20261018]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-acceptance-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  acceptance:
+    if: github.ref == 'refs/heads/qa/browser-acceptance-20261018'
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Set up pinned pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.25.0 --activate
+          pnpm --version
+      - name: Install locked site dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run existing site checks and production build
+        run: pnpm check
+      - name: Install isolated locked browser tests
+        run: pnpm --dir qa/browser install --frozen-lockfile
+      - name: Install matching official Chromium
+        run: pnpm --dir qa/browser exec playwright install chromium
+      - name: Check QA TypeScript
+        run: pnpm exec tsc --noEmit --strict --skipLibCheck --target ES2022 --module NodeNext --moduleResolution NodeNext --typeRoots qa/browser/node_modules/@types --types node qa/browser/playwright.config.ts qa/browser/tests/blog.spec.ts
+      - name: Browser acceptance with sandbox enabled
+        run: pnpm --dir qa/browser test
+      - name: Collect bounded report (maximum 20 MiB)
+        if: always()
+        run: node qa/browser/collect-artifacts.mjs
+      - name: Upload QA evidence for one day
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: browser-acceptance-${{ github.sha }}
+          path: qa/browser/artifacts/
+          retention-days: 1
+          compression-level: 6
+          if-no-files-found: error

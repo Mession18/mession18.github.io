@@ -1,5 +1,5 @@
 import { Icon } from 'animal-island-ui'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MusicPlayer } from '../music-player/MusicPlayer'
 import { Search } from '../search/Search'
@@ -26,7 +26,7 @@ const navItems = [
     section: 'recipes',
     label: '菜谱',
     match: (path: string) => path.startsWith('/recipes'),
-    image: '/images/common/icons/cooking-recipe.png',
+    image: '/images/common/icons/cooking-recipe-84.webp',
   },
   {
     to: '/crafts',
@@ -60,9 +60,36 @@ const navItems = [
 
 /** 全站导航：根据首页滚动位置或当前路由高亮入口，挂载搜索、音乐和天气控制。 */
 export function Header({ pathname }: { pathname: string }) {
+  const [moreOpen, setMoreOpen] = useState(false)
+  const moreButton = useRef<HTMLButtonElement>(null)
+  const morePanel = useRef<HTMLDivElement>(null)
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [activeHomeSection, setActiveHomeSection] = useState('top')
+
+  useEffect(() => {
+    if (!moreOpen) return
+    const close = (event: PointerEvent) => {
+      if (
+        !morePanel.current?.contains(event.target as Node) &&
+        !moreButton.current?.contains(event.target as Node)
+      ) {
+        setMoreOpen(false)
+      }
+    }
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMoreOpen(false)
+        moreButton.current?.focus()
+      }
+    }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('pointerdown', close)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [moreOpen])
 
   // 监听滚动并高亮当前首页区块；使用被动监听，卸载时解除。
   useEffect(() => {
@@ -95,10 +122,10 @@ export function Header({ pathname }: { pathname: string }) {
           <span>风铃岛通信</span>
         </Link>
         <nav aria-label="主导航">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <Link
               key={item.to}
-              className={
+              className={`${index > 2 ? 'secondary-nav ' : ''}${
                 isHome
                   ? activeHomeSection === item.section
                     ? 'active'
@@ -106,8 +133,10 @@ export function Header({ pathname }: { pathname: string }) {
                   : item.match(pathname)
                     ? 'active'
                     : ''
-              }
+              }`}
               to={item.to}
+              onClick={() => setMoreOpen(false)}
+              aria-current={!isHome && item.match(pathname) ? 'page' : undefined}
               aria-label={item.label}
               title={item.label}
             >
@@ -119,7 +148,35 @@ export function Header({ pathname }: { pathname: string }) {
               <span className="nav-label">{item.label}</span>
             </Link>
           ))}
+          <button
+            className="more-nav"
+            ref={moreButton}
+            type="button"
+            aria-expanded={moreOpen}
+            aria-controls="more-navigation"
+            onClick={() => setMoreOpen((open) => !open)}
+          >
+            <span aria-hidden="true">•••</span>
+            <span className="nav-label">更多</span>
+          </button>
         </nav>
+        {moreOpen && (
+          <div className="more-navigation" id="more-navigation" ref={morePanel} role="navigation" aria-label="更多栏目">
+            {navItems.slice(3).map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => {
+                  setMoreOpen(false)
+                  moreButton.current?.focus()
+                }}
+                aria-current={item.match(pathname) ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
         <div className="header-actions">
           <WeatherTestPanel />
           <Search />

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useRef, useState, type CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
 import { Calendar } from './Calendar'
 import { celestialStyle } from '../../../shared/sky'
 import { sceneWind } from '../../../shared/wind'
@@ -155,9 +156,22 @@ export function Hero() {
           <br />
           还有每一个值得记住的晴天。
         </p>
-        <a href="#journal" className="primary">
+        <Link
+          to="/#journal"
+          className="primary"
+          onClick={() => {
+            // 再次点击同一锚点时路由值不变，也应重新滚动。
+            if (window.location.hash === '#/#journal') {
+              document.getElementById('journal')?.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                  ? 'instant'
+                  : 'smooth',
+              })
+            }
+          }}
+        >
           去岛上逛逛 <ArrowRight size={18} />
-        </a>
+        </Link>
       </div>
       <Suspense fallback={<div className="island-scene-fallback" aria-hidden="true" />}>
         <IslandScene />

@@ -1,6 +1,8 @@
-import { BackTop, Loading } from 'animal-island-ui'
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { BackTop } from 'animal-island-ui'
+import { lazy, Suspense, useLayoutEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { IslandCompanion } from './components/island-cat/IslandCompanion'
+import { PageMetadata } from './components/PageMetadata'
 import { AmbientWeather } from './components/ambient-weather/AmbientWeather'
 import { Footer } from './components/footer/Footer'
 import { Header } from './components/header/Header'
@@ -33,86 +35,37 @@ const TravelDetailPage = lazy(() =>
   import('./pages/travel/detailpage').then((module) => ({ default: module.TravelDetailPage })),
 )
 
-/** 将较大的 3D 猫组件延迟加载，使普通页面内容先显示。 */
-const IslandCat3D = lazy(() =>
-  import('./components/island-cat/IslandCat3D').then((module) => ({ default: module.IslandCat3D })),
-)
-
-/** 把详情地址归到所属栏目，只有跨栏目导航才播放切场动画。 */
-function getRouteSection(pathname: string) {
-  for (const section of ['posts', 'museum', 'recipes', 'crafts', 'travel', 'planting', 'passport'])
-    if (pathname.startsWith(`/${section}`)) return section
-  return 'home'
-}
-
 /** 应用外壳：组合全站组件并注册 URL 与页面的对应关系；新增页面在 Routes 中接入。 */
 export function App() {
   const location = useLocation()
-  const previousSection = useRef(getRouteSection(location.pathname))
-  /** 保留正在显示的地址，跨栏目时延迟替换以配合过场动画。 */
-  const [displayLocation, setDisplayLocation] = useState(location)
-  const [loadingVisible, setLoadingVisible] = useState(false)
-  const [loadingActive, setLoadingActive] = useState(true)
-
-  // 监听路由变化：同栏目直接替换，跨栏目安排遮罩与内容替换计时器；离开时清理。
-  useLayoutEffect(() => {
-    const nextSection = getRouteSection(location.pathname)
-    if (previousSection.current === nextSection) {
-      setDisplayLocation(location)
-      return
-    }
-    previousSection.current = nextSection
-    setLoadingActive(true)
-    setLoadingVisible(false)
-
-    let visibleFrame = 0
-    const enterFrame = window.requestAnimationFrame(() => {
-      visibleFrame = window.requestAnimationFrame(() => setLoadingVisible(true))
-    })
-    const swapTimer = window.setTimeout(() => setDisplayLocation(location), 480)
-    const closeTimer = window.setTimeout(() => setLoadingActive(false), 820)
-    const removeTimer = window.setTimeout(() => {
-      setLoadingVisible(false)
-    }, 1450)
-    return () => {
-      window.cancelAnimationFrame(enterFrame)
-      window.cancelAnimationFrame(visibleFrame)
-      window.clearTimeout(swapTimer)
-      window.clearTimeout(closeTimer)
-      window.clearTimeout(removeTimer)
-    }
-  }, [location])
 
   // 新页面显示后滚动到锚点或回到顶部，避免沿用上一页的滚动位置。
   useLayoutEffect(() => {
-    if (displayLocation.hash) {
+    if (location.hash) {
       const frame = requestAnimationFrame(() =>
         document
-          .getElementById(displayLocation.hash.slice(1))
-          ?.scrollIntoView({ behavior: 'smooth' }),
+          .getElementById(location.hash.slice(1))
+          ?.scrollIntoView({
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+              ? 'instant'
+              : 'smooth',
+          }),
       )
       return () => cancelAnimationFrame(frame)
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-  }, [displayLocation.pathname, displayLocation.hash])
+  }, [location.pathname, location.hash])
 
   return (
     <main>
-      <div
-        className={`opening-loading-overlay${loadingVisible ? ' is-visible' : ''}`}
-        aria-hidden="true"
-      >
-        <Loading active={loadingActive} className="island-opening-loading" />
-      </div>
+      <PageMetadata pathname={location.pathname} />
       <AmbientWeather />
-      <Header pathname={displayLocation.pathname} />
-      <Suspense fallback={null}>
-        <IslandCat3D />
-      </Suspense>
+      <Header pathname={location.pathname} />
+      <IslandCompanion />
       {/* 在这里注册页面路由：静态路径对应列表，带 :slug 的路径对应单条详情。 */}
       <div
-        className={`route-transition${displayLocation.pathname === '/' ? '' : ' route-inner'}`}
-        key={displayLocation.pathname}
+        className={`route-transition${location.pathname === '/' ? '' : ' route-inner'}`}
+        key={location.pathname}
       >
         <Suspense
           fallback={
@@ -121,7 +74,7 @@ export function App() {
             </p>
           }
         >
-          <Routes location={displayLocation}>
+          <Routes location={location}>
             <Route path="/" element={<HomePage />} />
             <Route path="/posts" element={<PostsPage />} />
             <Route path="/posts/:slug" element={<PostDetailPage />} />
