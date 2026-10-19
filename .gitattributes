@@ -6,3 +6,6 @@
 *.gif binary
 *.webp binary
 *.ico binary
+
+# Preserve the exact locally accepted program bytes in the public artifact.
+_site/** -text

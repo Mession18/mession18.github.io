@@ -1,4 +1,5 @@
 import { resolveColor, type IslandColor } from '../../shared/config'
+import { withRuntimeContent } from '../../shared/runtime-content'
 import {
   resolveMarkdownImage,
   parseMarkdownDocument,
@@ -61,7 +62,7 @@ function parseCollection(path: string, source: string): CollectionItem | null {
 }
 
 /** 加载全部有效藏品；数组顺序沿用文件导入顺序。 */
-export const collections = Object.entries(markdownFiles)
+export const collections = Object.entries(withRuntimeContent(markdownFiles, 'museum'))
   .map(([path, source]) => parseCollection(path, source))
   .filter((item): item is CollectionItem => item !== null)
 

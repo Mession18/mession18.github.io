@@ -7,4 +7,7 @@ import { musicPlaylistPlugin } from './build/music-playlist.ts'
 export default defineConfig({
   plugins: [musicPlaylistPlugin(), standAssetsPlugin(), react()],
   base: '/',
+  build: {
+    assetsInlineLimit: (filePath) => (/\.(?:woff2?|ttf|otf)$/i.test(filePath) ? false : undefined),
+  },
 })

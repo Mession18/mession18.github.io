@@ -30,8 +30,7 @@ export function PageMetadata({ pathname }: { pathname: string }) {
     } catch {
       // 保留无效编码以显示未找到内容。
     }
-    const item =
-      segments.length > 1 ? items?.find((item) => item.slug === slug) : undefined
+    const item = segments.length > 1 ? items?.find((item) => item.slug === slug) : undefined
     const title = item?.title ?? (segments.length > 1 ? '未找到内容' : sections[section])
     document.title = title ? `${title} · 风铃岛通信` : '风铃岛通信'
     const update = (selector: string, value: string) =>
@@ -39,7 +38,11 @@ export function PageMetadata({ pathname }: { pathname: string }) {
     update('meta[name="description"]', item?.excerpt || description)
     update('meta[property="og:title"]', document.title)
     update('meta[property="og:description"]', item?.excerpt || description)
-    update('meta[property="og:url"]', `https://mession18.github.io/#${pathname}`)
+    const origin =
+      import.meta.env.VITE_CONTENT_MODE === 'runtime'
+        ? window.location.origin
+        : 'https://mession18.github.io'
+    update('meta[property="og:url"]', `${origin}/#${pathname}`)
     update('meta[property="og:type"]', item ? 'article' : 'website')
   }, [pathname])
   return null

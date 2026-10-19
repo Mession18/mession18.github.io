@@ -10,3 +10,16 @@ dist/
 .codex-remote-attachments/
 .tmp.driveupload/
 .tmp.*/
+cms-dist/
+__pycache__/
+.pytest_cache/
+.venv/
+*.sqlite3*
+*.pem
+*.key
+.env*
+
+# Private services are maintained outside the public website release.
+/cms/
+/cms-ui/
+/deploy/br-t320/

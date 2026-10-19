@@ -2,6 +2,9 @@ import { Icon, Image, Typewriter, type IconName } from 'animal-island-ui'
 import { icons } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 import { countryFlags } from '../../shared/country-flags'
 import { resolveMarkdownImage } from '../../shared/markdown'
 
@@ -14,7 +17,8 @@ export function MarkdownContent({ children, sourceDir }: { children: string; sou
   )
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[[rehypeKatex, { trust: false, maxExpand: 1000 }]]}
       components={{
         img({ src = '', alt = '' }) {
           return (

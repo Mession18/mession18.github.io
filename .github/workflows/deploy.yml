@@ -1,4 +1,4 @@
-name: Deploy island blog
+name: Deploy prebuilt island blog
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -23,22 +23,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
         with:
-          node-version: 22
-      - name: Enable pnpm
-        run: corepack enable
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build website
-        run: pnpm build
+          persist-credentials: false
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: _site
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4

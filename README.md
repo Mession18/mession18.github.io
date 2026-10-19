@@ -66,3 +66,10 @@ pnpm check
 - 首页刷新按钮共用 `sections/RefreshButton.tsx`；普通详情布局共用 `components/post-detail/PostDetail.tsx`。
 - 注释解释业务规则、兼容性和取舍，避免逐行复述 JSX 或 CSS 属性。
 - 依赖、锁文件、构建产物、图片二进制不逐行添加注释；JSON 不支持注释，配置用途在维护手册说明。
+
+
+## 本机验收与公开发布
+
+GitHub Pages 使用 `_site/` 中经本机和局域网验收的固定制品。GitHub Actions 仅上传及部署，不安装 Node、编译网站或执行开发测试。文章、图片和音乐仅包含明确批准的公开版本；私人管理服务、数据库、草稿、设备配置和凭据不进入此公开发布。
+
+`dist/` 是本机普通开发构建；更新 `_site/` 必须由维护人员导出、验收并记录程序清单，不能把任意 dist 文件或开发分支直接覆盖进去。`_site/program.json` 记录程序源码提交及文件哈希，`_site/router-content.json` 记录公开内容快照。源码与 Pages 制品分别保留，便于精确回滚。

@@ -46,34 +46,58 @@ function readDisabledTracks() {
 }
 
 /** 恢复本机歌曲排序，把新加入但未保存的曲目补到尾部。 */
-function readTrackOrder() {
+function readTrackOrder(tracks = islandPlaylist) {
   try {
     const saved = JSON.parse(localStorage.getItem('island-track-order') ?? '[]')
-    if (!Array.isArray(saved)) return islandPlaylist
+    if (!Array.isArray(saved)) return tracks
     const ordered = [...new Set(saved)]
-      .map((src) => islandPlaylist.find((track) => track.src === src))
+      .map((src) => tracks.find((track) => track.src === src))
       .filter((track): track is (typeof islandPlaylist)[number] => Boolean(track))
-    const missing = islandPlaylist.filter(
-      (track) => !ordered.some((item) => item.src === track.src),
-    )
+    const missing = tracks.filter((track) => !ordered.some((item) => item.src === track.src))
     return [...ordered, ...missing]
   } catch {
-    return islandPlaylist
+    return tracks
   }
 }
 
 export function MusicPlayer() {
+  const [uploaded, setUploaded] = useState<typeof islandPlaylist>([])
+  useEffect(() => {
+    let active = true
+    fetch('/site-music.json', { credentials: 'same-origin' })
+      .then(async (response) => (response.ok ? response.json() : null))
+      .then((value) => {
+        if (active && Array.isArray(value?.tracks))
+          setUploaded(
+            value.tracks.filter(
+              (track: { src?: string; title?: string }) =>
+                typeof track.title === 'string' &&
+                /^\/site-music\/[a-f0-9]{64}\.(?:mp3|wav|flac|ogg|m4a)$/.test(track.src || ''),
+            ),
+          )
+      })
+      .catch(() => {})
+    return () => {
+      active = false
+    }
+  }, [])
+  const tracks = [
+    ...islandPlaylist,
+    ...uploaded.filter((item) => !islandPlaylist.some((track) => track.src === item.src)),
+  ]
   // 歌曲清空时不挂载控制器，避免读取不存在的 track.src 或注册无用监听。
-  return islandPlaylist.length ? <MusicPlayerControls /> : null
+  return tracks.length ? (
+    <MusicPlayerControls key={tracks.map((t) => t.src).join('|')} tracks={tracks} />
+  ) : null
 }
 
-function MusicPlayerControls() {
+function MusicPlayerControls({ tracks }: { tracks: typeof islandPlaylist }) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
   const [playlistOpen, setPlaylistOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
-  const [playlist, setPlaylist] = useState(readTrackOrder)
+  const [playlist, setPlaylist] = useState(() => readTrackOrder(tracks))
   // 拖动以歌曲 URL 标识条目；移动后索引变化也不会误认正在播放的歌曲。
   const [draggedSrc, setDraggedSrc] = useState<string | null>(null)
   const [trackIndex, setTrackIndex] = useState(0)

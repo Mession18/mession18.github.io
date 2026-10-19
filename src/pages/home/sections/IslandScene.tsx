@@ -892,12 +892,13 @@ export default function IslandScene() {
   const state = islandSceneState(sky, weather)
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let visible = true
+    let visible = false
     const update = () => setMoving(visible && !document.hidden && !media.matches)
     const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting
+      // A few remaining edge pixels should not keep the entire WebGL scene animating.
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.08
       update()
-    })
+    }, { threshold: [0, 0.08] })
     if (container.current) observer.observe(container.current)
     media.addEventListener('change', update)
     document.addEventListener('visibilitychange', update)

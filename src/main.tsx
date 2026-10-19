@@ -1,18 +1,18 @@
-import 'animal-island-ui/style'
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
-import { App } from './App'
-import { ThemeProvider } from './context/ThemeContext'
-import './styles/index.css'
+import { setRuntimeContent } from './shared/runtime-content'
 
-/** 创建 React 根节点；HashRouter 使用 # 后的地址路由，ThemeProvider 为全站提供场景状态。 */
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </ThemeProvider>
-  </React.StrictMode>,
-)
+async function start() {
+  if (import.meta.env.VITE_CONTENT_MODE === 'runtime') {
+    const response = await fetch('/router-content.json', {
+      cache: 'no-store',
+      credentials: 'same-origin',
+    })
+    if (!response.ok) throw new Error('无法读取已部署的路由器内容版本')
+    setRuntimeContent(await response.json())
+  }
+  const { mount } = await import('./mount')
+  mount()
+}
+void start().catch(() => {
+  const root = document.getElementById('root')
+  if (root) root.textContent = '站点内容暂时无法读取，请稍后刷新。'
+})

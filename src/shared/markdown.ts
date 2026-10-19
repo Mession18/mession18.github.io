@@ -1,4 +1,5 @@
 import { resolveColor, type IslandColor } from './config'
+import { withRuntimeContent } from './runtime-content'
 
 /** 构建时收集所有栏目的正文和封面图片；新增栏目无需再维护逐栏目路径清单。 */
 const attachmentFiles = import.meta.glob(
@@ -188,7 +189,7 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
 
 /** 各栏目保留自己的 glob 范围，共用模板过滤和倒序排列。 */
 export function loadPosts(files: Record<string, string>, defaultTag?: string): Post[] {
-  return Object.entries(files)
+  return Object.entries(withRuntimeContent(files))
     .map(([path, source]) => parseMarkdown(path, source, defaultTag))
     .filter((post): post is Post => post !== null)
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
