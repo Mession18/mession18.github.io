@@ -142,12 +142,10 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
   const sourceDir = path.match(/content\/([^/]+)\//)?.[1] ?? 'posts'
   const startDate = metadata.date || undefined
   const finalDate = metadata.finaldate || undefined
-  /** 优先使用开始日期作为显示及排序日期；手工额外要求必须填写开工 date。 */
-  const publishedAt = startDate || finalDate
-  if (!publishedAt || !metadata.excerpt)
+  /** 手工允许日期全空；不补造日期，空日期自然排在有日期内容之后。 */
+  const publishedAt = startDate || finalDate || ''
+  if ((!publishedAt && sourceDir !== 'crafts') || !metadata.excerpt)
     throw new Error(`文章 ${filename} 必须填写 date 或 finaldate，并填写 excerpt`)
-  if (sourceDir === 'crafts' && !startDate)
-    throw new Error(`手工 ${filename} 必须填写开工时间 date`)
   const title = metadata.title || slug
   const wordCount = content.replace(/\s+/g, '').length
   return {

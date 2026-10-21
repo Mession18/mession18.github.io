@@ -57,9 +57,11 @@ export function PostDetail({
   )
   const metadata = (
     <>
-      <span>
-        <CalendarDays size={15} /> {item.publishedAt}
-      </span>
+      {item.publishedAt && (
+        <span>
+          <CalendarDays size={15} /> {item.publishedAt}
+        </span>
+      )}
       <span>
         <Clock3 size={15} /> {item.readingTime} 分钟阅读
       </span>

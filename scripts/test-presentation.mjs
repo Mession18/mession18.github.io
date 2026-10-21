@@ -31,9 +31,38 @@ assert.deepEqual(document.tags, ['木工', '手作'])
 assert.equal(document.content, '正文')
 assert.deepEqual(Object.keys(document.metadata), ['title', 'date', 'excerpt', 'tags'])
 assert.deepEqual(parseMarkdownDocument('example.md', source.replaceAll('\n', '\r\n')), document)
+for (const fields of [
+  '',
+  'date: 2026-09-26',
+  'finaldate: 2026-09-28',
+  'date: 2026-09-26\nfinaldate: 2026-09-28',
+]) {
+  const craft = parseMarkdown(
+    'src/content/crafts/optional.md',
+    `---\ntitle: 日期选填\n${fields}\nexcerpt: 简介\n---\n正文`,
+  )
+  assert.equal(
+    craft.publishedAt,
+    fields.includes('date: 2026-09-26') ? '2026-09-26' : fields ? '2026-09-28' : '',
+  )
+}
 assert.throws(
-  () => parseMarkdown('src/content/crafts/broken.md', source.replace('date:', 'finaldate:')),
-  /必须填写开工时间/,
+  () =>
+    parseMarkdown(
+      'src/content/posts/required.md',
+      '---\ntitle: 普通文章\nexcerpt: 简介\n---\n正文',
+    ),
+  /必须填写 date/,
+)
+const oldCraft = parseMarkdown('src/content/crafts/existing.md', source)
+assert.equal(oldCraft.startDate, '2026-09-26')
+assert.equal(oldCraft.date, '09 / 26')
+assert.equal(
+  loadPosts({
+    'src/content/crafts/undated.md': source.replace('date: 2026-09-26\n', ''),
+    'src/content/crafts/existing.md': source,
+  })[1].slug,
+  'undated',
 )
 const loaded = loadPosts({
   'src/content/posts/old.md': source.replace('2026-09-26', '2026-09-01'),
