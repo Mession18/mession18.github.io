@@ -19,7 +19,10 @@ export function TravelStamp({
   const artwork = (
     <div
       className={`travel-stamp stamp-${stamp.color} ${isMainlandChina(stamp.countryOrRegion) ? 'stamp-square' : ''} ${compact ? 'travel-stamp-compact' : ''}`}
-      style={{ transform: `rotate(${stamp.rotation ?? 0}deg)` }}
+      style={{
+        transform: `rotate(${stamp.rotation ?? 0}deg)`,
+        ...(/^#[0-9a-f]{6}$/i.test(stamp.color) ? { color: stamp.color } : {}),
+      }}
     >
       {flag ? (
         <img className="stamp-flag" src={flag} alt={`${stamp.countryOrRegion}旗帜`} />

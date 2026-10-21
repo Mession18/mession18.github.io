@@ -156,3 +156,23 @@ assert.deepEqual(
 )
 assert.deepEqual(original, ['a', 'b', 'c'])
 assert.deepEqual(shuffled([]), [])
+
+// Custom stamp colors accept only a full hex color, preserving named legacy colors.
+for (const color of ['green', 'blue', 'red', 'violet', '#1287ab', '#ABCDEF']) {
+  assert.equal(
+    parseMarkdown(
+      'src/content/travel/color.md',
+      `---\n${frontmatter}\nstampColor: "${color}"\n---\n正文`,
+    ).stampColor,
+    color,
+  )
+}
+for (const color of ['red;display:none', 'url(https://invalid.test)', '#abc', '#gggggg']) {
+  assert.equal(
+    parseMarkdown(
+      'src/content/travel/color.md',
+      `---\n${frontmatter}\nstampColor: "${color}"\n---\n正文`,
+    ).stampColor,
+    undefined,
+  )
+}

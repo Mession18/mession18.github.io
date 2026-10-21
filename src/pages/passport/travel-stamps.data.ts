@@ -12,7 +12,7 @@ export type TravelStamp = {
   countryCode?: string
   latitude?: number
   longitude?: number
-  color: 'green' | 'blue' | 'red' | 'violet'
+  color: 'green' | 'blue' | 'red' | 'violet' | `#${string}`
   rotation?: number
   note?: string
   articleSlug?: string

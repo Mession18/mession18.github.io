@@ -96,7 +96,7 @@ export type Post = {
   city?: string
   latitude?: number
   longitude?: number
-  stampColor?: 'green' | 'blue' | 'red' | 'violet'
+  stampColor?: 'green' | 'blue' | 'red' | 'violet' | `#${string}`
   stampRotation?: number
   stampNote?: string
   previewImage?: string
@@ -169,9 +169,11 @@ export function parseMarkdown(path: string, source: string, defaultTag = '岛民
     city: metadata.city || undefined,
     latitude: metadata.latitude ? Number(metadata.latitude) : undefined,
     longitude: metadata.longitude ? Number(metadata.longitude) : undefined,
-    stampColor: ['green', 'blue', 'red', 'violet'].includes(metadata.stampColor)
-      ? (metadata.stampColor as Post['stampColor'])
-      : undefined,
+    stampColor:
+      ['green', 'blue', 'red', 'violet'].includes(metadata.stampColor) ||
+      /^#[0-9a-f]{6}$/i.test(metadata.stampColor || '')
+        ? (metadata.stampColor as Post['stampColor'])
+        : undefined,
     stampRotation: metadata.stampRotation ? Number(metadata.stampRotation) || 0 : undefined,
     stampNote: metadata.stampNote || undefined,
     previewImage: metadata.previewImage
