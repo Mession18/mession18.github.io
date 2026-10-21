@@ -128,6 +128,12 @@ export function musicPlaylistPlugin(): Plugin {
           files.delete(key)
           cache.delete(key)
         }
+      if (building)
+        this.emitFile({
+          type: 'asset',
+          fileName: 'blog-music.json',
+          source: JSON.stringify(playlist),
+        })
       return `export default ${JSON.stringify(playlist)}`
     },
     configureServer(server) {
