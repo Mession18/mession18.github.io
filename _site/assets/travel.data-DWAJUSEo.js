@@ -1,4 +1,4 @@
-import{c as e,m as t}from"./country-flags-DVFXShFf.js";var n=e(Object.assign({"../../content/travel/_模板.md":`---
+import{c as e,m as t}from"./country-flags-DimgspSp.js";var n=e(Object.assign({"../../content/travel/_模板.md":`---
 title: 旅行标题
 date: 2026-08-30
 finaldate:
