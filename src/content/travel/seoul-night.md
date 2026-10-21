@@ -8,12 +8,11 @@ city: 首尔
 excerpt: 从小巷的咖啡店走到汉江边，城市的灯一盏一盏亮起来。
 icon:
 color: mint
-previewImage: /images/examples/seoul.svg
-detailImage: /images/examples/seoul.svg
+previewImage: "./images/cms-cf82aa38d6eda283d0b46126973c0bdc283a9c859fe90994b7449150036a41f9.webp"
+detailImage: ""
 id: 20260902202553-4u4vqm
 subtitle: ""
 ---
-
 ## 这一站
 
-白天适合在街区慢慢逛，晚上则可以去江边吹风。便利店的简单晚餐，也会成为旅途中很具体的记忆。
+夏季的白天不太适合适合在街区慢慢逛，晚上则可以去江边吹风。便利店的简单晚餐，也会成为旅途中很具体的记忆。
