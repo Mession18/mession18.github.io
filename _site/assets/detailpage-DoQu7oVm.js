@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-EIAPxkjE.js";import{x as t}from"./country-flags-DVFXShFf.js";import{t as n}from"./travel.data-BMDrg0CH.js";import{t as r}from"./PostDetail-C4BzhIrC.js";var i=e();function a(){let{slug:e}=t();return(0,i.jsx)(r,{item:n.find(t=>t.slug===e),basePath:`/travel`,returnLabel:`全部旅游`,notFoundReturnLabel:`返回旅游`})}export{a as TravelDetailPage};
