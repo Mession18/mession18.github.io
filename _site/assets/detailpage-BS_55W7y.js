@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-EIAPxkjE.js";import{x as t}from"./country-flags-DkTEyR5L.js";import{s as n}from"./mount-CBiQNMX6.js";import{t as r}from"./PostDetail-pAWkec54.js";var i=e();function a(){let{slug:e}=t();return(0,i.jsx)(r,{item:n.find(t=>t.slug===e),basePath:`/planting`,returnLabel:`全部种植`,notFoundReturnLabel:`返回种植`})}export{a as PlantingDetailPage};
