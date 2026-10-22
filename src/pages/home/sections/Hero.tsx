@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { lazy, Suspense, useRef, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar } from './Calendar'
@@ -143,18 +144,16 @@ export function Hero() {
         />
       </div>
       <div className="hero-copy">
-        <p className="eyebrow">
-          <span>●</span> ISLAND LETTER · NO. 01
+        <p className="eyebrow" style={settingStyle('hero.eyebrow')}>
+          <span>●</span> {setting('hero.eyebrow')}
         </p>
         <h1>
-          慢慢生活，
+          <span style={settingStyle('hero.first')}>{setting('hero.first')}</span>
           <br />
-          <em>好好记录。</em>
+          <em style={settingStyle('hero.second')}>{setting('hero.second')}</em>
         </h1>
-        <p className="intro">
-          这里是风铃岛。收集日常的小事、喜欢的游戏，
-          <br />
-          还有每一个值得记住的晴天。
+        <p className="intro" style={{ ...settingStyle('hero.intro'), whiteSpace: 'pre-line' }}>
+          {setting('hero.intro')}
         </p>
         <Link
           to="/#journal"
@@ -170,7 +169,8 @@ export function Hero() {
             }
           }}
         >
-          去岛上逛逛 <ArrowRight size={18} />
+          <span style={settingStyle('hero.button')}>{setting('hero.button')}</span>{' '}
+          <ArrowRight size={18} />
         </Link>
       </div>
       <Suspense fallback={<div className="island-scene-fallback" aria-hidden="true" />}>

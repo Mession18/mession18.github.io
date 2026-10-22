@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import { useImageSource } from '../../hooks/useImageSource'
 import { Tag } from 'animal-island-ui'
 import { ArrowRight } from 'lucide-react'
@@ -31,12 +32,22 @@ export function PostsPage() {
     <div className="page-surface posts-page">
       {/* 列表标题区：英文眉题、栏目标题和简介；通用栏目文案来自 shared/config.ts。 */}
       <header className="page-heading">
-        <p className="eyebrow">ALL ISLAND LETTERS</p>
+        <p className="eyebrow">
+          <span style={settingStyle('section.posts.pageEyebrow')}>
+            {setting('section.posts.pageEyebrow')}
+          </span>
+        </p>
         <h1>
           <SectionIcon section="posts" />
-          全部文章
+          <span style={settingStyle('section.posts.pageTitle')}>
+            {setting('section.posts.pageTitle')}
+          </span>
         </h1>
-        <p>把日子折成信纸，慢慢寄给未来的自己。</p>
+        <p>
+          <span style={settingStyle('section.posts.pageDescription')}>
+            {setting('section.posts.pageDescription')}
+          </span>
+        </p>
       </header>
       {/* 本页标签按钮：标签来自内容；切换时回到第 1 页，防止停留在不存在的页码。 */}
       <div className="content-filters" aria-label={'文章标签'}>

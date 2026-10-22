@@ -1,6 +1,8 @@
 import { setRuntimeContent } from './shared/runtime-content'
+import { loadSiteSettings } from './shared/site-settings'
 
 async function start() {
+  await loadSiteSettings()
   if (import.meta.env.VITE_CONTENT_MODE === 'runtime') {
     const response = await fetch('/router-content.json', {
       cache: 'no-store',

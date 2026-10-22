@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PostCard } from '../../posts/page'
@@ -8,8 +9,21 @@ export function Journal() {
     <section className="journal section" id="journal">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">RECENT STORIES</p>
-          <h2>最近的文章</h2>
+          <p className="eyebrow">
+            <span style={settingStyle('section.posts.eyebrow')}>
+              {setting('section.posts.eyebrow')}
+            </span>
+          </p>
+          <h2>
+            <span style={settingStyle('section.posts.title')}>
+              {setting('section.posts.title')}
+            </span>
+          </h2>
+          {setting('section.posts.description') && (
+            <p style={settingStyle('section.posts.description')}>
+              {setting('section.posts.description')}
+            </p>
+          )}
         </div>
         <Link to="/posts">
           查看全部 <ArrowRight size={16} />

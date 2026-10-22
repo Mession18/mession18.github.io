@@ -1,3 +1,4 @@
+import { siteSettings } from '../../shared/site-settings'
 import type { Post } from '../../shared/markdown'
 import { countryCodeForChineseName } from '../../shared/country-flags'
 import { travel } from '../travel/travel.data'
@@ -21,7 +22,7 @@ export type TravelStamp = {
 
 // 手动章继续在这里添加；startDate/endDate 使用 YYYY.MM.DD，全部章会按 startDate 排序。
 // countryOrRegion 填简体中文国家或地区名，国旗与方章/圆章形状会自动识别；每页最多 6 枚。
-export const travelStamps: TravelStamp[] = [
+const defaultTravelStamps: TravelStamp[] = [
   {
     province: '山东',
     city: '烟台',
@@ -126,6 +127,8 @@ export const travelStamps: TravelStamp[] = [
   },
 ]
 
+export const travelStamps = (siteSettings().passport.stamps ?? defaultTravelStamps) as TravelStamp[]
+
 const postColorToStampColor: Record<string, TravelStamp['color']> = {
   mint: 'green',
   sunshine: 'red',
@@ -169,7 +172,15 @@ export const passportTravelStamps = [...travelStamps, ...travel.map(travelPostTo
     ...stamp,
     countryCode: stamp.countryCode ?? countryCodeForChineseName(stamp.countryOrRegion),
   }))
-  .sort((left, right) => stampStartTime(left) - stampStartTime(right))
+  .sort((left, right) => {
+    const order = siteSettings().passport.order
+    const a = order.indexOf(left.id ?? ''),
+      b = order.indexOf(right.id ?? '')
+    return (
+      (a < 0 ? Number.MAX_SAFE_INTEGER : a) - (b < 0 ? Number.MAX_SAFE_INTEGER : b) ||
+      stampStartTime(left) - stampStartTime(right)
+    )
+  })
 
 /** 文章章精确关联原文；手动章仅匹配同国家/地区、同城市的现有文章。 */
 export function stampArticles(stamp: TravelStamp) {

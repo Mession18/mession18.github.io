@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import { Icon } from 'animal-island-ui'
 import {
   Gamepad2,
@@ -11,7 +12,7 @@ import {
 } from 'lucide-react'
 import { lazy, Suspense } from 'react'
 import { TravelStamp } from '../../components/travel-stamp/TravelStamp'
-import { STAMPS_PER_PAGE, mrzLines } from './passport.data'
+import { STAMPS_PER_PAGE } from './passport.data'
 import { passportTravelStamps, type TravelStamp as TravelStampData } from './travel-stamps.data'
 import {
   PassportBook,
@@ -25,9 +26,11 @@ const JourneyMap = lazy(() => import('./journey-map/JourneyMap'))
 /** 把装饰性机器可读编码逐字符排列，使护照底部字距均匀。 */
 function MachineReadableLine({ value }: { value: string }) {
   return (
-    <code>
+    <code style={settingStyle('profile.mrz')}>
       {[...value].map((character, index) => (
-        <span key={index}>{character}</span>
+        <span key={index} style={settingStyle('profile.likes')}>
+          {character}
+        </span>
       ))}
     </code>
   )
@@ -40,30 +43,32 @@ function IdentityPage() {
       <div className="security-guilloche" aria-hidden="true" />
       <div className="security-watermark" aria-hidden="true">
         <span>🌴</span>
-        <small>WINDCHIME ISLAND</small>
+        <small style={settingStyle('profile.islandEnglish')}>
+          {setting('profile.islandEnglish')}
+        </small>
       </div>
       <div className="passport-topline">
-        <span>风铃岛护照 · ISLANDER PASSPORT</span>
+        <span style={settingStyle('profile.heading')}>{setting('profile.heading')}</span>
         <b>旅行证件 / TRAVEL DOCUMENT</b>
       </div>
       <div className="document-codes">
         <p>
           <small>类型 / TYPE</small>
-          <b>P</b>
+          <b style={settingStyle('profile.type')}>{setting('profile.type')}</b>
         </p>
         <p>
           <small>签发代码 / CODE</small>
-          <b>WCI</b>
+          <b style={settingStyle('profile.code')}>{setting('profile.code')}</b>
         </p>
         <p>
           <small>护照号码 / PASSPORT NO.</small>
-          <b>WCI0818M</b>
+          <b style={settingStyle('profile.number')}>{setting('profile.number')}</b>
         </p>
       </div>
       <div className="passport-profile">
         <div className="passport-avatar">
           <img
-            src="/images/passport/avatar-480.webp"
+            src={setting('profile.avatar')}
             alt="岛民头像"
             width={240}
             height={240}
@@ -73,61 +78,62 @@ function IdentityPage() {
         </div>
         <div className="seam-seal" aria-label="风铃岛骑缝认证章">
           <Leaf size={18} />
-          <b>风铃岛认证</b>
-          <small>WCI · 0818</small>
+          <b style={settingStyle('profile.sealLabel')}>{setting('profile.sealLabel')}</b>
+          <small style={settingStyle('profile.sealCode')}>{setting('profile.sealCode')}</small>
         </div>
         <div className="passport-details">
           <p className="name-field">
             <small>岛民姓名 / NAME</small>
             <strong>
-              MESSION <em>温柔的椰子</em>
+              <span style={settingStyle('profile.name')}>{setting('profile.name')}</span>{' '}
+              <em style={settingStyle('profile.nickname')}>{setting('profile.nickname')}</em>
             </strong>
           </p>
           <p>
             <small>婚姻状态 / STATUS</small>
-            <strong>已婚</strong>
+            <strong style={settingStyle('profile.status')}>{setting('profile.status')}</strong>
           </p>
           <p>
             <small>常驻地点 / LOCATION</small>
             <strong>
               <MapPin size={15} />
-              烟台
+              <span style={settingStyle('profile.location')}>{setting('profile.location')}</span>
             </strong>
           </p>
           <p>
             <small>加入日期 / SINCE</small>
-            <strong>2001.08.18</strong>
+            <strong style={settingStyle('profile.since')}>{setting('profile.since')}</strong>
           </p>
         </div>
       </div>
-      <div className="passport-likes">
-        <span>
-          <Utensils size={16} /> 品尝美食
-        </span>
-        <span>
-          <Gamepad2 size={16} /> 激情游戏
-        </span>
-        <span>
-          <Headphones size={16} /> 优雅听歌
-        </span>
-        <span>
-          <TicketsPlane size={16} /> 探索世界
-        </span>
-        <span>
-          <SquareTerminal size={16} /> 敲敲代码
-        </span>
+      <div className="passport-likes" style={settingStyle('profile.likes')}>
+        {setting('profile.likes')
+          .split('\n')
+          .filter(Boolean)
+          .map((text, index) => {
+            const LikeIcon = [Utensils, Gamepad2, Headphones, TicketsPlane, SquareTerminal][
+              index % 5
+            ]
+            return (
+              <span key={index} style={settingStyle('profile.likes')}>
+                <LikeIcon size={16} /> {text}
+              </span>
+            )
+          })}
       </div>
       <div className="passport-bottom">
         <p>
           持证人签名 / HOLDER'S SIGNATURE
           <br />
-          <b>MESSION</b>
+          <b style={settingStyle('profile.signature')}>{setting('profile.signature')}</b>
         </p>
       </div>
       <div className="mrz" aria-label="装饰性机器可读编码">
-        {mrzLines.map((line) => (
-          <MachineReadableLine key={line} value={line} />
-        ))}
+        {setting('profile.mrz')
+          .split('\n')
+          .map((line) => (
+            <MachineReadableLine key={line} value={line} />
+          ))}
       </div>
     </div>
   )
@@ -155,13 +161,18 @@ function VisaPage({ stamps, pageNumber }: { stamps: TravelStampData[]; pageNumbe
         {stamps.length === 0 && (
           <div className="empty-visa">
             <span>✈</span>
-            <b>这一页还在等一段旅程</b>
-            <small>下一段旅程，会在这里留下新的印记。</small>
+            <b style={settingStyle('passport.emptyTitle')}>{setting('passport.emptyTitle')}</b>
+            <small style={settingStyle('passport.emptyDescription')}>
+              {setting('passport.emptyDescription')}
+            </small>
           </div>
         )}
       </div>
       <div className="visa-code">
-        <span>WCI · V{String(pageNumber).padStart(2, '0')} · 0818 · MESSION</span>
+        <span>
+          {setting('profile.code')} · V{String(pageNumber).padStart(2, '0')} · 0818 ·{' '}
+          {setting('profile.name')}
+        </span>
       </div>
     </div>
   )
@@ -179,8 +190,10 @@ function JourneySummaryPage() {
       <div className="summary-title">
         <Icon name="icon-miles" size={52} className="summary-title-icon" />
         <p>
-          <small>温柔的椰子 · MESSION</small>
-          <b>岛民旅行年鉴</b>
+          <small>
+            {setting('profile.nickname')} · {setting('profile.name')}
+          </small>
+          <b style={settingStyle('passport.archive')}>{setting('passport.archive')}</b>
         </p>
       </div>
       <div className="journey-stats">
@@ -199,15 +212,16 @@ function JourneySummaryPage() {
       </div>
       <div className="journey-message">
         <small>旅行宣言 / TRAVEL MOTTO</small>
-        <p>“不必赶路，去喜欢的地方，留下温柔的回声。”</p>
+        <p style={settingStyle('passport.motto')}>{setting('passport.motto')}</p>
       </div>
       <div className="next-stop">
         <span>下一站 / NEXT STOP</span>
-        <b>等待一阵合适的风……</b>
+        <b style={settingStyle('passport.nextStop')}>{setting('passport.nextStop')}</b>
         <i>✈</i>
       </div>
       <div className="summary-code">
-        WCI · MESSION · JOURNEY NEVER ENDS · &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+        {setting('profile.code')} · {setting('profile.name')} · JOURNEY NEVER ENDS ·
+        &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
       </div>
     </div>
   )
@@ -246,8 +260,10 @@ export function Passport({ standalone = false }: { standalone?: boolean }) {
           content: (
             <div className="passport-inside-cover">
               <TreePalm size={90} strokeWidth={1} />
-              <p>WINDCHIME ISLAND</p>
-              <span>风铃岛 · 岛民旅行证件</span>
+              <p style={settingStyle('profile.islandEnglish')}>
+                {setting('profile.islandEnglish')}
+              </p>
+              <span>{setting('profile.islandName')} · 岛民旅行证件</span>
             </div>
           ),
         },
@@ -301,10 +317,8 @@ export function Passport({ standalone = false }: { standalone?: boolean }) {
         content: (
           <div className="passport-endpaper">
             <TreePalm size={54} strokeWidth={1} />
-            <p>
-              不必赶路，去喜欢的地方，
-              <br />
-              留下温柔的回声。
+            <p style={{ ...settingStyle('passport.endpaper'), whiteSpace: 'pre-line' }}>
+              {setting('passport.endpaper')}
             </p>
             <small>JOURNEY NEVER ENDS</small>
           </div>
@@ -317,9 +331,9 @@ export function Passport({ standalone = false }: { standalone?: boolean }) {
       <div className="passport-intro">
         <h2>
           <Icon name="icon-variant" size={42} className="passport-heading-icon" />
-          岛民护照
+          <span style={settingStyle('passport.title')}>{setting('passport.title')}</span>
         </h2>
-        <p>把自己与世界的相遇，收进一本护照。</p>
+        <p style={settingStyle('passport.description')}>{setting('passport.description')}</p>
       </div>
       <PassportBook spreads={spreads} />
     </section>

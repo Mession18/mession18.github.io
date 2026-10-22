@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { Icon } from 'animal-island-ui'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
@@ -15,9 +16,21 @@ export function CraftHomeSection() {
       <div className="home-content-inner craft-workbench">
         <div className="craft-copy">
           <Icon name="icon-diy" size={62} />
-          <p className="eyebrow">TODAY'S WORKBENCH</p>
-          <h2>岛民手作台</h2>
-          <p>今天也把一点小灵感，做成可以留下来的东西。</p>
+          <p className="eyebrow">
+            <span style={settingStyle('section.crafts.eyebrow')}>
+              {setting('section.crafts.eyebrow')}
+            </span>
+          </p>
+          <h2>
+            <span style={settingStyle('section.crafts.title')}>
+              {setting('section.crafts.title')}
+            </span>
+          </h2>
+          <p>
+            <span style={settingStyle('section.crafts.description')}>
+              {setting('section.crafts.description')}
+            </span>
+          </p>
           <RefreshButton
             className="craft-refresh"
             icon="/images/common/icons/refresh-craft-481.png"

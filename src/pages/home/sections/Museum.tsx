@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { useImageSource } from '../../../hooks/useImageSource'
 import {
   type CollectionItem,
@@ -28,12 +29,22 @@ export function Museum() {
   return (
     <section className="museum section" id="museum">
       <div className="museum-copy">
-        <p className="eyebrow">ISLAND COLLECTION</p>
+        <p className="eyebrow">
+          <span style={settingStyle('section.museum.eyebrow')}>
+            {setting('section.museum.eyebrow')}
+          </span>
+        </p>
         <h2 className="museum-home-title">
           <Icon name="icon-camera" size={38} />
-          岛上的小小博物馆
+          <span style={settingStyle('section.museum.title')}>
+            {setting('section.museum.title')}
+          </span>
         </h2>
-        <p>照片、游戏、书和音乐。喜欢的东西不必昂贵，只要在看到它时，心里会亮起一盏小灯。</p>
+        <p>
+          <span style={settingStyle('section.museum.description')}>
+            {setting('section.museum.description')}
+          </span>
+        </p>
         <div className="stats">
           <span>
             <b>{String(posts.length).padStart(2, '0')}</b>

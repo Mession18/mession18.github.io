@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { Icon } from 'animal-island-ui'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
@@ -21,7 +22,11 @@ export function TravelHomeSection() {
               </div>
               <div className="travel-message">
                 <Icon name="icon-miles" size={42} />
-                <small>POSTCARD FROM THE ISLAND</small>
+                <small>
+                  <span style={settingStyle('section.travel.eyebrow')}>
+                    {setting('section.travel.eyebrow')}
+                  </span>
+                </small>
                 <h2>{item.title}</h2>
                 <p>{item.excerpt}</p>
                 <Link to={`/travel/${item.slug}`}>
@@ -31,8 +36,17 @@ export function TravelHomeSection() {
             </>
           )}
         </div>
+        {setting('section.travel.description') && (
+          <p style={settingStyle('section.travel.description')}>
+            {setting('section.travel.description')}
+          </p>
+        )}
         <div className="travel-controls">
-          <span>下一站去哪里？</span>
+          <span>
+            <span style={settingStyle('section.travel.title')}>
+              {setting('section.travel.title')}
+            </span>
+          </span>
           <RefreshButton
             className="travel-refresh"
             icon="/images/common/icons/refresh-travel-446.png"

@@ -1,3 +1,4 @@
+import { siteSettings } from './site-settings'
 import { crafts } from '../pages/crafts/crafts.data'
 import { planting } from '../pages/planting/planting.data'
 import { recipes } from '../pages/recipes/recipes.data'
@@ -24,5 +25,11 @@ const presentations = {
 }
 /** 按栏目和 missing/empty 类型抽取文案，具体句子仍在各栏目的 presentation.data.ts。 */
 export function getContentMessage(section: keyof typeof presentations, kind: 'missing' | 'empty') {
-  return drawContentMessage(presentations[section], kind)
+  return drawContentMessage(
+    {
+      ...presentations[section],
+      messages: siteSettings().messages[section] ?? presentations[section].messages,
+    },
+    kind,
+  )
 }

@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -17,9 +18,21 @@ export function RecipeHomeSection() {
             <img src="/images/common/icons/cooking-recipe.png" alt="" />
           </span>
           <div>
-            <p className="eyebrow">TODAY'S MENU</p>
-            <h2>今天吃什么？</h2>
-            <p>从岛上的菜谱中随机挑三样，不喜欢就再换一组。</p>
+            <p className="eyebrow">
+              <span style={settingStyle('section.recipes.eyebrow')}>
+                {setting('section.recipes.eyebrow')}
+              </span>
+            </p>
+            <h2>
+              <span style={settingStyle('section.recipes.title')}>
+                {setting('section.recipes.title')}
+              </span>
+            </h2>
+            <p>
+              <span style={settingStyle('section.recipes.description')}>
+                {setting('section.recipes.description')}
+              </span>
+            </p>
           </div>
           <RefreshButton
             className="recipe-refresh"

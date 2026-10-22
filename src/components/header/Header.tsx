@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import { Icon } from 'animal-island-ui'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -119,7 +120,7 @@ export function Header({ pathname }: { pathname: string }) {
           <span className="brand-leaf">
             <img src="/images/common/icons/icon-home.svg" alt="" />
           </span>
-          <span>风铃岛通信</span>
+          <span style={settingStyle('footer.brand')}>{setting('footer.brand')}</span>
         </Link>
         <nav aria-label="主导航">
           {navItems.map((item, index) => (
@@ -161,7 +162,13 @@ export function Header({ pathname }: { pathname: string }) {
           </button>
         </nav>
         {moreOpen && (
-          <div className="more-navigation" id="more-navigation" ref={morePanel} role="navigation" aria-label="更多栏目">
+          <div
+            className="more-navigation"
+            id="more-navigation"
+            ref={morePanel}
+            role="navigation"
+            aria-label="更多栏目"
+          >
             {navItems.slice(3).map((item) => (
               <Link
                 key={item.to}

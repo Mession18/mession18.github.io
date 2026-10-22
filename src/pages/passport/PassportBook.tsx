@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import {
   ArrowUpRight,
   BookOpen,
@@ -62,8 +63,11 @@ function CoverArtwork({ back = false }: { back?: boolean }) {
   return (
     <>
       <div className="passport-cover-border" aria-hidden="true" />
-      <span className="passport-cover-island">
-        风铃岛<span>WINDCHIME ISLAND</span>
+      <span className="passport-cover-island" style={settingStyle('profile.islandName')}>
+        {setting('profile.islandName')}
+        <span style={settingStyle('profile.islandEnglish')}>
+          {setting('profile.islandEnglish')}
+        </span>
       </span>
       <div className="passport-cover-emblem" aria-hidden="true">
         <TreePalm strokeWidth={1} />
@@ -71,12 +75,13 @@ function CoverArtwork({ back = false }: { back?: boolean }) {
       </div>
       {!back && (
         <div className="passport-cover-title">
-          <h3>岛民护照</h3>
+          <h3 style={settingStyle('passport.title')}>{setting('passport.title')}</h3>
           <p>ISLANDER PASSPORT</p>
         </div>
       )}
       <div className="passport-cover-owner">
-        MESSION<span>温柔的椰子</span>
+        {setting('profile.name')}
+        <span>{setting('profile.nickname')}</span>
       </div>
     </>
   )
@@ -85,8 +90,8 @@ export function PassportCoverPreview() {
   return (
     <section className="passport section passport-home-preview" id="about">
       <div className="passport-intro">
-        <h2>岛民护照</h2>
-        <p>把自己与世界的相遇，收进一本护照。</p>
+        <h2 style={settingStyle('passport.title')}>{setting('passport.title')}</h2>
+        <p style={settingStyle('passport.description')}>{setting('passport.description')}</p>
       </div>
       <Link className="passport-cover passport-home-cover" to="/passport" aria-label="打开岛民护照">
         <CoverArtwork />
@@ -94,7 +99,9 @@ export function PassportCoverPreview() {
           打开护照
           <ArrowUpRight size={16} />
         </span>
-        <span className="passport-cover-code">WCI · 0818</span>
+        <span className="passport-cover-code" style={settingStyle('profile.sealCode')}>
+          {setting('profile.sealCode')}
+        </span>
       </Link>
     </section>
   )
@@ -112,7 +119,9 @@ function PassportCover({ back = false, onOpen }: { back?: boolean; onOpen?: () =
         {back ? '翻回内页' : '打开护照'}
         <ArrowUpRight size={16} aria-hidden="true" />
       </button>
-      <span className="passport-cover-code">WCI · 0818</span>
+      <span className="passport-cover-code" style={settingStyle('profile.sealCode')}>
+        {setting('profile.sealCode')}
+      </span>
     </div>
   )
 }
@@ -519,7 +528,11 @@ export function PassportBook({ spreads }: { spreads: PassportSpread[] }) {
                 totalPages
               : current.label}
           </b>
-          <span>{current.firstPage ? current.label : '风铃岛 · MESSION'}</span>
+          <span>
+            {current.firstPage
+              ? current.label
+              : setting('profile.islandName') + ' · ' + setting('profile.name')}
+          </span>
         </div>
         <button
           type="button"

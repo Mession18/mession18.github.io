@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import { useImageSource } from '../../hooks/useImageSource'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
@@ -38,12 +39,22 @@ export function MuseumPage() {
   return (
     <div className="museum-page page-surface">
       <header className="page-heading museum-page-heading">
-        <p className="eyebrow">ISLAND COLLECTION</p>
+        <p className="eyebrow">
+          <span style={settingStyle('section.museum.pageEyebrow')}>
+            {setting('section.museum.pageEyebrow')}
+          </span>
+        </p>
         <h1>
           <SectionIcon section="museum" />
-          岛上的小小博物馆
+          <span style={settingStyle('section.museum.pageTitle')}>
+            {setting('section.museum.pageTitle')}
+          </span>
         </h1>
-        <p>收藏那些让心里亮起一盏小灯的东西。</p>
+        <p>
+          <span style={settingStyle('section.museum.pageDescription')}>
+            {setting('section.museum.pageDescription')}
+          </span>
+        </p>
       </header>
       <MuseumTagFilters
         tags={collectionTags}

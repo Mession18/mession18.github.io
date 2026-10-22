@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../../shared/site-settings'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -17,9 +18,21 @@ export function PlantingHomeSection() {
       <div className="home-content-inner flower-garden">
         <div className="flower-title">
           <img src="/images/common/icons/planting-073.png" alt="" />
-          <p className="eyebrow">FLOWER OF THE DAY</p>
-          <h2>今日小花</h2>
-          <p>每天认识一位花园里的新朋友。</p>
+          <p className="eyebrow">
+            <span style={settingStyle('section.planting.eyebrow')}>
+              {setting('section.planting.eyebrow')}
+            </span>
+          </p>
+          <h2>
+            <span style={settingStyle('section.planting.title')}>
+              {setting('section.planting.title')}
+            </span>
+          </h2>
+          <p>
+            <span style={settingStyle('section.planting.description')}>
+              {setting('section.planting.description')}
+            </span>
+          </p>
           <RefreshButton
             className="flower-refresh"
             icon="/images/common/icons/refresh-flower-017.png"

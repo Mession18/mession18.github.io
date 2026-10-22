@@ -1,3 +1,4 @@
+import { setting, settingStyle } from '../../shared/site-settings'
 import { useState, type ReactNode } from 'react'
 import { IslandPagination } from '../pagination/IslandPagination'
 import { SectionIcon } from '../section-icon/SectionIcon'
@@ -49,12 +50,18 @@ export function ContentListPage({
   return (
     <div className={`page-surface ${section}-page`}>
       <header className="page-heading">
-        <p className="eyebrow">{info.eyebrow}</p>
+        <p className="eyebrow" style={settingStyle(`section.${section}.pageEyebrow`)}>
+          {setting(`section.${section}.pageEyebrow`)}
+        </p>
         <h1>
           <SectionIcon section={section} />
-          {info.title}
+          <span style={settingStyle(`section.${section}.pageTitle`)}>
+            {setting(`section.${section}.pageTitle`)}
+          </span>
         </h1>
-        <p>{info.description}</p>
+        <p style={settingStyle(`section.${section}.pageDescription`)}>
+          {setting(`section.${section}.pageDescription`)}
+        </p>
       </header>
       <div className="content-filters" aria-label={`${info.title}标签`}>
         {['all', ...tags].map((tag) => (
