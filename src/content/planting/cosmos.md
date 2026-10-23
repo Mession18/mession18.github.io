@@ -6,8 +6,8 @@ tags:
 excerpt: 看起来轻轻的，却能从夏末一直开到深秋。
 icon: 🌸
 color: mint
-previewImage: /images/examples/cosmos.svg
-detailImage: /images/examples/cosmos.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-984rlb
 subtitle: ""
 finaldate: 2026-09-04

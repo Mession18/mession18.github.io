@@ -6,8 +6,8 @@ tags:
 excerpt: 把一枚喜欢的叶子留在透明书签里。
 icon: 🌿
 color: mint
-previewImage: /images/examples/leaf-bookmark.svg
-detailImage: /images/examples/leaf-bookmark.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-fpgvtg
 subtitle: ""
 ---

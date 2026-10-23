@@ -6,8 +6,8 @@ tags:
 excerpt: 旧玻璃瓶里放进一串暖色小灯，晚上就会亮起来。
 icon: 🌟
 color: sunshine
-previewImage: /images/examples/bottle-lamp.svg
-detailImage: /images/examples/bottle-lamp.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-4mvtmc
 subtitle: ""
 finaldate: 2026-09-03
