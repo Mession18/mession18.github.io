@@ -6,8 +6,8 @@ tags:
 excerpt: 老婆做的25岁生日蛋糕。
 icon: 🍰
 color: sunshine
-previewImage: /images/cover/25岁生日蛋糕.jpg
-detailImage: /images/cover/25岁生日蛋糕.jpg
+previewImage: ""
+detailImage: ""
 id: 202609030001-birthday-cake
 subtitle: 25岁的礼物
 ---

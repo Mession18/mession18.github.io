@@ -6,8 +6,8 @@ tags:
 excerpt: 奶油与当季水果夹在柔软吐司中，切开就是好心情。
 icon: 🥪
 color: mint
-previewImage: /images/examples/fruit-sandwich.svg
-detailImage: /images/examples/fruit-sandwich.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-w7pof8
 subtitle: ""
 ---

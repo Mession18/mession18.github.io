@@ -6,8 +6,8 @@ tags:
 excerpt: 酸甜汤汁裹住软嫩鸡蛋，是最安心的一碗下饭菜。
 icon: 🍅
 color: sunshine
-previewImage: /images/examples/tomato-eggs.svg
-detailImage: /images/examples/tomato-eggs.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-ron860
 subtitle: ""
 ---

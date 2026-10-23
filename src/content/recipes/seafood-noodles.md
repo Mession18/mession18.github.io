@@ -6,8 +6,8 @@ tags:
 excerpt: 鲜甜的汤、一把青菜和喜欢的海鲜，十分钟就能开饭。
 icon: 🍜
 color: sky
-previewImage: /images/examples/seafood-noodles.svg
-detailImage: /images/examples/seafood-noodles.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-i7wm9w
 subtitle: ""
 ---

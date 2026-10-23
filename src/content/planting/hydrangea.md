@@ -6,8 +6,8 @@ tags:
 excerpt: 一丛丛蓝紫色的小花，在雨天反而显得更精神。
 icon: 🪻
 color: sky
-previewImage: /images/examples/hydrangea.svg
-detailImage: /images/examples/hydrangea.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-b5x4fe
 subtitle: ""
 ---

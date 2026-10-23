@@ -8,8 +8,8 @@ city: 大理
 excerpt: 清晨的风从洱海吹过来，远处的山还有一层薄薄的雾。
 icon: 🏔️
 color: sky
-previewImage: /images/examples/dali.svg
-detailImage: /images/examples/dali.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-pwm9qu
 subtitle: ""
 finaldate: 2026-09-04

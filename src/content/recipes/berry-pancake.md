@@ -6,8 +6,8 @@ tags:
 excerpt: 松软的小松饼叠在一起，淋上蜂蜜和树莓。
 icon: 🥞
 color: sunshine
-previewImage: /images/examples/berry-pancake.svg
-detailImage: /images/examples/berry-pancake.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-iryprn
 subtitle: ""
 ---

@@ -6,8 +6,8 @@ tags:
 excerpt: 像装了一小杯阳光，适合种在小径边。
 icon: 🌷
 color: sunshine
-previewImage: /images/examples/tulip.svg
-detailImage: /images/examples/tulip.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-c6pv3b
 subtitle: ""
 ---

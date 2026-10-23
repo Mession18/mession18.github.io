@@ -6,8 +6,8 @@ tags:
 excerpt: 土豆和胡萝卜煮得绵软，非常适合忙碌的晚上。
 icon: 🍛
 color: sunshine
-previewImage: /images/examples/island-curry.svg
-detailImage: /images/examples/island-curry.svg
+previewImage: ""
+detailImage: ""
 id: 20260902202553-y6tp8w
 subtitle: ""
 ---
